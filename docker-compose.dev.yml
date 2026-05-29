@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  hop-web:
+    image: tomcat:10-jdk21
+    container_name: hop-web-dev
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      HOP_LOG_LEVEL: Debug
+      HOP_AUDIT_FOLDER: /opt/hop/audit
+      HOP_CONFIG_FOLDER: /opt/hop/config
+      HOP_PLUGIN_BASE_FOLDERS: /opt/hop/plugins
+      HOP_PASSWORD_ENCODER_PLUGIN: Hop
+      HOP_OPTIONS: -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources
+      CATALINA_OPTS: >
+        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+        ${HOP_OPTIONS}
+        -DHOP_AUDIT_FOLDER=${HOP_AUDIT_FOLDER}
+        -DHOP_CONFIG_FOLDER=${HOP_CONFIG_FOLDER}
+        -DHOP_LOG_LEVEL=${HOP_LOG_LEVEL}
+        -DHOP_PASSWORD_ENCODER_PLUGIN=${HOP_PASSWORD_ENCODER_PLUGIN}
+        -DHOP_PLUGIN_BASE_FOLDERS=${HOP_PLUGIN_BASE_FOLDERS}
+    volumes:
+      - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
+      - ./assemblies/client/target/hop/config:/opt/hop/config
+      - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
+      - ./assemblies/client/target/hop/lib/core:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib
+      - ./assemblies/client/target/hop/lib/beam:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib
+    working_dir: /usr/local/tomcat
+    command: >
+      bash -c "
+        rm -rf webapps/ROOT &&
+        mkdir -p webapps/ROOT &&
+        cp -r /usr/local/tomcat/webapps/ROOT-SRC/* webapps/ROOT/ &&
+        mkdir -p /opt/hop/audit &&
+        catalina.sh run
+      "
