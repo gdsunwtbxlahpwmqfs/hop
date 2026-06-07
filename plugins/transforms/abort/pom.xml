@@ -29,4 +29,6 @@
     <packaging>jar</packaging>
     <name>Hop Plugins Transforms Abort</name>
 
+    <!-- The SWTBot UI-test stack (harness, swtbot jars, rcp) and the @Tag("uitest") gating are all
+         inherited from the hop-plugins parent, so AbortDialogTest needs no extra config here. -->
 </project>

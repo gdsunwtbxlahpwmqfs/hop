@@ -15,21 +15,25 @@
  * limitations under the License.
  */
 
-package org.apache.hop.pipeline.transforms.formula.editor.util;
+package org.apache.hop.pipeline.transforms.excelwriter;
 
-import lombok.Getter;
-import lombok.Setter;
+public final class ExcelWriterOutputFormat {
 
-@Getter
-@Setter
-public class CompletionProposal {
-  private String menuText;
-  private String completionString;
-  int offset;
+  public static final String EXT_XLS = "xls";
+  public static final String EXT_XLSX = "xlsx";
+  public static final String EXT_ODS = "ods";
 
-  public CompletionProposal(String menuText, String completionString, int offset) {
-    this.menuText = menuText;
-    this.completionString = completionString;
-    this.offset = offset;
+  private ExcelWriterOutputFormat() {}
+
+  public static boolean isOds(String extension) {
+    return EXT_ODS.equalsIgnoreCase(extension);
+  }
+
+  public static boolean isXlsx(String extension) {
+    return EXT_XLSX.equalsIgnoreCase(extension);
+  }
+
+  public static boolean isXls(String extension) {
+    return EXT_XLS.equalsIgnoreCase(extension);
   }
 }

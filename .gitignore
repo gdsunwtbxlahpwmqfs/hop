@@ -65,3 +65,5 @@ rap/src/main/resources/org/apache/hop/ui/hopgui/monaco/vs/
 rap/src/main/resources/org/apache/hop/ui/hopgui/monaco/monaco-files.list
 
 myimages*
+# Screenshots captured by SWTbot
+screenshots/
