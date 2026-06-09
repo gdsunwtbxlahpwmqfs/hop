@@ -306,7 +306,7 @@ public class BeamDataFlowPipelineRunConfiguration extends BeamPipelineRunConfigu
     //
     options.setUsePublicIps(isGcpUsingPublicIps());
 
-    // Flag this pipeline as being produced by Apache Hop
+    // Flag this pipeline as being produced by HFXT Data Process
     //
     List<String> experiments = options.getExperiments();
     if (experiments == null) {

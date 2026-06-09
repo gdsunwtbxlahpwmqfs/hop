@@ -39,7 +39,7 @@ public class BeamDirectPipelineEngine extends BeamPipelineEngine
   @Override
   public IPipelineEngineRunConfiguration createDefaultPipelineEngineRunConfiguration() {
     BeamDirectPipelineRunConfiguration runConfiguration = new BeamDirectPipelineRunConfiguration();
-    runConfiguration.setUserAgent("Hop");
+    runConfiguration.setUserAgent("HFXT");
     return runConfiguration;
   }
 

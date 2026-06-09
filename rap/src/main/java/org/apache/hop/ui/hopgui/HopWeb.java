@@ -150,13 +150,13 @@ public class HopWeb implements ApplicationConfiguration {
     application.addStyleSheet(CONST_LIGHT, "org/apache/hop/ui/hopgui/light-mode.css");
 
     Map<String, String> propertiesLight = new HashMap<>();
-    propertiesLight.put(WebClient.PAGE_TITLE, "Apache Hop Web");
+    propertiesLight.put(WebClient.PAGE_TITLE, "HFXT Data Process Web");
     propertiesLight.put(WebClient.FAVICON, "ui/images/logo_icon.png");
     propertiesLight.put(WebClient.THEME_ID, CONST_LIGHT);
     propertiesLight.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));
 
     Map<String, String> propertiesDark = new HashMap<>();
-    propertiesDark.put(WebClient.PAGE_TITLE, "Apache Hop Web");
+    propertiesDark.put(WebClient.PAGE_TITLE, "HFXT Data Process Web");
     propertiesDark.put(WebClient.FAVICON, "ui/images/logo_icon.png");
     propertiesDark.put(WebClient.THEME_ID, "dark");
     propertiesDark.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));

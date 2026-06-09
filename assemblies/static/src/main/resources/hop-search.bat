@@ -86,9 +86,9 @@ GOTO Run
 set _cmdline=%*
 
 :Run
-echo Command to start Hop will be:
+echo Command to start HFXT will be:
 echo %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.config.HopConfig %_cmdline%
 echo.
-echo ===[Starting HopConfig]=========================================================
+echo ===[Starting HFXT Config]=========================================================
 
 %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.search.HopSearch %_cmdline%

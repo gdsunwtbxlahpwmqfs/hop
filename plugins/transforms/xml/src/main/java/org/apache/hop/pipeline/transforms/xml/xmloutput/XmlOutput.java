@@ -288,7 +288,7 @@ public class XmlOutput extends BaseTransform<XmlOutputMeta, XmlOutputData> {
         data.zip = new ZipOutputStream(data.countingStream);
         File entry = new File(buildFilename(false));
         ZipEntry zipentry = new ZipEntry(entry.getName());
-        zipentry.setComment("Compressed by Apache Hop");
+        zipentry.setComment("Compressed by HFXT Data Process");
         data.zip.putNextEntry(zipentry);
         outputStream = data.zip;
       } else {

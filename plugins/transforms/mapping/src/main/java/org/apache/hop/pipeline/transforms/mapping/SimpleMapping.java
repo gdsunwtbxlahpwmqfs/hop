@@ -149,7 +149,7 @@ public class SimpleMapping extends BaseTransform<SimpleMappingMeta, SimpleMappin
       }
       if (!(runConfig.getEngineRunConfiguration() instanceof LocalPipelineRunConfiguration)) {
         throw new HopException(
-            "Apache Hop can only run simple mappings with a local pipeline engine, not with run configuration "
+            "HFXT Data Process can only run simple mappings with a local pipeline engine, not with run configuration "
                 + runConfigName);
       }
 

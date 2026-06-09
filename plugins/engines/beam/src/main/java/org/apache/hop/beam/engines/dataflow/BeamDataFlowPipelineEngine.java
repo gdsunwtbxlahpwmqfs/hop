@@ -47,7 +47,7 @@ public class BeamDataFlowPipelineEngine extends BeamPipelineEngine
   public IPipelineEngineRunConfiguration createDefaultPipelineEngineRunConfiguration() {
     BeamDataFlowPipelineRunConfiguration runConfiguration =
         new BeamDataFlowPipelineRunConfiguration();
-    runConfiguration.setUserAgent("Hop");
+    runConfiguration.setUserAgent("HFXT");
     return runConfiguration;
   }
 

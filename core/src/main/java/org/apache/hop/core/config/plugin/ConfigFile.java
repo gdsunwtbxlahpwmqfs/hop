@@ -64,13 +64,14 @@ public abstract class ConfigFile implements IConfigFile {
         boolean createWhenMissing =
             "Y".equalsIgnoreCase(System.getProperty(Const.HOP_AUTO_CREATE_CONFIG, "N"));
         if (createWhenMissing) {
-          System.out.println("Creating new default Hop configuration file: " + getConfigFilename());
+          System.out.println(
+              "Creating new default HFXT configuration file: " + getConfigFilename());
           this.serializer = new ConfigFileSerializer();
         } else {
           // Doesn't serialize anything really, reads an empty map with an empty file
           //
           System.out.println(
-              "Hop configuration file not found, not serializing: " + getConfigFilename());
+              "HFXT configuration file not found, not serializing: " + getConfigFilename());
           this.serializer = new ConfigNoFileSerializer();
         }
       }

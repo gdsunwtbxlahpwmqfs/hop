@@ -65,9 +65,9 @@ import picocli.CommandLine.Parameters;
 @Setter
 @Command(
     versionProvider = HopVersionProvider.class,
-    description = "Search in Hop metadata",
+    description = "Search in HFXT metadata",
     mixinStandardHelpOptions = true)
-@HopCommand(id = "search", description = "Search in Hop metadata")
+@HopCommand(id = "search", description = "Search in HFXT metadata")
 public class HopSearch implements Runnable, IHasHopMetadataProvider, IHopCommand {
   @Option(
       names = {"-v", "--version"},

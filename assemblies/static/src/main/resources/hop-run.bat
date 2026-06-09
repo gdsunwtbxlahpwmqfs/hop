@@ -113,5 +113,5 @@ echo.
 echo Command to start HopRun will be:
 echo %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.run.HopRun %_cmdline%%
 echo.
-echo ===[Starting HopRun]=========================================================
+echo ===[Starting HFXT Run]=========================================================
 %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.run.HopRun %_cmdline%%

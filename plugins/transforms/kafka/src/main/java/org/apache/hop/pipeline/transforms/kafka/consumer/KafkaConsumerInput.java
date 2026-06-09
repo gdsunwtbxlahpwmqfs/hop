@@ -234,7 +234,7 @@ public class KafkaConsumerInput
     //
     config.put(
         ConsumerConfig.GROUP_ID_CONFIG,
-        variables.resolve(Const.NVL(meta.getConsumerGroup(), "Apache Hop")));
+        variables.resolve(Const.NVL(meta.getConsumerGroup(), "HFXT Data Process")));
     config.put(
         ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
         variables.resolve(meta.getDirectBootstrapServers()));

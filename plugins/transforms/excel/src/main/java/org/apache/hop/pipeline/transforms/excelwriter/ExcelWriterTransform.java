@@ -693,7 +693,7 @@ public class ExcelWriterTransform
                   ? data.inputRowMeta
                       .getValueMeta(data.commentauthorfieldnrs[fieldNr])
                       .getString(row[data.commentauthorfieldnrs[fieldNr]])
-                  : "Apache Hop";
+                  : "HFXT Data Process";
           cell.setCellComment(createCellComment(workbookDefinition, author, comment));
         }
       }

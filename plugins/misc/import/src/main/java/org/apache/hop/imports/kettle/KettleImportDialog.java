@@ -628,7 +628,7 @@ public class KettleImportDialog extends Dialog {
 
       // we're importing to a new project, create by path
       if (!wImportInExisting.getSelection()) {
-        projectName = "Hop Import Project";
+        projectName = "HFXT Import Project";
         try {
           ExtensionPointHandler.callExtensionPoint(
               HopGui.getInstance().getLog(),

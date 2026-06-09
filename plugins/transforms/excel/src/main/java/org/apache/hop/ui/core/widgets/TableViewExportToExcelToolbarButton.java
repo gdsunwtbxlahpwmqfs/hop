@@ -68,7 +68,7 @@ public class TableViewExportToExcelToolbarButton {
     shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 
     try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-      XSSFSheet sheet = workbook.createSheet("Apache Hop data export");
+      XSSFSheet sheet = workbook.createSheet("HFXT Data Process data export");
 
       // Header style
       XSSFCellStyle headerStyle = workbook.createCellStyle();

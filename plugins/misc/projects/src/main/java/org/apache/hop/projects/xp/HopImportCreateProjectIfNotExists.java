@@ -41,8 +41,8 @@ public class HopImportCreateProjectIfNotExists implements IExtensionPoint<String
   public void callExtensionPoint(ILogChannel iLogChannel, IVariables variables, String projectPath)
       throws HopException {
 
-    String projectName = "Hop Import Project";
-    String envName = "Hop Import Environment";
+    String projectName = "HFXT Import Project";
+    String envName = "HFXT Import Environment";
 
     HopGui hopGui = HopGui.getInstance();
     ProjectsConfig config = ProjectsConfigSingleton.getConfig();

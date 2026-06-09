@@ -75,7 +75,7 @@ public class ArrowCommand implements Runnable, IHopCommand, IHasHopMetadataProvi
     this.cmd = cmd;
     this.variables = variables;
     this.metadataProvider = metadataProvider;
-    this.log = new LogChannel("Hop Arrow");
+    this.log = new LogChannel("HFXT Arrow");
 
     // Same plugins as for RUN,DOC, etc. It's mainly for loading projects etc.
     Hop.addMixinPlugins(cmd, ConfigPlugin.CATEGORY_DOC);

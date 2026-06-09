@@ -109,7 +109,7 @@ import org.w3c.dom.Node;
     supportsGlobalReplace = true)
 public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, IHopMetadata {
   private static final Class<?> PKG = HopServerMeta.class;
-  public static final String STRING_HOP_SERVER = "Hop Server";
+  public static final String STRING_HOP_SERVER = "HFXT Server";
   private static final Random RANDOM = new Random();
   public static final String XML_TAG = "hop-server";
   private static final String HTTP = "http";

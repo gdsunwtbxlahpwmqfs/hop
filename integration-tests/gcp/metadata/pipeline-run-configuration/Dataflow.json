@@ -13,7 +13,7 @@
       "gcpUsingPublicIps": true,
       "tempLocation": "gs://apache-hop-it/tmp/",
       "gcpWorkerDiskType": "",
-      "gcpAppName": "Apache Hop",
+      "gcpAppName": "HFXT Data Process",
       "gcpServiceAccount": "apache-hop-it@apache-hop.iam.gserviceaccount.com",
       "gcpInitialNumberOfWorkers": "1",
       "gcpStagingLocation": "gs://apache-hop-it/binaries/",

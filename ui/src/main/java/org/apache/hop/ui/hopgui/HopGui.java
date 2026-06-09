@@ -153,7 +153,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-@GuiPlugin(name = "Hop Gui", description = "The main hop graphical user interface")
+@GuiPlugin(name = "HFXT GUI", description = "The main HFXT graphical user interface")
 @SuppressWarnings("java:S1104")
 @Getter
 @Setter
@@ -248,7 +248,7 @@ public class HopGui
   private static final String REDO_UNAVAILABLE =
       BaseMessages.getString(PKG, "HopGui.Menu.Redo.NotAvailable");
 
-  public static final String APP_NAME = "Hop";
+  public static final String APP_NAME = "HFXT";
 
   private final String id;
 
@@ -431,7 +431,7 @@ public class HopGui
         hopGui.open();
       } catch (Throwable e) {
         originalSystemErr.println(
-            "Serious error detected in the Hop GUI: "
+            "Serious error detected in the HFXT GUI: "
                 + e.getMessage()
                 + Const.CR
                 + Const.getStackTracker(e));
@@ -440,7 +440,7 @@ public class HopGui
 
       System.exit(errors ? 1 : 0);
     } catch (Throwable e) {
-      originalSystemErr.println("Error starting the Hop GUI: " + e.getMessage());
+      originalSystemErr.println("Error starting the HFXT GUI: " + e.getMessage());
       e.printStackTrace(originalSystemErr);
       System.exit(1);
     }

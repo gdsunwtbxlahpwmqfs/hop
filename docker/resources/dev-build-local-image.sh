@@ -22,7 +22,7 @@ cd ../..
 
 if [ "$1" != "no-mvn" ]
 then
-  echo "Building Apache Hop: use first argument 'no-mvn' to skip this part."
+  echo "Building HFXT Data Process: use first argument 'no-mvn' to skip this part."
 
   # create new build
   mvn -DskipTests=true clean install

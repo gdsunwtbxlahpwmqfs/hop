@@ -69,18 +69,18 @@ public class HopEncrypt {
   }
 
   private static void printOptions() {
-    System.err.println("hop-encrypt usage:\n");
+    System.err.println("hfxt-encrypt usage:\n");
     System.err.println("  encr <-hop|-server> <password>");
     System.err.println("  Options:");
     System.err.println("    -hop: generate an obfuscated or encrypted password");
     System.err.println(
-        "    -server : generate an obfuscated password to include in the hop-server password file 'pwd/hop.pwd'");
+        "    -server : generate an obfuscated password to include in the hfxt-server password file 'pwd/hop.pwd'");
     System.err.println(
         "\nThis command line tool obfuscates or encrypts a plain text password for use in XML, password or metadata files.");
     System.err.println(
         "Make sure to also copy the password encryption prefix to indicate the obfuscated nature of the password.");
     System.err.println(
-        "Hop will then be able to make the distinction between regular plain text passwords and obfuscated ones.");
+        "HFXT will then be able to make the distinction between regular plain text passwords and obfuscated ones.");
     System.err.println();
   }
 }

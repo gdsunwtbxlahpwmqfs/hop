@@ -18,9 +18,9 @@
 #
 
 ################################################################################
-# Apache Hop Unified Docker Build Script
+# HFXT Data Process Unified Docker Build Script
 #
-# This script builds all Apache Hop Docker images using a multi-stage build
+# This script builds all HFXT Data Process Docker images using a multi-stage build
 # approach. It supports building from local source or from a GitHub tag.
 #
 # Usage:
@@ -615,7 +615,7 @@ print_summary() {
 ################################################################################
 
 main() {
-    print_header "Apache Hop Docker Build System"
+    print_header "HFXT Data Process Docker Build System"
     
     # Load environment file if exists (before parsing args so args can override)
     load_env_file

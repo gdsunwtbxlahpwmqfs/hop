@@ -208,14 +208,14 @@ public class WebServer {
       if (System.getProperty("loginmodulename") != null
           && System.getProperty("java.security.auth.login.config") != null) {
         constraintBuilder.roles("*");
-        JAASLoginService jaasLoginService = new JAASLoginService("Hop");
+        JAASLoginService jaasLoginService = new JAASLoginService("HFXT");
         jaasLoginService.setLoginModuleName(System.getProperty("loginmodulename"));
         securityHandler.setLoginService(jaasLoginService);
       } else {
         constraintBuilder.roles("default");
         HashLoginService hashLoginService;
         if (!Utils.isEmpty(hopServer.getPassword())) {
-          hashLoginService = new HashLoginService("Hop");
+          hashLoginService = new HashLoginService("HFXT");
           UserStore userStore = new UserStore();
           userStore.addUser(
               hopServer.getUsername(),
@@ -226,7 +226,7 @@ public class WebServer {
           if (Utils.isEmpty(passwordFile)) {
             passwordFile = Const.getHopLocalServerPasswordFile();
           }
-          hashLoginService = new HashLoginService("Hop");
+          hashLoginService = new HashLoginService("HFXT");
           PropertyUserStore userStore = new PropertyUserStore();
           userStore.setConfig(ResourceFactory.of(server).newResource(passwordFile));
           hashLoginService.setUserStore(userStore);

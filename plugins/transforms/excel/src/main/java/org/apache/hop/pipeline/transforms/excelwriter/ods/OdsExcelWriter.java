@@ -447,7 +447,7 @@ public class OdsExcelWriter {
                 ? data.inputRowMeta
                     .getValueMeta(data.commentauthorfieldnrs[fieldNr])
                     .getString(row[data.commentauthorfieldnrs[fieldNr]])
-                : "Apache Hop";
+                : "HFXT Data Process";
         OdsStyleHelper.applyComment(cell, author, comment);
       }
     }

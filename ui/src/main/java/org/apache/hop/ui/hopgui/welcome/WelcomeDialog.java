@@ -71,7 +71,7 @@ public class WelcomeDialog {
     try {
       shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.CLOSE | SWT.RESIZE | SWT.MAX);
       shell.setLayout(new FormLayout());
-      shell.setText("Apache Hop");
+      shell.setText("HFXT Data Process");
       shell.setImage(GuiResource.getInstance().getImageHop());
       PropsUi.setLook(shell);
 
@@ -92,7 +92,7 @@ public class WelcomeDialog {
       // Apache Hop
       Label welcome = new Label(shell, SWT.CENTER);
       PropsUi.setLook(welcome);
-      welcome.setText("Apache Hop");
+      welcome.setText("HFXT Data Process");
       titleFont =
           new Font(shell.getDisplay(), "Open Sans", (int) (18 * props.getZoomFactor()), SWT.NONE);
       welcome.setFont(titleFont);

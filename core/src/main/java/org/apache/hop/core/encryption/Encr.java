@@ -154,9 +154,9 @@ public class Encr {
     System.err.println("encr usage:\n");
     System.err.println("  encr <-hop|-server> <password>");
     System.err.println("  Options:");
-    System.err.println("    -hop: generate an obfuscated password to include in Hop XML files");
+    System.err.println("    -hop: generate an obfuscated password to include in HFXT XML files");
     System.err.println(
-        "    -server : generate an obfuscated password to include in the hop-server password file 'pwd/hop.pwd'");
+        "    -server : generate an obfuscated password to include in the hfxt-server password file 'pwd/hop.pwd'");
     System.err.println(
         "\nThis command line tool obfuscates a plain text password for use in XML and password files.");
     System.err.println(
@@ -164,7 +164,7 @@ public class Encr {
             + PASSWORD_ENCRYPTED_PREFIX
             + "' prefix to indicate the obfuscated nature of the password.");
     System.err.println(
-        "Hop will then be able to make the distinction between regular plain text passwords and obfuscated ones.");
+        "HFXT will then be able to make the distinction between regular plain text passwords and obfuscated ones.");
     System.err.println();
   }
 }
