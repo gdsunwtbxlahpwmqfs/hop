@@ -53,7 +53,7 @@
         </dependencySet>
         <dependencySet>
             <scope>runtime</scope>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/javascript/lib</outputDirectory>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>

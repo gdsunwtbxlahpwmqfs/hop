@@ -60,7 +60,7 @@
                 <include>org.apache.commons:commons-lang3:jar</include>
                 <include>org.apache.commons:commons-text:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/filemetadata/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

@@ -170,7 +170,7 @@
                 <exclude>com.eclipsesource.minimal-json:minimal-json:jar</exclude>
                 <exclude>org.slf4j:slf4j-api:jar</exclude>
             </excludes>
-            <outputDirectory>lib/beam</outputDirectory>
+            <outputDirectory>plugins/engines/beam/lib</outputDirectory>
         </dependencySet>
         <dependencySet>
             <scope>runtime</scope>
@@ -282,7 +282,7 @@
                 <include>com.eclipsesource.minimal-json:minimal-json:jar</include>
                 <include>org.slf4j:slf4j-api:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/engines/beam/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

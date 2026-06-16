@@ -50,7 +50,7 @@
             <excludes>
                 <exclude>org.apache.hop:hop-transform-cratedbbulkloader:jar</exclude>
             </excludes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/transforms/cratedbbulkloader/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

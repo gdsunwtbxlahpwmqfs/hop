@@ -50,7 +50,7 @@
             <includes>
                 <include>net.snowflake:snowflake-jdbc:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/transforms/snowflake/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

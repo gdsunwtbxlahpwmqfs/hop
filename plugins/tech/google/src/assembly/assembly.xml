@@ -51,7 +51,7 @@
                 <exclude>org.apache.hop:hop-tech-google:jar</exclude>
                 <exclude>io.grpc:grpc-netty-shaded:jar</exclude>
             </excludes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/google/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

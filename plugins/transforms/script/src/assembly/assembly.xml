@@ -67,7 +67,7 @@
                 <include>org.ow2.asm:asm-util:jar</include>
                 <include>com.ibm.icu:icu4j:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/script/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

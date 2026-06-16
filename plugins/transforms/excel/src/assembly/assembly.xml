@@ -74,7 +74,7 @@
                 <include>xml-apis:xml-apis:jar</include>
                 <include>org.apache.logging.log4j:log4j-api:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/excel/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

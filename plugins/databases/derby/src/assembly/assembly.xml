@@ -42,7 +42,7 @@
             <includes>
                 <include>org.apache.derby:derbyclient:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/databases/derby/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

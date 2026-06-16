@@ -64,7 +64,7 @@
                 <include>org.apache.hadoop.thirdparty:*:jar</include>
                 <include>com.fasterxml.woodstox:woodstox-core:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/parquet/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

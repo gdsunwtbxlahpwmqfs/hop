@@ -63,7 +63,7 @@
                 <include>io.projectreactor:reactor-core:jar</include>
                 <include>io.netty::jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/neo4j/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

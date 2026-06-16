@@ -96,7 +96,7 @@
                 <include>org.jspecify:jspecify:jar</include>
                 <include>io.dropwizard.metrics:*:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/cassandra/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

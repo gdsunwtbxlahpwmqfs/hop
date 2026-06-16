@@ -58,7 +58,7 @@
                 <include>net.minidev:accessors-smart:jar</include>
                 <include>org.ow2.asm:asm:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/json/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

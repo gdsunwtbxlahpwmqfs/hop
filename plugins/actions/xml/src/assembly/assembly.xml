@@ -58,7 +58,7 @@
                 <include>xml-apis:xml-apis:jar</include>
                 <include>net.sf.saxon:*:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/actions/xml/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

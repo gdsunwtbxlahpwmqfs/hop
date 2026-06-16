@@ -42,7 +42,7 @@
             <includes>
                 <include>org.postgresql:postgresql:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/databases/postgresql/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

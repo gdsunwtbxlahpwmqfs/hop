@@ -59,7 +59,7 @@
             <includes>
                 <include>com.google.code.findbugs:jsr305:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/dropbox/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

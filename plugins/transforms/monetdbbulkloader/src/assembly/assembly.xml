@@ -55,7 +55,7 @@
             <includes>
                 <include>monetdb:monetdb-jdbc:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/transforms/monetdbbulkloader/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

@@ -63,7 +63,7 @@
                 <include>xerces:xercesImpl:jar</include>
                 <include>xml-apis:xml-apis:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/formula/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

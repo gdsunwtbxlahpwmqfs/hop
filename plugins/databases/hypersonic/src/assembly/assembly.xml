@@ -43,7 +43,7 @@
             <includes>
                 <include>org.hsqldb:hsqldb:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/databases/hypersonic/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

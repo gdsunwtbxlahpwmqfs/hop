@@ -123,7 +123,7 @@
                 <include>org.jspecify:jspecify:jar</include>
                 <include>com.nimbusds:lang-tag:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/tech/azure/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

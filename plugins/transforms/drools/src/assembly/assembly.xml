@@ -61,7 +61,7 @@
                 <include>com.github.virtuald:*</include>
                 <include>org.antlr:antlr-runtime:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/drools/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

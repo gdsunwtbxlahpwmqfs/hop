@@ -43,13 +43,13 @@
                 <include>io.github.spannm:ucanaccess:jar</include>
                 <include>org.hsqldb:hsqldb:jar</include>
             </includes>
-            <outputDirectory>lib/jdbc</outputDirectory>
+            <outputDirectory>plugins/databases/access/lib</outputDirectory>
         </dependencySet>
         <dependencySet>
             <includes>
                 <include>io.github.spannm:jackcess:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/databases/access/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

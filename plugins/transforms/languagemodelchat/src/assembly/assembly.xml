@@ -51,7 +51,7 @@
                 <include>org.jetbrains.kotlin::jar</include>
                 <include>com.squareup.okhttp3:okhttp:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/languagemodelchat/lib</outputDirectory>
         </dependencySet>
         <dependencySet>
             <includes>

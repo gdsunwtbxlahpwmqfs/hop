@@ -50,7 +50,7 @@
             <includes>
                 <include>org.apache.commons:commons-math3:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/memgroupby/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

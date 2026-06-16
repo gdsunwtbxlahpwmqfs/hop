@@ -78,7 +78,7 @@
                 <include>com.eclipsesource.minimal-json:minimal-json:jar</include>
                 <include>com.google.re2j:re2j:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/transforms/kafka/lib</outputDirectory>
         </dependencySet>
     </dependencySets>
 </assembly>

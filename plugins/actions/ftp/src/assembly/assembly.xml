@@ -45,7 +45,7 @@
                 <include>com.github.mwiede:jsch:jar</include>
                 <include>commons-net:commons-net:jar</include>
             </includes>
-            <outputDirectory>lib/core</outputDirectory>
+            <outputDirectory>plugins/actions/ftp/lib</outputDirectory>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>

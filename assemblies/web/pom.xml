@@ -39,6 +39,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
+        <!-- hop-ui is required for UI plugins that depend on IGuiPluginCompositeWidgetsListener -->
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- RAP fragment -->
         <dependency>
