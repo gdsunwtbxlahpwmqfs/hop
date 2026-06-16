@@ -13,32 +13,34 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  ~
   -->
 
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
-
-    <id>hop-misc-static-schema</id>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+    <id>core</id>
     <formats>
         <format>zip</format>
     </formats>
-    <baseDirectory>.</baseDirectory>
-    <files>
-        <file>
-            <source>${project.basedir}/src/main/resources/version.xml</source>
-            <outputDirectory>plugins/misc/static-schema</outputDirectory>
-            <filtered>true</filtered>
-        </file>
-    </files>
-
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>hop</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${assembly.dir}</directory>
+            <outputDirectory>.</outputDirectory>
+        </fileSet>
+    </fileSets>
     <dependencySets>
         <dependencySet>
             <includes>
-                <include>org.apache.hop:hop-misc-static-schema:jar</include>
+                <include>org.apache.hop:hop-assemblies-static:zip</include>
+                <include>org.apache.hop:hop-core:zip</include>
+                <include>org.apache.hop:hop-engine:zip</include>
             </includes>
-            <outputDirectory>plugins/misc/static-schema</outputDirectory>
+            <unpack>true</unpack>
+            <outputDirectory>.</outputDirectory>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
     </dependencySets>
 </assembly>

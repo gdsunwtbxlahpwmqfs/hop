@@ -43,7 +43,7 @@ import picocli.CommandLine;
 @Getter
 @ConfigPlugin(
     id = "GoogleCloudStorageConfigPlugin",
-    description = "Configuration options for Google Cloud",
+    description = "i18n::GoogleCloudPlugin.ConfigPlugin.Description",
     category = ConfigPlugin.CATEGORY_CONFIG)
 @GuiPlugin(
     description = "i18n::GoogleCloudPlugin.GuiPlugin.Description" // Tab label in options dialog

@@ -77,6 +77,7 @@
                 <exclude>com.azure:azure-storage-blob:jar</exclude>
                 <exclude>com.azure:azure-storage-common:jar</exclude>
                 <exclude>com.azure:azure-storage-internal-avro:jar</exclude>
+                <exclude>com.azure:azure-storage-file-datalake:jar</exclude>
                 <exclude>com.azure:azure-xml:jar</exclude>
                 <exclude>com.nimbusds:nimbus-jose-jwt:jar</exclude>
                 <exclude>net.minidev:*:jar</exclude>
@@ -114,6 +115,7 @@
                 <include>com.azure:azure-storage-common:jar</include>
                 <include>com.azure:azure-storage-internal-avro:jar</include>
                 <include>com.azure:azure-xml:jar</include>
+                <include>com.azure:azure-storage-file-datalake:jar</include>
                 <include>com.nimbusds:nimbus-jose-jwt:jar</include>
                 <include>net.minidev:*:jar</include>
                 <include>org.ow2.asm:asm:jar</include>

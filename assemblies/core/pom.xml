@@ -14,33 +14,39 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  ~
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.apache.hop</groupId>
-        <artifactId>hop</artifactId>
+        <artifactId>hop-assemblies</artifactId>
         <version>2.19.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hop-assemblies</artifactId>
-    <version>2.19.0-SNAPSHOT</version>
+    <artifactId>hop-core-assembly</artifactId>
     <packaging>pom</packaging>
-    <name>Hop Assemblies</name>
+    <name>Hop Core Assembly</name>
 
-    <modules>
-        <module>beam</module>
-        <module>client</module>
-        <module>core</module>
-        <module>debug</module>
-        <module>plugins</module>
-        <module>static</module>
-        <module>web</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-assemblies-static</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-core</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-engine</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
 
-    <properties>
-        <assembly.dir>${project.build.directory}/assembly</assembly.dir>
-    </properties>
 </project>

@@ -41,7 +41,7 @@ import picocli.CommandLine;
 
 @ConfigPlugin(
     id = "GitConfigOptionPlugin",
-    description = "Configuration options for the git GUI plugin")
+    description = "i18n::GitConfig.ConfigPlugin.Description")
 @GuiPlugin(
     description = "i18n::GitConfig.Tab.Name" // label in options dialog
     )

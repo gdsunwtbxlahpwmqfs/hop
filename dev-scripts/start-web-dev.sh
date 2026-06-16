@@ -2,10 +2,68 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# Check if web assembly exists
-if [ ! -d "assemblies/web/target/webapp" ]; then
+# Check if hop.war exists
+if [ ! -f "assemblies/web/target/hop.war" ]; then
   echo "==> Web assembly not found. Building first..."
   ./dev-scripts/build-web.sh
+fi
+
+# Check if core assembly exists
+CORE_ZIP=$(ls assemblies/core/target/hop-core-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
+CORE_DIR="assemblies/core/target/hop/lib/core"
+if [ -z "$CORE_ZIP" ]; then
+  echo "==> Core assembly zip not found. Building..."
+  ./mvnw clean package -pl assemblies/core -am -Dfast-build -DskipTests
+  CORE_ZIP=$(ls assemblies/core/target/hop-core-assembly-*-core.zip 2>/dev/null | head -1)
+elif [ ! -d "$CORE_DIR" ]; then
+  echo "==> Extracting core assembly..."
+  mkdir -p "$CORE_DIR"
+  unzip -q "$CORE_ZIP" -d "assemblies/core/target/"
+fi
+
+# Check if beam assembly exists
+BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
+BEAM_DIR="assemblies/beam/target/hop/lib/beam"
+if [ -z "$BEAM_ZIP" ]; then
+  echo "==> Beam assembly zip not found. Building..."
+  ./mvnw clean package -pl assemblies/beam -am -Dfast-build -DskipTests
+  BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-beam.zip 2>/dev/null | head -1)
+elif [ ! -d "$BEAM_DIR" ]; then
+  echo "==> Extracting beam assembly..."
+  mkdir -p "$BEAM_DIR"
+  unzip -q "$BEAM_ZIP" -d "assemblies/beam/target/"
+fi
+
+# Check if webapp directory needs to be (re)extracted from war
+if [ -z "$(ls -A assemblies/web/target/webapp 2>/dev/null)" ]; then
+  echo "==> Extracting webapp from war file..."
+  mkdir -p assemblies/web/target/webapp
+  unzip -q assemblies/web/target/hop.war -d assemblies/web/target/webapp
+fi
+
+# Fix SWT jar: replace macOS cocoa with Linux GTK (built on macOS, runs in Linux container)
+WEBAPP_LIB="assemblies/web/target/webapp/WEB-INF/lib"
+LINUX_SWT="$HOME/.m2/repository/org/eclipse/platform/org.eclipse.swt.gtk.linux.x86_64/3.132.0/org.eclipse.swt.gtk.linux.x86_64-3.132.0.jar"
+if ls "$WEBAPP_LIB"/org.eclipse.swt.cocoa.* >/dev/null 2>&1; then
+  echo "==> Replacing macOS SWT with Linux GTK SWT..."
+  rm -f "$WEBAPP_LIB"/org.eclipse.swt.cocoa.*
+  if [ -f "$LINUX_SWT" ]; then
+    cp "$LINUX_SWT" "$WEBAPP_LIB/"
+  else
+    echo "==> Warning: Linux SWT jar not found in local Maven repo"
+  fi
+fi
+
+# Check if plugins directory is empty (needs to be extracted from plugins zip)
+PLUGINS_DIR="assemblies/client/target/hop/plugins"
+PLUGINS_ZIP="assemblies/plugins/target/hop-assemblies-plugins-2.19.0-SNAPSHOT.zip"
+if [ ! -d "$PLUGINS_DIR/transforms" ] && [ -f "$PLUGINS_ZIP" ]; then
+  echo "==> Extracting plugins..."
+  rm -rf "$PLUGINS_DIR"
+  mkdir -p "$PLUGINS_DIR/tmp"
+  unzip -q "$PLUGINS_ZIP" -d "$PLUGINS_DIR/tmp"
+  mv "$PLUGINS_DIR/tmp/plugins/"* "$PLUGINS_DIR/"
+  rm -rf "$PLUGINS_DIR/tmp"
 fi
 
 echo "==> Starting Hop Web development server..."
@@ -13,4 +71,11 @@ echo "    Web UI:  http://localhost:8080/ui"
 echo "    REST:    http://localhost:8080/hop/"
 echo "    Debug:   port 5005 (JDWP)"
 echo ""
+
+# Stop and remove existing container if it exists
+if docker compose -f docker-compose.dev.yml ps -q | grep -q .; then
+  echo "==> Stopping and removing existing container..."
+  docker compose -f docker-compose.dev.yml down --remove-orphans
+fi
+
 docker compose -f docker-compose.dev.yml up "$@"
