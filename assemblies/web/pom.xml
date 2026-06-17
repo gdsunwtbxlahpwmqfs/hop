@@ -39,6 +39,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
+        <!-- static-schema plugin for schema definition metadata -->
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-misc-static-schema</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- hop-ui is required for UI plugins that depend on IGuiPluginCompositeWidgetsListener -->
         <dependency>
             <groupId>org.apache.hop</groupId>

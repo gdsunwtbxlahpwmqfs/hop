@@ -92,6 +92,15 @@
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
+        <!-- static-schema plugin for schema definition metadata -->
+        <dependencySet>
+            <includes>
+                <include>org.apache.hop:hop-misc-static-schema:jar</include>
+            </includes>
+            <outputDirectory>WEB-INF/lib</outputDirectory>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
         <!-- xmlgraphics-commons is required by Batik SVG library -->
         <dependencySet>
             <includes>
