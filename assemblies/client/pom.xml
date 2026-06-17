@@ -39,6 +39,12 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.hop</groupId>
+            <artifactId>hop-assemblies-jdbc</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hop</groupId>
             <artifactId>hop-assemblies-plugins</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
@@ -84,12 +90,6 @@
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-ui-rcp</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hop</groupId>
-            <artifactId>hop-assemblies-jdbc</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>

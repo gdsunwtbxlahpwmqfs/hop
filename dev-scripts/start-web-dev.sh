@@ -17,8 +17,7 @@ if [ -z "$CORE_ZIP" ]; then
   CORE_ZIP=$(ls assemblies/core/target/hop-core-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
 elif [ ! -d "$CORE_DIR" ]; then
   echo "==> Extracting core assembly..."
-  mkdir -p "assemblies/core/target/hop"
-  unzip -q "$CORE_ZIP" -d "assemblies/core/target/hop/"
+  unzip -q "$CORE_ZIP" -d "assemblies/core/target/"
 fi
 
 # Check if beam assembly exists
@@ -30,8 +29,7 @@ if [ -z "$BEAM_ZIP" ]; then
   BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
 elif [ ! -d "$BEAM_DIR" ]; then
   echo "==> Extracting beam assembly..."
-  mkdir -p "assemblies/beam/target/hop"
-  unzip -q "$BEAM_ZIP" -d "assemblies/beam/target/hop/"
+  unzip -q "$BEAM_ZIP" -d "assemblies/beam/target/"
 fi
 
 # Check if webapp directory needs to be (re)extracted from war
