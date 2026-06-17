@@ -32,6 +32,7 @@ import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.BaseDialog;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
 import org.apache.hop.ui.core.gui.GuiResource;
+import org.apache.hop.ui.core.gui.WindowProperty;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.perspective.configuration.ConfigurationPerspective;
 import org.apache.hop.ui.util.EnvironmentUtils;
@@ -240,13 +241,12 @@ public class ConfigGuiOptionsTab {
       wGlobalZoom.setText(globalZoomFactor);
 
       // Reload default locale
-      int idxDefault =
-          Const.indexOfString(
-              LanguageChoice.getInstance().getDefaultLocale().toString(),
-              GlobalMessages.localeCodes);
-      if (idxDefault >= 0) {
-        wDefaultLocale.select(idxDefault);
+      String currentLocaleStr = LanguageChoice.getInstance().getDefaultLocale().toString();
+      int idxDefault = Const.indexOfString(currentLocaleStr, GlobalMessages.localeCodes);
+      if (idxDefault < 0) {
+        idxDefault = 0;
       }
+      wDefaultLocale.select(idxDefault);
     } finally {
       // Always reset the flag
       isReloading = false;
@@ -306,12 +306,12 @@ public class ConfigGuiOptionsTab {
             lastControl,
             margin);
     wDefaultLocale = (Combo) defaultLocaleControls[1];
-    int idxDefault =
-        Const.indexOfString(
-            LanguageChoice.getInstance().getDefaultLocale().toString(), GlobalMessages.localeCodes);
-    if (idxDefault >= 0) {
-      wDefaultLocale.select(idxDefault);
+    String currentLocale = LanguageChoice.getInstance().getDefaultLocale().toString();
+    int idxDefault = Const.indexOfString(currentLocale, GlobalMessages.localeCodes);
+    if (idxDefault < 0) {
+      idxDefault = 0;
     }
+    wDefaultLocale.select(idxDefault);
     lastControl = wDefaultLocale;
 
     // Hide menu bar - at the top
@@ -1222,6 +1222,8 @@ public class ConfigGuiOptionsTab {
     props.setMetricsPanelShowDataVolumeOut(
         dataVolumeVarEnabled && wMetricsPanelShowDataVolumeOut.getSelection());
 
+    // Save locale and check if it changed
+    String previousLocale = LanguageChoice.getInstance().getDefaultLocale().toString();
     int defaultLocaleIndex = wDefaultLocale.getSelectionIndex();
     if (defaultLocaleIndex < 0 || defaultLocaleIndex >= GlobalMessages.localeCodes.length) {
       // Code hardening, when the combo-box ever gets in a strange state,
@@ -1229,6 +1231,7 @@ public class ConfigGuiOptionsTab {
       defaultLocaleIndex = 0;
     }
     String defaultLocale = GlobalMessages.localeCodes[defaultLocaleIndex];
+    boolean localeChanged = !previousLocale.equals(defaultLocale);
     LanguageChoice.getInstance().setDefaultLocale(EnvUtil.createLocale(defaultLocale));
 
     if (EnvironmentUtils.getInstance().isWeb()) {
@@ -1282,6 +1285,37 @@ public class ConfigGuiOptionsTab {
         new ErrorDialog(
             HopGui.getInstance().getShell(), "Error", "Error saving configuration to file", e);
       }
+    }
+
+    // If locale changed, refresh/restart to apply the new language
+    if (localeChanged) {
+      Display.getDefault()
+          .asyncExec(
+              () -> {
+                if (EnvironmentUtils.getInstance().isWeb()) {
+                  // Web environment: trigger page reload directly via JavaScript
+                  reloadWebPage();
+                } else {
+                  // Desktop environment: save window state and close application
+                  PropsUi.getInstance()
+                      .setScreen(new WindowProperty(HopGui.getInstance().getShell()));
+                  HopGui.getInstance().getShell().dispose();
+                }
+              });
+    }
+  }
+
+  private void reloadWebPage() {
+    try {
+      Class<?> rwtClass = Class.forName("org.eclipse.rap.rwt.RWT");
+      Object client = rwtClass.getMethod("getClient").invoke(null);
+      Class<?> executorClass =
+          Class.forName("org.eclipse.rap.rwt.client.service.JavaScriptExecutor");
+      Object executor =
+          client.getClass().getMethod("getService", Class.class).invoke(client, executorClass);
+      executorClass.getMethod("execute", String.class).invoke(executor, "location.reload();");
+    } catch (Exception e) {
+      // RAP classes not available (desktop mode), ignore
     }
   }
 

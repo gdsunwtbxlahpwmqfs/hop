@@ -39,43 +39,15 @@ public class GlobalMessages extends AbstractMessageHandler {
 
   protected static final ILogChannel log = new LogChannel("i18n");
 
-  public static final String[] localeCodes = {
-    "en_US", "nl_NL", "zh_CN", "es_ES", "fr_FR", "de_DE", "pt_BR", "pt_PT", "es_AR", "no_NO",
-    "it_IT", "ja_JP", "ko_KR", "pl_PL"
-  };
+  public static final String[] localeCodes = {"en_US", "zh_CN"};
 
   public static final String[] localeDescr = {
-    "English (US)",
-    "Nederlands (Beta)",
-    "\u7B80\u4F53\u4E2D\u6587 (Simplified Chinese)",
-    "Espa\u00F1ol (Spain) (Beta)",
-    "Fran\u00E7ais",
-    "Deutsch (Beta)",
-    "Portuguese (Brazil)",
-    "Portuguese (Portugal) (Beta)",
-    "Espa\u00F1ol (Argentina) (Beta)",
-    "Norwegian (Norway) (Beta)",
-    "Italian (Italy)",
-    "Japanese (Japan) (Beta)",
-    "Korean (Korea) (Beta)",
-    "Polski (Beta)",
+    "English (US)", "\u7B80\u4F53\u4E2D\u6587 (Simplified Chinese)",
   };
 
   public static final String[] localeBetaStatus = {
     "N", // "English (US)"
-    "Y", // "Nederlands"
     "N", // "Simplified Chinese"
-    "Y", // "Espa\u00F1ol (Spain)"
-    "N", // "Fran\u00E7ais"
-    "Y", // "Deutsch"
-    "N", // "Portuguese (Brazil)"
-    "Y", // "Portuguese (Portugal)"
-    "Y", // "Espa\u00F1ol (Argentina)"
-    "Y", // "Norwegian (Norway)"
-    "N", // "Italian (Italy)"
-    "Y", // "Japanese (Japan)"
-    "Y", // "Korean (Korea)"
-    "Y", // "Polski (Beta)"
   };
 
   protected static GlobalMessages GMinstance = null;
