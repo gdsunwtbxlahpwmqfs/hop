@@ -83,5 +83,14 @@
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
+        <!-- hop-ui is required for UI plugins that depend on IGuiPluginCompositeWidgetsListener -->
+        <dependencySet>
+            <includes>
+                <include>org.apache.hop:hop-ui:jar</include>
+            </includes>
+            <outputDirectory>WEB-INF/lib</outputDirectory>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
     </dependencySets>
 </assembly>

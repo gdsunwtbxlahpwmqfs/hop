@@ -19,12 +19,19 @@ services:
       - ./assemblies/client/target/hop/config:/opt/hop/config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./assemblies/core/target/hop/lib/core:/tmp/hop-lib-core
-      - ./assemblies/beam/target/hop/lib/beam:/tmp/hop-lib-beam
+      - ./assemblies/beam/target/hop/lib/core:/tmp/hop-lib-beam
     working_dir: /usr/local/tomcat
     command: >
       bash -c "
         cp -r /tmp/hop-lib-core/* webapps/ROOT/WEB-INF/lib/ &&
         cp -r /tmp/hop-lib-beam/* webapps/ROOT/WEB-INF/lib/ &&
         mkdir -p /opt/hop/audit &&
+        # 移除云服务相关的 JAR 以避免类加载器冲突
+        rm -f webapps/ROOT/WEB-INF/lib/google-*.jar &&
+        rm -f webapps/ROOT/WEB-INF/lib/grpc-googleapis-*.jar &&
+        rm -f webapps/ROOT/WEB-INF/lib/proto-google-*.jar &&
+        # 移除 Google Cloud 和其他云服务插件
+        rm -rf /opt/hop/plugins/tech/google/ &&
+        rm -rf /opt/hop/plugins/databases/googlebigquery/ &&
         catalina.sh run
       "

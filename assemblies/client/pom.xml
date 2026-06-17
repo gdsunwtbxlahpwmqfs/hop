@@ -88,6 +88,12 @@
             <type>zip</type>
         </dependency>
         <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-assemblies-jdbc</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
             <version>${org.eclipse.swt.cocoa.macosx.aarch64.version}</version>

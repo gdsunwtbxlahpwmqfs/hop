@@ -31,7 +31,7 @@
 #   -t, --tag <tag>               Git tag/branch to build from (default: main)
 #   -r, --repo <url>              GitHub repository URL (default: https://github.com/apache/hop.git)
 #   -i, --images <list>           Comma-separated list of images to build (default: all)
-#                                 Options: see ALL_STAGES variable, or 'all'
+                                 Options: client, web, web-beam, web-local, dataflow, or 'all'
 #   -v, --version <version>       Version string for image tagging (auto-detected if not provided)
 #   -p, --push                    Push images to registry after build
 #   -x, --registry <registry>     Docker registry prefix (default: none/local, e.g., apache, myregistry.io)
@@ -59,6 +59,9 @@
 #   # Build web image only (fat jar automatically skipped)
 #   ./build-hop-images.sh --images web
 #
+#   # Build web-local image (without cloud service plugins)
+#   ./build-hop-images.sh --images web-local
+#
 #   # Build specific variants
 #   ./build-hop-images.sh --images client-minimal,web-beam
 #
@@ -81,7 +84,7 @@ NC='\033[0m' # No Color
 
 # Available image stages (add new stages here)
 # Format: "baseImage" or "baseImage-variant"
-ALL_STAGES=("client" "web" "web-beam" "dataflow")
+ALL_STAGES=("client" "web" "web-beam" "web-local" "dataflow")
 
 # Detect current platform architecture
 detect_platform() {
@@ -408,6 +411,14 @@ build_image() {
         print_info "Skipping fat jar generation (not needed for $stage_name)"
     fi
     
+    # Determine Dockerfile based on stage
+    local dockerfile_path
+    if [[ "$stage_name" == "web-local" ]]; then
+        dockerfile_path="$SCRIPT_DIR/web-local.Dockerfile"
+    else
+        dockerfile_path="$SCRIPT_DIR/unified.Dockerfile"
+    fi
+    
     # Build arguments
     local build_args=(
         "--build-arg" "HOP_BUILD_FROM_SOURCE=$SOURCE_TYPE"
@@ -416,10 +427,14 @@ build_image() {
         "--build-arg" "BUILDER_TYPE=$BUILDER_TYPE"
         "--build-arg" "SKIP_FAT_JAR=$skip_fat_jar_value"
         "--progress" "$BUILD_PROGRESS"
-        "--file" "$SCRIPT_DIR/unified.Dockerfile"
-        "--target" "$stage_name"
+        "--file" "$dockerfile_path"
         "--tag" "$full_image_name:$version_tag"
     )
+    
+    # Add target only for non-web-local builds (web-local uses its own Dockerfile)
+    if [[ "$stage_name" != "web-local" ]]; then
+        build_args+=("--target" "$stage_name")
+    fi
     
     # Add git arguments if building from GitHub
     if [[ "$SOURCE_TYPE" == "github" ]]; then
