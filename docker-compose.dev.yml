@@ -12,8 +12,8 @@ services:
       HOP_CONFIG_FOLDER: /opt/hop/config
       HOP_PLUGIN_BASE_FOLDERS: /opt/hop/plugins
       HOP_PASSWORD_ENCODER_PLUGIN: Hop
-      HOP_OPTIONS: -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -Dswt.use.gtk3=false
-      CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -DHOP_AUDIT_FOLDER=/opt/hop/audit -DHOP_CONFIG_FOLDER=/opt/hop/config -DHOP_LOG_LEVEL=Debug -DHOP_PASSWORD_ENCODER_PLUGIN=Hop -DHOP_PLUGIN_BASE_FOLDERS=/opt/hop/plugins -Dswt.use.gtk3=false
+      HOP_OPTIONS: -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
+      CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -DHOP_AUDIT_FOLDER=/opt/hop/audit -DHOP_CONFIG_FOLDER=/opt/hop/config -DHOP_LOG_LEVEL=Debug -DHOP_PASSWORD_ENCODER_PLUGIN=Hop -DHOP_PLUGIN_BASE_FOLDERS=/opt/hop/plugins -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
     volumes:
       - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
       - ./assemblies/web/target/webapp/config:/opt/hop/config
