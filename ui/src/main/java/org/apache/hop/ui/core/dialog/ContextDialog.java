@@ -36,6 +36,7 @@ import org.apache.hop.core.gui.plugin.action.GuiAction;
 import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElement;
 import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElementType;
 import org.apache.hop.core.logging.LogChannel;
+import org.apache.hop.core.util.TranslateUtil;
 import org.apache.hop.history.AuditManager;
 import org.apache.hop.history.AuditState;
 import org.apache.hop.i18n.BaseMessages;
@@ -894,8 +895,9 @@ public class ContextDialog extends Dialog {
           } else {
             gc.setForeground(GuiResource.getInstance().getColorBlack());
           }
-          org.eclipse.swt.graphics.Point categoryExtent = gc.textExtent(categoryAndOrder.category);
-          gc.drawText(categoryAndOrder.category, x, y);
+          String categoryLabel = TranslateUtil.translate(categoryAndOrder.category, PKG);
+          org.eclipse.swt.graphics.Point categoryExtent = gc.textExtent(categoryLabel);
+          gc.drawText(categoryLabel, x, y);
           areaOwners.add(
               new AreaOwner(
                   AreaOwner.AreaType.CUSTOM,
