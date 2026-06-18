@@ -231,7 +231,9 @@ public class ConfigurationPerspective implements IHopPerspective {
               showCategory(categoryName, true);
 
               // If it's the Plugins category (parent), show instructions
-              if (categoryName.equalsIgnoreCase("Plugins") || categoryName.contains("plugin")) {
+              String pluginsTabName =
+                  BaseMessages.getString(PKG, "ConfigPluginOptionsTab.Tab.Plugins");
+              if (categoryName.equals(pluginsTabName)) {
                 Control pluginPanel = categoryTabs.get(categoryName);
                 if (pluginPanel != null && !pluginPanel.isDisposed()) {
                   if (pluginPanel instanceof Composite tabComposite) {
@@ -334,11 +336,16 @@ public class ConfigurationPerspective implements IHopPerspective {
 
       // Now create tree items for each tab
       CTabItem[] allTabs = configTabs.getItems();
+
+      // Get the localized Plugins tab name from resources
+      String pluginsTabName = BaseMessages.getString(PKG, "ConfigPluginOptionsTab.Tab.Plugins");
+
       for (CTabItem tab : allTabs) {
         String categoryName = tab.getText();
 
         // Check if this is the Plugins tab - we'll handle it specially
-        if (categoryName.equalsIgnoreCase("Plugins") || categoryName.contains("plugin")) {
+        // Use the localized name from resources for comparison
+        if (categoryName.equals(pluginsTabName)) {
           // Create parent Plugins tree item
           TreeItem pluginsTreeItem = new TreeItem(categoryTree, SWT.NONE);
           pluginsTreeItem.setText(categoryName);

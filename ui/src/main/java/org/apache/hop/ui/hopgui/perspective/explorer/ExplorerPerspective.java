@@ -857,8 +857,12 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
 
                   MessageBox messageBox =
                       new MessageBox(HopGui.getInstance().getShell(), SWT.ICON_ERROR | SWT.OK);
-                  messageBox.setText("Drag and drop");
-                  messageBox.setMessage("Unable to copy/move file(s):\n\n" + paths);
+                  messageBox.setText(
+                      BaseMessages.getString(PKG, "ExplorerPerspective.DragAndDrop.Error.Title"));
+                  messageBox.setMessage(
+                      BaseMessages.getString(PKG, "ExplorerPerspective.DragAndDrop.Error.Message")
+                          + "\n\n"
+                          + paths);
                   messageBox.open();
                 }
 

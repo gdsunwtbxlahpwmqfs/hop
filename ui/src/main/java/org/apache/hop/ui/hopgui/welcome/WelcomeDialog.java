@@ -33,6 +33,7 @@ import org.apache.hop.core.svg.SvgCache;
 import org.apache.hop.core.svg.SvgCacheEntry;
 import org.apache.hop.core.svg.SvgFile;
 import org.apache.hop.core.svg.SvgImage;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.FormDataBuilder;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.BaseDialog;
@@ -54,6 +55,8 @@ import org.eclipse.swt.widgets.Widget;
 /** We show this dialog at the start of the application. */
 @GuiPlugin
 public class WelcomeDialog {
+  private static final Class<?> PKG = WelcomeDialog.class;
+
   public static final String PARENT_ID_WELCOME_WIDGETS = "WelcomeDialog.Parent.ID";
   public static final String HOP_CONFIG_NO_SHOW_OPTION = "doNotShowWelcomeDialog";
   public static final String VARIABLE_HOP_NO_WELCOME_DIALOG = "HOP_NO_WELCOME_DIALOG";
@@ -71,7 +74,7 @@ public class WelcomeDialog {
     try {
       shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.CLOSE | SWT.RESIZE | SWT.MAX);
       shell.setLayout(new FormLayout());
-      shell.setText("HFXT Data Process");
+      shell.setText(BaseMessages.getString(PKG, "WelcomeDialog.Title"));
       shell.setImage(GuiResource.getInstance().getImageHop());
       PropsUi.setLook(shell);
 
@@ -92,7 +95,7 @@ public class WelcomeDialog {
       // Apache Hop
       Label welcome = new Label(shell, SWT.CENTER);
       PropsUi.setLook(welcome);
-      welcome.setText("HFXT Data Process");
+      welcome.setText(BaseMessages.getString(PKG, "WelcomeDialog.ApplicationName"));
       titleFont =
           new Font(shell.getDisplay(), "Open Sans", (int) (18 * props.getZoomFactor()), SWT.NONE);
       welcome.setFont(titleFont);
@@ -105,7 +108,7 @@ public class WelcomeDialog {
 
       // An area at the bottom that shows the "don't show this again" option.
       doNotShow = new Button(shell, SWT.CHECK);
-      doNotShow.setText("Don't show this at startup (find me in the Help menu)");
+      doNotShow.setText(BaseMessages.getString(PKG, "WelcomeDialog.DoNotShow"));
       doNotShow.addListener(SWT.Selection, this::dontShowAgain);
       doNotShow.setSelection(HopConfig.readOptionBoolean(HOP_CONFIG_NO_SHOW_OPTION, false));
       PropsUi.setLook(doNotShow);

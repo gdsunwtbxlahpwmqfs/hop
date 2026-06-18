@@ -1049,8 +1049,10 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
         // Delete the whole location
         //
         MessageBox box = new MessageBox(getShell(), SWT.APPLICATION_MODAL | SWT.NO | SWT.YES);
-        box.setText("Confirm delete");
-        box.setMessage("Are you sure you want to delete all information in this location?");
+        box.setText(
+            BaseMessages.getString(PKG, "ExecutionPerspective.DeleteLocation.Confirm.Title"));
+        box.setMessage(
+            BaseMessages.getString(PKG, "ExecutionPerspective.DeleteLocation.Confirm.Message"));
         int answer = box.open();
         if ((answer & SWT.YES) == 0) {
           return;

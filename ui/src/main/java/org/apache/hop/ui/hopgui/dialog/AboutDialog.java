@@ -106,7 +106,7 @@ public class AboutDialog extends Dialog {
 
     // Widget application name
     Label wName = new Label(composite, SWT.CENTER);
-    wName.setText("HFXT Data Process");
+    wName.setText(BaseMessages.getString(PKG, "AboutDialog.ApplicationName"));
     wName.setFont(GuiResource.getInstance().getFontBold());
     wName.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
     PropsUi.setLook(wName);
@@ -118,7 +118,10 @@ public class AboutDialog extends Dialog {
     PropsUi.setLook(wVersion);
 
     Link wLink = new Link(composite, SWT.WRAP | SWT.MULTI);
-    wLink.setText("<a href=\"https://hop.apache.org\">HFXT Data Process</a>");
+    wLink.setText(
+        "<a href=\"https://hop.apache.org\">"
+            + BaseMessages.getString(PKG, "AboutDialog.ApplicationName")
+            + "</a>");
     wLink.addListener(
         SWT.Selection,
         e -> {

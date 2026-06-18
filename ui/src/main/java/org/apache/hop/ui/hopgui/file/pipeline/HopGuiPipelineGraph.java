@@ -1776,7 +1776,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
             //
             if (!ioMeta.isInputAcceptor()) {
               forbiddenTransform = transformMeta;
-              toolTip.setText("This transform does not accept any input from other transforms");
+              toolTip.setText(
+                  BaseMessages.getString(PKG, "HopGuiPipelineGraph.NoInputAcceptor.Tooltip"));
               showToolTip(new org.eclipse.swt.graphics.Point(event.x, event.y));
             }
             // Check if the hop already exists

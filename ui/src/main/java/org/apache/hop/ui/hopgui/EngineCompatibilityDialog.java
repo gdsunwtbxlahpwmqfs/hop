@@ -18,6 +18,7 @@
 package org.apache.hop.ui.hopgui;
 
 import java.util.List;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.engine.EngineCompatibilityChecker.Violation;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.BaseDialog;
@@ -40,6 +41,8 @@ import org.eclipse.swt.widgets.Shell;
  */
 public final class EngineCompatibilityDialog {
 
+  private static final Class<?> PKG = EngineCompatibilityDialog.class;
+
   private static final int DEFAULT_WIDTH = 540;
   private static final int DEFAULT_HEIGHT = 320;
 
@@ -58,7 +61,7 @@ public final class EngineCompatibilityDialog {
 
   public boolean open() {
     shell = new Shell(parent, BaseDialog.getDefaultDialogStyle());
-    shell.setText("Engine compatibility");
+    shell.setText(BaseMessages.getString(PKG, "EngineCompatibilityDialog.Title"));
     PropsUi.setLook(shell);
 
     FormLayout layout = new FormLayout();
@@ -83,7 +86,7 @@ public final class EngineCompatibilityDialog {
     }
 
     Button cancelButton = new Button(shell, SWT.PUSH);
-    cancelButton.setText("Cancel");
+    cancelButton.setText(BaseMessages.getString(PKG, "EngineCompatibilityDialog.Cancel"));
     cancelButton.addListener(
         SWT.Selection,
         e -> {
@@ -92,7 +95,7 @@ public final class EngineCompatibilityDialog {
         });
 
     Button runAnywayButton = new Button(shell, SWT.PUSH);
-    runAnywayButton.setText("Run anyway");
+    runAnywayButton.setText(BaseMessages.getString(PKG, "EngineCompatibilityDialog.RunAnyway"));
     runAnywayButton.addListener(
         SWT.Selection,
         e -> {

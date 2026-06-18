@@ -65,7 +65,7 @@ import org.eclipse.swt.SWT;
 
 public class HopGuiFileDelegate {
 
-  private static final Class<?> PKG = BaseDialog.class;
+  private static final Class<?> PKG = HopGuiFileDelegate.class;
   public static final String CONST_ERROR = "Error";
   private final HopGui hopGui;
 
@@ -447,8 +447,8 @@ public class HopGuiFileDelegate {
           if (file.exists()) {
             MessageBox box =
                 new MessageBox(hopGui.getActiveShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-            box.setText("File exists");
-            box.setMessage("This file already exists. Do you want to overwrite it?");
+            box.setText(BaseMessages.getString(PKG, "HopGuiFileDelegate.FileExists.Title"));
+            box.setMessage(BaseMessages.getString(PKG, "HopGuiFileDelegate.FileExists.Message"));
             int answer = box.open();
             if ((answer & SWT.YES) == 0) {
               return;

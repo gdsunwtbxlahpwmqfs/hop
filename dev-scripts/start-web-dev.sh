@@ -15,8 +15,9 @@ if [ -z "$CORE_ZIP" ]; then
   echo "==> Core assembly zip not found. Building..."
   ./mvnw clean package -pl assemblies/core -am -Dfast-build -DskipTests
   CORE_ZIP=$(ls assemblies/core/target/hop-core-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
-elif [ ! -d "$CORE_DIR" ]; then
+elif [ ! -d "$CORE_DIR" ] || [ "$CORE_ZIP" -nt "$CORE_DIR" ]; then
   echo "==> Extracting core assembly..."
+  rm -rf "assemblies/core/target/hop"
   unzip -q "$CORE_ZIP" -d "assemblies/core/target/"
 fi
 
@@ -27,16 +28,22 @@ if [ -z "$BEAM_ZIP" ]; then
   echo "==> Beam assembly zip not found. Building..."
   ./mvnw clean package -pl assemblies/beam -am -Dfast-build -DskipTests
   BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
-elif [ ! -d "$BEAM_DIR" ]; then
+elif [ ! -d "$BEAM_DIR" ] || [ "$BEAM_ZIP" -nt "$BEAM_DIR" ]; then
   echo "==> Extracting beam assembly..."
+  rm -rf "assemblies/beam/target/hop"
   unzip -q "$BEAM_ZIP" -d "assemblies/beam/target/"
 fi
 
 # Check if webapp directory needs to be (re)extracted from war
-if [ -z "$(ls -A assemblies/web/target/webapp 2>/dev/null)" ]; then
+# Re-extract if:
+# 1. webapp directory is empty/missing, OR
+# 2. hop.war is newer than webapp directory
+WEBAPP_DIR="assemblies/web/target/webapp"
+if [ -z "$(ls -A "$WEBAPP_DIR" 2>/dev/null)" ] || [ "assemblies/web/target/hop.war" -nt "$WEBAPP_DIR" ]; then
   echo "==> Extracting webapp from war file..."
-  mkdir -p assemblies/web/target/webapp
-  unzip -q assemblies/web/target/hop.war -d assemblies/web/target/webapp
+  rm -rf "$WEBAPP_DIR"
+  mkdir -p "$WEBAPP_DIR"
+  unzip -q assemblies/web/target/hop.war -d "$WEBAPP_DIR"
 fi
 
 # Fix SWT jar: replace macOS cocoa with Linux GTK (built on macOS, runs in Linux container)
@@ -52,10 +59,10 @@ if ls "$WEBAPP_LIB"/org.eclipse.swt.cocoa.* >/dev/null 2>&1; then
   fi
 fi
 
-# Check if plugins directory is empty (needs to be extracted from plugins zip)
+# Check if plugins directory needs to be (re)extracted from plugins zip
 PLUGINS_DIR="assemblies/client/target/hop/plugins"
 PLUGINS_ZIP="assemblies/plugins/target/hop-assemblies-plugins-2.19.0-SNAPSHOT.zip"
-if [ ! -d "$PLUGINS_DIR/transforms" ] && [ -f "$PLUGINS_ZIP" ]; then
+if [ -f "$PLUGINS_ZIP" ] || [ "$PLUGINS_ZIP" -nt "$PLUGINS_DIR" ]; then
   echo "==> Extracting plugins..."
   rm -rf "$PLUGINS_DIR"
   mkdir -p "$PLUGINS_DIR/tmp"

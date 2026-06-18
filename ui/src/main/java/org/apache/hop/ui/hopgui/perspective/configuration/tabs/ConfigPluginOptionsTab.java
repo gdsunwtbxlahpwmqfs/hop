@@ -30,6 +30,7 @@ import org.apache.hop.core.gui.plugin.tab.GuiTab;
 import org.apache.hop.core.plugins.IPlugin;
 import org.apache.hop.core.plugins.PluginRegistry;
 import org.apache.hop.core.util.TranslateUtil;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
 import org.apache.hop.ui.core.gui.GuiCompositeWidgets;
@@ -52,6 +53,9 @@ import org.eclipse.swt.widgets.Shell;
 @GuiPlugin
 public class ConfigPluginOptionsTab {
 
+  private static final Class<?> PKG =
+      org.apache.hop.ui.hopgui.perspective.configuration.ConfigurationPerspective.class;
+
   public static final String GUI_WIDGETS_PARENT_ID = "EnterOptionsDialog-GuiWidgetsParent";
 
   private static Map<String, Object> pluginDataMap = new HashMap<>();
@@ -71,7 +75,7 @@ public class ConfigPluginOptionsTab {
 
     CTabItem wPluginsTab = new CTabItem(wTabFolder, SWT.NONE);
     wPluginsTab.setFont(GuiResource.getInstance().getFontDefault());
-    wPluginsTab.setText("Plugins");
+    wPluginsTab.setText(BaseMessages.getString(PKG, "ConfigPluginOptionsTab.Tab.Plugins"));
     wPluginsTab.setImage(GuiResource.getInstance().getImagePlugin());
 
     Composite wPluginsTabComp = new Composite(wTabFolder, SWT.NONE);
