@@ -2,6 +2,13 @@
 set -e
 cd "$(dirname "$0")/.."
 
+# Clean up previously extracted directories
+echo "==> Cleaning up previously extracted directories..."
+rm -rf "assemblies/core/target/hop"
+rm -rf "assemblies/beam/target/hop"
+rm -rf "assemblies/web/target/webapp"
+rm -rf "assemblies/client/target/hop"
+
 # Check if hop.war exists
 if [ ! -f "assemblies/web/target/hop.war" ]; then
   echo "==> Web assembly not found. Building first..."

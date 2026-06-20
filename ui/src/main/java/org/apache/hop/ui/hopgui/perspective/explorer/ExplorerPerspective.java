@@ -1987,8 +1987,9 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
     if (fileTypeHandler != null) {
       isRemoved = remove(fileTypeHandler);
     }
-    // If remove failed (e.g. null/broken handler) or tab is still there, close it directly
-    if (!tabItem.isDisposed()) {
+    // If remove failed because file is not closeable (user canceled), don't close the tab
+    // Only close directly if handler is null/broken
+    if (!isRemoved && fileTypeHandler == null && !tabItem.isDisposed()) {
       removeHandlerAndDisposeTab(tabItem);
       isRemoved = true;
     }
