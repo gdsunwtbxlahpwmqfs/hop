@@ -97,7 +97,7 @@ public class ModPartitionerDialog extends BaseTransformDialog {
     int middle = props.getMiddlePct();
 
     Label wlFieldname = new Label(shell, SWT.RIGHT);
-    wlFieldname.setText("Fieldname");
+    wlFieldname.setText(BaseMessages.getString(PKG, "ModPartitionerDialog.Fieldname.Label"));
     PropsUi.setLook(wlFieldname);
     FormData fdlFieldname = new FormData();
     fdlFieldname.left = new FormAttachment(0, 0);

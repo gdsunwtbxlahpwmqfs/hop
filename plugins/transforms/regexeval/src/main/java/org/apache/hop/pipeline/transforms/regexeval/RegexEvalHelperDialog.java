@@ -266,7 +266,7 @@ public class RegexEvalHelperDialog extends Dialog {
 
     Group wCaptureGroups = new Group(shell, SWT.SHADOW_NONE);
     PropsUi.setLook(wCaptureGroups);
-    wCaptureGroups.setText("Capture");
+    wCaptureGroups.setText(BaseMessages.getString(PKG, "RegexEvalDialog.Capture.Group.Label"));
     FormLayout captureLayout = new FormLayout();
     captureLayout.marginWidth = 10;
     captureLayout.marginHeight = 10;

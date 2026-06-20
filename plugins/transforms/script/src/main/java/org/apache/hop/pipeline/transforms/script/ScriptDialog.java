@@ -263,7 +263,7 @@ public class ScriptDialog extends BaseTransformDialog {
 
     Text wlHelpLabel = new Text(wTop, SWT.V_SCROLL | SWT.LEFT);
     wlHelpLabel.setEditable(false);
-    wlHelpLabel.setText("Hallo");
+    wlHelpLabel.setText(BaseMessages.getString(PKG, "ScriptDialog.Help.Label"));
     PropsUi.setLook(wlHelpLabel);
     FormData fdHelpLabel = new FormData();
     fdHelpLabel.left = new FormAttachment(wlPosition, margin);
@@ -895,15 +895,15 @@ public class ScriptDialog extends BaseTransformDialog {
     item.setText(BaseMessages.getString(PKG, "ScriptDialog.TransformConstant.Label"));
     TreeItem itemT = new TreeItem(item, SWT.NULL);
     itemT.setImage(GuiResource.getInstance().getImageLabel());
-    itemT.setText("SKIP_TRANSFORMATION");
+    itemT.setText(BaseMessages.getString(PKG, "ScriptDialog.TransformConstant.Skip.Label"));
     itemT.setData("SKIP_TRANSFORMATION");
     itemT = new TreeItem(item, SWT.NULL);
     itemT.setImage(GuiResource.getInstance().getImageLabel());
-    itemT.setText("ERROR_TRANSFORMATION");
+    itemT.setText(BaseMessages.getString(PKG, "ScriptDialog.TransformConstant.Error.Label"));
     itemT.setData("ERROR_TRANSFORMATION");
     itemT = new TreeItem(item, SWT.NULL);
     itemT.setImage(GuiResource.getInstance().getImageLabel());
-    itemT.setText("CONTINUE_TRANSFORMATION");
+    itemT.setText(BaseMessages.getString(PKG, "ScriptDialog.TransformConstant.Continue.Label"));
     itemT.setData("CONTINUE_TRANSFORMATION");
   }
 

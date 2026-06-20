@@ -258,7 +258,7 @@ public class JavaFilterDialog extends BaseTransformDialog {
     List<String> codeCheck = janinoCheckerUtil.checkCode(wCondition.getText());
     if (!codeCheck.isEmpty()) {
       MessageBox mb = new MessageBox(shell, SWT.OK | SWT.ICON_ERROR);
-      mb.setText("Invalid Code");
+      mb.setText(BaseMessages.getString(PKG, "JavaFilterDialog.InvalidCode.MessageBox.Title"));
       mb.setMessage("Script contains code that is not allowed : " + codeCheck);
       mb.open();
       return;

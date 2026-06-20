@@ -510,7 +510,7 @@ public class ElasticExecutionInfoLocation extends BaseCachingExecutionInfoLocati
       // All done.  The index exists and is configured.
       //
       MessageBox box = new MessageBox(hopGui.getShell(), SWT.OK);
-      box.setText("Index ready");
+      box.setText(BaseMessages.getString(PKG, "ElasticExecutionInfoLocation.IndexReady.Title"));
       box.setMessage(
           BaseMessages.getString(
               PKG,

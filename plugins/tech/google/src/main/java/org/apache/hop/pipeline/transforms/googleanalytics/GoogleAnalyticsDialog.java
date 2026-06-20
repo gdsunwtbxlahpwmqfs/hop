@@ -524,7 +524,7 @@ public class GoogleAnalyticsDialog extends BaseTransformDialog {
 
     if (response == null || dimensionHeaders.isEmpty() || metricHeaders.isEmpty()) {
       MessageBox mb = new MessageBox(shell, SWT.OK | SWT.ICON_ERROR);
-      mb.setText("Query yields empty feed");
+      mb.setText(BaseMessages.getString(PKG, "GoogleAnalyticsDialog.QueryEmptyFeed.Title"));
       mb.setMessage("The feed did not give any results. Please specify a query that returns data.");
       mb.open();
 

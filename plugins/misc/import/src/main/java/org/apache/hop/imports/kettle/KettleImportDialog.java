@@ -505,7 +505,7 @@ public class KettleImportDialog extends Dialog {
     // Buttons go at the bottom of the dialog
     //
     Button wImport = new Button(shell, SWT.PUSH);
-    wImport.setText("Import");
+    wImport.setText(BaseMessages.getString(PKG, "KettleImportDialog.Button.Import"));
     wImport.addListener(SWT.Selection, event -> doImport());
     Button wCancel = new Button(shell, SWT.PUSH);
     wCancel.setText(BaseMessages.getString(PKG, "System.Button.Cancel"));

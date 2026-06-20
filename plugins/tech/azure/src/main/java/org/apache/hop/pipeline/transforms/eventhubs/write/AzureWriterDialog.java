@@ -95,7 +95,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     // Namespace
     //
     Label wlNamespace = new Label(wContent, SWT.RIGHT);
-    wlNamespace.setText("Event Hubs namespace");
+    wlNamespace.setText(BaseMessages.getString(PKG, "AzureWriterDialog.Namespace.Label"));
     PropsUi.setLook(wlNamespace);
     FormData fdlNamespace = new FormData();
     fdlNamespace.left = new FormAttachment(0, 0);
@@ -113,7 +113,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     lastControl = wNamespace;
 
     Label wlEventHub = new Label(wContent, SWT.RIGHT);
-    wlEventHub.setText("Event Hubs instance name");
+    wlEventHub.setText(BaseMessages.getString(PKG, "AzureWriterDialog.EventHub.Label"));
     PropsUi.setLook(wlEventHub);
     FormData fdlEventHub = new FormData();
     fdlEventHub.left = new FormAttachment(0, 0);
@@ -131,7 +131,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     lastControl = wEventHub;
 
     Label wlSasKeyName = new Label(wContent, SWT.RIGHT);
-    wlSasKeyName.setText("SAS Policy key name");
+    wlSasKeyName.setText(BaseMessages.getString(PKG, "AzureWriterDialog.SasKeyName.Label"));
     PropsUi.setLook(wlSasKeyName);
     FormData fdlSasKeyName = new FormData();
     fdlSasKeyName.left = new FormAttachment(0, 0);
@@ -149,7 +149,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     lastControl = wSasKeyName;
 
     Label wlSasKey = new Label(wContent, SWT.RIGHT);
-    wlSasKey.setText("SAS Key connection string");
+    wlSasKey.setText(BaseMessages.getString(PKG, "AzureWriterDialog.SasKey.Label"));
     PropsUi.setLook(wlSasKey);
     FormData fdlSasKey = new FormData();
     fdlSasKey.left = new FormAttachment(0, 0);
@@ -167,7 +167,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     lastControl = wSasKey;
 
     Label wlBatchSize = new Label(wContent, SWT.RIGHT);
-    wlBatchSize.setText("Batch size");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "AzureWriterDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -185,7 +185,7 @@ public class AzureWriterDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     Label wlMessageField = new Label(wContent, SWT.RIGHT);
-    wlMessageField.setText("Message field");
+    wlMessageField.setText(BaseMessages.getString(PKG, "AzureWriterDialog.MessageField.Label"));
     PropsUi.setLook(wlMessageField);
     FormData fdlMessageField = new FormData();
     fdlMessageField.left = new FormAttachment(0, 0);

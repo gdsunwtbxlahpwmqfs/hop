@@ -418,7 +418,8 @@ public class RegexEvalDialog extends BaseTransformDialog {
 
     Group wRegexSettings = new Group(wContentComp, SWT.SHADOW_NONE);
     PropsUi.setLook(wRegexSettings);
-    wRegexSettings.setText("Regex Settings");
+    wRegexSettings.setText(
+        BaseMessages.getString(PKG, "RegexEvalDialog.RegexSettings.Group.Label"));
 
     FormLayout regexLayout = new FormLayout();
     regexLayout.marginWidth = 10;

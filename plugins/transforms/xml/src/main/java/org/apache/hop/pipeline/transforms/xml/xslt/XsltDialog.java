@@ -623,7 +623,7 @@ public class XsltDialog extends BaseTransformDialog {
     if (input.getXslFactory() != null) {
       wXSLTFactory.setText(input.getXslFactory());
     } else {
-      wXSLTFactory.setText("JAXP");
+      wXSLTFactory.setText(BaseMessages.getString(PKG, "XsltDialog.XSLTFactory.Default"));
     }
 
     for (XsltMeta.Parameter parameter : input.getParameters()) {

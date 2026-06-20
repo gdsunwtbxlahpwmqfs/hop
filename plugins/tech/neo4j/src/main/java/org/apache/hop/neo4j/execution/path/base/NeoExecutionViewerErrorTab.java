@@ -94,32 +94,32 @@ public class NeoExecutionViewerErrorTab extends NeoExecutionViewerTabBase {
     wTree.setHeaderVisible(true);
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("#");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.Hash.Name"));
       column.setWidth((int) (50 * props.getZoomFactor()));
     }
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("id");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.ID.Name"));
       column.setWidth((int) (250 * props.getZoomFactor()));
     }
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("Name");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.Name.Name"));
       column.setWidth((int) (300 * props.getZoomFactor()));
     }
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("Type");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.Type.Name"));
       column.setWidth((int) (100 * props.getZoomFactor()));
     }
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("Failed?");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.Failed.Name"));
       column.setWidth((int) (50 * props.getZoomFactor()));
     }
     {
       TreeColumn column = new TreeColumn(wTree, SWT.LEFT);
-      column.setText("date");
+      column.setText(BaseMessages.getString(PKG, "Neo4jPerspectiveDialog.Column.Date.Name"));
       column.setWidth((int) (200 * props.getZoomFactor()));
     }
 

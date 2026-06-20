@@ -178,7 +178,7 @@ public class CypherDialog extends BaseTransformDialog {
     Control lastControl = wConnection;
 
     Label wlBatchSize = new Label(wOptionsComp, SWT.RIGHT);
-    wlBatchSize.setText("Batch size (rows)");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "CypherDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -195,7 +195,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     Label wlReadOnly = new Label(wOptionsComp, SWT.RIGHT);
-    wlReadOnly.setText("Read only statement? ");
+    wlReadOnly.setText(BaseMessages.getString(PKG, "CypherDialog.ReadOnly.Label"));
     PropsUi.setLook(wlReadOnly);
     FormData fdlReadOnly = new FormData();
     fdlReadOnly.left = new FormAttachment(0, 0);
@@ -212,7 +212,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wReadOnly;
 
     Label wlRetry = new Label(wOptionsComp, SWT.RIGHT);
-    wlRetry.setText("Reconnect once after disconnection? ");
+    wlRetry.setText(BaseMessages.getString(PKG, "CypherDialog.RetryOnDisconnect.Label"));
     PropsUi.setLook(wlRetry);
     FormData fdlRetry = new FormData();
     fdlRetry.left = new FormAttachment(0, 0);
@@ -229,7 +229,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wRetryOnDisconnect;
 
     Label wlNrRetriesOnError = new Label(wOptionsComp, SWT.RIGHT);
-    wlNrRetriesOnError.setText("Number of retries on error");
+    wlNrRetriesOnError.setText(BaseMessages.getString(PKG, "CypherDialog.NrRetriesOnError.Label"));
     PropsUi.setLook(wlNrRetriesOnError);
     FormData fdlNrRetriesOnError = new FormData();
     fdlNrRetriesOnError.left = new FormAttachment(0, 0);
@@ -246,7 +246,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wNrRetriesOnError;
 
     Label wlCypherFromField = new Label(wOptionsComp, SWT.RIGHT);
-    wlCypherFromField.setText("Get Cypher from input field? ");
+    wlCypherFromField.setText(BaseMessages.getString(PKG, "CypherDialog.CypherFromField.Label"));
     PropsUi.setLook(wlCypherFromField);
     FormData fdlCypherFromField = new FormData();
     fdlCypherFromField.left = new FormAttachment(0, 0);
@@ -271,7 +271,7 @@ public class CypherDialog extends BaseTransformDialog {
         });
 
     Label wlCypherField = new Label(wOptionsComp, SWT.RIGHT);
-    wlCypherField.setText("Cypher input field");
+    wlCypherField.setText(BaseMessages.getString(PKG, "CypherDialog.CypherField.Label"));
     PropsUi.setLook(wlCypherField);
     FormData fdlCypherField = new FormData();
     fdlCypherField.left = new FormAttachment(0, 0);
@@ -288,7 +288,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wCypherField;
 
     Label wlUnwind = new Label(wOptionsComp, SWT.RIGHT);
-    wlUnwind.setText("Collect parameter values map?");
+    wlUnwind.setText(BaseMessages.getString(PKG, "CypherDialog.Unwind.Label"));
     wlUnwind.setToolTipText(
         "Collect the specified parameters field data and expose it into a single variable to support UNWIND statements");
     PropsUi.setLook(wlUnwind);
@@ -314,7 +314,7 @@ public class CypherDialog extends BaseTransformDialog {
         });
 
     wlUnwindMap = new Label(wOptionsComp, SWT.RIGHT);
-    wlUnwindMap.setText("Name of values map list");
+    wlUnwindMap.setText(BaseMessages.getString(PKG, "CypherDialog.UnwindMap.Label"));
     wlUnwindMap.setToolTipText(
         "You can use this parameter in your Cypher usually in UNWIND statements");
     PropsUi.setLook(wlUnwindMap);
@@ -333,7 +333,7 @@ public class CypherDialog extends BaseTransformDialog {
     lastControl = wUnwindMap;
 
     Label wlReturnGraph = new Label(wOptionsComp, SWT.RIGHT);
-    wlReturnGraph.setText("Return graph data?");
+    wlReturnGraph.setText(BaseMessages.getString(PKG, "CypherDialog.ReturnGraph.Label"));
     String returnGraphTooltipText = "Returns the whole result of a query as a Graph Hop data type";
     wlReturnGraph.setToolTipText(returnGraphTooltipText);
     PropsUi.setLook(wlReturnGraph);
@@ -360,7 +360,7 @@ public class CypherDialog extends BaseTransformDialog {
         });
 
     wlReturnGraphField = new Label(wOptionsComp, SWT.RIGHT);
-    wlReturnGraphField.setText("Graph output field name");
+    wlReturnGraphField.setText(BaseMessages.getString(PKG, "CypherDialog.ReturnGraphField.Label"));
     PropsUi.setLook(wlReturnGraphField);
     FormData fdlReturnGraphField = new FormData();
     fdlReturnGraphField.left = new FormAttachment(0, 0);
@@ -410,7 +410,7 @@ public class CypherDialog extends BaseTransformDialog {
         };
 
     Label wlParameters = new Label(wParametersComp, SWT.LEFT);
-    wlParameters.setText("Parameters: (NOTE that parameters for labels are not supported)");
+    wlParameters.setText(BaseMessages.getString(PKG, "CypherDialog.Parameters.Label"));
     PropsUi.setLook(wlParameters);
     FormData fdlParameters = new FormData();
     fdlParameters.left = new FormAttachment(0, 0);
@@ -419,7 +419,7 @@ public class CypherDialog extends BaseTransformDialog {
     wlParameters.setLayoutData(fdlParameters);
 
     Button wbGetParameters = new Button(wParametersComp, SWT.PUSH);
-    wbGetParameters.setText("Get parameters");
+    wbGetParameters.setText(BaseMessages.getString(PKG, "CypherDialog.GetParameters.Button"));
     FormData fdbGetParameters = new FormData();
     fdbGetParameters.right = new FormAttachment(100, 0);
     fdbGetParameters.top = new FormAttachment(wlParameters, 0, SWT.BOTTOM);
@@ -477,7 +477,7 @@ public class CypherDialog extends BaseTransformDialog {
     wCypherComp.setLayout(createFormLayout());
 
     Label wlCypher = new Label(wCypherComp, SWT.LEFT);
-    wlCypher.setText("Cypher:");
+    wlCypher.setText(BaseMessages.getString(PKG, "CypherDialog.Cypher.Label"));
     PropsUi.setLook(wlCypher);
     FormData fdlCypher = new FormData();
     fdlCypher.left = new FormAttachment(0, 0);
@@ -526,7 +526,7 @@ public class CypherDialog extends BaseTransformDialog {
         };
 
     Label wlReturns = new Label(wReturnsComp, SWT.LEFT);
-    wlReturns.setText("Returns");
+    wlReturns.setText(BaseMessages.getString(PKG, "CypherDialog.Returns.Label"));
     PropsUi.setLook(wlReturns);
     FormData fdlReturns = new FormData();
     fdlReturns.left = new FormAttachment(0, 0);
@@ -535,7 +535,7 @@ public class CypherDialog extends BaseTransformDialog {
     wlReturns.setLayoutData(fdlReturns);
 
     Button wbGetReturnFields = new Button(wReturnsComp, SWT.PUSH);
-    wbGetReturnFields.setText("Get Output Fields");
+    wbGetReturnFields.setText(BaseMessages.getString(PKG, "CypherDialog.GetReturnFields.Button"));
     FormData fdbGetReturnFields = new FormData();
     fdbGetReturnFields.right = new FormAttachment(100, 0);
     fdbGetReturnFields.top = new FormAttachment(wlReturns, 0, SWT.BOTTOM);

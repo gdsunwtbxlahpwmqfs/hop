@@ -22,6 +22,7 @@ import org.apache.hop.core.Const;
 import org.apache.hop.core.Result;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.databases.cassandra.datastax.DriverConnection;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.EnterSelectionDialog;
 import org.apache.hop.ui.core.dialog.EnterTextDialog;
@@ -43,6 +44,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class CassandraConnectionEditor extends MetadataEditor<CassandraConnection> {
+
+  private static final Class<?> PKG = CassandraConnectionEditor.class; // needed by Translator!!
 
   public static final String PARENT_WIDGET_ID = "CassandraConnectionEditor.Widgets.ParentId";
   public static final String CONST_ERROR = "Error";
@@ -69,7 +72,7 @@ public class CassandraConnectionEditor extends MetadataEditor<CassandraConnectio
     // What's the name
     Label wlName = new Label(parent, SWT.RIGHT);
     PropsUi.setLook(wlName);
-    wlName.setText("Cassandra connection name");
+    wlName.setText(BaseMessages.getString(PKG, "CassandraConnectionEditor.Name.Label"));
     FormData fdlName = new FormData();
     fdlName.top = new FormAttachment(0, margin * 2);
     fdlName.left = new FormAttachment(0, 0);
@@ -123,17 +126,18 @@ public class CassandraConnectionEditor extends MetadataEditor<CassandraConnectio
 
     Button wbSelectKeyspace = new Button(parent, SWT.PUSH | SWT.CENTER);
     PropsUi.setLook(wbSelectKeyspace);
-    wbSelectKeyspace.setText("Select keyspace");
+    wbSelectKeyspace.setText(
+        BaseMessages.getString(PKG, "CassandraConnectionEditor.SelectKeyspace.Button"));
     wbSelectKeyspace.addListener(SWT.Selection, e -> selectKeyspace());
 
     Button wbTest = new Button(parent, SWT.PUSH | SWT.CENTER);
     PropsUi.setLook(wbTest);
-    wbTest.setText("Test");
+    wbTest.setText(BaseMessages.getString(PKG, "CassandraConnectionEditor.Test.Button"));
     wbTest.addListener(SWT.Selection, e -> test());
 
     Button wbCql = new Button(parent, SWT.PUSH | SWT.CENTER);
     PropsUi.setLook(wbCql);
-    wbCql.setText("Execute CQL");
+    wbCql.setText(BaseMessages.getString(PKG, "CassandraConnectionEditor.ExecuteCql.Button"));
     wbCql.addListener(SWT.Selection, e -> execCql());
 
     return new Button[] {
@@ -155,7 +159,7 @@ public class CassandraConnectionEditor extends MetadataEditor<CassandraConnectio
       }
 
       MessageBox box = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK);
-      box.setText("Success!");
+      box.setText(BaseMessages.getString(PKG, "CassandraConnectionEditor.Test.Success.Title"));
       box.setMessage("It's possible to connect to Cassandra with this metadata!");
       box.open();
 
@@ -211,7 +215,8 @@ public class CassandraConnectionEditor extends MetadataEditor<CassandraConnectio
             ExecCql.executeCqlStatements(
                 manager.getVariables(), LogChannel.UI, new Result(), meta, cql);
         MessageBox box = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK);
-        box.setText("Success!");
+        box.setText(
+            BaseMessages.getString(PKG, "CassandraConnectionEditor.ExecuteCql.Success.Title"));
         box.setMessage(+executed + " CQL statements were executed.");
         box.open();
       }

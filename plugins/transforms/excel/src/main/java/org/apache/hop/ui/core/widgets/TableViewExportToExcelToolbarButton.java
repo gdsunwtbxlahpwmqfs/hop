@@ -31,6 +31,7 @@ import org.apache.hop.core.row.IValueMeta;
 import org.apache.hop.core.row.value.ValueMetaInteger;
 import org.apache.hop.core.row.value.ValueMetaString;
 import org.apache.hop.core.vfs.HopVfs;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.dialog.BaseDialog;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
 import org.apache.hop.ui.core.dialog.MessageBox;
@@ -53,6 +54,8 @@ import org.eclipse.swt.widgets.TableItem;
 
 @GuiPlugin
 public class TableViewExportToExcelToolbarButton {
+
+  private static final Class<?> PKG = TableViewExportToExcelToolbarButton.class;
 
   private static final String ID_TOOLBAR_EXPORT_EXCEL = "tableview-toolbar-30000-export-to-excel";
 
@@ -197,7 +200,7 @@ public class TableViewExportToExcelToolbarButton {
       EnvironmentUtils.getInstance().openUrl(filename);
       if (EnvironmentUtils.getInstance().isWeb()) {
         MessageBox messageBox = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
-        messageBox.setText("File written");
+        messageBox.setText(BaseMessages.getString(PKG, "ExcelWidget.MessageBox.FileWritten.Title"));
         messageBox.setMessage("The Excel file was written to: " + filename);
         messageBox.open();
       }

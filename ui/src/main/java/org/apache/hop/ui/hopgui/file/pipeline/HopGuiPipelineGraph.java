@@ -4178,8 +4178,15 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       FileObject fileObject = HopVfs.getFileObject(filename);
       if (fileObject.exists()) {
         MessageBox box = new MessageBox(hopGui.getShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-        box.setText("Overwrite?");
-        box.setMessage("Are you sure you want to overwrite file '" + filename + "'?");
+        box.setText(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.file.pipeline",
+                "HopGuiPipelineGraph.Dialog.Overwrite.Title"));
+        box.setMessage(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.file.pipeline",
+                "HopGuiPipelineGraph.Dialog.Overwrite.Message",
+                filename));
         int answer = box.open();
         if ((answer & SWT.YES) == 0) {
           return;

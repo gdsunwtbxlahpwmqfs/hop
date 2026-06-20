@@ -120,7 +120,7 @@ public class XsdValidatorDialog extends BaseTransformDialog {
 
     Group wXML = new Group(wGeneralComp, SWT.SHADOW_NONE);
     PropsUi.setLook(wXML);
-    wXML.setText("XML source");
+    wXML.setText(BaseMessages.getString(PKG, "XsdValidatorDialog.XMLSource.Group.Label"));
 
     FormLayout groupXML = new FormLayout();
     groupXML.marginWidth = 10;
@@ -197,7 +197,8 @@ public class XsdValidatorDialog extends BaseTransformDialog {
 
     Group wOutputFields = new Group(wGeneralComp, SWT.SHADOW_NONE);
     PropsUi.setLook(wOutputFields);
-    wOutputFields.setText("Output Fields");
+    wOutputFields.setText(
+        BaseMessages.getString(PKG, "XsdValidatorDialog.OutputFields.Group.Label"));
 
     FormLayout groupLayout = new FormLayout();
     groupLayout.marginWidth = 10;
@@ -334,7 +335,7 @@ public class XsdValidatorDialog extends BaseTransformDialog {
 
     Group wXSD = new Group(wGeneralComp, SWT.SHADOW_NONE);
     PropsUi.setLook(wXSD);
-    wXSD.setText("XML Schema Definition");
+    wXSD.setText(BaseMessages.getString(PKG, "XsdValidatorDialog.XSD.Group.Label"));
 
     FormLayout groupXsd = new FormLayout();
     groupXsd.marginWidth = 10;
@@ -605,7 +606,8 @@ public class XsdValidatorDialog extends BaseTransformDialog {
     if (input.getValidationMessageField() != null) {
       wValidationMsg.setText(input.getValidationMessageField());
     } else {
-      wValidationMsg.setText("ValidationMsgField");
+      wValidationMsg.setText(
+          BaseMessages.getString(PKG, "XsdValidatorDialog.ValidationMsgField.Default"));
     }
 
     wOutputStringField.setSelection(input.isOutputStringField());

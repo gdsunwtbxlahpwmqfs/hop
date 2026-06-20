@@ -36,6 +36,7 @@ import org.apache.hop.core.exception.HopFileException;
 import org.apache.hop.core.listeners.IContentChangedListener;
 import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.core.vfs.HopVfs;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.hopgui.HopGui;
@@ -201,8 +202,15 @@ public abstract class BaseExplorerFileTypeHandler implements IExplorerFileTypeHa
       if (changed) {
         MessageBox messageDialog =
             new MessageBox(hopGui.getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO | SWT.CANCEL);
-        messageDialog.setText("Save file?");
-        messageDialog.setMessage("Do you want to save file '" + getName() + "' before closing?");
+        messageDialog.setText(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.perspective.explorer",
+                "ExplorerFileTypeHandler.SaveBeforeClose.Header"));
+        messageDialog.setMessage(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.perspective.explorer",
+                "ExplorerFileTypeHandler.SaveBeforeClose.Message",
+                getName()));
         int answer = messageDialog.open();
         if ((answer & SWT.YES) != 0) {
           save();

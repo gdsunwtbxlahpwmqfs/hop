@@ -170,7 +170,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wConnection;
 
     wlBatchSize = new Label(shell, SWT.RIGHT);
-    wlBatchSize.setText("Batch size (rows)");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -188,7 +188,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     wlCreateIndexes = new Label(shell, SWT.RIGHT);
-    wlCreateIndexes.setText("Create indexes? ");
+    wlCreateIndexes.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.CreateIndexes.Label"));
     PropsUi.setLook(wlCreateIndexes);
     FormData fdlCreateIndexes = new FormData();
     fdlCreateIndexes.left = new FormAttachment(0, 0);
@@ -205,7 +205,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wCreateIndexes;
 
     wlUseCreate = new Label(shell, SWT.RIGHT);
-    wlUseCreate.setText("Use CREATE instead of MERGE? ");
+    wlUseCreate.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.UseCreate.Label"));
     PropsUi.setLook(wlUseCreate);
     FormData fdlUseCreate = new FormData();
     fdlUseCreate.left = new FormAttachment(0, 0);
@@ -222,7 +222,8 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wUseCreate;
 
     wlOnlyCreateRelationships = new Label(shell, SWT.RIGHT);
-    wlOnlyCreateRelationships.setText("Only create relationships? ");
+    wlOnlyCreateRelationships.setText(
+        BaseMessages.getString(PKG, "Neo4JOutputDialog.OnlyCreateRelationships.Label"));
     PropsUi.setLook(wlOnlyCreateRelationships);
     FormData fdlOnlyCreateRelationships = new FormData();
     fdlOnlyCreateRelationships.left = new FormAttachment(0, 0);
@@ -242,7 +243,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     // Array separator (for Array type properties)
     //
     wlArraySeparator = new Label(shell, SWT.RIGHT);
-    wlArraySeparator.setText("Array separator ");
+    wlArraySeparator.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.ArraySeparator.Label"));
     String ttArraySeparator =
         "Character used to separate array elements (e.g., comma, semicolon, pipe). Used when property type is Array.";
     wlArraySeparator.setToolTipText(ttArraySeparator);
@@ -266,7 +267,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     // Array enclosure (for Array type properties)
     //
     wlArrayEnclosure = new Label(shell, SWT.RIGHT);
-    wlArrayEnclosure.setText("Array enclosure ");
+    wlArrayEnclosure.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.ArrayEnclosure.Label"));
     String ttArrayEnclosure =
         "Character used to enclose each array element (e.g., quotes, single quotes). Leave empty for no enclosure. Used when property type is Array.";
     wlArrayEnclosure.setToolTipText(ttArrayEnclosure);
@@ -288,7 +289,7 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wArrayEnclosure;
 
     Label wlReturnGraph = new Label(shell, SWT.RIGHT);
-    wlReturnGraph.setText("Return graph data?");
+    wlReturnGraph.setText(BaseMessages.getString(PKG, "Neo4JOutputDialog.ReturnGraph.Label"));
     String returnGraphTooltipText =
         "The update data to be updated in the form of Graph a value in the output of this transform";
     wlReturnGraph.setToolTipText(returnGraphTooltipText);
@@ -310,7 +311,8 @@ public class Neo4JOutputDialog extends BaseTransformDialog {
     lastControl = wReturnGraph;
 
     wlReturnGraphField = new Label(shell, SWT.RIGHT);
-    wlReturnGraphField.setText("Graph output field name");
+    wlReturnGraphField.setText(
+        BaseMessages.getString(PKG, "Neo4JOutputDialog.ReturnGraphField.Label"));
     PropsUi.setLook(wlReturnGraphField);
     FormData fdlReturnGraphField = new FormData();
     fdlReturnGraphField.left = new FormAttachment(0, 0);

@@ -104,7 +104,7 @@ public class SplitGraphDialog extends BaseTransformDialog {
     // Graph input field
     //
     Label wlGraphField = new Label(wComposite, SWT.RIGHT);
-    wlGraphField.setText("Graph field ");
+    wlGraphField.setText(BaseMessages.getString(PKG, "SplitGraphDialog.Label.GraphField"));
     PropsUi.setLook(wlGraphField);
     FormData fdlGraphField = new FormData();
     fdlGraphField.left = new FormAttachment(0, 0);
@@ -124,7 +124,7 @@ public class SplitGraphDialog extends BaseTransformDialog {
     // Type output field
     //
     Label wlTypeField = new Label(wComposite, SWT.RIGHT);
-    wlTypeField.setText("Type output field (Node/Relationship) ");
+    wlTypeField.setText(BaseMessages.getString(PKG, "SplitGraphDialog.Label.TypeField"));
     PropsUi.setLook(wlTypeField);
     FormData fdlTypeField = new FormData();
     fdlTypeField.left = new FormAttachment(0, 0);
@@ -143,7 +143,7 @@ public class SplitGraphDialog extends BaseTransformDialog {
     // The ID of the node or relationship
     //
     Label wlIdField = new Label(wComposite, SWT.RIGHT);
-    wlIdField.setText("ID output field ");
+    wlIdField.setText(BaseMessages.getString(PKG, "SplitGraphDialog.Label.IdField"));
     PropsUi.setLook(wlIdField);
     FormData fdlIdField = new FormData();
     fdlIdField.left = new FormAttachment(0, 0);
@@ -163,7 +163,8 @@ public class SplitGraphDialog extends BaseTransformDialog {
     // The property set (type/name of node, relationship, ...)
     //
     Label wlPropertySetField = new Label(wComposite, SWT.RIGHT);
-    wlPropertySetField.setText("Property set output field ");
+    wlPropertySetField.setText(
+        BaseMessages.getString(PKG, "SplitGraphDialog.Label.PropertySetField"));
     PropsUi.setLook(wlPropertySetField);
     FormData fdlPropertySetField = new FormData();
     fdlPropertySetField.left = new FormAttachment(0, 0);

@@ -18,6 +18,7 @@
 package org.apache.hop.vfs.googledrive.ui;
 
 import com.google.api.client.extensions.java6.auth.oauth2.VerificationCodeReceiver;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.ConstUi;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.gui.GuiResource;
@@ -44,6 +45,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public class GoogleAuthorizationDialog extends Dialog {
+
+  private static final Class<?> PKG = GoogleAuthorizationDialog.class; // needed by Translator!!
 
   protected int width = 620;
   protected int height = 650;
@@ -103,7 +106,7 @@ public class GoogleAuthorizationDialog extends Dialog {
       helpButton.setLayoutData(helpButtonFormData);
 
       Text helpLabel = new Text(dialog, SWT.NONE);
-      helpLabel.setText("Help");
+      helpLabel.setText(BaseMessages.getString(PKG, "GoogleAuthorizationDialog.Help.Label"));
       helpLabel.setEditable(false);
 
       PropsUi.setLook(helpLabel);
@@ -208,7 +211,7 @@ public class GoogleAuthorizationDialog extends Dialog {
     } catch (Exception e) {
       MessageBox messageBox = new MessageBox(dialog, SWT.ICON_ERROR | SWT.OK);
       messageBox.setMessage("Browser cannot be initialized.");
-      messageBox.setText("Exit");
+      messageBox.setText(BaseMessages.getString(PKG, "GoogleAuthorizationDialog.Exit.Title"));
       messageBox.open();
     }
     setPosition();

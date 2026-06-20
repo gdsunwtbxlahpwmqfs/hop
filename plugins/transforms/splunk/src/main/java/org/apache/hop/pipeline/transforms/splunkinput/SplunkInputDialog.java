@@ -139,7 +139,7 @@ public class SplunkInputDialog extends BaseTransformDialog {
     lastControl = wConnection;
 
     Label wlQuery = new Label(wComposite, SWT.LEFT);
-    wlQuery.setText("Query:");
+    wlQuery.setText(BaseMessages.getString(PKG, "SplunkInputDialog.Query.Label"));
     PropsUi.setLook(wlQuery);
     FormData fdlQuery = new FormData();
     fdlQuery.left = new FormAttachment(0, 0);
@@ -174,7 +174,7 @@ public class SplunkInputDialog extends BaseTransformDialog {
         };
 
     Label wlReturns = new Label(wComposite, SWT.LEFT);
-    wlReturns.setText("Returns");
+    wlReturns.setText(BaseMessages.getString(PKG, "SplunkInputDialog.Returns.Label"));
     PropsUi.setLook(wlReturns);
     FormData fdlReturns = new FormData();
     fdlReturns.left = new FormAttachment(0, 0);
@@ -183,7 +183,8 @@ public class SplunkInputDialog extends BaseTransformDialog {
     wlReturns.setLayoutData(fdlReturns);
 
     Button wbGetReturnFields = new Button(wComposite, SWT.PUSH);
-    wbGetReturnFields.setText("Get Output Fields");
+    wbGetReturnFields.setText(
+        BaseMessages.getString(PKG, "SplunkInputDialog.GetReturnFields.Button"));
     FormData fdbGetReturnFields = new FormData();
     fdbGetReturnFields.right = new FormAttachment(100, 0);
     fdbGetReturnFields.top = new FormAttachment(lastControl, margin);

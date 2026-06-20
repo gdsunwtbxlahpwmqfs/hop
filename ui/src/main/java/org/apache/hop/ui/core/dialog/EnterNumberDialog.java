@@ -157,7 +157,7 @@ public class EnterNumberDialog extends Dialog {
     if (withFromTo) {
       // Add from-to
       Label wlFrom = new Label(shell, SWT.RIGHT);
-      wlFrom.setText("From:");
+      wlFrom.setText(BaseMessages.getString(PKG, "EnterNumberDialog.From.Label"));
       PropsUi.setLook(wlFrom);
       FormData fdlFrom = new FormData();
       fdlFrom.left = new FormAttachment(0, 0);
@@ -171,7 +171,7 @@ public class EnterNumberDialog extends Dialog {
       wFrom.setLayoutData(fdFrom);
       wFrom.addModifyListener(e -> wNumber.setEnabled(wFrom.getText().isEmpty()));
       Label wlTo = new Label(shell, SWT.RIGHT);
-      wlTo.setText("To:");
+      wlTo.setText(BaseMessages.getString(PKG, "EnterNumberDialog.To.Label"));
       PropsUi.setLook(wlTo);
       FormData fdlTo = new FormData();
       fdlTo.left = new FormAttachment(wFrom, BaseDialog.ELEMENT_SPACING);

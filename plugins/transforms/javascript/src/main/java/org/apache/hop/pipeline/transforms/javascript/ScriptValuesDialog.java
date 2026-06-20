@@ -1367,7 +1367,7 @@ public class ScriptValuesDialog extends BaseTransformDialog {
             mb.setMessage(
                 BaseMessages.getString(PKG, "ScriptValuesDialogMod.ScriptCompilationOK")
                     + Const.CR);
-            mb.setText("OK");
+            mb.setText(BaseMessages.getString(PKG, "ScriptValuesDialogMod.Ok.Title"));
             mb.open();
           }
         } else {

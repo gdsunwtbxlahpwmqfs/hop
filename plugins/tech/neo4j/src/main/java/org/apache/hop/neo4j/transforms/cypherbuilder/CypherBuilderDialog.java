@@ -197,7 +197,7 @@ public class CypherBuilderDialog extends BaseTransformDialog {
     Control lastControl = wConnection;
 
     Label wlBatchSize = new Label(wOptionsComp, SWT.RIGHT);
-    wlBatchSize.setText("Batch size (rows)");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "CypherBuilderDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -215,7 +215,7 @@ public class CypherBuilderDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     Label wlUnwindAlias = new Label(wOptionsComp, SWT.RIGHT);
-    wlUnwindAlias.setText("Unwind map alias");
+    wlUnwindAlias.setText(BaseMessages.getString(PKG, "CypherBuilderDialog.UnwindAlias.Label"));
     wlUnwindAlias.setToolTipText(
         "Set this to enable UNWIND style cypher building.  The map is called $rows so you can call this row");
     PropsUi.setLook(wlUnwindAlias);
@@ -235,7 +235,7 @@ public class CypherBuilderDialog extends BaseTransformDialog {
     lastControl = wUnwindAlias;
 
     Label wlRetries = new Label(wOptionsComp, SWT.RIGHT);
-    wlRetries.setText("Maximum retries");
+    wlRetries.setText(BaseMessages.getString(PKG, "CypherBuilderDialog.RetriesMax.Label"));
     wlRetries.setToolTipText(
         "This is the maximum number of times a transaction will be re-tried on the database before giving up.");
     PropsUi.setLook(wlRetries);
@@ -288,7 +288,7 @@ public class CypherBuilderDialog extends BaseTransformDialog {
         };
 
     Label wlParameters = new Label(wParametersComp, SWT.LEFT);
-    wlParameters.setText("Parameters: (NOTE that parameters for labels are not supported)");
+    wlParameters.setText(BaseMessages.getString(PKG, "CypherBuilderDialog.Parameters.Label"));
     PropsUi.setLook(wlParameters);
     FormData fdlParameters = new FormData();
     fdlParameters.left = new FormAttachment(0, 0);
@@ -297,7 +297,8 @@ public class CypherBuilderDialog extends BaseTransformDialog {
     wlParameters.setLayoutData(fdlParameters);
 
     Button wbGetParameters = new Button(wParametersComp, SWT.PUSH);
-    wbGetParameters.setText("Get parameters");
+    wbGetParameters.setText(
+        BaseMessages.getString(PKG, "CypherBuilderDialog.GetParameters.Button"));
     FormData fdbGetParameters = new FormData();
     fdbGetParameters.right = new FormAttachment(100, 0);
     fdbGetParameters.top = new FormAttachment(wlParameters, 0, SWT.BOTTOM);

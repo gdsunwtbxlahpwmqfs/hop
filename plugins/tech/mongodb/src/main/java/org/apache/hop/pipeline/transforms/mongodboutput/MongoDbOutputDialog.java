@@ -125,7 +125,8 @@ public class MongoDbOutputDialog extends BaseTransformDialog {
     // --- start of the options tab
     CTabItem wOutputOptionsTab = new CTabItem(wTabFolder, SWT.NONE);
     wOutputOptionsTab.setFont(GuiResource.getInstance().getFontDefault());
-    wOutputOptionsTab.setText("Output options");
+    wOutputOptionsTab.setText(
+        BaseMessages.getString(PKG, "MongoDbOutputDialog.OutputOptions.TabTitle"));
     Composite wOutputComp = new Composite(wTabFolder, SWT.NONE);
     PropsUi.setLook(wOutputComp);
     FormLayout outputLayout = new FormLayout();

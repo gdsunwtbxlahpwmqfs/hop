@@ -114,7 +114,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     // Namespace
     //
     Label wlNamespace = new Label(wContent, SWT.RIGHT);
-    wlNamespace.setText("Event Hubs namespace");
+    wlNamespace.setText(BaseMessages.getString(PKG, "AzureListenerDialog.Namespace.Label"));
     PropsUi.setLook(wlNamespace);
     FormData fdlNamespace = new FormData();
     fdlNamespace.left = new FormAttachment(0, 0);
@@ -132,7 +132,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wNamespace;
 
     Label wlEventHub = new Label(wContent, SWT.RIGHT);
-    wlEventHub.setText("Event Hubs Instance name");
+    wlEventHub.setText(BaseMessages.getString(PKG, "AzureListenerDialog.EventHub.Label"));
     PropsUi.setLook(wlEventHub);
     FormData fdlEventHub = new FormData();
     fdlEventHub.left = new FormAttachment(0, 0);
@@ -150,7 +150,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wEventHub;
 
     Label wlSasKeyName = new Label(wContent, SWT.RIGHT);
-    wlSasKeyName.setText("SAS Policy key name");
+    wlSasKeyName.setText(BaseMessages.getString(PKG, "AzureListenerDialog.SasKeyName.Label"));
     PropsUi.setLook(wlSasKeyName);
     FormData fdlSasKeyName = new FormData();
     fdlSasKeyName.left = new FormAttachment(0, 0);
@@ -168,7 +168,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wSasKeyName;
 
     Label wlSasKey = new Label(wContent, SWT.RIGHT);
-    wlSasKey.setText("SAS Key value");
+    wlSasKey.setText(BaseMessages.getString(PKG, "AzureListenerDialog.SasKey.Label"));
     PropsUi.setLook(wlSasKey);
     FormData fdlSasKey = new FormData();
     fdlSasKey.left = new FormAttachment(0, 0);
@@ -186,7 +186,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wSasKey;
 
     Label wlConsumerGroup = new Label(wContent, SWT.RIGHT);
-    wlConsumerGroup.setText("Consumer Group Name");
+    wlConsumerGroup.setText(BaseMessages.getString(PKG, "AzureListenerDialog.ConsumerGroup.Label"));
     PropsUi.setLook(wlConsumerGroup);
     FormData fdlConsumerGroup = new FormData();
     fdlConsumerGroup.left = new FormAttachment(0, 0);
@@ -204,7 +204,8 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wConsumerGroup;
 
     Label wlStorageContainerName = new Label(wContent, SWT.RIGHT);
-    wlStorageContainerName.setText("Storage Container name");
+    wlStorageContainerName.setText(
+        BaseMessages.getString(PKG, "AzureListenerDialog.StorageContainerName.Label"));
     PropsUi.setLook(wlStorageContainerName);
     FormData fdlStorageContainerName = new FormData();
     fdlStorageContainerName.left = new FormAttachment(0, 0);
@@ -222,7 +223,8 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wStorageContainerName;
 
     Label wlStorageConnectionString = new Label(wContent, SWT.RIGHT);
-    wlStorageConnectionString.setText("Storage Connection String");
+    wlStorageConnectionString.setText(
+        BaseMessages.getString(PKG, "AzureListenerDialog.StorageConnectionString.Label"));
     PropsUi.setLook(wlStorageConnectionString);
     FormData fdlStorageConnectionString = new FormData();
     fdlStorageConnectionString.left = new FormAttachment(0, 0);
@@ -241,7 +243,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wStorageConnectionString;
 
     Label wlBatchSize = new Label(wContent, SWT.RIGHT);
-    wlBatchSize.setText("Batch size");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "AzureListenerDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -259,7 +261,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     Label wlPrefetchSize = new Label(wContent, SWT.RIGHT);
-    wlPrefetchSize.setText("Prefetch size");
+    wlPrefetchSize.setText(BaseMessages.getString(PKG, "AzureListenerDialog.PrefetchSize.Label"));
     PropsUi.setLook(wlPrefetchSize);
     FormData fdlPrefetchSize = new FormData();
     fdlPrefetchSize.left = new FormAttachment(0, 0);
@@ -277,7 +279,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wPrefetchSize;
 
     Label wlOutputField = new Label(wContent, SWT.RIGHT);
-    wlOutputField.setText("Message (data) output field name");
+    wlOutputField.setText(BaseMessages.getString(PKG, "AzureListenerDialog.OutputField.Label"));
     PropsUi.setLook(wlOutputField);
     FormData fdlOutputField = new FormData();
     fdlOutputField.left = new FormAttachment(0, 0);
@@ -295,7 +297,8 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wOutputField;
 
     Label wlPartitionIdField = new Label(wContent, SWT.RIGHT);
-    wlPartitionIdField.setText("Partition ID field name");
+    wlPartitionIdField.setText(
+        BaseMessages.getString(PKG, "AzureListenerDialog.PartitionIdField.Label"));
     PropsUi.setLook(wlPartitionIdField);
     FormData fdlPartitionIdField = new FormData();
     fdlPartitionIdField.left = new FormAttachment(0, 0);
@@ -313,7 +316,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wPartitionIdField;
 
     Label wlOffsetField = new Label(wContent, SWT.RIGHT);
-    wlOffsetField.setText("Offset field name");
+    wlOffsetField.setText(BaseMessages.getString(PKG, "AzureListenerDialog.OffsetField.Label"));
     PropsUi.setLook(wlOffsetField);
     FormData fdlOffsetField = new FormData();
     fdlOffsetField.left = new FormAttachment(0, 0);
@@ -331,7 +334,8 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wOffsetField;
 
     Label wlSequenceNumberField = new Label(wContent, SWT.RIGHT);
-    wlSequenceNumberField.setText("Sequence number field name");
+    wlSequenceNumberField.setText(
+        BaseMessages.getString(PKG, "AzureListenerDialog.SequenceNumberField.Label"));
     PropsUi.setLook(wlSequenceNumberField);
     FormData fdlSequenceNumberField = new FormData();
     fdlSequenceNumberField.left = new FormAttachment(0, 0);
@@ -349,7 +353,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wSequenceNumberField;
 
     Label wlHostField = new Label(wContent, SWT.RIGHT);
-    wlHostField.setText("Host (owner) field name");
+    wlHostField.setText(BaseMessages.getString(PKG, "AzureListenerDialog.HostField.Label"));
     PropsUi.setLook(wlHostField);
     FormData fdlHostField = new FormData();
     fdlHostField.left = new FormAttachment(0, 0);
@@ -367,7 +371,8 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wHostField;
 
     Label wlEnqueuedTimeField = new Label(wContent, SWT.RIGHT);
-    wlEnqueuedTimeField.setText("Enqueued time field name");
+    wlEnqueuedTimeField.setText(
+        BaseMessages.getString(PKG, "AzureListenerDialog.EnqueuedTimeField.Label"));
     PropsUi.setLook(wlEnqueuedTimeField);
     FormData fdlEnqueuedTimeField = new FormData();
     fdlEnqueuedTimeField.left = new FormAttachment(0, 0);
@@ -394,7 +399,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wlSeparator1;
 
     Label wlBatchPipeline = new Label(wContent, SWT.RIGHT);
-    wlBatchPipeline.setText("Batch pipeline");
+    wlBatchPipeline.setText(BaseMessages.getString(PKG, "AzureListenerDialog.BatchPipeline.Label"));
     PropsUi.setLook(wlBatchPipeline);
     FormData fdlBatchPipeline = new FormData();
     fdlBatchPipeline.left = new FormAttachment(0, 0);
@@ -421,7 +426,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wBatchPipeline;
 
     Label wlBatchInput = new Label(wContent, SWT.RIGHT);
-    wlBatchInput.setText("Pipeline input transform");
+    wlBatchInput.setText(BaseMessages.getString(PKG, "AzureListenerDialog.BatchInput.Label"));
     PropsUi.setLook(wlBatchInput);
     FormData fdlBatchInput = new FormData();
     fdlBatchInput.left = new FormAttachment(0, 0);
@@ -430,7 +435,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     wlBatchInput.setLayoutData(fdlBatchInput);
     Button wbBatchInput = new Button(wContent, SWT.PUSH);
     PropsUi.setLook(wbBatchInput);
-    wbBatchInput.setText("Select...");
+    wbBatchInput.setText(BaseMessages.getString(PKG, "AzureListenerDialog.Select.Button"));
     wbBatchInput.addListener(SWT.Selection, e -> selectInputTransform());
     FormData fdbBatchInput = new FormData();
     fdbBatchInput.right = new FormAttachment(100, -margin);
@@ -447,7 +452,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wBatchInput;
 
     Label wlBatchOutput = new Label(wContent, SWT.RIGHT);
-    wlBatchOutput.setText("Pipeline output transform");
+    wlBatchOutput.setText(BaseMessages.getString(PKG, "AzureListenerDialog.BatchOutput.Label"));
     PropsUi.setLook(wlBatchOutput);
     FormData fdlBatchOutput = new FormData();
     fdlBatchOutput.left = new FormAttachment(0, 0);
@@ -456,7 +461,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     wlBatchOutput.setLayoutData(fdlBatchOutput);
     Button wbBatchOutput = new Button(wContent, SWT.PUSH);
     PropsUi.setLook(wbBatchOutput);
-    wbBatchOutput.setText("Select...");
+    wbBatchOutput.setText(BaseMessages.getString(PKG, "AzureListenerDialog.Select.Button"));
     wbBatchOutput.addListener(SWT.Selection, e -> selectOutputTransform());
     FormData fdbBatchOutput = new FormData();
     fdbBatchOutput.right = new FormAttachment(100, -margin);
@@ -473,7 +478,7 @@ public class AzureListenerDialog extends BaseTransformDialog {
     lastControl = wBatchOutput;
 
     Label wlMaxWaitTime = new Label(wContent, SWT.RIGHT);
-    wlMaxWaitTime.setText("Maximum wait time (ms)");
+    wlMaxWaitTime.setText(BaseMessages.getString(PKG, "AzureListenerDialog.MaxWaitTime.Label"));
     PropsUi.setLook(wlMaxWaitTime);
     FormData fdlMaxWaitTime = new FormData();
     fdlMaxWaitTime.left = new FormAttachment(0, 0);

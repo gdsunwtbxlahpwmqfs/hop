@@ -65,6 +65,7 @@ import org.apache.hop.execution.IExecutionMatcher;
 import org.apache.hop.execution.IExecutionSelector;
 import org.apache.hop.execution.LastPeriod;
 import org.apache.hop.execution.plugin.ExecutionInfoLocationPlugin;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.metadata.api.HopMetadataProperty;
 import org.apache.hop.metadata.api.IHopMetadataProvider;
 import org.apache.hop.neo4j.actions.index.IndexUpdate;
@@ -99,6 +100,7 @@ import org.neo4j.driver.Value;
     name = "Neo4j location",
     description = "Stores execution information in a Neo4j graph database")
 public class NeoExecutionInfoLocation implements IExecutionInfoLocation {
+  private static final Class<?> PKG = NeoExecutionInfoLocation.class;
   public static final String EL_EXECUTION = "Execution";
   public static final String EP_ID = "id";
   public static final String EP_NAME = "name";
@@ -386,7 +388,7 @@ public class NeoExecutionInfoLocation implements IExecutionInfoLocation {
       //
       MessageBox box =
           new MessageBox(HopGui.getInstance().getShell(), SWT.OK | SWT.ICON_INFORMATION);
-      box.setText("Copied to clipboard");
+      box.setText(BaseMessages.getString(PKG, "NeoExecutionInfoLocation.CopiedToClipboard.Title"));
       box.setMessage(
           "A Neo4j Index action was copied to the clipboard.  You can paste this in a workflow to make sure you have great performance when updating execution information in this Neo4j location.");
       box.open();

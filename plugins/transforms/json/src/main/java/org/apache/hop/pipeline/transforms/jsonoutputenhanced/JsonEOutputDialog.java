@@ -496,7 +496,8 @@ public class JsonEOutputDialog extends BaseTransformDialog {
     wlOutputValue.setLayoutData(fdlOutputValue);
     wOutputValue = new TextVar(variables, wSettings, SWT.BORDER | SWT.READ_ONLY);
     wOutputValue.setEditable(true);
-    wOutputValue.setToolTipText("JsonEOutputDialog.OutputValue.Tooltip");
+    wOutputValue.setToolTipText(
+        BaseMessages.getString(PKG, "JsonEOutputDialog.OutputValue.Tooltip"));
     PropsUi.setLook(wOutputValue);
     wOutputValue.addModifyListener(lsMod);
     FormData fdOutputValue = new FormData();

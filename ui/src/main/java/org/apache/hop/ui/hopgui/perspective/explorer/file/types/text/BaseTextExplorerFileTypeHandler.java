@@ -24,6 +24,7 @@ import org.apache.hop.core.Const;
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.core.vfs.HopVfs;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.core.widget.editor.IContentEditorWidget;
 import org.apache.hop.ui.hopgui.ContentEditorFacade;
@@ -119,8 +120,15 @@ public class BaseTextExplorerFileTypeHandler extends BaseExplorerFileTypeHandler
       if (fileObject.exists()) {
         MessageBox box =
             new MessageBox(hopGui.getActiveShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-        box.setText("Overwrite?");
-        box.setMessage("Are you sure you want to overwrite file '" + filename + "'?");
+        box.setText(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.perspective.explorer",
+                "ExplorerFileTypeHandler.Overwrite.Header"));
+        box.setMessage(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.perspective.explorer",
+                "ExplorerFileTypeHandler.Overwrite.Message",
+                filename));
         int answer = box.open();
         if ((answer & SWT.YES) == 0) {
           return;

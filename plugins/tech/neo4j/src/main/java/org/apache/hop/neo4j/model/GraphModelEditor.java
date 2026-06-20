@@ -349,7 +349,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
 
     CTabItem wModelTab = new CTabItem(wTabs, SWT.NONE);
     wModelTab.setFont(GuiResource.getInstance().getFontDefault());
-    wModelTab.setText("Model");
+    wModelTab.setText(BaseMessages.getString(PKG, "GraphModelEditor.Model.Tab"));
 
     ScrolledComposite wModelSComp = new ScrolledComposite(wTabs, SWT.V_SCROLL | SWT.H_SCROLL);
     wModelSComp.setLayout(new FillLayout());
@@ -495,7 +495,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
 
     CTabItem wNodesTab = new CTabItem(wTabs, SWT.NONE);
     wNodesTab.setFont(GuiResource.getInstance().getFontDefault());
-    wNodesTab.setText("Nodes");
+    wNodesTab.setText(BaseMessages.getString(PKG, "GraphModelEditor.Nodes.Tab"));
 
     ScrolledComposite wNodesSComp = new ScrolledComposite(wTabs, SWT.V_SCROLL | SWT.H_SCROLL);
     wNodesSComp.setLayout(new FillLayout());
@@ -519,23 +519,24 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
     // buttons for New/Edit/Delete Node
     //
     Button wNewNode = new Button(wNodesComp, SWT.PUSH);
-    wNewNode.setText("New node");
+    wNewNode.setText(BaseMessages.getString(PKG, "GraphModelEditor.NewNode.Button"));
     wNewNode.addListener(SWT.Selection, e -> newNode());
 
     Button wDeleteNode = new Button(wNodesComp, SWT.PUSH);
-    wDeleteNode.setText("Delete node");
+    wDeleteNode.setText(BaseMessages.getString(PKG, "GraphModelEditor.DeleteNode.Button"));
     wDeleteNode.addListener(SWT.Selection, e -> deleteNode());
 
     Button wCopyNode = new Button(wNodesComp, SWT.PUSH);
-    wCopyNode.setText("Copy node");
+    wCopyNode.setText(BaseMessages.getString(PKG, "GraphModelEditor.CopyNode.Button"));
     wCopyNode.addListener(SWT.Selection, e -> copyNode());
 
     Button wImportNode = new Button(wNodesComp, SWT.PUSH);
-    wImportNode.setText("Import properties");
+    wImportNode.setText(BaseMessages.getString(PKG, "GraphModelEditor.ImportProperties.Button"));
     wImportNode.addListener(SWT.Selection, e -> importNodeProperties());
 
     Button wNewRelationshipNode = new Button(wNodesComp, SWT.PUSH);
-    wNewRelationshipNode.setText("New relationship");
+    wNewRelationshipNode.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.NewRelationshipFromNode.Button"));
     wNewRelationshipNode.addListener(SWT.Selection, e -> newRelationshipFromNode());
 
     BaseTransformDialog.positionBottomButtons(
@@ -545,7 +546,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         null);
 
     Label wlNodesList = new Label(wNodesComp, SWT.LEFT);
-    wlNodesList.setText("Nodes list");
+    wlNodesList.setText(BaseMessages.getString(PKG, "GraphModelEditor.NodesList.Label"));
     PropsUi.setLook(wlNodesList);
     FormData fdlNodesList = new FormData();
     fdlNodesList.left = new FormAttachment(0, 0);
@@ -569,7 +570,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     wlNodeName = new Label(wNodesComp, SWT.RIGHT);
-    wlNodeName.setText("Name");
+    wlNodeName.setText(BaseMessages.getString(PKG, "GraphModelEditor.NodeName.Label"));
     PropsUi.setLook(wlNodeName);
     FormData fdlNodeName = new FormData();
     fdlNodeName.left = new FormAttachment(middle, margin);
@@ -645,7 +646,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
     // Properties
     //
     wlNodeProperties = new Label(wNodesComp, SWT.LEFT);
-    wlNodeProperties.setText("Properties:");
+    wlNodeProperties.setText(BaseMessages.getString(PKG, "GraphModelEditor.NodeProperties.Label"));
     PropsUi.setLook(wlNodeProperties);
     FormData fdlNodeProperties = new FormData();
     fdlNodeProperties.left = new FormAttachment(middle, margin);
@@ -834,7 +835,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
       HopGuiPipelineGraph activePipelineGraph = HopGui.getActivePipelineGraph();
       if (activePipelineGraph == null) {
         MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.OK);
-        messageBox.setText("Sorry");
+        messageBox.setText(BaseMessages.getString(PKG, "GraphModelEditor.Sorry.Title"));
         messageBox.setMessage(
             "Sorry, I couldn't find an active pipeline to use to import output fields from a transform");
         messageBox.open();
@@ -945,7 +946,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
 
     CTabItem wRelTab = new CTabItem(wTabs, SWT.NONE);
     wRelTab.setFont(GuiResource.getInstance().getFontDefault());
-    wRelTab.setText("Relationships");
+    wRelTab.setText(BaseMessages.getString(PKG, "GraphModelEditor.Relationships.Tab"));
 
     ScrolledComposite wRelSComp = new ScrolledComposite(wTabs, SWT.V_SCROLL | SWT.H_SCROLL);
     wRelSComp.setLayout(new FillLayout());
@@ -969,7 +970,8 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
     // buttons for New/Edit/Delete Relationship
     //
     Button wNewRelationship = new Button(wRelComp, SWT.PUSH);
-    wNewRelationship.setText("New relationship");
+    wNewRelationship.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.NewRelationship.Button"));
     wNewRelationship.addSelectionListener(
         new SelectionAdapter() {
           @Override
@@ -979,7 +981,8 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     Button wDeleteRelationship = new Button(wRelComp, SWT.PUSH);
-    wDeleteRelationship.setText("Delete relationship");
+    wDeleteRelationship.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.DeleteRelationship.Button"));
     wDeleteRelationship.addSelectionListener(
         new SelectionAdapter() {
           @Override
@@ -989,7 +992,8 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     Button wCopyRelationship = new Button(wRelComp, SWT.PUSH);
-    wCopyRelationship.setText("Copy relationship");
+    wCopyRelationship.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.CopyRelationship.Button"));
     wCopyRelationship.addSelectionListener(
         new SelectionAdapter() {
           @Override
@@ -1004,7 +1008,8 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         null);
 
     Label wlRelationshipsList = new Label(wRelComp, SWT.LEFT);
-    wlRelationshipsList.setText("Relationships list");
+    wlRelationshipsList.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.RelationshipsList.Label"));
     PropsUi.setLook(wlRelationshipsList);
     FormData fdlRelationshipsList = new FormData();
     fdlRelationshipsList.left = new FormAttachment(0, 0);
@@ -1027,7 +1032,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     wlRelName = new Label(wRelComp, SWT.LEFT);
-    wlRelName.setText("Name");
+    wlRelName.setText(BaseMessages.getString(PKG, "GraphModelEditor.RelationshipName.Label"));
     PropsUi.setLook(wlRelName);
     FormData fdlRelName = new FormData();
     fdlRelName.left = new FormAttachment(middle, margin);
@@ -1078,7 +1083,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     wlRelLabel = new Label(wRelComp, SWT.LEFT);
-    wlRelLabel.setText("Label");
+    wlRelLabel.setText(BaseMessages.getString(PKG, "GraphModelEditor.RelationshipLabel.Label"));
     PropsUi.setLook(wlRelLabel);
     FormData fdlRelLabel = new FormData();
     fdlRelLabel.left = new FormAttachment(middle, margin);
@@ -1101,7 +1106,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     wlRelSource = new Label(wRelComp, SWT.LEFT);
-    wlRelSource.setText("Source");
+    wlRelSource.setText(BaseMessages.getString(PKG, "GraphModelEditor.RelationshipSource.Label"));
     PropsUi.setLook(wlRelSource);
     FormData fdlRelSource = new FormData();
     fdlRelSource.left = new FormAttachment(middle, margin);
@@ -1124,7 +1129,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
         });
 
     wlRelTarget = new Label(wRelComp, SWT.LEFT);
-    wlRelTarget.setText("Target");
+    wlRelTarget.setText(BaseMessages.getString(PKG, "GraphModelEditor.RelationshipTarget.Label"));
     PropsUi.setLook(wlRelTarget);
     FormData fdlRelTarget = new FormData();
     fdlRelTarget.left = new FormAttachment(middle, margin);
@@ -1149,7 +1154,8 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
     // Properties
     //
     wlRelProperties = new Label(wRelComp, SWT.LEFT);
-    wlRelProperties.setText("Properties:");
+    wlRelProperties.setText(
+        BaseMessages.getString(PKG, "GraphModelEditor.RelationshipProperties.Label"));
     PropsUi.setLook(wlRelProperties);
     FormData fdlRelProperties = new FormData();
     fdlRelProperties.left = new FormAttachment(middle, margin);
@@ -1294,7 +1300,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
 
     CTabItem wGraphTab = new CTabItem(wTabs, SWT.NONE);
     wGraphTab.setFont(GuiResource.getInstance().getFontDefault());
-    wGraphTab.setText("Graph");
+    wGraphTab.setText(BaseMessages.getString(PKG, "GraphModelEditor.Graph.Tab"));
 
     ScrolledComposite wGraphSComp = new ScrolledComposite(wTabs, SWT.V_SCROLL | SWT.H_SCROLL);
     wGraphSComp.setLayout(new FillLayout());
@@ -1308,7 +1314,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
     wGraphComp.setLayout(formLayout);
 
     Button wAuto = new Button(wGraphComp, SWT.PUSH);
-    wAuto.setText("Auto");
+    wAuto.setText(BaseMessages.getString(PKG, "GraphModelEditor.Auto.Button"));
     FormData fdAuto = new FormData();
     fdAuto.right = new FormAttachment(100, 0);
     fdAuto.bottom = new FormAttachment(100, 0);
@@ -1944,7 +1950,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
       setChanged();
 
       MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.OK);
-      box.setText("Import successful");
+      box.setText(BaseMessages.getString(PKG, "GraphModelEditor.ImportSuccessful.Title"));
       box.setMessage(
           "The import from the Arrows JSON was successful.  Please make sure to give this model a name and indicate the primary key fields of nodes.");
       box.open();
@@ -2060,7 +2066,7 @@ public class GraphModelEditor extends MetadataEditor<GraphModel> {
                   + "</actions></workflow-actions>");
 
       MessageBox messageBox = new MessageBox(getShell(), SWT.OK | SWT.ICON_INFORMATION);
-      messageBox.setText("Copied to clipboard");
+      messageBox.setText(BaseMessages.getString(PKG, "GraphModelEditor.CopiedToClipboard.Title"));
       messageBox.setMessage(
           "An Neo4j Index/Constraint actions were copied to the clipboard to create the required indexes and constraints for this model.  You can paste these actions in a workflow.");
       messageBox.open();

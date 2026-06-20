@@ -298,8 +298,9 @@ public class MetadataManager<T extends IHopMetadata> {
     if (!skipConfirmation) {
       MessageBox confirmBox =
           new MessageBox(HopGui.getInstance().getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-      confirmBox.setText("Delete?");
-      confirmBox.setMessage("Are you sure you want to delete element " + elementName + "?");
+      confirmBox.setText(BaseMessages.getString(PKG, "MetadataManager.Delete.Title"));
+      confirmBox.setMessage(
+          BaseMessages.getString(PKG, "MetadataManager.Delete.Confirm.Message", elementName));
       int anwser = confirmBox.open();
       if ((anwser & SWT.YES) == 0) {
         return false;
@@ -342,7 +343,8 @@ public class MetadataManager<T extends IHopMetadata> {
       MessageBox messageBox =
           new MessageBox(HopGui.getInstance().getShell(), SWT.ICON_ERROR | SWT.OK);
       messageBox.setText(TranslateUtil.translate(getManagedName(), getManagedClass()));
-      messageBox.setMessage("Name '" + newName + "' already exists.");
+      messageBox.setMessage(
+          BaseMessages.getString(PKG, "MetadataManager.Error.NameAlreadyExists", newName));
       messageBox.open();
 
       return false;

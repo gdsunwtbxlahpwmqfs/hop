@@ -770,7 +770,8 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
                 }
               } catch (Exception e) {
                 TreeItem errorItem = new TreeItem(locationItem, SWT.NONE);
-                errorItem.setText("Error reading " + id + " (double click for details)");
+                errorItem.setText(
+                    BaseMessages.getString(PKG, "ExecutionPerspective.ErrorReadingItem", id));
                 errorItem.setForeground(GuiResource.getInstance().getColorRed());
                 errorItem.setData(CONST_ERROR, e);
                 errorItem.setImage(GuiResource.getInstance().getImageError());
@@ -780,7 +781,7 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
             // Error contacting location
             //
             TreeItem errorItem = new TreeItem(locationItem, SWT.NONE);
-            errorItem.setText("Not reachable (double click for details)");
+            errorItem.setText(BaseMessages.getString(PKG, "ExecutionPerspective.NotReachableItem"));
             errorItem.setForeground(GuiResource.getInstance().getColorRed());
             errorItem.setData(CONST_ERROR, e);
             errorItem.setImage(GuiResource.getInstance().getImageError());

@@ -178,7 +178,7 @@ public class NeoConnectionEditor extends MetadataEditor<NeoConnection> {
   private void addBasicTab(PropsUi props, IVariables variables, int middle, int margin) {
     CTabItem wModelTab = new CTabItem(wTabFolder, SWT.NONE);
     wModelTab.setFont(GuiResource.getInstance().getFontDefault());
-    wModelTab.setText("Basic   ");
+    wModelTab.setText(BaseMessages.getString(PKG, "NeoConnection.Basic.Tab") + "   ");
     ScrolledComposite wBasicSComp = new ScrolledComposite(wTabFolder, SWT.V_SCROLL | SWT.H_SCROLL);
     wBasicSComp.setLayout(new FillLayout());
 
@@ -339,7 +339,8 @@ public class NeoConnectionEditor extends MetadataEditor<NeoConnection> {
   private void addProtocolTab(PropsUi props, IVariables variables, int middle, int margin) {
     CTabItem wProtocolTab = new CTabItem(wTabFolder, SWT.NONE);
     wProtocolTab.setFont(GuiResource.getInstance().getFontDefault());
-    wProtocolTab.setText("Protocol   ");
+    wProtocolTab.setText(
+        BaseMessages.getString(PKG, "NeoConnectionEditor.ProtocolTab.Label") + "   ");
     ScrolledComposite wProtocolSComp =
         new ScrolledComposite(wTabFolder, SWT.V_SCROLL | SWT.H_SCROLL);
     wProtocolSComp.setLayout(new FillLayout());
@@ -464,7 +465,7 @@ public class NeoConnectionEditor extends MetadataEditor<NeoConnection> {
   private void addUrlsTab(PropsUi props, IVariables variables) {
     CTabItem wUrlsTab = new CTabItem(wTabFolder, SWT.NONE);
     wUrlsTab.setFont(GuiResource.getInstance().getFontDefault());
-    wUrlsTab.setText("Manual URLs");
+    wUrlsTab.setText(BaseMessages.getString(PKG, "NeoConnectionEditor.URLs.Label"));
     ScrolledComposite wUrlsSComp = new ScrolledComposite(wTabFolder, SWT.V_SCROLL | SWT.H_SCROLL);
     wUrlsSComp.setLayout(new FillLayout());
 
@@ -519,7 +520,7 @@ public class NeoConnectionEditor extends MetadataEditor<NeoConnection> {
   private void addAdvancedTab(PropsUi props, IVariables variables, int middle, int margin) {
     CTabItem wAdvancedTab = new CTabItem(wTabFolder, SWT.NONE);
     wAdvancedTab.setFont(GuiResource.getInstance().getFontDefault());
-    wAdvancedTab.setText("Advanced  ");
+    wAdvancedTab.setText(BaseMessages.getString(PKG, "NeoConnectionEditor.Advanced.Tab") + "  ");
     ScrolledComposite wAdvancedSComp =
         new ScrolledComposite(wTabFolder, SWT.V_SCROLL | SWT.H_SCROLL);
     wAdvancedSComp.setLayout(new FillLayout());
@@ -795,7 +796,7 @@ public class NeoConnectionEditor extends MetadataEditor<NeoConnection> {
       getWidgetsContent(neo);
       neo.test(variables);
       MessageBox box = new MessageBox(hopGui.getShell(), SWT.OK);
-      box.setText("OK");
+      box.setText(BaseMessages.getString(PKG, "System.Button.OK"));
       String message = "Connection successful!" + Const.CR;
       message += Const.CR;
       message += "URL : " + neo.getUrl(variables);

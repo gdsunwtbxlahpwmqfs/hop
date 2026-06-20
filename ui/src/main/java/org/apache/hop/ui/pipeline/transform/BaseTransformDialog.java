@@ -1475,8 +1475,12 @@ public abstract class BaseTransformDialog extends Dialog implements ITransformDi
     // Ask to set the name to the base filename...
     //
     MessageBox box = new MessageBox(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-    box.setText("Change name?");
-    box.setMessage("Do you want to change the name of the action to match the filename?");
+    box.setText(
+        BaseMessages.getString(
+            "org.apache.hop.ui.pipeline.dialog", "BaseTransformDialog.Dialog.ChangeName.Title"));
+    box.setMessage(
+        BaseMessages.getString(
+            "org.apache.hop.ui.pipeline.dialog", "BaseTransformDialog.Dialog.ChangeName.Message"));
     int answer = box.open();
     if ((answer & SWT.YES) != 0) {
       try {

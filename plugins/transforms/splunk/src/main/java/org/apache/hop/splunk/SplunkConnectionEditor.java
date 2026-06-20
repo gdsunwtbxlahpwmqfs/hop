@@ -210,7 +210,7 @@ public class SplunkConnectionEditor extends MetadataEditor<SplunkConnection> {
       getWidgetsContent(splunk);
       splunk.test(variables);
       MessageBox box = new MessageBox(hopGui.getShell(), SWT.OK);
-      box.setText("OK");
+      box.setText(BaseMessages.getString(PKG, "SplunkConnectionDialog.MessageBox.Ok.Title"));
       String message = "Connection successful!" + Const.CR;
       message += Const.CR;
       message +=

@@ -131,7 +131,8 @@ public class HtmlExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
       if (fileObject.exists()) {
         MessageBox box =
             new MessageBox(hopGui.getActiveShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-        box.setText("Overwrite?");
+        box.setText(
+            BaseMessages.getString(PKG, "HtmlExplorerFileTypeHandler.Overwrite.DialogTitle"));
         box.setMessage("Are you sure you want to overwrite file '" + filename + "'?");
         int answer = box.open();
         if ((answer & SWT.YES) == 0) {

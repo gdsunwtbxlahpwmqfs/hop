@@ -142,7 +142,7 @@ public class FormulaEditor extends Dialog implements KeyListener {
     //
     tree = new Tree(sashForm, SWT.SINGLE);
     TreeItem fieldsItem = new TreeItem(tree, SWT.NONE);
-    fieldsItem.setText("Fields");
+    fieldsItem.setText(BaseMessages.getString(PKG, "FormulaDialog.Fields.Item.Label"));
 
     for (String inputField : inputFields) {
       TreeItem fieldItem = new TreeItem(fieldsItem, SWT.NONE);

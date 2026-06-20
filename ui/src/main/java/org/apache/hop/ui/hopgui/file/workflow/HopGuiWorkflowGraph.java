@@ -3732,8 +3732,9 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       if (fileObject.exists()) {
         MessageBox box =
             new MessageBox(hopGui.getActiveShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-        box.setText("Overwrite?");
-        box.setMessage("Are you sure you want to overwrite file '" + filename + "'?");
+        box.setText(BaseMessages.getString(PKG, "HopGuiWorkflowGraph.Dialog.Overwrite.Title"));
+        box.setMessage(
+            BaseMessages.getString(PKG, "HopGuiWorkflowGraph.Dialog.Overwrite.Message", filename));
         int answer = box.open();
         if ((answer & SWT.YES) == 0) {
           return;

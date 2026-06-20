@@ -164,7 +164,7 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wModel;
 
     wlBatchSize = new Label(shell, SWT.RIGHT);
-    wlBatchSize.setText("Batch size (rows)");
+    wlBatchSize.setText(BaseMessages.getString(PKG, "GraphOutputDialog.BatchSize.Label"));
     PropsUi.setLook(wlBatchSize);
     FormData fdlBatchSize = new FormData();
     fdlBatchSize.left = new FormAttachment(0, 0);
@@ -181,7 +181,7 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wBatchSize;
 
     wlCreateIndexes = new Label(shell, SWT.RIGHT);
-    wlCreateIndexes.setText("Create indexes? ");
+    wlCreateIndexes.setText(BaseMessages.getString(PKG, "GraphOutputDialog.CreateIndexes.Label"));
     wlCreateIndexes.setToolTipText(
         "Create index on first row using label field and primary key properties.");
     PropsUi.setLook(wlCreateIndexes);
@@ -202,7 +202,7 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wCreateIndexes;
 
     Label wlReturnGraph = new Label(shell, SWT.RIGHT);
-    wlReturnGraph.setText("Return graph data?");
+    wlReturnGraph.setText(BaseMessages.getString(PKG, "GraphOutputDialog.ReturnGraph.Label"));
     String returnGraphTooltipText =
         "The update data to be updated in the form of Graph a value in the output of this transform";
     wlReturnGraph.setToolTipText(returnGraphTooltipText);
@@ -224,7 +224,8 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wReturnGraph;
 
     wlReturnGraphField = new Label(shell, SWT.RIGHT);
-    wlReturnGraphField.setText("Graph output field name");
+    wlReturnGraphField.setText(
+        BaseMessages.getString(PKG, "GraphOutputDialog.ReturnGraphField.Label"));
     PropsUi.setLook(wlReturnGraphField);
     FormData fdlReturnGraphField = new FormData();
     fdlReturnGraphField.left = new FormAttachment(0, 0);
@@ -241,7 +242,8 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wReturnGraphField;
 
     Label wlValidateAgainstModel = new Label(shell, SWT.RIGHT);
-    wlValidateAgainstModel.setText("Validate against model?");
+    wlValidateAgainstModel.setText(
+        BaseMessages.getString(PKG, "GraphOutputDialog.ValidateAgainstModel.Label"));
     wlValidateAgainstModel.setToolTipText(
         "This validates indexes, constraints and properties as specified in the model");
     PropsUi.setLook(wlValidateAgainstModel);
@@ -262,7 +264,8 @@ public class GraphOutputDialog extends BaseTransformDialog {
     lastControl = wlValidateAgainstModel;
 
     Label wlOutOfOrderAllowed = new Label(shell, SWT.RIGHT);
-    wlOutOfOrderAllowed.setText("Allow out of order updates?");
+    wlOutOfOrderAllowed.setText(
+        BaseMessages.getString(PKG, "GraphOutputDialog.OutOfOrderAllowed.Label"));
     wlOutOfOrderAllowed.setToolTipText(
         "The transform can group similar cypher statements to increase performance.");
     PropsUi.setLook(wlOutOfOrderAllowed);
@@ -313,14 +316,15 @@ public class GraphOutputDialog extends BaseTransformDialog {
   private void addFieldMappingsTab(int margin, String[] fieldNames) {
     CTabItem wPropertiesTab = new CTabItem(wTabFolder, SWT.NONE);
     wPropertiesTab.setFont(GuiResource.getInstance().getFontDefault());
-    wPropertiesTab.setText("Field to properties mappings  ");
+    wPropertiesTab.setText(
+        BaseMessages.getString(PKG, "GraphOutputDialog.FieldToPropertiesMappings.Label"));
 
     Composite wPropertiesComp = new Composite(wTabFolder, SWT.NONE);
     PropsUi.setLook(wPropertiesComp);
     wPropertiesComp.setLayout(new FormLayout());
 
     Button wMapping = new Button(wPropertiesComp, SWT.PUSH);
-    wMapping.setText("Map fields");
+    wMapping.setText(BaseMessages.getString(PKG, "GraphOutputDialog.MapFields.Button"));
     wMapping.addListener(SWT.Selection, e -> enterMapping());
     positionBottomButtons(wPropertiesComp, new Button[] {wMapping}, margin, null);
 
@@ -371,14 +375,15 @@ public class GraphOutputDialog extends BaseTransformDialog {
   private void addRelMappingsTab(int margin, String[] fieldNames) {
     CTabItem wRelationshipsTab = new CTabItem(wTabFolder, SWT.NONE);
     wRelationshipsTab.setFont(GuiResource.getInstance().getFontDefault());
-    wRelationshipsTab.setText("Field to relationship mappings  ");
+    wRelationshipsTab.setText(
+        BaseMessages.getString(PKG, "GraphOutputDialog.FieldToRelationshipMappings.Label"));
 
     Composite wRelationshipsComp = new Composite(wTabFolder, SWT.NONE);
     PropsUi.setLook(wRelationshipsComp);
     wRelationshipsComp.setLayout(new FormLayout());
 
     Button wGetFields = new Button(wRelationshipsComp, SWT.PUSH);
-    wGetFields.setText("Get fields");
+    wGetFields.setText(BaseMessages.getString(PKG, "GraphOutputDialog.GetFields.Button"));
     wGetFields.addListener(SWT.Selection, e -> enterRelationshipsMapping());
     positionBottomButtons(wRelationshipsComp, new Button[] {wGetFields}, margin, null);
 
@@ -431,7 +436,7 @@ public class GraphOutputDialog extends BaseTransformDialog {
   private void addNodeMappingsTab(String[] fieldNames) {
     CTabItem wNodesTab = new CTabItem(wTabFolder, SWT.NONE);
     wNodesTab.setFont(GuiResource.getInstance().getFontDefault());
-    wNodesTab.setText("Node label mappings  ");
+    wNodesTab.setText(BaseMessages.getString(PKG, "GraphOutputDialog.NodeLabelMappings.Label"));
 
     Composite wNodesComp = new Composite(wTabFolder, SWT.NONE);
     PropsUi.setLook(wNodesComp);

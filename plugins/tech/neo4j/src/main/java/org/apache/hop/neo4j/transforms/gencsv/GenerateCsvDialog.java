@@ -107,7 +107,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     // Graph field
     //
     Label wlGraphField = new Label(wComposite, SWT.RIGHT);
-    wlGraphField.setText("Graph field ");
+    wlGraphField.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.Label.GraphField"));
     PropsUi.setLook(wlGraphField);
     FormData fdlGraphField = new FormData();
     fdlGraphField.left = new FormAttachment(0, 0);
@@ -127,7 +127,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     // The base folder to run the command from
     //
     Label wlBaseFolder = new Label(wComposite, SWT.RIGHT);
-    wlBaseFolder.setText("Base folder (below import/ folder) ");
+    wlBaseFolder.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.Label.BaseFolder"));
     PropsUi.setLook(wlBaseFolder);
     FormData fdlBaseFolder = new FormData();
     fdlBaseFolder.left = new FormAttachment(0, 0);
@@ -145,7 +145,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     lastControl = wBaseFolder;
 
     Label wlFilesPrefix = new Label(wComposite, SWT.RIGHT);
-    wlFilesPrefix.setText("CSV files prefix ");
+    wlFilesPrefix.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.FilesPrefix.Label"));
     PropsUi.setLook(wlFilesPrefix);
     FormData fdlFilesPrefix = new FormData();
     fdlFilesPrefix.left = new FormAttachment(0, 0);
@@ -163,7 +163,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     lastControl = wFilesPrefix;
 
     Label wlStrategy = new Label(wComposite, SWT.RIGHT);
-    wlStrategy.setText("Node/Relationships Uniqueness strategy ");
+    wlStrategy.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.Label.Strategy"));
     PropsUi.setLook(wlStrategy);
     FormData fdlStrategy = new FormData();
     fdlStrategy.left = new FormAttachment(0, 0);
@@ -181,7 +181,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     lastControl = wStrategy;
 
     Label wlFilenameField = new Label(wComposite, SWT.RIGHT);
-    wlFilenameField.setText("Filename field) ");
+    wlFilenameField.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.Label.FilenameField"));
     PropsUi.setLook(wlFilenameField);
     FormData fdlFilenameField = new FormData();
     fdlFilenameField.left = new FormAttachment(0, 0);
@@ -199,7 +199,7 @@ public class GenerateCsvDialog extends BaseTransformDialog {
     lastControl = wFilenameField;
 
     Label wlFileTypeField = new Label(wComposite, SWT.RIGHT);
-    wlFileTypeField.setText("File type field ");
+    wlFileTypeField.setText(BaseMessages.getString(PKG, "GenerateCsvDialog.Label.FileTypeField"));
     PropsUi.setLook(wlFileTypeField);
     FormData fdlFileTypeField = new FormData();
     fdlFileTypeField.left = new FormAttachment(0, 0);

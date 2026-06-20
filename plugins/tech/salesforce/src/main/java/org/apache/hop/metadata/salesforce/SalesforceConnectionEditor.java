@@ -702,7 +702,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(clientId)) {
         MessageBox clientIdMb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         clientIdMb.setMessage("OAuth Client ID is required for authorization.");
-        clientIdMb.setText("OAuth Configuration Error");
+        clientIdMb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         clientIdMb.open();
         return;
       }
@@ -710,7 +711,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(redirectUri)) {
         MessageBox redirectUriMb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         redirectUriMb.setMessage("OAuth Redirect URI is required for authorization.");
-        redirectUriMb.setText("OAuth Configuration Error");
+        redirectUriMb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         redirectUriMb.open();
         return;
       }
@@ -718,7 +720,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(instanceUrl)) {
         MessageBox instanceUrlMb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         instanceUrlMb.setMessage("OAuth Instance URL is required for authorization.");
-        instanceUrlMb.setText("OAuth Configuration Error");
+        instanceUrlMb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         instanceUrlMb.open();
         return;
       }
@@ -732,7 +735,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
     } catch (Exception e) {
       MessageBox errorMb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
       errorMb.setMessage("Error starting OAuth authorization: " + e.getMessage());
-      errorMb.setText("OAuth Authorization Error");
+      errorMb.setText(
+          BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthAuthorizationError.Title"));
       errorMb.open();
     }
   }
@@ -797,7 +801,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
     // Create a custom dialog to show the authorization URL
     org.eclipse.swt.widgets.Shell urlDialog =
         new org.eclipse.swt.widgets.Shell(getShell(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-    urlDialog.setText("OAuth Authorization URL");
+    urlDialog.setText(
+        BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthAuthorizationUrl.Title"));
 
     // Set dialog size
     org.eclipse.swt.graphics.Rectangle screenSize =
@@ -834,7 +839,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
 
     // Force consent checkbox
     Button forceConsentCheckbox = new Button(urlDialog, SWT.CHECK);
-    forceConsentCheckbox.setText("Force consent (prompt=consent)");
+    forceConsentCheckbox.setText(
+        BaseMessages.getString(PKG, "SalesforceConnectionEditor.ForceConsent.Label"));
     forceConsentCheckbox.setToolTipText(
         "Force Salesforce to show the authorization page even if previously authorized");
     org.eclipse.swt.layout.GridData gdForceConsent = new org.eclipse.swt.layout.GridData();
@@ -872,7 +878,7 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
 
     // Buttons
     Button copyButton = new Button(urlDialog, SWT.PUSH);
-    copyButton.setText("Copy URL");
+    copyButton.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.CopyUrl.Label"));
     org.eclipse.swt.layout.GridData gdCopyButton = new org.eclipse.swt.layout.GridData();
     gdCopyButton.horizontalAlignment = org.eclipse.swt.layout.GridData.BEGINNING;
     copyButton.setLayoutData(gdCopyButton);
@@ -883,12 +889,13 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
           urlText.copy();
           MessageBox mb = new MessageBox(urlDialog, SWT.OK | SWT.ICON_INFORMATION);
           mb.setMessage("URL copied to clipboard!");
-          mb.setText("Copied");
+          mb.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.Copied.Title"));
           mb.open();
         });
 
     Button openButton = new Button(urlDialog, SWT.PUSH);
-    openButton.setText("Open in Browser");
+    openButton.setText(
+        BaseMessages.getString(PKG, "SalesforceConnectionEditor.OpenInBrowser.Label"));
     org.eclipse.swt.layout.GridData gdOpenButton = new org.eclipse.swt.layout.GridData();
     gdOpenButton.horizontalAlignment = org.eclipse.swt.layout.GridData.BEGINNING;
     openButton.setLayoutData(gdOpenButton);
@@ -900,13 +907,13 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
           } catch (Exception ex) {
             MessageBox mb = new MessageBox(urlDialog, SWT.OK | SWT.ICON_ERROR);
             mb.setMessage("Failed to open browser: " + ex.getMessage());
-            mb.setText("Error");
+            mb.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.Error.Title"));
             mb.open();
           }
         });
 
     Button closeButton = new Button(urlDialog, SWT.PUSH);
-    closeButton.setText("Close");
+    closeButton.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.Close.Label"));
     org.eclipse.swt.layout.GridData gdCloseButton = new org.eclipse.swt.layout.GridData();
     gdCloseButton.horizontalAlignment = org.eclipse.swt.layout.GridData.END;
     closeButton.setLayoutData(gdCloseButton);
@@ -948,7 +955,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(clientId)) {
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         mb.setMessage("OAuth Client ID is required for token exchange.");
-        mb.setText("OAuth Configuration Error");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         mb.open();
         return;
       }
@@ -956,15 +964,17 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(clientSecret)) {
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         mb.setMessage("OAuth Client Secret is required for token exchange.");
-        mb.setText("OAuth Configuration Error");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         mb.open();
         return;
       }
 
       if (Utils.isEmpty(redirectUri)) {
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
-        mb.setMessage("OAuth Redirect URI is required for token exchange.");
-        mb.setText("OAuth Configuration Error");
+        mb.setMessage("OAuth Client Secret is required for token exchange.");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         mb.open();
         return;
       }
@@ -972,7 +982,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
       if (Utils.isEmpty(instanceUrl)) {
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         mb.setMessage("OAuth Instance URL is required for token exchange.");
-        mb.setText("OAuth Configuration Error");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         mb.open();
         return;
       }
@@ -981,7 +992,8 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
         mb.setMessage(
             "Authorization code is required. Please paste the code from the authorization URL.");
-        mb.setText("OAuth Configuration Error");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.OAuthConfigError.Title"));
         mb.open();
         return;
       }
@@ -1064,7 +1076,7 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
 
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_INFORMATION);
         mb.setMessage("Tokens successfully obtained and populated!");
-        mb.setText("Success");
+        mb.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.Success.Title"));
         mb.open();
       } else {
         MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
@@ -1073,14 +1085,16 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
                 + responseCode
                 + ": "
                 + response.toString());
-        mb.setText("Token Exchange Error");
+        mb.setText(
+            BaseMessages.getString(PKG, "SalesforceConnectionEditor.TokenExchangeError.Title"));
         mb.open();
       }
 
     } catch (Exception e) {
       MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_ERROR);
       mb.setMessage("Error exchanging code for tokens: " + e.getMessage());
-      mb.setText("Token Exchange Error");
+      mb.setText(
+          BaseMessages.getString(PKG, "SalesforceConnectionEditor.TokenExchangeError.Title"));
       mb.open();
     }
   }
@@ -1149,7 +1163,7 @@ public class SalesforceConnectionEditor extends MetadataEditor<SalesforceConnect
 
       MessageBox mb = new MessageBox(getShell(), SWT.OK | SWT.ICON_INFORMATION);
       mb.setMessage("Connection test successful!");
-      mb.setText("Success");
+      mb.setText(BaseMessages.getString(PKG, "SalesforceConnectionEditor.Success.Title"));
       mb.open();
     } catch (Exception e) {
       new ErrorDialog(getShell(), "Error", "Connection test failed", e);

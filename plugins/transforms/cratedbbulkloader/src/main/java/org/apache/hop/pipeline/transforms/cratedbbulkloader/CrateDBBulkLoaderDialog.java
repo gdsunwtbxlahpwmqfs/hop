@@ -436,7 +436,7 @@ public class CrateDBBulkLoaderDialog extends BaseTransformDialog {
         });
 
     wlAccessKeyId = new Label(wOptionsComp, SWT.RIGHT);
-    wlAccessKeyId.setText("AWS_ACCESS_KEY_ID");
+    wlAccessKeyId.setText(BaseMessages.getString(PKG, "CrateDBBulkLoaderDialog.AccessKeyId.Label"));
     PropsUi.setLook(wlAccessKeyId);
     FormData fdlAccessKeyId = new FormData();
     fdlAccessKeyId.top = new FormAttachment(lastControl, margin);
@@ -455,7 +455,8 @@ public class CrateDBBulkLoaderDialog extends BaseTransformDialog {
     lastControl = wAccessKeyId;
 
     wlSecretAccessKey = new Label(wOptionsComp, SWT.RIGHT);
-    wlSecretAccessKey.setText("AWS_SECRET_ACCESS_KEY");
+    wlSecretAccessKey.setText(
+        BaseMessages.getString(PKG, "CrateDBBulkLoaderDialog.SecretAccessKey.Label"));
     PropsUi.setLook(wlSecretAccessKey);
     FormData fdlSecretAccessKey = new FormData();
     fdlSecretAccessKey.top = new FormAttachment(lastControl, margin);

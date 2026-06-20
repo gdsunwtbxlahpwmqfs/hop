@@ -24,6 +24,7 @@ import org.apache.hop.core.Const;
 import org.apache.hop.core.logging.ILogChannel;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.core.variables.IVariables;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.mongo.wrapper.MongoClientWrapper;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
@@ -48,6 +49,8 @@ import org.eclipse.swt.widgets.Text;
 public class MongoDbConnectionEditor extends MetadataEditor<MongoDbConnection>
     implements IMetadataEditor<MongoDbConnection> {
 
+  private static final Class<?> PKG = MongoDbConnectionEditor.class; // needed by Translator!!
+
   public static final String PARENT_WIDGET_ID = "MongoDbConnectionEditor.Widgets.ParentId";
 
   private Composite parent;
@@ -71,7 +74,7 @@ public class MongoDbConnectionEditor extends MetadataEditor<MongoDbConnection>
     //
     Label wlName = new Label(parent, SWT.RIGHT);
     PropsUi.setLook(wlName);
-    wlName.setText("MongoDB Connection name");
+    wlName.setText(BaseMessages.getString(PKG, "MongoDbConnectionEditor.Name.Label"));
     FormData fdlName = new FormData();
     fdlName.top = new FormAttachment(0, margin * 2);
     fdlName.left = new FormAttachment(0, 0);
@@ -124,12 +127,12 @@ public class MongoDbConnectionEditor extends MetadataEditor<MongoDbConnection>
 
     Button wbGetDbs = new Button(parent, SWT.PUSH | SWT.CENTER);
     PropsUi.setLook(wbGetDbs);
-    wbGetDbs.setText("Get databases");
+    wbGetDbs.setText(BaseMessages.getString(PKG, "MongoDbConnectionEditor.GetDatabases.Button"));
     wbGetDbs.addListener(SWT.Selection, e -> getDbNames());
 
     Button wbTest = new Button(parent, SWT.PUSH | SWT.CENTER);
     PropsUi.setLook(wbTest);
-    wbTest.setText("Test");
+    wbTest.setText(BaseMessages.getString(PKG, "MongoDbConnectionEditor.Test.Button"));
     wbTest.addListener(SWT.Selection, e -> test());
 
     return new Button[] {
@@ -143,7 +146,7 @@ public class MongoDbConnectionEditor extends MetadataEditor<MongoDbConnection>
       getWidgetsContent(meta);
       meta.test(manager.getVariables(), LogChannel.UI);
       MessageBox box = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK);
-      box.setText("Success!");
+      box.setText(BaseMessages.getString(PKG, "MongoDbConnectionEditor.Test.Success.Title"));
       box.setMessage("Connected successfully!");
       box.open();
     } catch (Exception e) {

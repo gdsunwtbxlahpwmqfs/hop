@@ -25,6 +25,7 @@ import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.file.IHasFilename;
 import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.core.vfs.HopVfs;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.context.IGuiContextHandler;
@@ -181,7 +182,10 @@ public abstract class BaseExplorerFileType<T extends IExplorerFileTypeHandler>
 
       if (sizeMb > maxSizeMb) {
         MessageBox box = new MessageBox(hopGui.getShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-        box.setText("Open large file?");
+        box.setText(
+            BaseMessages.getString(
+                "org.apache.hop.ui.hopgui.perspective.explorer",
+                "ExplorerFileTypeHandler.OpenLargeFile.Header"));
         box.setMessage(
             name
                 + Const.CR
