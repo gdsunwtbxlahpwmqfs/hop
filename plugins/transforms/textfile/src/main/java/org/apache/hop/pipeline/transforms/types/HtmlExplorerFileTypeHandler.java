@@ -24,6 +24,7 @@ import org.apache.hop.core.Const;
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.core.vfs.HopVfs;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.hopgui.HopGui;
@@ -40,6 +41,8 @@ import org.eclipse.swt.widgets.Composite;
 
 /** This handles an HTML file in the file explorer perspective: open, save, ... */
 public class HtmlExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
+
+  private static final Class<?> PKG = HtmlExplorerFileTypeHandler.class;
 
   private Browser wBrowser;
   private String originalHtmlContent;
