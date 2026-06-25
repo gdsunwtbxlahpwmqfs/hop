@@ -26,13 +26,5 @@ services:
         cp -r /tmp/hop-lib-core/* webapps/ROOT/WEB-INF/lib/ &&
         cp -r /tmp/hop-lib-beam/* webapps/ROOT/WEB-INF/lib/ &&
         mkdir -p /opt/hop/audit &&
-        rm -rf /opt/hop/plugins/tech/aws/ &&
-        rm -rf /opt/hop/plugins/tech/azure/ &&
-        rm -rf /opt/hop/plugins/tech/databricks/ &&
-        rm -rf /opt/hop/plugins/tech/dropbox/ &&
-        rm -rf /opt/hop/plugins/tech/google/ &&
-        rm -rf /opt/hop/plugins/tech/salesforce/ &&
-        rm -rf /opt/hop/plugins/actions/snowflake/ &&
-        rm -rf /opt/hop/plugins/databases/googlebigquery/ &&
         catalina.sh run
       "
