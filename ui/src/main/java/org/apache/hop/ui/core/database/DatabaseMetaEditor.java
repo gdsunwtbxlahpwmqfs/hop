@@ -496,7 +496,7 @@ public class DatabaseMetaEditor extends MetadataEditor<DatabaseMeta> {
     // Keep track of the old database type since this changes when getting the content
     //
     Class<? extends IDatabase> oldClass = databaseMeta.getIDatabase().getClass();
-    String oldTypeName = databaseMeta.getPluginName();
+    // String oldTypeName = databaseMeta.getPluginName();
     String newTypeName = wConnectionType.getText();
     wConnectionType.setText(databaseMeta.getPluginName());
 

@@ -438,12 +438,7 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
-            <groupId>org.apache.hop</groupId>
-            <artifactId>hop-databases-googlebigquery</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-greenplum</artifactId>
@@ -766,12 +761,6 @@
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-elastic</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hop</groupId>
-            <artifactId>hop-tech-google</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>

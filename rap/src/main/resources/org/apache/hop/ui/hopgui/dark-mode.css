@@ -360,7 +360,6 @@ Combo[BORDER] {
 Combo:focused,
 Combo[BORDER]:focused {
     border: 1px solid #3584e4;
-    box-shadow: 0 0 0 1px #3584e4;
 }
 
 Combo:disabled,
@@ -944,7 +943,6 @@ Spinner[BORDER] {
 
 Spinner[BORDER]:focused {
     border: 1px solid #3584e4;
-    box-shadow: 0 0 0 1px #3584e4;
 }
 
 Spinner:disabled,
@@ -1280,7 +1278,6 @@ Text[MULTI][BORDER] {
 Text[BORDER]:focused,
 Text[MULTI][BORDER]:focused {
     border: 1px solid #3584e4;
-    box-shadow: 0 0 0 1px #3584e4;
 }
 
 Text[BORDER]:disabled,
@@ -2001,7 +1998,7 @@ DateTime-UpButton {
             linear, left top, left bottom,
             from(#363636),
             to(#404040)
-    );;
+    );
     width: 30px;
     border: none;
     border-left: 1px solid #404040;
@@ -2315,7 +2312,6 @@ CCombo[BORDER] {
 
 CCombo[BORDER]:focused {
     border: 1px solid #3584e4;
-    box-shadow: 0 0 0 1px #3584e4;
 }
 
 CCombo:disabled,
