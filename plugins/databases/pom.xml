@@ -30,51 +30,51 @@
 
     <modules>
         <module>access</module>
-        <!-- <module>as400</module>
+        <module>as400</module>
         <module>cache</module>
         <module>clickhouse</module>
         <module>cockroachdb</module>
         <module>cratedb</module>
         <module>db2</module>
         <module>derby</module>
-        <module>doris</module> -->
+        <module>doris</module>
         <module>duckdb</module>
-        <!-- <module>exasol4</module>
+        <module>exasol4</module>
         <module>firebird</module>
         <module>generic</module>
         <module>googlebigquery</module>
         <module>greenplum</module>
-        <module>h2</module> -->
-        <!-- <module>hive</module> -->
-        <!-- <module>hypersonic</module> -->
-        <!-- <module>impala</module>
+        <module>h2</module>
+        <module>hive</module>
+        <module>hypersonic</module>
+        <module>impala</module>
         <module>infobright</module>
         <module>informix</module>
         <module>ingres</module>
         <module>interbase</module>
-        <module>iris</module> -->
+        <module>iris</module>
         <module>kingbasees</module>
         <module>mariadb</module>
-        <!-- <module>monetdb</module> -->
+        <module>monetdb</module>
         <module>mssql</module>
         <module>mssqlnative</module>
         <module>mysql</module>
-        <!-- <module>netezza</module> -->
-        <!-- <module>oracle</module> -->
-        <!-- <module>oraclerdb</module> -->
+        <module>netezza</module>
+        <module>oracle</module>
+        <module>oraclerdb</module>
         <module>postgresql</module>
-        <!-- <module>redshift</module>
+        <module>redshift</module>
         <module>sapdb</module>
         <module>singlestore</module>
         <module>snowflake</module>
-        <module>sqlbase</module> -->
+        <module>sqlbase</module>
         <module>sqlite</module>
-        <!-- <module>sybase</module>
+        <module>sybase</module>
         <module>sybaseiq</module>
         <module>teradata</module>
         <module>universe</module>
         <module>vectorwise</module>
-        <module>vertica</module> -->
+        <module>vertica</module>
     </modules>
 
     <dependencyManagement>

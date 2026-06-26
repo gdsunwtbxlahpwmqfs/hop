@@ -36,4 +36,4 @@ else
     echo "monetdb-jdbc ${MONETDB_VERSION} already present in local Maven repository"
 fi
 
-./mvnw install -Dfast-build -DskipTests "$@"
+./mvnw clean install -Dfast-build -DskipTests "$@"
