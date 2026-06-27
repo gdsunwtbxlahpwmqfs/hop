@@ -25,8 +25,22 @@ if [ -z "$(ls -A "$WEBAPP_DIR" 2>/dev/null)" ] || [ "assemblies/web/target/hop.w
   unzip -q assemblies/web/target/hop.war -d "$WEBAPP_DIR"
 fi
 
-# Fix SWT jar: replace macOS cocoa with Linux GTK (built on macOS, runs in Linux container)
+# Copy Hop core/beam libraries into the webapp.
+# hop.war does NOT bundle hop-core/hop-engine (see docker/web.Dockerfile which does
+# the same COPY). Without this, Tomcat fails with NoClassDefFoundError: HopException.
 WEBAPP_LIB="assemblies/web/target/webapp/WEB-INF/lib"
+CLIENT_ZIP=$(ls assemblies/client/target/hop-client-*.zip 2>/dev/null | head -1)
+if [ -n "$CLIENT_ZIP" ]; then
+  echo "==> Extracting core/beam libs from client assembly..."
+  unzip -q -o "$CLIENT_ZIP" "hop/lib/core/*" "hop/lib/beam/*" -d assemblies/client/target/
+  cp assemblies/client/target/hop/lib/core/*.jar "$WEBAPP_LIB/"
+  cp assemblies/client/target/hop/lib/beam/*.jar "$WEBAPP_LIB/"
+else
+  echo "==> Warning: client assembly zip not found; hop-core will be missing from WEB-INF/lib"
+fi
+
+# Fix SWT jar: replace macOS cocoa with Linux GTK (built on macOS, runs in Linux container)
+
 LINUX_SWT="$HOME/.m2/repository/org/eclipse/platform/org.eclipse.swt.gtk.linux.x86_64/3.132.0/org.eclipse.swt.gtk.linux.x86_64-3.132.0.jar"
 if ls "$WEBAPP_LIB"/org.eclipse.swt.cocoa.* >/dev/null 2>&1; then
   echo "==> Replacing macOS SWT with Linux GTK SWT..."

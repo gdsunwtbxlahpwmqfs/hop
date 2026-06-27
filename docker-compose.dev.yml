@@ -1,7 +1,8 @@
 services:
   hop-web:
     image: tomcat:10-jdk21
-    platform: linux/amd64
+    # platform: linux/amd64
+    platform: linux/arm64
     container_name: hop-web-dev
     ports:
       - "8080:8080"
@@ -19,7 +20,7 @@ services:
       - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
       - ./assemblies/web/target/webapp/config:/opt/hop/config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
-      - ./resources/jdbc:/opt/hop/jdbc
+      - ./resources/jdbc-drivers:/opt/hop/jdbc
     working_dir: /usr/local/tomcat
     command: >
       bash -c "
