@@ -4,11 +4,11 @@ cd "$(dirname "$0")/.."
 echo "==> Building Web assembly for Linux platform..."
 
 # Clean previous web artifacts to avoid stale SWT jars
-rm -rf assemblies/beam/target
 rm -rf assemblies/client/target
 rm -rf assemblies/core/target
 rm -rf assemblies/plugins/target
 rm -rf assemblies/static/target
+rm -rf assemblies/jdbc/target
 rm -rf assemblies/web/target
 
 ./mvnw clean install -Dfast-build -DskipTests \

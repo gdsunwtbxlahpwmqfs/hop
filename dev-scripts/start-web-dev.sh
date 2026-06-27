@@ -28,19 +28,6 @@ elif [ ! -d "$CORE_DIR" ] || [ "$CORE_ZIP" -nt "$CORE_DIR" ]; then
   unzip -q "$CORE_ZIP" -d "assemblies/core/target/"
 fi
 
-# Check if beam assembly exists
-BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
-BEAM_DIR="assemblies/beam/target/hop/lib/core"
-if [ -z "$BEAM_ZIP" ]; then
-  echo "==> Beam assembly zip not found. Building..."
-  ./mvnw clean package -pl assemblies/beam -am -Dfast-build -DskipTests
-  BEAM_ZIP=$(ls assemblies/beam/target/hop-beam-assembly-*-SNAPSHOT.zip 2>/dev/null | head -1)
-elif [ ! -d "$BEAM_DIR" ] || [ "$BEAM_ZIP" -nt "$BEAM_DIR" ]; then
-  echo "==> Extracting beam assembly..."
-  rm -rf "assemblies/beam/target/hop"
-  unzip -q "$BEAM_ZIP" -d "assemblies/beam/target/"
-fi
-
 # Check if webapp directory needs to be (re)extracted from war
 # Re-extract if:
 # 1. webapp directory is empty/missing, OR

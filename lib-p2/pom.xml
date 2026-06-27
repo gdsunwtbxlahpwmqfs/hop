@@ -30,7 +30,11 @@
     <description>Fetch Eclipse artifacts from P2</description>
 
     <modules>
-        <module>swtbot</module>
-        <module>tm4e</module>
+        <!-- swtbot & tm4e excluded from reactor: pom-packaging + attached JAR confuses JDT.LS.
+             The JARs are pre-installed in the local Maven repo. To rebuild:
+             ./mvnw install -f lib-p2/swtbot/pom.xml
+             ./mvnw install -f lib-p2/tm4e/pom.xml -->
+        <!-- <module>swtbot</module> -->
+        <!-- <module>tm4e</module> -->
     </modules>
 </project>

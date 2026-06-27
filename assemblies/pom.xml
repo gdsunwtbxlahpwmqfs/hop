@@ -31,10 +31,8 @@
     <name>Hop Assemblies</name>
 
     <modules>
-        <module>beam</module>
         <module>client</module>
         <module>core</module>
-        <module>debug</module>
         <module>jdbc</module>
         <module>plugins</module>
         <module>static</module>

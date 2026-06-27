@@ -19,12 +19,10 @@ services:
       - ./assemblies/web/target/webapp/config:/opt/hop/config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./assemblies/core/target/hop/lib/core:/tmp/hop-lib-core
-      - ./assemblies/beam/target/hop/lib/core:/tmp/hop-lib-beam
     working_dir: /usr/local/tomcat
     command: >
       bash -c "
         cp -r /tmp/hop-lib-core/* webapps/ROOT/WEB-INF/lib/ &&
-        cp -r /tmp/hop-lib-beam/* webapps/ROOT/WEB-INF/lib/ &&
         mkdir -p /opt/hop/audit &&
         catalina.sh run
       "

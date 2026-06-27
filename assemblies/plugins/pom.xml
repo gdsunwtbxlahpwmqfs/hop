@@ -360,7 +360,7 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-access</artifactId>
             <version>${project.version}</version>
@@ -431,7 +431,7 @@
             <artifactId>hop-databases-firebird</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-generic</artifactId>
@@ -439,7 +439,7 @@
             <type>zip</type>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-greenplum</artifactId>
             <version>${project.version}</version>
@@ -504,19 +504,19 @@
             <artifactId>hop-databases-kingbasees</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-mariadb</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-monetdb</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-mssql</artifactId>
@@ -535,12 +535,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-netezza</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-oracle</artifactId>
@@ -559,7 +559,7 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-redshift</artifactId>
             <version>${project.version}</version>
@@ -588,14 +588,14 @@
             <artifactId>hop-databases-sqlbase</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-sqlite</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-sybase</artifactId>
             <version>${project.version}</version>
@@ -630,7 +630,7 @@
             <artifactId>hop-databases-vertica</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-misc-async</artifactId>
@@ -716,7 +716,7 @@
             <type>zip</type>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-arrow</artifactId>
             <version>${project.version}</version>
@@ -757,7 +757,7 @@
             <artifactId>hop-tech-dropbox</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-elastic</artifactId>
@@ -776,7 +776,7 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-neo4j</artifactId>
             <version>${project.version}</version>
@@ -811,7 +811,7 @@
             <artifactId>hop-tech-webdav</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-abort</artifactId>
