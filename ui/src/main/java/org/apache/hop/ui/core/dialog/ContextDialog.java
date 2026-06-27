@@ -73,7 +73,6 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolItem;
 
 @GuiPlugin(description = "This dialog presents you all the actions you can take in a given context")
 public class ContextDialog extends Dialog {
@@ -749,22 +748,19 @@ public class ContextDialog extends Dialog {
     if (toolBarWidgets == null) {
       return null;
     }
-    ToolItem checkboxItem = toolBarWidgets.findToolItem(TOOLBAR_ITEM_ENABLE_CATEGORIES);
-    if (checkboxItem == null) {
-      return null;
-    }
-    return (Button) checkboxItem.getControl();
+    // Use widgetsMap lookup which works in both desktop and web (RAP) modes.
+    // findToolItem() only returns ToolItem separators which are not created in web mode.
+    org.eclipse.swt.widgets.Control control =
+        toolBarWidgets.getWidget(TOOLBAR_ITEM_ENABLE_CATEGORIES);
+    return control instanceof Button ? (Button) control : null;
   }
 
   private Button getFixedWidthCheckBox() {
     if (toolBarWidgets == null) {
       return null;
     }
-    ToolItem checkboxItem = toolBarWidgets.findToolItem(TOOLBAR_ITEM_FIXED_WIDTH);
-    if (checkboxItem == null) {
-      return null;
-    }
-    return (Button) checkboxItem.getControl();
+    org.eclipse.swt.widgets.Control control = toolBarWidgets.getWidget(TOOLBAR_ITEM_FIXED_WIDTH);
+    return control instanceof Button ? (Button) control : null;
   }
 
   private void onMouseMove(Event event) {

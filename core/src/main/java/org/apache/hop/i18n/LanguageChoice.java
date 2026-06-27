@@ -18,6 +18,7 @@
 package org.apache.hop.i18n;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 import org.apache.hop.core.Const;
 import org.apache.hop.core.config.HopConfig;
 import org.apache.hop.core.util.EnvUtil;
@@ -65,10 +66,17 @@ public class LanguageChoice {
   }
 
   /**
+   * Sets the default locale, persists it to the Hop configuration, and clears all i18n caches so
+   * the new language takes effect immediately.
+   *
    * @param defaultLocale The defaultLocale to set.
    */
   public void setDefaultLocale(Locale defaultLocale) {
     this.defaultLocale = defaultLocale;
     HopConfig.getInstance().saveOption(STRING_DEFAULT_LOCALE, defaultLocale.toString());
+    // Clear cached resource bundles and thread-local locale so the new language is picked up
+    // without requiring a JVM restart.
+    ResourceBundle.clearCache();
+    GlobalMessageUtil.clearThreadLocale();
   }
 }

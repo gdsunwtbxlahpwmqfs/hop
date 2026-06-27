@@ -835,6 +835,21 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
   }
 
   /**
+   * Returns the SWT control directly associated with the given toolbar item id from the widgets
+   * map. Unlike {@link #findToolItem(String)} (which only has entries for desktop {@code ToolItem}
+   * separators), this works in both desktop and web (RAP) modes because every toolbar element type
+   * — including {@code CHECKBOX}, {@code COMBO}, and {@code TEXT} — is registered in {@code
+   * widgetsMap}.
+   *
+   * @param id the toolbar item id (from {@code @GuiToolbarElement})
+   * @return the associated control (e.g. {@link Button}, {@link Text}, {@link Combo}), or {@code
+   *     null} if not found
+   */
+  public Control getWidget(String id) {
+    return widgetsMap.get(id);
+  }
+
+  /**
    * Return the Control to use for positioning a popup menu for the given toolbar item. A ToolItem
    * is not a Control, and getControl() is only set for SEPARATOR items (the wrapped label/widget).
    * For BUTTON items we store the composite (image+text) in widgetsMap; use that for menu

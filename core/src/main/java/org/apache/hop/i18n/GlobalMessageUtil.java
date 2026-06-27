@@ -167,6 +167,14 @@ public class GlobalMessageUtil {
     threadLocales.set(newLocale);
   }
 
+  /**
+   * Clears the thread-local locale cache so the next lookup re-resolves from {@link
+   * LanguageChoice}.
+   */
+  public static void clearThreadLocale() {
+    threadLocales.remove();
+  }
+
   public static Locale getLocale() {
     Locale rtn = threadLocales.get();
     if (rtn != null) {
