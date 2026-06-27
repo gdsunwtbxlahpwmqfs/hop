@@ -50,6 +50,30 @@
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
 
+        <!-- JDBC drivers -->
+        <dependencySet>
+            <includes>
+                <include>com.amazon.redshift:redshift-jdbc42</include>
+                <include>com.clickhouse:clickhouse-jdbc</include>
+                <include>com.h2database:h2</include>
+                <include>com.microsoft.sqlserver:mssql-jdbc</include>
+                <include>com.vertica.jdbc:vertica-jdbc</include>
+                <include>io.crate:crate-jdbc</include>
+                <include>monetdb:monetdb-jdbc</include>
+                <include>net.sf.jt400:jt400</include>
+                <include>net.snowflake:snowflake-jdbc</include>
+                <include>org.apache.derby:derbyclient</include>
+                <include>org.duckdb:duckdb_jdbc</include>
+                <include>org.hsqldb:hsqldb</include>
+                <include>org.postgresql:postgresql</include>
+                <include>org.xerial:sqlite-jdbc</include>
+                <include>com.mysql:mysql-connector-j</include>
+            </includes>
+            <outputDirectory>lib/jdbc</outputDirectory>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
+
         <!-- swt -->
         <dependencySet>
             <includes>

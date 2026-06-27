@@ -23,7 +23,7 @@
     <formats>
         <format>zip</format>
     </formats>
-    <baseDirectory>lib/core</baseDirectory>
+    <baseDirectory>lib/beam</baseDirectory>
     <dependencySets>
         <dependencySet>
             <outputDirectory>.</outputDirectory>
