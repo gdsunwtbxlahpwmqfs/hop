@@ -18,7 +18,7 @@
 
 
 FROM tomcat:10-jdk21
-LABEL maintainer="Apache Hop Team"
+LABEL maintainer="HFXT Team"
 # The UID for the created user
 ARG HOP_UID=501
 # The GID for the created user
@@ -75,10 +75,10 @@ RUN groupadd -r hop -g ${HOP_GID} \
 # Copy resources
 COPY ./assemblies/web/target/webapp/ "${CATALINA_HOME}"/webapps/ROOT/
 COPY ./assemblies/client/target/hop/config "${CATALINA_HOME}"/webapps/ROOT/config
-COPY ./assemblies/core/target/hop/lib/core "${CATALINA_HOME}"/webapps/ROOT/WEB-INF/lib
-COPY ./assemblies/beam/target/hop/lib/core "${CATALINA_HOME}"/webapps/ROOT/WEB-INF/lib
+COPY ./assemblies/client/target/hop/lib/core "${CATALINA_HOME}"/webapps/ROOT/WEB-INF/lib
+COPY ./assemblies/client/target/hop/lib/beam "${CATALINA_HOME}"/webapps/ROOT/WEB-INF/lib
 COPY ./assemblies/client/target/hop/plugins "${CATALINA_HOME}"/plugins
-COPY ./assemblies/jdbc/target/hop/lib/jdbc/ "${CATALINA_HOME}"/jdbc-drivers
+COPY ./assemblies/client/target/hop/lib/jdbc/ "${CATALINA_HOME}"/jdbc-drivers
 COPY --chown=hop ./docker/resources/run-web.sh /tmp/
 
 # Fix hop-config.json

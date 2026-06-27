@@ -37,7 +37,6 @@
             <includes>
                 <include>org.apache.hop:hop-assemblies-static:zip</include>
                 <include>org.apache.hop:hop-assemblies-plugins:zip</include>
-                <include>org.apache.hop:hop-assemblies-jdbc:zip</include>
                 <include>org.apache.hop:hop-core:zip</include>
                 <include>org.apache.hop:hop-engine:zip</include>
                 <include>org.apache.hop:hop-ui:zip</include>

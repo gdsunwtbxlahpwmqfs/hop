@@ -32,8 +32,6 @@
 
     <modules>
         <module>client</module>
-        <module>core</module>
-        <module>jdbc</module>
         <module>plugins</module>
         <module>static</module>
         <module>web</module>
