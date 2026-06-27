@@ -35,6 +35,9 @@ if [ -n "$CLIENT_ZIP" ]; then
   unzip -q -o "$CLIENT_ZIP" "hop/lib/core/*" "hop/lib/beam/*" -d assemblies/client/target/
   cp assemblies/client/target/hop/lib/core/*.jar "$WEBAPP_LIB/"
   cp assemblies/client/target/hop/lib/beam/*.jar "$WEBAPP_LIB/"
+  # Remove the RCP fragment: it conflicts with hop-ui-rap (both provide
+  # TextSizeUtilFacadeImpl) and references SWT methods absent in RAP.
+  rm -f "$WEBAPP_LIB"/hop-ui-rcp*
 else
   echo "==> Warning: client assembly zip not found; hop-core will be missing from WEB-INF/lib"
 fi

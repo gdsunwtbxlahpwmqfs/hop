@@ -48,6 +48,7 @@
         </dependencySet>
         <dependencySet>
             <includes>
+                <include>org.eclipse.angus:angus-mail:jar</include>
                 <include>org.eclipse.angus:angus-activation:jar</include>
             </includes>
             <outputDirectory>plugins/misc/mail/lib</outputDirectory>
