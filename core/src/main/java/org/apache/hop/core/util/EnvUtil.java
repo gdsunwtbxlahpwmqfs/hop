@@ -19,12 +19,10 @@ package org.apache.hop.core.util;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 public class EnvUtil {
-  private static Properties env = null;
 
   private EnvUtil() {}
 
@@ -73,12 +71,12 @@ public class EnvUtil {
     }
     StringTokenizer parser = new StringTokenizer(localeCode, "_");
     if (parser.countTokens() == 2) {
-      return new Locale(parser.nextToken(), parser.nextToken());
+      return Locale.of(parser.nextToken(), parser.nextToken());
     }
     if (parser.countTokens() == 3) {
-      return new Locale(parser.nextToken(), parser.nextToken(), parser.nextToken());
+      return Locale.of(parser.nextToken(), parser.nextToken(), parser.nextToken());
     }
-    return new Locale(localeCode);
+    return Locale.of(localeCode);
   }
 
   public static TimeZone createTimeZone(String timeZoneId) {

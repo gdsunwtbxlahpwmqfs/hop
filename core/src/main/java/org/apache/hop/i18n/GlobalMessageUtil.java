@@ -41,7 +41,7 @@ public class GlobalMessageUtil {
   /** Used when the preferred locale (as defined by the user) is not available. */
   public static final Locale FAILOVER_LOCALE = Locale.US;
 
-  protected static final ThreadLocal<Locale> threadLocales = new ThreadLocal();
+  protected static final ThreadLocal<Locale> threadLocales = new ThreadLocal<>();
 
   public static String formatErrorMessage(String key, String msg) {
     String s2 = key.substring(0, key.indexOf('.') + "ERROR_0000".length() + 1);

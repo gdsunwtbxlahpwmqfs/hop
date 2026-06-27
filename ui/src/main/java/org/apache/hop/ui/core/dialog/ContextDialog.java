@@ -180,29 +180,6 @@ public class ContextDialog extends Dialog {
     }
 
     /**
-     * @param category The category to set
-     */
-    public void setCategory(String category) {
-      this.category = category;
-    }
-
-    /**
-     * Gets order
-     *
-     * @return value of order
-     */
-    public String getOrder() {
-      return order;
-    }
-
-    /**
-     * @param order The order to set
-     */
-    public void setOrder(String order) {
-      this.order = order;
-    }
-
-    /**
      * Gets collapsed
      *
      * @return value of collapsed
@@ -256,10 +233,6 @@ public class ContextDialog extends Dialog {
 
     public GuiAction getAction() {
       return action;
-    }
-
-    public String getText() {
-      return action.getShortName();
     }
 
     public Image getImage() {

@@ -79,7 +79,6 @@ import org.apache.hop.metadata.util.HopMetadataInstance;
 import org.apache.hop.metadata.util.HopMetadataUtil;
 import org.apache.hop.partition.PartitionSchema;
 import org.apache.hop.server.HopServerMeta;
-import org.apache.hop.ui.core.ConstUi;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.bus.HopGuiEventsHandler;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
@@ -93,7 +92,6 @@ import org.apache.hop.ui.core.gui.WindowProperty;
 import org.apache.hop.ui.core.metadata.MetadataManager;
 import org.apache.hop.ui.core.widget.OsHelper;
 import org.apache.hop.ui.core.widget.svg.SvgLabelFacade;
-import org.apache.hop.ui.core.widget.svg.SvgLabelListener;
 import org.apache.hop.ui.hopgui.context.GuiContextUtil;
 import org.apache.hop.ui.hopgui.context.IActionContextHandlersProvider;
 import org.apache.hop.ui.hopgui.context.IGuiContextHandler;
@@ -146,12 +144,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 
 @GuiPlugin(name = "HFXT GUI", description = "The main HFXT graphical user interface")
 @SuppressWarnings("java:S1104")
@@ -719,34 +714,6 @@ public class HopGui
     }
   }
 
-  private ToolItem addWebToolbarButton(
-      String id, ToolBar toolBar, String filename, String tooltip, Listener listener) {
-    ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
-
-    Label label = new Label(toolBar, SWT.NONE);
-    Listener webListener = SvgLabelListener.getInstance();
-    label.addListener(SWT.MouseDown, webListener);
-    label.addListener(SWT.Hide, webListener);
-    label.addListener(SWT.Show, webListener);
-    label.addListener(SWT.MouseDown, listener);
-    if (StringUtils.isNotEmpty(tooltip)) {
-      label.setToolTipText(tooltip);
-    }
-    label.pack();
-    int size = (int) (ConstUi.SMALL_ICON_SIZE * PropsUi.getNativeZoomFactor());
-    // Just make the items a tad wider.
-    // Hop Web/RAP isn't smart enough to know that the toolbar is vertical and this should be
-    // higher.
-    // We use this glitch to give the icons a tad more room on the right.
-    //
-    item.setWidth(size + 2);
-    item.setControl(label);
-
-    SvgLabelFacade.setData(id, label, filename, size);
-    item.setData("id", id);
-    return item;
-  }
-
   /**
    * Create a styled sidebar button with modern appearance. Features rounded corners, hover effects,
    * and selection colors.
@@ -772,7 +739,6 @@ public class HopGui
   /** Custom sidebar button class with hover, selection, and rounded corners */
   private class SidebarButton {
     Control composite; // Use Control to allow both Composite (RAP) and Canvas (desktop)
-    Image image;
     IHopPerspective perspective;
     boolean isHovered = false;
     boolean isSelected = false;
@@ -788,7 +754,6 @@ public class HopGui
         int imageSize,
         String tooltip,
         IHopPerspective perspective) {
-      this.image = image;
       this.perspective = perspective;
 
       // Create a label inside the composite to display the image (only for RAP)

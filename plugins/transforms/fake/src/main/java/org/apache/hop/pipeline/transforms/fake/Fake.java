@@ -31,8 +31,6 @@ import org.apache.hop.pipeline.transform.TransformMeta;
 
 public class Fake extends BaseTransform<FakeMeta, FakeData> {
 
-  private static final Class<?> PKG = FakeMeta.class;
-
   public Fake(
       TransformMeta transformMeta,
       FakeMeta meta,
@@ -47,7 +45,7 @@ public class Fake extends BaseTransform<FakeMeta, FakeData> {
   public boolean init() {
 
     if (StringUtils.isNotEmpty(meta.getLocale())) {
-      data.faker = new Faker(new Locale(resolve(meta.getLocale())));
+      data.faker = new Faker(Locale.of(resolve(meta.getLocale())));
     } else {
       data.faker = new Faker();
     }

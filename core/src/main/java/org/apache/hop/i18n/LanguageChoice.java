@@ -38,7 +38,7 @@ public class LanguageChoice {
       // check if in language list and if beta language
       if (!StringUtil.isEmpty(defaultLocale.getVariant())
           || !StringUtil.isEmpty(defaultLocale.getScript())) {
-        defaultLocale = new Locale(defaultLocale.getLanguage(), defaultLocale.getCountry());
+        defaultLocale = Locale.of(defaultLocale.getLanguage(), defaultLocale.getCountry());
       }
       int localeIdx = Const.indexOfString(defaultLocale.toString(), GlobalMessages.localeCodes);
       if (localeIdx < 0 || GlobalMessages.localeBetaStatus[localeIdx].equals("Y")) {
