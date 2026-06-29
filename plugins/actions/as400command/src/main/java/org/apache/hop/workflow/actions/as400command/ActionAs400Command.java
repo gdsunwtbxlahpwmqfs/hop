@@ -35,7 +35,6 @@ import org.apache.hop.resource.ResourceEntry.ResourceType;
 import org.apache.hop.resource.ResourceReference;
 import org.apache.hop.workflow.WorkflowMeta;
 import org.apache.hop.workflow.action.ActionBase;
-import org.apache.hop.workflow.action.IAction;
 import org.apache.hop.workflow.action.validator.ActionValidatorUtils;
 import org.apache.hop.workflow.action.validator.AndValidator;
 
@@ -49,7 +48,7 @@ import org.apache.hop.workflow.action.validator.AndValidator;
     keywords = "i18n::ActionAs400Command.keyword",
     documentationUrl = "/workflow/actions/as400command.html",
     isIncludeJdbcDrivers = true)
-public class ActionAs400Command extends ActionBase implements Cloneable, IAction {
+public class ActionAs400Command extends ActionBase {
   private static final Class<?> PKG = ActionAs400Command.class;
 
   private static final String TAG_SERVER = "server";
@@ -234,7 +233,10 @@ public class ActionAs400Command extends ActionBase implements Cloneable, IAction
             BaseMessages.getString(
                 PKG, "ActionAs400Command.Log.Connecting", serverString, userString));
       }
-      system = new AS400(serverString, userString, passwordString, proxyServer);
+      system = new AS400(serverString, userString, passwordString.toCharArray());
+      if (!Utils.isEmpty(proxyServer)) {
+        system.setProxyServer(proxyServer);
+      }
 
       // Connect to service
       if (isBasic()) {
@@ -278,11 +280,12 @@ public class ActionAs400Command extends ActionBase implements Cloneable, IAction
       result.setNrErrors(1);
       result.setResult(false);
     } finally {
-      try {
-        // Make sure to disconnect
-        system.disconnectService(AS400.COMMAND);
-      } catch (Exception e) {
-        // Ignore
+      if (system != null) {
+        try {
+          system.disconnectService(AS400.COMMAND);
+        } catch (Exception e) {
+          // Ignore
+        }
       }
     }
 
@@ -302,6 +305,7 @@ public class ActionAs400Command extends ActionBase implements Cloneable, IAction
     return references;
   }
 
+  @SuppressWarnings("resource")
   public boolean test(
       IVariables variables,
       final String server,
@@ -311,20 +315,31 @@ public class ActionAs400Command extends ActionBase implements Cloneable, IAction
       final String proxyPort)
       throws Exception {
 
-    // Create proxy server
     String proxyServer =
         this.getProxyServer(variables.resolve(proxyHost), variables.resolve(proxyPort));
 
-    // Create an AS400 object
-    AS400 system =
-        new AS400(
-            variables.resolve(server),
-            variables.resolve(user),
-            Utils.resolvePassword(this, password),
-            proxyServer);
-    system.connectService(AS400.COMMAND);
-
-    return true;
+    // AS400 does not implement AutoCloseable, so we manually disconnect in finally
+    AS400 system = null;
+    try {
+      system =
+          new AS400(
+              variables.resolve(server),
+              variables.resolve(user),
+              Utils.resolvePassword(this, password).toCharArray());
+      if (!Utils.isEmpty(proxyServer)) {
+        system.setProxyServer(proxyServer);
+      }
+      system.connectService(AS400.COMMAND);
+      return true;
+    } finally {
+      if (system != null) {
+        try {
+          system.disconnectService(AS400.COMMAND);
+        } catch (Exception e) {
+          // Ignore
+        }
+      }
+    }
   }
 
   @Override

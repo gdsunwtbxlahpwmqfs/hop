@@ -41,6 +41,17 @@ public class HopWebServletContextListener extends RWTServletContextListener {
     } catch (HopException e) {
       e.printStackTrace();
     }
+
+    // Ensure JAXP uses the JDK built-in TransformerFactory instead of looking up
+    // a (possibly absent) Xalan implementation via META-INF/services. Without this,
+    // POI's XMLHelper fails with TransformerFactoryConfigurationError when writing
+    // XLSX files in the web (RAP) environment.
+    if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
+      System.setProperty(
+          "javax.xml.transform.TransformerFactory",
+          "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+    }
+
     // Use per-user audit folders in Hop Web when the user is authenticated
     AuditManager.setSessionAuditManagerProvider(new HopWebAuditManagerProvider());
     super.contextInitialized(event);
