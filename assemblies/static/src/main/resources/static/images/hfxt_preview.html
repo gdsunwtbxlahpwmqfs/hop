@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>HFXT Logo Preview</title>
+<style>
+  body { margin:0; padding:40px; background:#f4f6f8; font-family:-apple-system,Segoe UI,Roboto,sans-serif; color:#1d2733; }
+  h1 { font-size:18px; }
+  .panel { background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:28px; margin:18px 0; }
+  .panel.dark { background:#0E3D5C; }
+  .panel.dark .label { color:#9fb3c8; }
+  .label { font-size:12px; color:#5a6b7b; margin-top:8px; letter-spacing:.5px; }
+  img { display:block; }
+  .row { display:flex; align-items:center; gap:24px; }
+  .swatches { margin-top:10px; }
+  .sw { display:inline-block; width:60px; height:24px; border-radius:4px; vertical-align:middle; margin-right:8px; }
+</style>
+</head>
+<body>
+<h1>HFXT Logo &mdash; design study</h1>
+
+<div class="panel">
+  <div class="row">
+    <img src="hfxt_logo.svg" height="90"/>
+    <img src="hfxt_emblem.svg" height="90"/>
+  </div>
+  <div class="label">Lockup (pelican emblem + HFXT wordmark) &amp; emblem on white</div>
+</div>
+
+<div class="panel dark">
+  <div class="row">
+    <img src="hfxt_logo_light.svg" height="90"/>
+    <img src="hfxt_emblem.svg" height="90"/>
+  </div>
+  <div class="label" style="color:#9fb3c8;">On deep navy (#0E3D5C) &mdash; uses <b>hfxt_logo_light.svg</b> (white wordmark)</div>
+</div>
+
+<div class="panel">
+  <div class="swatches">
+    <span class="sw" style="background:linear-gradient(135deg,#F9CB76,#E2952F)"></span><span class="label" style="display:inline">amber badge #F9CB76 → #E2952F</span>
+    &nbsp;&nbsp;
+    <span class="sw" style="background:#0E3D5C"></span><span class="label" style="display:inline">deep navy #0E3D5C</span>
+  </div>
+</div>
+</body>
+</html>

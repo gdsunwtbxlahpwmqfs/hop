@@ -264,6 +264,8 @@ public class HopGui
   private GuiMenuWidgets mainMenuWidgets;
   private Composite mainHopGuiComposite;
 
+  private org.apache.hop.ui.hopgui.assistant.LlmAssistantFloatingButton llmAssistantButton;
+
   private Control mainToolbar;
   private GuiToolbarWidgets mainToolbarWidgets;
 
@@ -476,6 +478,10 @@ public class HopGui
     addStatusToolbar();
     addPerspectivesToolbar();
     addMainPerspectivesComposite();
+
+    // Personal assistant floating button (only when enabled via environment variables).
+    llmAssistantButton = new org.apache.hop.ui.hopgui.assistant.LlmAssistantFloatingButton(shell);
+    llmAssistantButton.create(mainHopGuiComposite);
 
     loadPerspectives();
 
