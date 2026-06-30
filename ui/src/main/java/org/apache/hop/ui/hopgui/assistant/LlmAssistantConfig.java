@@ -18,6 +18,7 @@
 package org.apache.hop.ui.hopgui.assistant;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hop.i18n.BaseMessages;
 
 /**
  * Configuration for the built-in LLM personal assistant, sourced exclusively from environment
@@ -45,6 +46,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class LlmAssistantConfig {
 
+  private static final Class<?> PKG = LlmAssistantDialog.class;
+
   public static final String ENV_ENABLED = "HOP_LLM_ENABLED";
   public static final String ENV_API_URL = "HOP_LLM_API_URL";
   public static final String ENV_API_KEY = "HOP_LLM_API_KEY";
@@ -52,10 +55,7 @@ public final class LlmAssistantConfig {
   public static final String ENV_SYSTEM_PROMPT = "HOP_LLM_SYSTEM_PROMPT";
   public static final String ENV_TIMEOUT_SECONDS = "HOP_LLM_TIMEOUT_SECONDS";
 
-  private static final String DEFAULT_SYSTEM_PROMPT =
-      "You are the Apache Hop personal assistant. You help users with ETL pipelines, "
-          + "transforms, workflows, metadata and general data orchestration questions. "
-          + "Be concise and practical.";
+  private static final String DEFAULT_SYSTEM_PROMPT_KEY = "LlmAssistant.SystemPrompt.Default";
 
   private final boolean enabled;
   private final String apiUrl;
@@ -71,7 +71,8 @@ public final class LlmAssistantConfig {
     this.apiUrl = resolve(ENV_API_URL, "");
     this.apiKey = resolve(ENV_API_KEY, "");
     this.model = resolve(ENV_MODEL, "");
-    this.systemPrompt = resolve(ENV_SYSTEM_PROMPT, DEFAULT_SYSTEM_PROMPT);
+    this.systemPrompt =
+        resolve(ENV_SYSTEM_PROMPT, BaseMessages.getString(PKG, DEFAULT_SYSTEM_PROMPT_KEY));
     this.timeoutSeconds = parseInt(resolve(ENV_TIMEOUT_SECONDS, "60"), 60);
   }
 

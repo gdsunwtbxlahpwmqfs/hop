@@ -11,14 +11,15 @@
 # Docs: https://docs.litellm.ai/docs/proxy/configs
 
 model_list:
-  # DeepSeek (native OpenAI-compatible API)
+  # DeepSeek (native OpenAI-compatible API). model_name is what Hop requests
+  # (matches HOP_LLM_MODEL); litellm_params.model is the upstream DeepSeek id.
   - model_name: deepseek-flash
     litellm_params:
-      model: deepseek/deepseek-flash
+      model: deepseek/deepseek-v4-flash
       api_key: os.environ/DEEPSEEK_API_KEY
   - model_name: deepseek-pro
     litellm_params:
-      model: deepseek/deepseek-pro
+      model: deepseek/deepseek-v4-pro
       api_key: os.environ/DEEPSEEK_API_KEY
 
   # OpenAI (uncomment and set OPENAI_API_KEY to enable)

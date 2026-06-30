@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hop.core.json.HopJson;
+import org.apache.hop.i18n.BaseMessages;
 
 /**
  * Minimal OpenAI-compatible chat completions client used by the personal assistant. It builds the
@@ -43,6 +44,8 @@ import org.apache.hop.core.json.HopJson;
  * actually used.
  */
 public class LlmClient {
+
+  private static final Class<?> PKG = LlmAssistantDialog.class;
 
   /** A single chat message in the conversation. */
   public record ChatMessage(String role, String content) {}
@@ -104,7 +107,9 @@ public class LlmClient {
         responseBytes == null ? "" : new String(responseBytes, StandardCharsets.UTF_8);
 
     if (status < 200 || status >= 300) {
-      throw new IllegalStateException("HTTP " + status + ": " + truncate(responseBody, 500));
+      throw new IllegalStateException(
+          BaseMessages.getString(
+              PKG, "LlmAssistant.Error.HttpError", status, truncate(responseBody, 500)));
     }
 
     JsonNode root = mapper.readTree(responseBody);
@@ -115,13 +120,17 @@ public class LlmClient {
       if (StringUtils.isNotBlank(direct)) {
         return direct;
       }
-      throw new IllegalStateException("Empty or invalid response: " + truncate(responseBody, 500));
+      throw new IllegalStateException(
+          BaseMessages.getString(
+              PKG, "LlmAssistant.Error.InvalidResponse", truncate(responseBody, 500)));
     }
 
     JsonNode message = choices.get(0).path("message").path("content");
     String reply = message.asText("").trim();
     if (StringUtils.isBlank(reply)) {
-      throw new IllegalStateException("Empty assistant reply: " + truncate(responseBody, 500));
+      throw new IllegalStateException(
+          BaseMessages.getString(
+              PKG, "LlmAssistant.Error.EmptyReply", truncate(responseBody, 500)));
     }
     return reply;
   }

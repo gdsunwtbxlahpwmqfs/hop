@@ -22,6 +22,7 @@ import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.gui.GuiResource;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
+import org.apache.hop.ui.util.EnvironmentUtils;
 import org.apache.hop.ui.util.SwtSvgImageUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellAdapter;
@@ -191,6 +192,8 @@ public class LlmAssistantDialog extends Dialog {
   private void sendMessage() {
     String question = inputArea.getText().trim();
     if (question.isEmpty()) {
+      inputArea.setMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.EmptyQuestion"));
+      inputArea.setFocus();
       return;
     }
     if (!LlmAssistantConfig.getInstance().isAvailable()) {
@@ -259,7 +262,9 @@ public class LlmAssistantDialog extends Dialog {
     builder.append(speaker).append(":\n").append(text).append("\n");
     chatArea.append(builder.toString());
     chatArea.setSelection(getCharCount());
-    chatArea.showSelection();
+    if (!EnvironmentUtils.getInstance().isWeb()) {
+      chatArea.showSelection();
+    }
   }
 
   private int getCharCount() {
