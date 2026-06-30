@@ -22,9 +22,7 @@ import org.apache.hop.core.variables.Variable;
 
 public class Defaults {
 
-  @Variable(
-      description =
-          "Set this variable to the name of an existing Neo4j connection to enable execution logging to a Neo4j database.")
+  @Variable(description = "i18n::Variable.NEO4J_LOGGING_CONNECTION.Desc")
   public static final String NEO4J_LOGGING_CONNECTION = "NEO4J_LOGGING_CONNECTION";
 
   public static String TRANS_NODE_UPDATES_GROUP = "NODE_UPDATES";

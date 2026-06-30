@@ -29,7 +29,9 @@ import org.apache.commons.lang3.StringUtils;
  *   <li><strong>HOP_LLM_ENABLED</strong> &ndash; {@code true}/{@code false} to show or hide the
  *       assistant floating button (default: {@code false}).
  *   <li><strong>HOP_LLM_API_URL</strong> &ndash; Base URL or full chat-completions endpoint of an
- *       OpenAI-compatible LLM service.
+ *       OpenAI-compatible LLM service, or a <a
+ *       href="https://docs.litellm.ai/docs/proxy/server">LiteLLM proxy</a> that fronts one or more
+ *       providers.
  *   <li><strong>HOP_LLM_API_KEY</strong> &ndash; Secret API key sent as {@code Authorization:
  *       Bearer <key>}.
  *   <li><strong>HOP_LLM_MODEL</strong> &ndash; The model id to use (e.g. {@code gpt-4o-mini}).

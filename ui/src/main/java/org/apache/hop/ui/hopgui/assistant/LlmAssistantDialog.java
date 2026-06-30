@@ -24,8 +24,6 @@ import org.apache.hop.ui.core.gui.GuiResource;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.apache.hop.ui.util.SwtSvgImageUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyleRange;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.layout.FormAttachment;
@@ -40,9 +38,9 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Modal chat dialog backing the personal assistant. The conversation history is rendered in a
- * read-only {@link StyledText}; questions are sent to an OpenAI-compatible endpoint on a background
- * thread so the UI stays responsive. Closing or minimising the dialog returns the user to the
- * floating doctor-icon button.
+ * read-only text area; questions are sent to an OpenAI-compatible endpoint on a background thread
+ * so the UI stays responsive. Closing or minimising the dialog returns the user to the floating
+ * doctor-icon button.
  */
 public class LlmAssistantDialog extends Dialog {
 
@@ -54,7 +52,9 @@ public class LlmAssistantDialog extends Dialog {
   private final List<LlmClient.ChatMessage> history = LlmClient.newHistory();
 
   private Shell shell;
-  private StyledText chatArea;
+  // A plain Text widget is used (rather than org.eclipse.swt.custom.StyledText) so the dialog also
+  // loads and runs under Hop Web / RAP, where StyledText is unavailable.
+  private Text chatArea;
   private Text inputArea;
   private Button sendButton;
   private boolean busy;
@@ -107,8 +107,7 @@ public class LlmAssistantDialog extends Dialog {
 
   private void createContent() {
     // Chat history
-    chatArea =
-        new StyledText(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP | SWT.READ_ONLY);
+    chatArea = new Text(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP | SWT.READ_ONLY);
     FormData fdChat = new FormData();
     fdChat.left = new FormAttachment(0, 0);
     fdChat.right = new FormAttachment(100, 0);
@@ -205,7 +204,7 @@ public class LlmAssistantDialog extends Dialog {
 
     inputArea.setText("");
     setBusy(true);
-    int thinkingStart = chatArea.getCharCount();
+    int thinkingStart = getCharCount();
     appendAssistantMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.Thinking"));
 
     Display display = shell.getDisplay();
@@ -228,8 +227,8 @@ public class LlmAssistantDialog extends Dialog {
                       return;
                     }
                     // Replace the "Thinking..." placeholder with the real reply.
-                    chatArea.replaceTextRange(
-                        thinkingStart, chatArea.getCharCount() - thinkingStart, "");
+                    String current = chatArea.getText();
+                    chatArea.setText(current.substring(0, thinkingStart));
                     appendAssistantMessage(finalReply);
                     if (!finalReply.startsWith(errorPrefix)) {
                       history.add(new LlmClient.ChatMessage("assistant", finalReply));
@@ -245,33 +244,26 @@ public class LlmAssistantDialog extends Dialog {
   }
 
   private void appendUserMessage(String text) {
-    appendMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.You"), text, true);
+    appendMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.You"), text);
   }
 
   private void appendAssistantMessage(String text) {
-    appendMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.Assistant"), text, false);
+    appendMessage(BaseMessages.getString(PKG, "LlmAssistant.Message.Assistant"), text);
   }
 
-  private void appendMessage(String speaker, String text, boolean user) {
+  private void appendMessage(String speaker, String text) {
     StringBuilder builder = new StringBuilder();
-    if (chatArea.getCharCount() > 0) {
+    if (getCharCount() > 0) {
       builder.append("\n");
     }
     builder.append(speaker).append(":\n").append(text).append("\n");
-    String chunk = builder.toString();
-    int start = chatArea.getCharCount();
-    chatArea.append(chunk);
-    StyleRange style = new StyleRange();
-    style.start = start;
-    style.length = speaker.length() + 1;
-    style.fontStyle = SWT.BOLD;
-    style.foreground =
-        user
-            ? shell.getDisplay().getSystemColor(SWT.COLOR_DARK_BLUE)
-            : shell.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN);
-    chatArea.setStyleRange(style);
-    chatArea.setSelection(chatArea.getCharCount());
+    chatArea.append(builder.toString());
+    chatArea.setSelection(getCharCount());
     chatArea.showSelection();
+  }
+
+  private int getCharCount() {
+    return chatArea.getText().length();
   }
 
   private void trimHistory() {

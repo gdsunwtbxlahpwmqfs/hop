@@ -37,8 +37,8 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * A circular "doctor" icon button pinned to the bottom-right corner of the main window. Clicking it
  * opens the {@link LlmAssistantDialog}; closing or minimising the dialog brings the user straight
- * back to this icon. The button is only created when the LLM assistant is enabled via environment
- * variables (see {@link LlmAssistantConfig#isAvailable()}).
+ * back to this icon. The button is created whenever the assistant is enabled via the {@code
+ * HOP_LLM_ENABLED} environment variable (see {@link LlmAssistantConfig#isEnabled()}).
  */
 public class LlmAssistantFloatingButton {
 
@@ -62,7 +62,9 @@ public class LlmAssistantFloatingButton {
    * @return {@code true} if the button was created.
    */
   public boolean create(Composite parent) {
-    if (!LlmAssistantConfig.getInstance().isAvailable()) {
+    // Show the button whenever the assistant is enabled. Even without a configured API URL the
+    // dialog opens and guides the user to complete the configuration.
+    if (!LlmAssistantConfig.getInstance().isEnabled()) {
       return false;
     }
     if (parent == null || parent.isDisposed()) {

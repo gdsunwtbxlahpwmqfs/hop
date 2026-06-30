@@ -36,6 +36,11 @@ import org.apache.hop.core.json.HopJson;
  * Minimal OpenAI-compatible chat completions client used by the personal assistant. It builds the
  * request from the configured {@link LlmAssistantConfig} and a rolling conversation history, then
  * returns the assistant reply text.
+ *
+ * <p>The client always speaks the OpenAI wire format. To support multiple/non-OpenAI providers,
+ * point {@code HOP_LLM_API_URL} at a <a href="https://docs.litellm.ai/docs/proxy/server">LiteLLM
+ * proxy</a> which translates between formats; Hop does not need to know which upstream provider is
+ * actually used.
  */
 public class LlmClient {
 

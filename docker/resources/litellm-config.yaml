@@ -1,0 +1,43 @@
+# LiteLLM Proxy configuration
+#
+# Routes OpenAI-compatible chat-completion requests from Hop's LLM personal
+# assistant to one or more upstream LLM providers. Hop always talks to this
+# proxy using the OpenAI format (POST /v1/chat/completions, Bearer auth); the
+# proxy translates to each provider's native format.
+#
+# Secrets are read from environment variables (os.environ/<NAME>) so they are
+# never committed. See docker-compose.dev.yml for the variables to provide.
+#
+# Docs: https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  # DeepSeek (native OpenAI-compatible API)
+  - model_name: deepseek-flash
+    litellm_params:
+      model: deepseek/deepseek-flash
+      api_key: os.environ/DEEPSEEK_API_KEY
+  - model_name: deepseek-pro
+    litellm_params:
+      model: deepseek/deepseek-pro
+      api_key: os.environ/DEEPSEEK_API_KEY
+
+  # OpenAI (uncomment and set OPENAI_API_KEY to enable)
+  # - model_name: gpt-4o-mini
+  #   litellm_params:
+  #     model: openai/gpt-4o-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+
+  # Anthropic Claude (uncomment and set ANTHROPIC_API_KEY to enable)
+  # - model_name: claude-3-5-sonnet
+  #   litellm_params:
+  #     model: anthropic/claude-3-5-sonnet-20241022
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+
+litellm_settings:
+  # Drop unsupported params instead of erroring when a provider rejects them.
+  drop_params: true
+
+general_settings:
+  # Master key clients must present to access the proxy. Change this in
+  # production and pass it to Hop via HOP_LLM_API_KEY.
+  master_key: sk-hop-litellm-dev

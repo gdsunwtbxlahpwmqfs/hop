@@ -185,8 +185,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "N",
-      description =
-          "Set to 'Y' to bypass the engine-compatibility gate and run pipelines/workflows that contain transforms or actions marked UNSUPPORTED on the selected engine. Run-scoped, not persisted.")
+      description = "i18n::Variable.HOP_ALLOW_UNSUPPORTED.Desc")
   public static final String HOP_ALLOW_UNSUPPORTED = "HOP_ALLOW_UNSUPPORTED";
 
   /** The operating system the hop platform runs on */
@@ -321,7 +320,7 @@ public class Const {
   public static final String VAR_PROJECT_HOME = "${PROJECT_HOME}";
 
   /** Allow or disallow doctype declarations in XML. " */
-  @Variable(value = "N", description = "A variable allow or disallow doctype declarations in XML")
+  @Variable(value = "N", description = "i18n::Variable.XML_ALLOW_DOCTYPE_DECL.Desc")
   public static final String XML_ALLOW_DOCTYPE_DECL = "XML_ALLOW_DOCTYPE_DECL";
 
   /** Name of the hop configuration file */
@@ -469,26 +468,18 @@ public class Const {
    * If you set this environment variable you can limit the log size of all pipelines and workflows
    * that don't have the "log size limit" property set in their respective properties.
    */
-  @Variable(
-      value = "0",
-      description =
-          "The log size limit for all pipelines and workflows that don't have the \"log size limit\" property set in their respective properties.")
+  @Variable(value = "0", description = "i18n::Variable.HOP_LOG_SIZE_LIMIT.Desc")
   public static final String HOP_LOG_SIZE_LIMIT = "HOP_LOG_SIZE_LIMIT";
 
   /** The name of the variable that defines the timer used for detecting server nodes. */
-  @Variable(
-      description =
-          "The name of the variable that defines the timer used for detecting server nodes")
+  @Variable(description = "i18n::Variable.HOP_SERVER_DETECTION_TIMER.Desc")
   public static final String HOP_SERVER_DETECTION_TIMER = "HOP_SERVER_DETECTION_TIMER";
 
   /**
    * System wide flag to drive the evaluation of null in ValueMeta. If this setting is set to "Y",
    * an empty string and null are different. Otherwise they are not.
    */
-  @Variable(
-      value = "N",
-      description =
-          "NULL vs Empty String. If this setting is set to 'Y', an empty string and null are different. Otherwise they are not")
+  @Variable(value = "N", description = "i18n::Variable.HOP_EMPTY_STRING_DIFFERS_FROM_NULL.Desc")
   public static final String HOP_EMPTY_STRING_DIFFERS_FROM_NULL =
       "HOP_EMPTY_STRING_DIFFERS_FROM_NULL";
 
@@ -501,8 +492,7 @@ public class Const {
    */
   @Variable(
       value = "N",
-      description =
-          "System wide flag to allow lenient string to number conversion for backward compatibility. If this setting is set to 'Y', an string starting with digits will be converted successfully into a number. (example: 192.168.1.1 will be converted into 192 or 192.168 or 192168 depending on the decimal and grouping symbol). The default (N) will be to throw an error if non-numeric symbols are found in the string.")
+      description = "i18n::Variable.HOP_LENIENT_STRING_TO_NUMBER_CONVERSION.Desc")
   public static final String HOP_LENIENT_STRING_TO_NUMBER_CONVERSION =
       "HOP_LENIENT_STRING_TO_NUMBER_CONVERSION";
 
@@ -510,9 +500,7 @@ public class Const {
    * You can use this variable to speed up hostname lookup. Hostname lookup is performed by Hop so
    * that it is capable of logging the server on which a workflow or pipeline is executed.
    */
-  @Variable(
-      description =
-          "You can use this variable to speed up hostname lookup. Hostname lookup is performed by Hop so that it is capable of logging the server on which a workflow or pipeline is executed.")
+  @Variable(description = "i18n::Variable.HOP_SYSTEM_HOSTNAME.Desc")
   public static final String HOP_SYSTEM_HOSTNAME = "HOP_SYSTEM_HOSTNAME";
 
   /**
@@ -522,8 +510,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "0",
-      description =
-          "The maximum number of log lines that are kept internally by Hop. Set to 0 to keep all rows (default)")
+      description = "i18n::Variable.HOP_MAX_LOG_SIZE_IN_LINES.Desc")
   public static final String HOP_MAX_LOG_SIZE_IN_LINES = "HOP_MAX_LOG_SIZE_IN_LINES";
 
   /**
@@ -533,8 +520,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "1440",
-      description =
-          "The maximum age (in minutes) of a log line while being kept internally by Hop. Set to 0 to keep all rows indefinitely (default)")
+      description = "i18n::Variable.HOP_MAX_LOG_TIMEOUT_IN_MINUTES.Desc")
   public static final String HOP_MAX_LOG_TIMEOUT_IN_MINUTES = "HOP_MAX_LOG_TIMEOUT_IN_MINUTES";
 
   /**
@@ -592,10 +578,7 @@ public class Const {
    * This environment variable will set a time-out after which waiting, completed or stopped
    * pipelines and workflows will be automatically cleaned up. The default value is 1440 (one day).
    */
-  @Variable(
-      value = "1440",
-      description =
-          "This project variable will set a time-out after which waiting, completed or stopped pipelines and workflows will be automatically cleaned up. The default value is 1440 (one day).")
+  @Variable(value = "1440", description = "i18n::Variable.HOP_SERVER_OBJECT_TIMEOUT_MINUTES.Desc")
   public static final String HOP_SERVER_OBJECT_TIMEOUT_MINUTES =
       "HOP_SERVER_OBJECT_TIMEOUT_MINUTES";
 
@@ -605,8 +588,7 @@ public class Const {
    */
   @Variable(
       value = "0",
-      description =
-          "The maximum number of transform performance snapshots to keep in memory. Set to 0 to keep all snapshots indefinitely (default)")
+      description = "i18n::Variable.HOP_TRANSFORM_PERFORMANCE_SNAPSHOT_LIMIT.Desc")
   public static final String HOP_TRANSFORM_PERFORMANCE_SNAPSHOT_LIMIT =
       "HOP_TRANSFORM_PERFORMANCE_SNAPSHOT_LIMIT";
 
@@ -614,26 +596,18 @@ public class Const {
    * When set to Y or true, pipeline transforms track estimated data volume (bytes in) on the input
    * side. The metric is exposed in pipeline metrics and can have a performance impact.
    */
-  @Variable(
-      value = "N",
-      description =
-          "Enable pipeline metric for data volume (bytes in) per transform. When Y or true, each transform tracks estimated bytes read on input.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_METRIC_DATA_VOLUME.Desc")
   public static final String HOP_METRIC_DATA_VOLUME = "HOP_METRIC_DATA_VOLUME";
 
   /** A variable to configure the maximum number of workflow trackers kept in memory. */
-  @Variable(
-      value = "5000",
-      description =
-          "The maximum number of workflow trackers childrens to keep track of. Default value is 5000.")
+  @Variable(value = "5000", description = "i18n::Variable.HOP_MAX_WORKFLOW_TRACKER_SIZE.Desc")
   public static final String HOP_MAX_WORKFLOW_TRACKER_SIZE = "HOP_MAX_WORKFLOW_TRACKER_SIZE";
 
   /**
    * A variable to configure the maximum number of action results kept in memory for logging
    * purposes.
    */
-  @Variable(
-      value = "5000",
-      description = "The maximum number of action results kept in memory for logging purposes.")
+  @Variable(value = "5000", description = "i18n::Variable.HOP_MAX_ACTIONS_LOGGED.Desc")
   public static final String HOP_MAX_ACTIONS_LOGGED = "HOP_MAX_ACTIONS_LOGGED";
 
   /**
@@ -643,28 +617,27 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "10000",
-      description =
-          "The maximum number of logging registry entries kept in memory for logging purposes. This is the number of logging objects, a logging object can be a pipeline/workflow/transform/action or a couple of system-level loggers.")
+      description = "i18n::Variable.HOP_MAX_LOGGING_REGISTRY_SIZE.Desc")
   public static final String HOP_MAX_LOGGING_REGISTRY_SIZE = "HOP_MAX_LOGGING_REGISTRY_SIZE";
 
   /** A variable to configure the hop log tab refresh delay. */
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "1000",
-      description = "The hop log tab refresh delay.")
+      description = "i18n::Variable.HOP_LOG_TAB_REFRESH_DELAY.Desc")
   public static final String HOP_LOG_TAB_REFRESH_DELAY = "HOP_LOG_TAB_REFRESH_DELAY";
 
   /** A variable to configure the hop log tab refresh period. */
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "1000",
-      description = "The hop log tab refresh period.")
+      description = "i18n::Variable.HOP_LOG_TAB_REFRESH_PERIOD.Desc")
   public static final String HOP_LOG_TAB_REFRESH_PERIOD = "HOP_LOG_TAB_REFRESH_PERIOD";
 
   /**
    * Name of the environment variable to specify additional classes to scan for plugin annotations
    */
-  @Variable(description = "A comma delimited list of classes to scan for plugin annotations")
+  @Variable(description = "i18n::Variable.HOP_PLUGIN_CLASSES.Desc")
   public static final String HOP_PLUGIN_CLASSES = "HOP_PLUGIN_CLASSES";
 
   /** Name of the environment variable to specify alternative location for plugins. */
@@ -677,9 +650,7 @@ public class Const {
    * Name of the environment variable that contains the size of the pipeline rowset size. This
    * overwrites values that you set pipeline settings.
    */
-  @Variable(
-      description =
-          "Name of the environment variable that contains the size of the pipeline rowset size. This overwrites values that you set pipeline settings")
+  @Variable(description = "i18n::Variable.HOP_PIPELINE_ROWSET_SIZE.Desc")
   public static final String HOP_PIPELINE_ROWSET_SIZE = "HOP_PIPELINE_ROWSET_SIZE";
 
   /** A general initial version comment */
@@ -689,9 +660,7 @@ public class Const {
   public static final String VERSION_COMMENT_EDIT_VERSION = "Modification by user";
 
   /** Specifies the password encoding plugin to use by ID (Hop is the default). */
-  @Variable(
-      value = "Hop",
-      description = "Specifies the password encoder plugin to use by ID (Hop is the default).")
+  @Variable(value = "Hop", description = "i18n::Variable.HOP_PASSWORD_ENCODER_PLUGIN.Desc")
   public static final String HOP_PASSWORD_ENCODER_PLUGIN = "HOP_PASSWORD_ENCODER_PLUGIN";
 
   /**
@@ -704,108 +673,74 @@ public class Const {
    * The name of the variable that optionally contains an alternative rowset get timeout (in ms).
    * This only makes a difference for extremely short lived pipelines.
    */
-  @Variable(
-      value = "50",
-      description =
-          "The name of the variable that optionally contains an alternative rowset get timeout (in ms). This only makes a difference for extremely short lived pipelines.")
+  @Variable(value = "50", description = "i18n::Variable.HOP_ROWSET_GET_TIMEOUT.Desc")
   public static final String HOP_ROWSET_GET_TIMEOUT = "HOP_ROWSET_GET_TIMEOUT";
 
   /**
    * The name of the variable that optionally contains an alternative rowset put timeout (in ms).
    * This only makes a difference for extremely short lived pipelines.
    */
-  @Variable(
-      value = "50",
-      description =
-          "The name of the variable that optionally contains an alternative rowset put timeout (in ms). This only makes a difference for extremely short lived pipelines.")
+  @Variable(value = "50", description = "i18n::Variable.HOP_ROWSET_PUT_TIMEOUT.Desc")
   public static final String HOP_ROWSET_PUT_TIMEOUT = "HOP_ROWSET_PUT_TIMEOUT";
 
   /** Set this variable to Y if you want to test a more efficient batching row set. (default = N) */
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' if you want to test a more efficient batching row set.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_BATCHING_ROWSET.Desc")
   public static final String HOP_BATCHING_ROWSET = "HOP_BATCHING_ROWSET";
 
   /**
    * Set this variable to limit max number of files the Text File Output transform can have open at
    * one time.
    */
-  @Variable(
-      value = "1024",
-      description =
-          "This project variable is used by the Text File Output transform. It defines the max number of simultaneously open files within the transform. The transform will close/reopen files as necessary to insure the max is not exceeded")
+  @Variable(value = "1024", description = "i18n::Variable.HOP_FILE_OUTPUT_MAX_STREAM_COUNT.Desc")
   public static final String HOP_FILE_OUTPUT_MAX_STREAM_COUNT = "HOP_FILE_OUTPUT_MAX_STREAM_COUNT";
 
   /**
    * This variable contains the number of milliseconds between flushes of all open files in the Text
    * File Output transform.
    */
-  @Variable(
-      value = "0",
-      description =
-          "This project variable is used by the Text File Output transform. It defines the max number of milliseconds between flushes of files opened by the transform.")
+  @Variable(value = "0", description = "i18n::Variable.HOP_FILE_OUTPUT_MAX_STREAM_LIFE.Desc")
   public static final String HOP_FILE_OUTPUT_MAX_STREAM_LIFE = "HOP_FILE_OUTPUT_MAX_STREAM_LIFE";
 
   /** Set this variable to Y to disable standard Hop logging to the console. (stdout) */
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' to disable standard Hop logging to the console. (stdout)")
+  @Variable(value = "N", description = "i18n::Variable.HOP_DISABLE_CONSOLE_LOGGING.Desc")
   public static final String HOP_DISABLE_CONSOLE_LOGGING = "HOP_DISABLE_CONSOLE_LOGGING";
 
   /** The name of the variable containing an alternative default number format */
-  @Variable(
-      description = "The name of the variable containing an alternative default number format")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_NUMBER_FORMAT.Desc")
   public static final String HOP_DEFAULT_NUMBER_FORMAT = "HOP_DEFAULT_NUMBER_FORMAT";
 
   /** The name of the variable containing an alternative default bignumber format */
-  @Variable(
-      description = "The name of the variable containing an alternative default bignumber format")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_BIGNUMBER_FORMAT.Desc")
   public static final String HOP_DEFAULT_BIGNUMBER_FORMAT = "HOP_DEFAULT_BIGNUMBER_FORMAT";
 
   /** The name of the variable containing an alternative default integer format */
-  @Variable(
-      description = "The name of the variable containing an alternative default integer format")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_INTEGER_FORMAT.Desc")
   public static final String HOP_DEFAULT_INTEGER_FORMAT = "HOP_DEFAULT_INTEGER_FORMAT";
 
   /** The name of the variable containing an alternative default date format */
-  @Variable(description = "The name of the variable containing an alternative default date format")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_DATE_FORMAT.Desc")
   public static final String HOP_DEFAULT_DATE_FORMAT = "HOP_DEFAULT_DATE_FORMAT";
 
   // Null values tweaks
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' to set the minimum to NULL if NULL is within an aggregate. Otherwise by default NULL is ignored by the MIN aggregate and MIN is set to the minimum value that is not NULL. See also the variable HOP_AGGREGATION_ALL_NULLS_ARE_ZERO.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_AGGREGATION_MIN_NULL_IS_VALUED.Desc")
   public static final String HOP_AGGREGATION_MIN_NULL_IS_VALUED =
       "HOP_AGGREGATION_MIN_NULL_IS_VALUED";
 
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' to return 0 when all values within an aggregate are NULL. Otherwise by default a NULL is returned when all values are NULL.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_AGGREGATION_ALL_NULLS_ARE_ZERO.Desc")
   public static final String HOP_AGGREGATION_ALL_NULLS_ARE_ZERO =
       "HOP_AGGREGATION_ALL_NULLS_ARE_ZERO";
 
   /** The name of the variable containing an alternative default timestamp format */
-  @Variable(
-      description = "The name of the variable containing an alternative default timestamp format")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_TIMESTAMP_FORMAT.Desc")
   public static final String HOP_DEFAULT_TIMESTAMP_FORMAT = "HOP_DEFAULT_TIMESTAMP_FORMAT";
 
   /** Variable that is responsible for removing enclosure symbol after splitting the string */
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'N' to preserve enclosure symbol after splitting the string in the Split fields transform. Changing it to true will remove first and last enclosure symbol from the resulting string chunks.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_SPLIT_FIELDS_REMOVE_ENCLOSURE.Desc")
   public static final String HOP_SPLIT_FIELDS_REMOVE_ENCLOSURE =
       "HOP_SPLIT_FIELDS_REMOVE_ENCLOSURE";
 
   /** Variable that is responsible for checking empty field names and types. */
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' to allow your pipeline to pass 'null' fields and/or empty types.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_ALLOW_EMPTY_FIELD_NAMES_AND_TYPES.Desc")
   public static final String HOP_ALLOW_EMPTY_FIELD_NAMES_AND_TYPES =
       "HOP_ALLOW_EMPTY_FIELD_NAMES_AND_TYPES";
 
@@ -816,8 +751,7 @@ public class Const {
    */
   @Variable(
       value = "N",
-      description =
-          "Set this variable to 'N' to preserve global log variables defined in pipeline / workflow Properties -> Log panel. Changing it to 'Y' will clear it when export pipeline / workflow.")
+      description = "i18n::Variable.HOP_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT.Desc")
   public static final String HOP_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT =
       "HOP_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT";
 
@@ -827,35 +761,28 @@ public class Const {
   public static final ReleaseType RELEASE = ReleaseType.GA;
 
   /** A variable to configure turning on/off detailed subjects in log. */
-  @Variable(
-      value = "N",
-      description =
-          "Set this variable to 'Y' to precede transform/action name in log lines with the complete path to the transform/action. Useful to perfectly identify where a problem happened in our process.")
+  @Variable(value = "N", description = "i18n::Variable.HOP_LOG_MARK_MAPPINGS.Desc")
   public static final String HOP_LOG_MARK_MAPPINGS = "HOP_LOG_MARK_MAPPINGS";
 
   /** A variable to configure jetty option: acceptors for Hop server */
-  @Variable(description = "A variable to configure jetty option: acceptors for Hop server")
+  @Variable(description = "i18n::Variable.HOP_SERVER_JETTY_ACCEPTORS.Desc")
   public static final String HOP_SERVER_JETTY_ACCEPTORS = "HOP_SERVER_JETTY_ACCEPTORS";
 
   /** A variable to configure jetty option: acceptQueueSize for Hop server */
-  @Variable(description = "A variable to configure jetty option: acceptQueueSize for Hop server")
+  @Variable(description = "i18n::Variable.HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE.Desc")
   public static final String HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE =
       "HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE";
 
   /** A variable to configure jetty option: lowResourcesMaxIdleTime for Hop server */
-  @Variable(
-      description = "A variable to configure jetty option: lowResourcesMaxIdleTime for Hop server")
+  @Variable(description = "i18n::Variable.HOP_SERVER_JETTY_RES_MAX_IDLE_TIME.Desc")
   public static final String HOP_SERVER_JETTY_RES_MAX_IDLE_TIME =
       "HOP_SERVER_JETTY_RES_MAX_IDLE_TIME";
 
-  @Variable(
-      description =
-          "Defines the default encoding for servlets, leave it empty to use Java default encoding")
+  @Variable(description = "i18n::Variable.HOP_DEFAULT_SERVLET_ENCODING.Desc")
   public static final String HOP_DEFAULT_SERVLET_ENCODING = "HOP_DEFAULT_SERVLET_ENCODING";
 
   /** A variable to configure refresh for Hop server workflow/pipeline status page */
-  @Variable(
-      description = "A variable to configure refresh for Hop server workflow/pipeline status page")
+  @Variable(description = "i18n::Variable.HOP_SERVER_REFRESH_STATUS.Desc")
   public static final String HOP_SERVER_REFRESH_STATUS = "HOP_SERVER_REFRESH_STATUS";
 
   /** A variable to configure s3vfs to use a temporary file on upload data to S3 Amazon." */
@@ -863,7 +790,7 @@ public class Const {
       "s3.vfs.useTempFileOnUploadData";
 
   /** A variable to configure Tab size" */
-  @Variable(description = "A variable to configure Tab size")
+  @Variable(description = "i18n::Variable.HOP_MAX_TAB_LENGTH.Desc")
   public static final String HOP_MAX_TAB_LENGTH = "HOP_MAX_TAB_LENGTH";
 
   /**
@@ -882,9 +809,7 @@ public class Const {
    * @see #HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT
    * @see #HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT_STRING
    */
-  @Variable(
-      description =
-          "A variable to configure the minimum allowed ratio between de- and inflated bytes to detect a zipbomb")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MIN_INFLATE_RATIO.Desc")
   public static final String HOP_ZIP_MIN_INFLATE_RATIO = "HOP_ZIP_MIN_INFLATE_RATIO";
 
   /**
@@ -901,7 +826,7 @@ public class Const {
    * @see #HOP_ZIP_MIN_INFLATE_RATIO
    * @see #HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT
    */
-  @Variable(description = "")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT_STRING.Desc")
   public static final String HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT_STRING =
       String.valueOf(HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT);
 
@@ -914,7 +839,7 @@ public class Const {
    * @see #HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT
    * @see #HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT_STRING
    */
-  @Variable(description = "A variable to configure the maximum file size of a single zip entry")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MAX_ENTRY_SIZE.Desc")
   public static final String HOP_ZIP_MAX_ENTRY_SIZE = "HOP_ZIP_MAX_ENTRY_SIZE";
 
   /**
@@ -931,7 +856,7 @@ public class Const {
    * @see #HOP_ZIP_MAX_ENTRY_SIZE
    * @see #HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT
    */
-  @Variable(description = "")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT_STRING.Desc")
   public static final String HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT_STRING =
       String.valueOf(HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT);
 
@@ -945,9 +870,7 @@ public class Const {
    * @see #HOP_ZIP_MAX_TEXT_SIZE_DEFAULT
    * @see #HOP_ZIP_MAX_TEXT_SIZE_DEFAULT_STRING
    */
-  @Variable(
-      description =
-          "A variable to configure the maximum number of characters of text that are extracted before an exception is thrown during extracting text from documents")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MAX_TEXT_SIZE.Desc")
   public static final String HOP_ZIP_MAX_TEXT_SIZE = "HOP_ZIP_MAX_TEXT_SIZE";
 
   /**
@@ -971,7 +894,7 @@ public class Const {
    * @see #HOP_ZIP_MAX_TEXT_SIZE
    * @see #HOP_ZIP_MAX_TEXT_SIZE_DEFAULT
    */
-  @Variable(description = "")
+  @Variable(description = "i18n::Variable.HOP_ZIP_MAX_TEXT_SIZE_DEFAULT_STRING.Desc")
   public static final String HOP_ZIP_MAX_TEXT_SIZE_DEFAULT_STRING =
       String.valueOf(HOP_ZIP_MAX_TEXT_SIZE_DEFAULT);
 
@@ -979,23 +902,15 @@ public class Const {
    * This is the name of the variable which when set should contains the path to a file which will
    * be included in the serialization of pipelines and workflows.
    */
-  @Variable(
-      description =
-          "This is the name of the variable which when set should contains the path to a file which will be included in the serialization of pipelines and workflows")
+  @Variable(description = "i18n::Variable.HOP_LICENSE_HEADER_FILE.Desc")
   public static final String HOP_LICENSE_HEADER_FILE = "HOP_LICENSE_HEADER_FILE";
 
   /** The variable says Hop to consider nulls when parsing JSON files */
-  @Variable(
-      value = "Y",
-      description =
-          "Name of the variable to set so that Nulls are considered while parsing JSON files. If HOP_JSON_INPUT_INCLUDE_NULLS is \"Y\" then nulls will be included (default behavior) otherwise they will not be included")
+  @Variable(value = "Y", description = "i18n::Variable.HOP_JSON_INPUT_INCLUDE_NULLS.Desc")
   public static final String HOP_JSON_INPUT_INCLUDE_NULLS = "HOP_JSON_INPUT_INCLUDE_NULLS";
 
   /** This variable is used to disable the strict searching of the context dialog */
-  @Variable(
-      value = "N",
-      description =
-          "This variable influences how the search is done in the context dialog, when set to Y it will do a strict search (Needed for automated UI testing)")
+  @Variable(value = "N", description = "i18n::Variable.HOP_CONTEXT_DIALOG_STRICT_SEARCH.Desc")
   public static final String HOP_CONTEXT_DIALOG_STRICT_SEARCH = "HOP_CONTEXT_DIALOG_STRICT_SEARCH";
 
   /** By default, HOP do consider NULLs while parsing input */
@@ -1016,7 +931,7 @@ public class Const {
   @Variable(
       scope = VariableScope.ENGINE,
       value = "20",
-      description = "This is the default polling frequency for the transforms input buffer (in ms)")
+      description = "i18n::Variable.HOP_DEFAULT_BUFFER_POLLING_WAITTIME.Desc")
   public static final String HOP_DEFAULT_BUFFER_POLLING_WAITTIME =
       "HOP_DEFAULT_BUFFER_POLLING_WAITTIME";
 
@@ -1027,8 +942,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "false",
-      description =
-          "Display the original content of binary fields during preview, not its hexadecimal value.")
+      description = "i18n::Variable.HOP_BINARY_FIELDS_AVOID_HEX_PREVIEW.Desc")
   public static final String HOP_BINARY_FIELDS_AVOID_HEX_PREVIEW =
       "HOP_BINARY_FIELDS_AVOID_HEX_PREVIEW";
 
@@ -1039,9 +953,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "0",
-      description =
-          "If for some reason the table columns are a bit too narrow, "
-              + "you can give it a bit of extra with manually. (in pixels)")
+      description = "i18n::Variable.HOP_TABLE_VIEW_EXTRA_COLUMN_MARGIN.Desc")
   public static final String HOP_TABLE_VIEW_EXTRA_COLUMN_MARGIN =
       "HOP_TABLE_VIEW_EXTRA_COLUMN_MARGIN";
 
@@ -1054,8 +966,7 @@ public class Const {
   @Variable(
       scope = VariableScope.APPLICATION,
       value = "20",
-      description =
-          "Default JDBC statement query timeout in seconds for database query preview (0 = unset).")
+      description = "i18n::Variable.HOP_QUERY_PREVIEW_TIMEOUT.Desc")
   public static final String HOP_QUERY_PREVIEW_TIMEOUT = "HOP_QUERY_PREVIEW_TIMEOUT";
 
   /**

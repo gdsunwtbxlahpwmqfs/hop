@@ -35,8 +35,7 @@ public final class LineageVariables {
   @Variable(
       scope = VariableScope.ENGINE,
       value = "10000",
-      description =
-          "Maximum number of lineage events queued in memory before new events are dropped.")
+      description = "i18n::Variable.HOP_LINEAGE_QUEUE_CAPACITY.Desc")
   public static final String HOP_LINEAGE_QUEUE_CAPACITY = "HOP_LINEAGE_QUEUE_CAPACITY";
 
   @Variable(
