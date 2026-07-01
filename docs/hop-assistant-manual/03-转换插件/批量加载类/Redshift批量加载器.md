@@ -1,6 +1,6 @@
 # Redshift 批量加载器
 
-Redshift 批量加载器（Redshift Bulk Loader）转换使用 [COPY](https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html) 命令将数据从 Apache Hop 加载到 AWS Redshift。
+Redshift 批量加载器（Redshift Bulk Loader）转换使用 [COPY](https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html) 命令将数据从 hfxt data process 加载到 AWS Redshift。
 
 > **提示**：确保目标 Redshift 表的布局与 Parquet 数据类型兼容，例如使用 `int8` 而非 `int4` 数据类型。
 

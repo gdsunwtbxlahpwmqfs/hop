@@ -1,6 +1,6 @@
-# Apache Hop 插件完整手册（hop-assistant-manual）
+# hfxt data process 插件完整手册（hop-assistant-manual）
 
-> 本手册系统整理了 Apache Hop 全部插件相关的介绍性文档与说明材料，涵盖插件体系架构、开发指南，以及转换插件（Transform）、动作插件（Action）、数据库插件（Database）、元数据类型（Metadata）、虚拟文件系统插件（VFS）、日志插件与密码编码插件等全部类别。原文档为英文，本手册已将其全面翻译并规范归并整理为中文，每个组件/模块独立成篇，按类别存放于不同子文件夹下。
+> 本手册系统整理了 hfxt data process 全部插件相关的介绍性文档与说明材料，涵盖插件体系架构、开发指南，以及转换插件（Transform）、动作插件（Action）、数据库插件（Database）、元数据类型（Metadata）、虚拟文件系统插件（VFS）、日志插件与密码编码插件等全部类别。原文档为英文，本手册已将其全面翻译并规范归并整理为中文，每个组件/模块独立成篇，按类别存放于不同子文件夹下。
 
 ---
 

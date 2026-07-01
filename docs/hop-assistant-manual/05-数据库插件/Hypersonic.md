@@ -2,7 +2,7 @@
 
 ## 概述
 
-Hypersonic（即 HSQLDB，HyperSQL）是一个开源的关系型数据库管理系统，用 Java 编写，支持内存模式和持久化模式。其 JDBC 驱动已内置在 Apache Hop 中。
+Hypersonic（即 HSQLDB，HyperSQL）是一个开源的关系型数据库管理系统，用 Java 编写，支持内存模式和持久化模式。其 JDBC 驱动已内置在 hfxt data process 中。
 
 ## 主要连接参数
 

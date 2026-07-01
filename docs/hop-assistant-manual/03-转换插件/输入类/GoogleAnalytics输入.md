@@ -2,7 +2,7 @@
 
 Google Analytics 输入（Google Analytics Input）转换使用 Google Analytics Data API 从 Google Analytics 4 账户中读取数据。
 
-[GA4 Query Explorer](https://ga-dev-tools.google/ga4/query-explorer/) 提供了一个专门的网站，用于在 Apache Hop 之外使用 Google Analytics API 开发和测试查询。
+[GA4 Query Explorer](https://ga-dev-tools.google/ga4/query-explorer/) 提供了一个专门的网站，用于在 hfxt data process 之外使用 Google Analytics API 开发和测试查询。
 
 ## 主要选项
 

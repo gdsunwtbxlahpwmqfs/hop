@@ -2,7 +2,7 @@
 
 ## 核心功能
 
-Azure Key Vault 变量解析器允许您从 Microsoft Azure Key Vault 检索机密，并将其作为变量在 Apache Hop 管道和工作流中使用。
+Azure Key Vault 变量解析器允许您从 Microsoft Azure Key Vault 检索机密，并将其作为变量在 hfxt data process 管道和工作流中使用。
 
 此集成能够安全管理敏感信息，如数据库凭据、API 密钥和其他机密，通过直接从 Azure Key Vault 获取它们。
 

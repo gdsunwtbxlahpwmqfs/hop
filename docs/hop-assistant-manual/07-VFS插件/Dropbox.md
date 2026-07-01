@@ -2,7 +2,7 @@
 
 ## 核心功能
 
-Apache Hop 通过 Apache VFS 支持在平台几乎任何位置读取和写入 Dropbox。
+hfxt data process 通过 Apache VFS 支持在平台几乎任何位置读取和写入 Dropbox。
 
 ## 方案（Scheme）
 

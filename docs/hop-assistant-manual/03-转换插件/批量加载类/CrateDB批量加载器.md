@@ -1,6 +1,6 @@
 # CrateDB 批量加载器
 
-CrateDB 批量加载器（CrateDB Bulk Loader）转换使用两种不同方式将数据从 Apache Hop 加载到 CrateDB：
+CrateDB 批量加载器（CrateDB Bulk Loader）转换使用两种不同方式将数据从 hfxt data process 加载到 CrateDB：
 
 - [COPY FROM](https://cratedb.com/docs/crate/reference/en/5.7/sql/statements/copy-from.html#copy-from) 命令；
 - 用于批量操作的 [CrateDB HTTP 端点](https://cratedb.com/docs/crate/reference/en/latest/interfaces/http.html#bulk-operations)。

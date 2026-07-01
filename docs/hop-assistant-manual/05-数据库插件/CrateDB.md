@@ -2,7 +2,7 @@
 
 ## 概述
 
-CrateDB 是一个分布式的 SQL 数据库，基于关系型架构设计，适用于物联网（IoT）和机器数据等场景。其 JDBC 驱动已内置在 Apache Hop 中。
+CrateDB 是一个分布式的 SQL 数据库，基于关系型架构设计，适用于物联网（IoT）和机器数据等场景。其 JDBC 驱动已内置在 hfxt data process 中。
 
 ## 主要连接参数
 

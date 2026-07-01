@@ -2,7 +2,7 @@
 
 ## 概述
 
-Apache Derby 是一种轻量级的关系型数据库，支持嵌入式和网络（客户端/服务器）两种部署模式。其 JDBC 驱动已内置在 Apache Hop 中，无需额外下载。
+Apache Derby 是一种轻量级的关系型数据库，支持嵌入式和网络（客户端/服务器）两种部署模式。其 JDBC 驱动已内置在 hfxt data process 中，无需额外下载。
 
 Derby JDBC 驱动有两种不同的模式：如果您想使用 Derby 嵌入式（Embedded）模式，请将 *derbyclient.jar* 文件替换为 *derby.jar*。
 

@@ -1,6 +1,6 @@
 # AWS SNS 通知（AWS SNS Notify）
 
-AWS SNS 通知转换使您能够通过 Amazon Web Services 简单通知服务（Simple Notification Service）从 Apache Hop 管道向已订阅的用户发送通知。
+AWS SNS 通知转换使您能够通过 Amazon Web Services 简单通知服务（Simple Notification Service）从 hfxt data process 管道向已订阅的用户发送通知。
 
 ## 前置条件
 
@@ -21,7 +21,7 @@ AWS SNS 通知转换使您能够通过 Amazon Web Services 简单通知服务（
 
 | 选项 | 说明 |
 |------|------|
-| 使用 AWS 凭证链（Use AWS Credentials chain） | Apache Hop 尝试从主机环境获取 AWS 凭证。 |
+| 使用 AWS 凭证链（Use AWS Credentials chain） | hfxt data process 尝试从主机环境获取 AWS 凭证。 |
 | AWS 访问密钥（AWS Access Key） | 您的 AWS 访问密钥（`AWS_ACCESS_KEY_ID`）。 |
 | AWS 秘密访问密钥（AWS Secret Access Key） | 您的 AWS 访问密钥对应的密钥（`AWS_SECRET_ACCESS_KEY`）。 |
 | AWS 区域（AWS Region） | 服务运行的 AWS 区域。 |
