@@ -16,11 +16,16 @@ services:
       HOP_SHARED_JDBC_FOLDERS: /opt/hop/jdbc
       # LLM personal assistant.
       # Requests go through the litellm proxy (service below) which speaks the
-      # OpenAI format and routes to the real provider (DeepSeek, OpenAI, ...).
+      # OpenAI format and routes to DashScope (阿里云通义千问).
       HOP_LLM_ENABLED: "true"
       HOP_LLM_API_URL: "http://litellm:4000/v1"
       HOP_LLM_API_KEY: "sk-hop-litellm-dev"
-      HOP_LLM_MODEL: "deepseek-flash"
+      HOP_LLM_MODEL: "qwen-turbo"
+      # Knowledge base / RAG settings (requires Qdrant service below).
+      HOP_KB_ENABLED: "true"
+      HOP_KB_QDRANT_URL: "http://qdrant:6333"
+      HOP_KB_DOCS_PATH: "/opt/hop/docs/hop-assistant-manual"
+      HOP_KB_EMBEDDING_MODEL: "text-embedding-v1"
       HOP_OPTIONS: -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
       CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -DHOP_AUDIT_FOLDER=/opt/hop/audit -DHOP_CONFIG_FOLDER=/opt/hop/config -DHOP_LOG_LEVEL=Debug -DHOP_PASSWORD_ENCODER_PLUGIN=Hop -DHOP_PLUGIN_BASE_FOLDERS=/opt/hop/plugins -DHOP_SHARED_JDBC_FOLDERS=/opt/hop/jdbc -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
     volumes:
@@ -28,8 +33,10 @@ services:
       - ./assemblies/web/target/webapp/config:/opt/hop/config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./resources/jdbc-drivers:/opt/hop/jdbc
+      - ./docs/hop-assistant-manual:/opt/hop/docs/hop-assistant-manual:ro
     depends_on:
       - litellm
+      - qdrant
     working_dir: /usr/local/tomcat
     command: >
       bash -c "
@@ -37,10 +44,9 @@ services:
         catalina.sh run
       "
 
-  # LiteLLM proxy: unified OpenAI-compatible gateway in front of the real LLM
-  # providers (DeepSeek, OpenAI, Anthropic, ...). Hop's assistant always calls
-  # this proxy; the proxy translates to each provider's native format.
-  # Provider API keys are injected here and referenced by name in
+  # LiteLLM proxy: unified OpenAI-compatible gateway in front of DashScope.
+  # Hop's assistant always calls this proxy; the proxy translates to DashScope's
+  # native format. Provider API keys are injected here and referenced by name in
   # docker/resources/litellm-config.yaml.
   litellm:
     image: ghcr.io/berriai/litellm:main-stable
@@ -48,9 +54,26 @@ services:
     ports:
       - "4000:4000"
     environment:
-      # Real provider keys (do NOT commit real values; override via .env/shell).
-      # DEEPSEEK_API_KEY is read by litellm-config.yaml via os.environ/.
-      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      # DashScope API key (阿里云通义千问). Read by litellm-config.yaml via os.environ/.
+      # Override via .env file or shell: export DASHSCOPE_API_KEY=sk-xxx
+      DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:-}"
     volumes:
       - ./docker/resources/litellm-config.yaml:/app/config.yaml:ro
     command: --config /app/config.yaml --port 4000
+
+  # Qdrant vector database for the knowledge base / RAG subsystem.
+  # Stores document embeddings indexed from docs/hop-assistant-manual.
+  # The hop-web service connects to it via HOP_KB_QDRANT_URL.
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    container_name: hop-qdrant-dev
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    environment:
+      - QDRANT__LOG_LEVEL=INFO
+
+volumes:
+  qdrant-data:

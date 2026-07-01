@@ -26,6 +26,7 @@ import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.core.gui.GuiResource;
+import org.apache.hop.ui.hopgui.assistant.knowledgebase.KnowledgeBaseService;
 import org.apache.hop.ui.util.EnvironmentUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
@@ -348,8 +349,24 @@ public class LlmAssistantDialog extends Dialog {
             () -> {
               log.logBasic("Worker thread started");
               try {
+                // RAG: retrieve relevant context from the knowledge base if enabled
+                String ragContext = "";
+                try {
+                  KnowledgeBaseService kbService = KnowledgeBaseService.getInstance();
+                  if (kbService.isEnabled()) {
+                    ragContext = kbService.buildContextPrompt(question);
+                    if (!ragContext.isEmpty()) {
+                      log.logDetailed("RAG context injected: " + ragContext.length() + " chars");
+                    }
+                  }
+                } catch (Exception ragEx) {
+                  log.logError(
+                      "RAG context retrieval failed, continuing without: " + ragEx.getMessage());
+                }
+
                 client.streamChat(
                     snapshot,
+                    ragContext.isEmpty() ? null : ragContext,
                     cancelled,
                     new LlmClient.StreamCallback() {
                       @Override

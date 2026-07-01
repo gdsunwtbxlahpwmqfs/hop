@@ -11,28 +11,36 @@
 # Docs: https://docs.litellm.ai/docs/proxy/configs
 
 model_list:
-  # DeepSeek (native OpenAI-compatible API). model_name is what Hop requests
-  # (matches HOP_LLM_MODEL); litellm_params.model is the upstream DeepSeek id.
-  - model_name: deepseek-flash
+  # DashScope (阿里云通义千问) - unified provider for chat and embedding.
+  # model_name is what Hop requests (matches HOP_LLM_MODEL / HOP_KB_EMBEDDING_MODEL);
+  # litellm_params.model is the upstream DashScope id.
+  #
+  # Available DashScope chat models:
+  # - qwen-turbo: 极速版，适合高频对话
+  # - qwen-plus: 进阶版，平衡性能与能力
+  # - qwen-max: 旗舰版，最强推理能力
+  # - qwen-2-turbo: 第二代极速版
+  # - qwen-2-plus: 第二代进阶版
+  # - qwen-2-max: 第二代旗舰版
+  - model_name: qwen-turbo
     litellm_params:
-      model: deepseek/deepseek-v4-flash
-      api_key: os.environ/DEEPSEEK_API_KEY
-  - model_name: deepseek-pro
+      model: dashscope/qwen-turbo
+      api_key: os.environ/DASHSCOPE_API_KEY
+  - model_name: qwen-plus
     litellm_params:
-      model: deepseek/deepseek-v4-pro
-      api_key: os.environ/DEEPSEEK_API_KEY
+      model: dashscope/qwen-plus
+      api_key: os.environ/DASHSCOPE_API_KEY
+  - model_name: qwen-max
+    litellm_params:
+      model: dashscope/qwen-max
+      api_key: os.environ/DASHSCOPE_API_KEY
 
-  # OpenAI (uncomment and set OPENAI_API_KEY to enable)
-  # - model_name: gpt-4o-mini
-  #   litellm_params:
-  #     model: openai/gpt-4o-mini
-  #     api_key: os.environ/OPENAI_API_KEY
-
-  # Anthropic Claude (uncomment and set ANTHROPIC_API_KEY to enable)
-  # - model_name: claude-3-5-sonnet
-  #   litellm_params:
-  #     model: anthropic/claude-3-5-sonnet-20241022
-  #     api_key: os.environ/ANTHROPIC_API_KEY
+  # DashScope embedding model for the knowledge base / RAG subsystem.
+  # Used by EmbeddingClient to vectorize documents and queries.
+  - model_name: text-embedding-v1
+    litellm_params:
+      model: dashscope/text-embedding-v1
+      api_key: os.environ/DASHSCOPE_API_KEY
 
 litellm_settings:
   # Drop unsupported params instead of erroring when a provider rejects them.

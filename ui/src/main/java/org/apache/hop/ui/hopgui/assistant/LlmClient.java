@@ -173,6 +173,24 @@ public class LlmClient {
   public void streamChat(
       List<ChatMessage> history, AtomicBoolean cancelled, StreamCallback callback)
       throws Exception {
+    streamChat(history, null, cancelled, callback);
+  }
+
+  /**
+   * Streams a chat response with an optional extra context string appended to the system prompt.
+   * Used by the RAG subsystem to inject retrieved knowledge base chunks.
+   *
+   * @param history the prior turns (excluding the system prompt)
+   * @param extraContext optional text appended to the system prompt (e.g. RAG context), may be null
+   * @param cancelled cancellation flag
+   * @param callback stream callback
+   */
+  public void streamChat(
+      List<ChatMessage> history,
+      String extraContext,
+      AtomicBoolean cancelled,
+      StreamCallback callback)
+      throws Exception {
     log.logBasic("=== LLM streamChat START ===");
     if (cancelled != null && cancelled.get()) {
       log.logBasic("Stream chat cancelled before start");
@@ -186,8 +204,13 @@ public class LlmClient {
     body.put("stream", true);
 
     ArrayNode messages = body.putArray("messages");
-    if (StringUtils.isNotBlank(config.getSystemPrompt())) {
-      messages.addObject().put("role", "system").put("content", config.getSystemPrompt());
+    String systemPrompt = config.getSystemPrompt();
+    if (StringUtils.isNotBlank(extraContext)) {
+      systemPrompt =
+          StringUtils.isNotBlank(systemPrompt) ? systemPrompt + extraContext : extraContext;
+    }
+    if (StringUtils.isNotBlank(systemPrompt)) {
+      messages.addObject().put("role", "system").put("content", systemPrompt);
     }
     for (ChatMessage msg : history) {
       messages.addObject().put("role", msg.role()).put("content", msg.content());

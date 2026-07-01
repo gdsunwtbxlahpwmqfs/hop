@@ -46,6 +46,16 @@ ENV HOP_LLM_API_URL=""
 ENV HOP_LLM_API_KEY=""
 ENV HOP_LLM_MODEL=""
 
+# Knowledge base / RAG subsystem (off by default; requires Qdrant + embedding model)
+ENV HOP_KB_ENABLED=false
+ENV HOP_KB_QDRANT_URL="http://localhost:6333"
+ENV HOP_KB_QDRANT_COLLECTION="hop_kb"
+ENV HOP_KB_EMBEDDING_MODEL="text-embedding-3-small"
+ENV HOP_KB_DOCS_PATH="docs/hop-assistant-manual"
+ENV HOP_KB_CHUNK_SIZE=800
+ENV HOP_KB_CHUNK_OVERLAP=150
+ENV HOP_KB_TOP_K=5
+
 ENV HOP_PROJECT_FOLDER=
 # name of the project config file including file extension
 ENV HOP_PROJECT_CONFIG_FILE_NAME=project-config.json
@@ -69,7 +79,15 @@ ENV CATALINA_OPTS='${HOP_OPTIONS} \
   -DHOP_LLM_ENABLED="${HOP_LLM_ENABLED}" \
   -DHOP_LLM_API_URL="${HOP_LLM_API_URL}" \
   -DHOP_LLM_API_KEY="${HOP_LLM_API_KEY}" \
-  -DHOP_LLM_MODEL="${HOP_LLM_MODEL}"'
+  -DHOP_LLM_MODEL="${HOP_LLM_MODEL}" \
+  -DHOP_KB_ENABLED="${HOP_KB_ENABLED}" \
+  -DHOP_KB_QDRANT_URL="${HOP_KB_QDRANT_URL}" \
+  -DHOP_KB_QDRANT_COLLECTION="${HOP_KB_QDRANT_COLLECTION}" \
+  -DHOP_KB_EMBEDDING_MODEL="${HOP_KB_EMBEDDING_MODEL}" \
+  -DHOP_KB_DOCS_PATH="${HOP_KB_DOCS_PATH}" \
+  -DHOP_KB_CHUNK_SIZE="${HOP_KB_CHUNK_SIZE}" \
+  -DHOP_KB_CHUNK_OVERLAP="${HOP_KB_CHUNK_OVERLAP}" \
+  -DHOP_KB_TOP_K="${HOP_KB_TOP_K}"'
 
 # Set timezone to Beijing Time (Asia/Shanghai)
 ENV TZ=Asia/Shanghai
