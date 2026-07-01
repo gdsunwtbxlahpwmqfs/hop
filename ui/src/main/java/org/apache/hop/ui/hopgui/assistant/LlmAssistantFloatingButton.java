@@ -73,9 +73,7 @@ public class LlmAssistantFloatingButton {
 
     button = new Composite(parent, SWT.NONE);
     button.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Tooltip"));
-    Color normalBg = parent.getDisplay().getSystemColor(SWT.COLOR_WHITE);
-    Color hoverBg = GuiResource.getInstance().getColorGray();
-    button.setBackground(normalBg);
+    button.setBackgroundMode(SWT.INHERIT_DEFAULT);
 
     GridLayout gl = new GridLayout(1, false);
     gl.marginWidth = 0;
@@ -83,7 +81,6 @@ public class LlmAssistantFloatingButton {
     button.setLayout(gl);
 
     Label icon = new Label(button, SWT.NONE);
-    icon.setBackground(normalBg);
     icon.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Tooltip"));
     icon.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
 
@@ -106,27 +103,38 @@ public class LlmAssistantFloatingButton {
     button.setLayoutData(fd);
 
     // Hover highlight + click handling (delegated from the label too).
+    Color hoverBg = GuiResource.getInstance().getColorGray();
     Runnable openDialog =
         () -> {
           if (shell == null || shell.isDisposed()) {
             return;
           }
-          // Disable the button while the modal dialog is open so focus returns cleanly afterwards.
-          button.setEnabled(false);
+          if (button != null && !button.isDisposed()) {
+            // Hide the floating icon while the chat panel is open.
+            button.setVisible(false);
+          }
           try {
-            new LlmAssistantDialog(shell).open();
+            LlmAssistantDialog dialog = new LlmAssistantDialog(shell);
+            // Both minimize and close collapse the panel back to this icon.
+            dialog.setOnClose(
+                () -> {
+                  if (button != null && !button.isDisposed()) {
+                    button.setVisible(true);
+                  }
+                });
+            dialog.open();
           } finally {
             if (button != null && !button.isDisposed()) {
-              button.setEnabled(true);
+              button.setVisible(true);
             }
           }
         };
 
     button.addListener(SWT.MouseEnter, e -> button.setBackground(hoverBg));
-    button.addListener(SWT.MouseExit, e -> button.setBackground(normalBg));
+    button.addListener(SWT.MouseExit, e -> button.setBackground(null));
     button.addListener(SWT.MouseDown, e -> openDialog.run());
     icon.addListener(SWT.MouseEnter, e -> button.setBackground(hoverBg));
-    icon.addListener(SWT.MouseExit, e -> button.setBackground(normalBg));
+    icon.addListener(SWT.MouseExit, e -> button.setBackground(null));
     icon.addListener(SWT.MouseDown, e -> openDialog.run());
 
     // Make sure the button paints on top of the perspective composites.
