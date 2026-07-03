@@ -122,6 +122,9 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
     String macKeysLocation = resourceManager.getLocation("js/mac-command-keys.js");
     jsLoader.require(macKeysLocation);
 
+    // Load terminal.js for xterm.js based web terminal
+    jsLoader.require(resourceManager.getLocation("js/terminal.js"));
+
     // Configure keyboard shortcuts for RAP dynamically from annotations
     // ACTIVE_KEYS tells RAP to send these key combinations to the server
     // CANCEL_KEYS prevents the browser from handling these shortcuts

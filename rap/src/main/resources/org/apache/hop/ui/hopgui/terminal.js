@@ -248,44 +248,26 @@
     },
   };
 
-  function registerTerminalTypeHandler() {
-    rap.registerTypeHandler("hop.Terminal", {
-      factory: function (properties) {
-        return new hop.Terminal(properties);
-      },
-      destructor: function (widget) {
-        widget._destroyed = true;
-        if (widget._ws) {
-          try { widget._ws.close(); } catch (e) {}
-          widget._ws = null;
-        }
-        if (widget._terminal) {
-          try { widget._terminal.dispose(); } catch (e) {}
-          widget._terminal = null;
-        }
-        if (widget._container && widget._container.parentNode) {
-          widget._container.parentNode.removeChild(widget._container);
-        }
-      },
-      properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
-      events: ["terminalError"],
-    });
-  }
-
-  if (typeof rap !== 'undefined') {
-    registerTerminalTypeHandler();
-  } else if (typeof window.addEventListener !== 'undefined') {
-    window.addEventListener('load', function() {
-      if (typeof rap !== 'undefined') {
-        registerTerminalTypeHandler();
+  rap.registerTypeHandler("hop.Terminal", {
+    factory: function (properties) {
+      return new hop.Terminal(properties);
+    },
+    destructor: function (widget) {
+      widget._destroyed = true;
+      if (widget._ws) {
+        try { widget._ws.close(); } catch (e) {}
+        widget._ws = null;
       }
-    });
-    var checkInterval = setInterval(function() {
-      if (typeof rap !== 'undefined') {
-        clearInterval(checkInterval);
-        registerTerminalTypeHandler();
+      if (widget._terminal) {
+        try { widget._terminal.dispose(); } catch (e) {}
+        widget._terminal = null;
       }
-    }, 10);
-  }
+      if (widget._container && widget._container.parentNode) {
+        widget._container.parentNode.removeChild(widget._container);
+      }
+    },
+    properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
+    events: ["terminalError"],
+  });
 
 })();
