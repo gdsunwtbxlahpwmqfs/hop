@@ -248,6 +248,32 @@
     },
   };
 
+  function upgradeStubTerminals() {
+    var objs = rap.getObjects ? rap.getObjects() : [];
+    for (var i = 0; i < objs.length; i++) {
+      var obj = objs[i];
+      if (obj && obj._stub && obj._properties) {
+        var properties = obj._properties;
+        var realTerminal = new hop.Terminal(properties);
+        var remote = rap.getRemoteObject(obj);
+        if (remote) {
+          var id = remote.getId();
+          if (id) {
+            var existing = rap.getObject(id);
+            if (existing) {
+              for (var prop in realTerminal) {
+                if (prop !== '_stub') {
+                  existing[prop] = realTerminal[prop];
+                }
+              }
+              existing._stub = false;
+            }
+          }
+        }
+      }
+    }
+  }
+
   rap.registerTypeHandler("hop.Terminal", {
     factory: function (properties) {
       return new hop.Terminal(properties);
@@ -269,5 +295,7 @@
     properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
     events: ["terminalError"],
   });
+
+  upgradeStubTerminals();
 
 })();
