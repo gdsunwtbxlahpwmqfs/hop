@@ -29,6 +29,7 @@
     <name>Hop GUI</name>
 
     <properties>
+        <commonmark.version>0.27.1</commonmark.version>
         <jediterm.version>3.57</jediterm.version>
         <pty4j.version>0.13.12</pty4j.version>
         <xmlgraphics-commons.version>2.9</xmlgraphics-commons.version>
@@ -59,6 +60,21 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-strikethrough</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>${swt.artifactId}</artifactId>
             <version>${org.eclipse.platform.version}</version>
@@ -69,11 +85,13 @@
             <groupId>org.jetbrains.jediterm</groupId>
             <artifactId>jediterm-core</artifactId>
             <version>${jediterm.version}</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.jediterm</groupId>
             <artifactId>jediterm-ui</artifactId>
             <version>${jediterm.version}</version>
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>org.jetbrains.pty4j</groupId>
@@ -85,6 +103,7 @@
             <groupId>org.jetbrains.pty4j</groupId>
             <artifactId>pty4j</artifactId>
             <version>${pty4j.version}</version>
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>org.jetbrains.pty4j</groupId>

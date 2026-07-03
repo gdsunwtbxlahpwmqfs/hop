@@ -1,8 +1,6 @@
 services:
   hop-web:
     image: tomcat:10-jdk21
-    # platform: linux/amd64
-    platform: linux/arm64
     container_name: hop-web-dev
     ports:
       - "8080:8080"
@@ -14,23 +12,26 @@ services:
       HOP_PLUGIN_BASE_FOLDERS: /opt/hop/plugins
       HOP_PASSWORD_ENCODER_PLUGIN: Hop
       HOP_SHARED_JDBC_FOLDERS: /opt/hop/jdbc
+      HOP_REST_CONFIG_FOLDER: /opt/hop/rest-config
       # LLM personal assistant.
       # Requests go through the litellm proxy (service below) which speaks the
       # OpenAI format and routes to DashScope (阿里云通义千问).
       HOP_LLM_ENABLED: "true"
       HOP_LLM_API_URL: "http://litellm:4000/v1"
       HOP_LLM_API_KEY: "sk-hop-litellm-dev"
-      HOP_LLM_MODEL: "qwen-turbo"
+      HOP_LLM_MODEL: "qwen-plus"
       # Knowledge base / RAG settings (requires Qdrant service below).
       HOP_KB_ENABLED: "true"
       HOP_KB_QDRANT_URL: "http://qdrant:6333"
       HOP_KB_DOCS_PATH: "/opt/hop/docs/hop-assistant-manual"
       HOP_KB_EMBEDDING_MODEL: "text-embedding-v1"
       HOP_OPTIONS: -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
-      CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -DHOP_AUDIT_FOLDER=/opt/hop/audit -DHOP_CONFIG_FOLDER=/opt/hop/config -DHOP_LOG_LEVEL=Debug -DHOP_PASSWORD_ENCODER_PLUGIN=Hop -DHOP_PLUGIN_BASE_FOLDERS=/opt/hop/plugins -DHOP_SHARED_JDBC_FOLDERS=/opt/hop/jdbc -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
+      CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources -DHOP_AUDIT_FOLDER=/opt/hop/audit -DHOP_CONFIG_FOLDER=/opt/hop/config -DHOP_LOG_LEVEL=Debug -DHOP_PASSWORD_ENCODER_PLUGIN=Hop -DHOP_PLUGIN_BASE_FOLDERS=/opt/hop/plugins -DHOP_SHARED_JDBC_FOLDERS=/opt/hop/jdbc -DHOP_REST_CONFIG_FOLDER=/opt/hop/rest-config -Dswt.use.gtk3=false -Duser.timezone=Asia/Shanghai
     volumes:
       - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
+      - ./rest/target/hop-rest-2.19.0-SNAPSHOT.war:/usr/local/tomcat/webapps/hop.war
       - ./assemblies/web/target/webapp/config:/opt/hop/config
+      - ./docker/resources:/opt/hop/rest-config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./resources/jdbc-drivers:/opt/hop/jdbc
       - ./docs/hop-assistant-manual:/opt/hop/docs/hop-assistant-manual:ro
@@ -57,6 +58,9 @@ services:
       # DashScope API key (阿里云通义千问). Read by litellm-config.yaml via os.environ/.
       # Override via .env file or shell: export DASHSCOPE_API_KEY=sk-xxx
       DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:-}"
+      # DashScope API base URL for MaaS instance. Read by litellm-config.yaml via os.environ/.
+      # Override via .env file or shell: export DASHSCOPE_API_BASE=https://...
+      DASHSCOPE_API_BASE: "${DASHSCOPE_API_BASE:-}"
     volumes:
       - ./docker/resources/litellm-config.yaml:/app/config.yaml:ro
     command: --config /app/config.yaml --port 4000

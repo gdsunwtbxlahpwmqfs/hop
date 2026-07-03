@@ -131,7 +131,8 @@ public class HopWeb implements ApplicationConfiguration {
             "org/apache/hop/ui/hopgui/clipboard.js",
             "org/apache/hop/ui/hopgui/canvas-zoom.js",
             "org/apache/hop/ui/hopgui/monaco-editor.js",
-            "org/apache/hop/ui/hopgui/mac-command-keys.js")
+            "org/apache/hop/ui/hopgui/mac-command-keys.js",
+            "org/apache/hop/ui/hopgui/terminal.js")
         .forEach(
             str ->
                 application.addResource(
@@ -144,6 +145,7 @@ public class HopWeb implements ApplicationConfiguration {
                     }));
 
     registerMonacoResources(application);
+    registerXtermResources(application);
 
     // Only 2 choices for now
     //
@@ -202,6 +204,26 @@ public class HopWeb implements ApplicationConfiguration {
       }
     } catch (Exception e) {
       LogChannel.UI.logError("Failed to register Monaco editor resources", e);
+    }
+  }
+
+  /** Registers xterm.js resources (terminal emulator) for the web terminal. */
+  private void registerXtermResources(Application application) {
+    String prefix = "org/apache/hop/ui/hopgui/xterm";
+    ClassLoader cl = HopWeb.class.getClassLoader();
+    List<String> files =
+        List.of("xterm.js", "xterm.css", "xterm-addon-attach.js", "xterm-addon-fit.js");
+    for (String file : files) {
+      final String classpathResource = prefix + "/" + file;
+      String resourceName = "xterm/" + file;
+      application.addResource(
+          resourceName,
+          new ResourceLoader() {
+            @Override
+            public InputStream getResourceAsStream(String name) {
+              return cl.getResourceAsStream(classpathResource);
+            }
+          });
     }
   }
 

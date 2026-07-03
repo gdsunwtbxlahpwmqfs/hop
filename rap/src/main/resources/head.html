@@ -15,6 +15,13 @@
   ~ limitations under the License.
   ~
   -->
+<!-- Load xterm.js before Monaco's AMD loader to avoid define() conflicts -->
+<script src="rwt-resources/xterm/xterm.js"></script>
+<script src="rwt-resources/xterm/xterm-addon-attach.js"></script>
+<script src="rwt-resources/xterm/xterm-addon-fit.js"></script>
+<link rel="stylesheet" href="rwt-resources/xterm/xterm.css">
+<!-- Load terminal.js synchronously so hop.Terminal type handler is registered before RAP processes operations -->
+<script src="rwt-resources/js/terminal.js"></script>
 <!-- Monaco Editor (AMD loader); editor.main is loaded on demand by monaco-editor.js -->
 <script src="rwt-resources/monaco/vs/loader.js"></script>
 <script>

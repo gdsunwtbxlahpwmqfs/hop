@@ -33,11 +33,41 @@
     </properties>
 
     <dependencies>
+        <!-- commons-io 2.21.0 is required for IORunnable class -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.21.0</version>
+        </dependency>
+        <!-- jandex is required for Hop plugin indexing -->
+        <dependency>
+            <groupId>io.smallrye</groupId>
+            <artifactId>jandex</artifactId>
+            <version>3.5.3</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-assemblies-static</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
+        </dependency>
+        <!-- hop-core is required for HopException and other core classes -->
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- hop-engine is required for pipeline/workflow execution -->
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-engine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- hop-engine-beam is required for Beam engine plugin support -->
+        <dependency>
+            <groupId>org.apache.hop</groupId>
+            <artifactId>hop-engine-beam</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!-- static-schema plugin for schema definition metadata -->
         <dependency>
@@ -80,10 +110,39 @@
             <artifactId>org.eclipse.rap.rwt</artifactId>
             <version>${rap.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.pty4j</groupId>
+            <artifactId>pty4j</artifactId>
+            <version>0.13.12</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-xterm-resources</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.hop</groupId>
+                                    <artifactId>hop-ui-rap</artifactId>
+                                    <version>${project.version}</version>
+                                    <outputDirectory>${project.build.directory}/webapp-resources</outputDirectory>
+                                    <includes>**/xterm/**</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>

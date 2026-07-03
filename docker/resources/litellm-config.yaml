@@ -19,21 +19,21 @@ model_list:
   # - qwen-turbo: 极速版，适合高频对话
   # - qwen-plus: 进阶版，平衡性能与能力
   # - qwen-max: 旗舰版，最强推理能力
-  # - qwen-2-turbo: 第二代极速版
-  # - qwen-2-plus: 第二代进阶版
-  # - qwen-2-max: 第二代旗舰版
   - model_name: qwen-turbo
     litellm_params:
-      model: dashscope/qwen-turbo
+      model: dashscope/qwen3.7-turbo
       api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
   - model_name: qwen-plus
     litellm_params:
-      model: dashscope/qwen-plus
+      model: dashscope/qwen3.7-plus
       api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
   - model_name: qwen-max
     litellm_params:
-      model: dashscope/qwen-max
+      model: dashscope/qwen3.7-max
       api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
 
   # DashScope embedding model for the knowledge base / RAG subsystem.
   # Used by EmbeddingClient to vectorize documents and queries.
@@ -41,6 +41,7 @@ model_list:
     litellm_params:
       model: dashscope/text-embedding-v1
       api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
 
 litellm_settings:
   # Drop unsupported params instead of erroring when a provider rejects them.

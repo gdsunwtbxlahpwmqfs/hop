@@ -54,6 +54,11 @@
             <directory>${project.basedir}/src/main/resources</directory>
             <outputDirectory>.</outputDirectory>
         </fileSet>
+        <!-- xterm resources extracted from hop-ui-rap -->
+        <fileSet>
+            <directory>${project.build.directory}/webapp-resources/org/apache/hop/ui/hopgui</directory>
+            <outputDirectory>.</outputDirectory>
+        </fileSet>
     </fileSets>
     <dependencySets>
         <!-- static files like the shell scripts -->
@@ -66,49 +71,14 @@
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
-        <!-- RAP -->
+        <!-- Include all other dependencies with transitive dependencies -->
         <dependencySet>
-            <includes>
-                <include>org.eclipse.rap:org.eclipse.rap.*</include>
-            </includes>
             <outputDirectory>WEB-INF/lib</outputDirectory>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
             <useProjectArtifact>false</useProjectArtifact>
-        </dependencySet>
-        <dependencySet>
-            <includes>
-                <include>org.apache.hop:hop-ui-rap:jar</include>
-            </includes>
-            <outputDirectory>WEB-INF/lib</outputDirectory>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>false</useProjectArtifact>
-        </dependencySet>
-        <!-- hop-ui is required for UI plugins that depend on IGuiPluginCompositeWidgetsListener -->
-        <dependencySet>
-            <includes>
-                <include>org.apache.hop:hop-ui:jar</include>
-            </includes>
-            <outputDirectory>WEB-INF/lib</outputDirectory>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>false</useProjectArtifact>
-        </dependencySet>
-        <!-- static-schema plugin for schema definition metadata -->
-        <dependencySet>
-            <includes>
-                <include>org.apache.hop:hop-misc-static-schema:jar</include>
-            </includes>
-            <outputDirectory>WEB-INF/lib</outputDirectory>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>false</useProjectArtifact>
-        </dependencySet>
-        <!-- xmlgraphics-commons is required by Batik SVG library -->
-        <dependencySet>
-            <includes>
-                <include>org.apache.xmlgraphics:xmlgraphics-commons:jar</include>
-            </includes>
-            <outputDirectory>WEB-INF/lib</outputDirectory>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>false</useProjectArtifact>
+            <excludes>
+                <exclude>org.apache.hop:hop-assemblies-static:zip</exclude>
+            </excludes>
         </dependencySet>
     </dependencySets>
 </assembly>

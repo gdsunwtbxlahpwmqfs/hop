@@ -151,6 +151,8 @@ public class HopGuiPipelineCheckDelegate {
     fdTree.bottom = new FormAttachment(100, 0);
     wTree.setLayoutData(fdTree);
     wTree.addListener(SWT.DefaultSelection, this::edit);
+
+    checkPipeline();
   }
 
   @GuiToolbarElement(

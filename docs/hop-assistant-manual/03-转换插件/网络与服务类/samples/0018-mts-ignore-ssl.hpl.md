@@ -1,0 +1,29 @@
+# Pipeline: 0018-mts-ignore-ssl
+
+## Basic Information
+
+- **Pipeline Name:** 0018-mts-ignore-ssl
+- **Source File:** `03-转换插件/网络与服务类/samples/0018-mts-ignore-ssl.hpl`
+
+## Transforms
+
+| Name | Type |
+|------|------|
+| 200? | FilterRows |
+| Abort | Abort |
+| GET /api/whoami | Rest |
+| clean | SelectValues |
+| generate 1 row | RowGenerator |
+| parse result | JsonInput |
+| preview | Dummy |
+
+## Hops
+
+| From | To |
+|------|----|
+| generate 1 row | GET /api/whoami |
+| GET /api/whoami | 200? |
+| 200? | parse result |
+| 200? | Abort |
+| parse result | clean |
+| clean | preview |

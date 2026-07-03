@@ -196,7 +196,7 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
 
           if (item != null) {
             ITerminalWidget widget = (ITerminalWidget) item.getData("terminalWidget");
-            if (widget != null && widget instanceof JediTerminalWidget) {
+            if (widget != null) {
               Composite composite = widget.getTerminalComposite();
               if (composite != null && !composite.isDisposed()) {
                 composite.forceFocus();
@@ -284,12 +284,9 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
     terminalTab.setControl(terminalWidgetComposite);
 
     ITerminalWidget terminalWidget =
-        new JediTerminalWidget(
-            terminalWidgetComposite, shellPath, workingDirectory, getTerminalFontSizePercent());
+        createTerminalWidget(terminalWidgetComposite, shellPath, workingDirectory);
 
     terminalTab.setData("terminalWidget", terminalWidget);
-
-    updateTabTextWithTerminalType(terminalTab, terminalWidget);
 
     registerTerminal(terminalId, workingDirectory, shellPath);
 
@@ -305,15 +302,29 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
               if (terminalWidget == null) {
                 return;
               }
-
-              if (terminalWidget instanceof JediTerminalWidget) {
-                Composite composite = terminalWidget.getTerminalComposite();
-                if (composite != null && !composite.isDisposed()) {
-                  composite.setFocus();
-                  composite.forceFocus();
-                }
+              Composite composite = terminalWidget.getTerminalComposite();
+              if (composite != null && !composite.isDisposed()) {
+                composite.setFocus();
+                composite.forceFocus();
               }
             });
+  }
+
+  private ITerminalWidget createTerminalWidget(
+      Composite parent, String shellPath, String workingDirectory) {
+    if (EnvironmentUtils.getInstance().isWeb()) {
+      try {
+        Class<?> clazz = Class.forName("org.apache.hop.ui.hopgui.terminal.RapTerminalWidget");
+        return (ITerminalWidget)
+            clazz
+                .getDeclaredConstructor(Composite.class, String.class, String.class, int.class)
+                .newInstance(parent, shellPath, workingDirectory, terminalFontSizePercent);
+      } catch (Exception e) {
+        org.apache.hop.core.logging.LogChannel.UI.logDebug(
+            "Failed to create RapTerminalWidget, falling back to JediTerminalWidget", e);
+      }
+    }
+    return new JediTerminalWidget(parent, shellPath, workingDirectory, terminalFontSizePercent);
   }
 
   /** Extract shell name from full path (e.g., "/bin/bash" -> "bash") */
@@ -340,19 +351,6 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
     }
 
     return shellPath;
-  }
-
-  private void updateTabTextWithTerminalType(CTabItem terminalTab, ITerminalWidget terminalWidget) {
-    if (terminalTab == null || terminalWidget == null) {
-      return;
-    }
-
-    String currentText = terminalTab.getText();
-    String indicator = " [JT]";
-
-    if (!currentText.contains(indicator)) {
-      terminalTab.setText(currentText + indicator);
-    }
   }
 
   /** Show the terminal panel */
@@ -391,9 +389,6 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
   @GuiKeyboardShortcut(control = true, key = 'j', global = true)
   @GuiOsxKeyboardShortcut(command = true, key = 'j', global = true)
   public void toggleTerminal() {
-    if (EnvironmentUtils.getInstance().isWeb()) {
-      return;
-    }
     if (terminalVisible) {
       hideTerminal();
     } else {
@@ -410,9 +405,6 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
   @GuiKeyboardShortcut(control = true, shift = true, key = 'j', global = true)
   @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'j', global = true)
   public void newTerminal() {
-    if (EnvironmentUtils.getInstance().isWeb()) {
-      return;
-    }
     createNewTerminal(null, null);
   }
 
@@ -585,10 +577,6 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
         widget.setFontScalePercent(terminalFontSizePercent);
       }
     }
-  }
-
-  private int getTerminalFontSizePercent() {
-    return terminalFontSizePercent;
   }
 
   /** Rename a terminal tab via dialog */

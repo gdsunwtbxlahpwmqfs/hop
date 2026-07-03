@@ -331,8 +331,10 @@ public class HopGui
     auditDelegate = new HopGuiAuditDelegate(this);
     fileRefreshDelegate = new HopGuiFileRefreshDelegate(this);
 
-    // TODO: create metadata plugin system
-    //
+    // Metadata provider initialization
+    // Note: Metadata types are currently registered programmatically via HopMetadataUtil.
+    // Future enhancement: Create a metadata plugin system to allow dynamic registration
+    // of metadata types through plugins, similar to the transform and action plugin systems.
     metadataProvider = HopMetadataUtil.getStandardHopMetadataProvider(variables);
     HopMetadataInstance.setMetadataProvider(metadataProvider);
 
@@ -1689,7 +1691,7 @@ public class HopGui
                   }
                 })
             .selectedSupplier(() -> terminalPanel != null && terminalPanel.isTerminalVisible())
-            .available(!EnvironmentUtils.getInstance().isWeb())
+            .available(true)
             .build());
     sidebarToolbarDescriptors.add(
         SidebarToolbarItemDescriptor.builder()
@@ -1735,44 +1737,33 @@ public class HopGui
    * with perspectives rendering in the top section.
    */
   private void addMainPerspectivesComposite() {
-    if (EnvironmentUtils.getInstance().isWeb()) {
-      mainPerspectivesComposite = new Composite(mainHopGuiComposite, SWT.NONE);
-      FormData fdPerspectives = new FormData();
-      fdPerspectives.top = new FormAttachment(0, 0);
-      fdPerspectives.left = new FormAttachment(perspectivesSidebar, 0);
-      fdPerspectives.bottom = new FormAttachment(100, 0);
-      fdPerspectives.right = new FormAttachment(100, 0);
-      mainPerspectivesComposite.setLayoutData(fdPerspectives);
-      mainPerspectivesComposite.setLayout(new StackLayout());
-    } else {
-      terminalPanel =
-          new org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel(mainHopGuiComposite, this);
-      FormData fdTerminalPanel = new FormData();
-      fdTerminalPanel.top = new FormAttachment(0, 0);
-      fdTerminalPanel.left = new FormAttachment(perspectivesSidebar, 0);
-      fdTerminalPanel.bottom = new FormAttachment(100, 0);
-      fdTerminalPanel.right = new FormAttachment(100, 0);
-      terminalPanel.setLayoutData(fdTerminalPanel);
+    terminalPanel =
+        new org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel(mainHopGuiComposite, this);
+    FormData fdTerminalPanel = new FormData();
+    fdTerminalPanel.top = new FormAttachment(0, 0);
+    fdTerminalPanel.left = new FormAttachment(perspectivesSidebar, 0);
+    fdTerminalPanel.bottom = new FormAttachment(100, 0);
+    fdTerminalPanel.right = new FormAttachment(100, 0);
+    terminalPanel.setLayoutData(fdTerminalPanel);
 
-      // Register so Tools > Terminal menu items can invoke panel methods
-      String menuInstanceId = mainMenuWidgets.getInstanceId();
-      org.apache.hop.core.gui.plugin.GuiRegistry.getInstance()
-          .registerGuiPluginObject(
-              getId(),
-              org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel.class.getName(),
-              menuInstanceId,
-              terminalPanel);
-      terminalPanel.addDisposeListener(
-          e ->
-              org.apache.hop.core.gui.plugin.GuiRegistry.getInstance()
-                  .removeGuiPluginObject(
-                      getId(),
-                      org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel.class.getName(),
-                      menuInstanceId));
+    // Register so Tools > Terminal menu items can invoke panel methods
+    String menuInstanceId = mainMenuWidgets.getInstanceId();
+    org.apache.hop.core.gui.plugin.GuiRegistry.getInstance()
+        .registerGuiPluginObject(
+            getId(),
+            org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel.class.getName(),
+            menuInstanceId,
+            terminalPanel);
+    terminalPanel.addDisposeListener(
+        e ->
+            org.apache.hop.core.gui.plugin.GuiRegistry.getInstance()
+                .removeGuiPluginObject(
+                    getId(),
+                    org.apache.hop.ui.hopgui.terminal.HopGuiTerminalPanel.class.getName(),
+                    menuInstanceId));
 
-      mainPerspectivesComposite = terminalPanel.getPerspectiveComposite();
-      mainPerspectivesComposite.setLayout(new StackLayout());
-    }
+    mainPerspectivesComposite = terminalPanel.getPerspectiveComposite();
+    mainPerspectivesComposite.setLayout(new StackLayout());
   }
 
   public void setUndoMenu(IUndo undoInterface) {

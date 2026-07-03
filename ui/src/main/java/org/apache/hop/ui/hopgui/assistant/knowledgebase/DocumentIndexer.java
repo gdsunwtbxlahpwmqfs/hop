@@ -36,7 +36,7 @@ public class DocumentIndexer {
 
   private static final LogChannel log = new LogChannel("DocumentIndexer");
 
-  private static final int BATCH_SIZE = 32;
+  private static final int BATCH_SIZE = 20;
 
   private final DocumentSplitter splitter;
   private final EmbeddingClient embeddingClient;

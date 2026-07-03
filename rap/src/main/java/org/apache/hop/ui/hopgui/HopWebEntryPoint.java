@@ -57,6 +57,7 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
   public static final String AUDIT_KEY_FOLLOW_SYSTEM = "followSystem";
 
   @Override
+  @SuppressWarnings("deprecation")
   protected void createContents(Composite parent) {
     // So drill-down and other GUI checks can use Const.getHopPlatformRuntime() from any thread
     System.setProperty(Const.HOP_PLATFORM_RUNTIME, "GUI");
@@ -269,11 +270,6 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
             + " window.location.href = '"
             + escaped
             + "' + q + h;");
-  }
-
-  /** Save the user's theme preference to the audit folder (per-user when authenticated). */
-  private void saveThemePreferenceToAudit(boolean darkMode) {
-    saveThemePreferenceToAudit(false, Boolean.valueOf(darkMode));
   }
 
   /**

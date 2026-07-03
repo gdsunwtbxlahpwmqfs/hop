@@ -31,7 +31,12 @@
     <properties>
         <monaco.resources.dir>${project.build.directory}/generated-resources/org/apache/hop/ui/hopgui/monaco</monaco.resources.dir>
         <monaco.version>0.55.1</monaco.version>
+        <pty4j.version>0.13.12</pty4j.version>
         <rap.version>4.5.0</rap.version>
+        <xterm.attach.version>0.9.0</xterm.attach.version>
+        <xterm.fit.version>0.8.0</xterm.fit.version>
+        <xterm.resources.dir>${project.build.directory}/generated-resources/org/apache/hop/ui/hopgui/xterm</xterm.resources.dir>
+        <xterm.version>5.3.0</xterm.version>
     </properties>
 
     <dependencies>
@@ -39,6 +44,23 @@
             <groupId>org.eclipse.rap</groupId>
             <artifactId>org.eclipse.rap.rwt</artifactId>
             <version>${rap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.pty4j</groupId>
+            <artifactId>pty4j</artifactId>
+            <version>${pty4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains.pty4j</groupId>
+                    <artifactId>purejavacomm</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
+            <version>2.0.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.hop</groupId>
@@ -62,7 +84,6 @@
 
     <build>
         <plugins>
-            <!-- Download the Monaco Editor npm package at build time -->
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -80,10 +101,45 @@
                             <outputDirectory>${project.build.directory}/monaco-download</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>download-xterm</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>https://registry.npmjs.org/xterm/-/xterm-${xterm.version}.tgz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}/xterm-download</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-xterm-addon-attach</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>https://registry.npmjs.org/xterm-addon-attach/-/xterm-addon-attach-${xterm.attach.version}.tgz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}/xterm-attach-download</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-xterm-addon-fit</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>https://registry.npmjs.org/xterm-addon-fit/-/xterm-addon-fit-${xterm.fit.version}.tgz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}/xterm-fit-download</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
-            <!-- Copy the AMD distribution files and generate monaco-files.list -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -114,10 +170,33 @@
                             </target>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>prepare-xterm-resources</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${xterm.resources.dir}"></mkdir>
+                                <copy flatten="true" todir="${xterm.resources.dir}">
+                                    <fileset dir="${project.build.directory}/xterm-download/package">
+                                        <include name="lib/xterm.js"></include>
+                                        <include name="css/xterm.css"></include>
+                                    </fileset>
+                                    <fileset dir="${project.build.directory}/xterm-attach-download/package">
+                                        <include name="lib/xterm-addon-attach.js"></include>
+                                    </fileset>
+                                    <fileset dir="${project.build.directory}/xterm-fit-download/package">
+                                        <include name="lib/xterm-addon-fit.js"></include>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
-            <!-- Add the generated Monaco resources to the classpath -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

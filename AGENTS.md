@@ -53,11 +53,14 @@ UI tests (SWTBot) require `-Puitest` profile. On Linux they need `xvfb-run`. On 
 core/            — core library (hop-core)
 engine/          — pipeline/workflow execution engine
 engine-beam/     — Apache Beam engine integration
-lib/ lib-jdbc/ lib-p2/ — shared libraries
+engine-bench/    — benchmark module
+lib/             — shared libraries
+lib-jdbc/        — JDBC library
+lib-p2/          — P2 library
 plugins/
-  transforms/    — ~150 data transform plugins
-  actions/       — ~55 workflow action plugins
-  databases/     — database connection plugins
+  transforms/    — 154 data transform plugins
+  actions/       — 57 workflow action plugins
+  databases/     — 47 database connection plugins
   engines/       — engine plugins (e.g. Beam)
   misc/ tech/ resolvers/ valuetypes/ — other plugin categories
 ui/              — SWT-based shared UI code
@@ -65,7 +68,13 @@ rcp/             — desktop application (Rich Client Platform)
 rap/             — web application (RAP/Tomcat)
 rest/            — REST API server
 assemblies/      — distribution packaging (zip, tar.gz, Docker)
-integration-tests/ — integration test suites
+dev-scripts/     — developer scripts (build, start-web-dev, etc.)
+docker/          — Dockerfiles (web/rest/unified/fatjar)
+docs/            — developer manuals (user/tech/dev/assistant)
+helm/            — Kubernetes Helm chart
+resources/       — JDBC drivers, shared jar download scripts
+tools/           — build configs (checkstyle.xml, etc.)
+integration-tests/ — integration test suites (39 suites)
 ```
 
 Plugin artifact naming: `hop-<type>-<name>` (e.g. `hop-transform-json`, `hop-action-ftp`).
@@ -81,9 +90,9 @@ Plugin artifact naming: `hop-<type>-<name>` (e.g. `hop-transform-json`, `hop-act
 
 ## Working with Plugins
 
-Each plugin under `plugins/transforms/<name>/` or `plugins/actions/<name>/` is an independent Maven module. When adding a new plugin:
+Each plugin under `plugins/<category>/<name>/` is an independent Maven module. Supported categories: `transforms`, `actions`, `databases`, `engines`, `misc`, `tech`, `resolvers`, `valuetypes`. When adding a new plugin:
 
-1. Create directory under the appropriate parent (`transforms/` or `actions/`)
+1. Create directory under the appropriate parent (e.g. `transforms/`)
 2. Add `<module>` to parent `pom.xml`
 3. Set parent to the aggregator POM (e.g. `hop-plugins-transforms`)
 4. Include ASF license header in all files
@@ -91,11 +100,20 @@ Each plugin under `plugins/transforms/<name>/` or `plugins/actions/<name>/` is a
 
 ## Integration Tests
 
-Located in `integration-tests/`. Each subdirectory is a self-contained test suite. Some require external services (databases, Kafka, SSH, etc.) and won't pass without them. The `scripts/` directory contains helper scripts.
+Located in `integration-tests/` (39 suites). Each subdirectory is a self-contained test suite. Some require external services (databases, Kafka, SSH, etc.) and won't pass without them. The `scripts/` directory contains helper scripts.
 
 ## Docker
 
-`docker-compose.dev.yml` provides a dev setup for hop-web (Tomcat + RAP). Requires pre-built assemblies.
+`docker-compose.dev.yml` provides a dev setup for hop-web (Tomcat + RAP). Multiple Dockerfiles in `docker/` for web/rest/unified/fatjar builds. Requires pre-built assemblies.
+
+## Debugging
+
+For Hop Web (RAP) development debugging, use `.opencode/skills/rap-ui-debug/` (loaded automatically) or refer to the standalone guide at `Rap UI极速调试方法.md`. Two approaches:
+
+- **Fast path (~20s)**: `compile → jar:jar → cp JAR → clear Tomcat cache → restart`
+- **Full path (~2min)**: `mvn install → mvn package → start-web-dev.sh` (auto-detects war changes)
+
+Supports any Maven module via `${MODULE}` variable (core, ui, rap, rest, plugins/*).
 
 ## Avoid
 

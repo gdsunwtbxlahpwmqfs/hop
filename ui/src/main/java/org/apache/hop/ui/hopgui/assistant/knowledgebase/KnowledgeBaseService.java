@@ -90,6 +90,13 @@ public class KnowledgeBaseService {
       return List.of();
     }
     try {
+      if (!vectorStore.collectionExists()) {
+        log.logBasic(
+            "Collection '"
+                + kbConfig.getQdrantCollection()
+                + "' not found - please build the index first");
+        return List.of();
+      }
       float[] queryVector = embeddingClient.embed(query);
       List<SearchResult> raw = vectorStore.search(queryVector, topK);
 
