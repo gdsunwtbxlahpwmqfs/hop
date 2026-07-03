@@ -20,38 +20,7 @@
 <script src="rwt-resources/xterm/xterm-addon-attach.js"></script>
 <script src="rwt-resources/xterm/xterm-addon-fit.js"></script>
 <link rel="stylesheet" href="rwt-resources/xterm.css">
-<!-- Register hop.Terminal type handler early to avoid race condition with create operations -->
-<script>
-    if (!window.hop) {
-        window.hop = {};
-    }
-    hop.Terminal = function(properties) {
-        this._stub = true;
-        this._properties = properties || {};
-    };
-    hop.Terminal.prototype = {
-        set: function(properties) {
-            this._properties = Object.assign(this._properties, properties);
-        },
-        destroy: function() {}
-    };
-    (function registerHandler() {
-        if (typeof rap !== 'undefined') {
-            rap.registerTypeHandler("hop.Terminal", {
-                factory: function(properties) {
-                    return new hop.Terminal(properties);
-                },
-                destructor: function(widget) {
-                    widget.destroy();
-                },
-                properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
-                events: ["terminalError"]
-            });
-        } else {
-            setTimeout(registerHandler, 10);
-        }
-    })();
-</script>
+<!-- hop.Terminal type handler is registered by terminal.js (loaded via JavaScriptLoader) -->
 <!-- Monaco Editor (AMD loader); editor.main is loaded on demand by monaco-editor.js -->
 <script src="rwt-resources/monaco/vs/loader.js"></script>
 <script>

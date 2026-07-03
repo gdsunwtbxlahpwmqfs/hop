@@ -2520,6 +2520,8 @@ FileUpload-FocusIndicator {
 
 Composite.sidebarButton {
     border-radius: 6px;
+    border: 1px solid #d0d0d0;
+    background-color: #f5f5f5;
 }
 
 Label.sidebarButton {

@@ -581,5 +581,5 @@ limitations under the License.
   </transform>
   <step_error_handling>
   </step_error_handling>
-<slave_pipeline>N</slave_pipelineformation>
+<slave_pipeline>N</slave_pipeline>
 </pipeline>

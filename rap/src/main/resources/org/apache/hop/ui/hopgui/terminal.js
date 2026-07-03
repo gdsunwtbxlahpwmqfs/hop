@@ -52,7 +52,6 @@
         return;
       }
 
-      // Create container div that fills the parent
       var container = document.createElement("div");
       container.style.width = "100%";
       container.style.height = "100%";
@@ -60,7 +59,6 @@
       parentEl.appendChild(container);
       this._container = container;
 
-      // Load xterm.js script lazily
       this._loadXterm(function () {
         if (self._destroyed) return;
         self._initTerminal(container, ptyId);
@@ -140,7 +138,6 @@
     _initTerminal: function (container, ptyId) {
       var self = this;
 
-      // Detect dark mode from RAP theme
       var isDark = document.body.classList.contains("rwt-dark") ||
                    document.documentElement.classList.contains("rwt-dark");
       var theme = isDark
@@ -165,7 +162,6 @@
       });
       self._terminal = terminal;
 
-      // Connect WebSocket
       var wsUrl = buildWsUrl(ptyId);
       var ws = new WebSocket(wsUrl);
       self._ws = ws;
@@ -179,7 +175,6 @@
         terminal.loadAddon(attachAddon);
         terminal.open(container);
 
-        // Fit terminal to container
         var fitAddon = null;
         if (typeof FitAddon !== 'undefined') {
           try {
@@ -194,7 +189,6 @@
 
         terminal.focus();
 
-        // Re-fit on resize
         var ro = new ResizeObserver(function () {
           if (self._destroyed || !terminal.element) return;
           if (self._fitAddon) {
@@ -234,7 +228,6 @@
       return "0.9.0";
     },
 
-    // Called when server updates properties
     set: function (properties) {
       if (this._destroyed) return;
 
@@ -246,6 +239,21 @@
         }
       }
     },
+
+    destroy: function() {
+      this._destroyed = true;
+      if (this._ws) {
+        try { this._ws.close(); } catch (e) {}
+        this._ws = null;
+      }
+      if (this._terminal) {
+        try { this._terminal.dispose(); } catch (e) {}
+        this._terminal = null;
+      }
+      if (this._container && this._container.parentNode) {
+        this._container.parentNode.removeChild(this._container);
+      }
+    }
   };
 
   function upgradeStubTerminals() {
@@ -253,48 +261,16 @@
     for (var i = 0; i < objs.length; i++) {
       var obj = objs[i];
       if (obj && obj._stub && obj._properties) {
-        var properties = obj._properties;
-        var realTerminal = new hop.Terminal(properties);
-        var remote = rap.getRemoteObject(obj);
-        if (remote) {
-          var id = remote.getId();
-          if (id) {
-            var existing = rap.getObject(id);
-            if (existing) {
-              for (var prop in realTerminal) {
-                if (prop !== '_stub') {
-                  existing[prop] = realTerminal[prop];
-                }
-              }
-              existing._stub = false;
-            }
-          }
-        }
+        obj._destroyed = false;
+        obj._terminal = null;
+        obj._ws = null;
+        obj._container = null;
+
+        obj._doCreate();
+        obj._stub = false;
       }
     }
   }
-
-  rap.registerTypeHandler("hop.Terminal", {
-    factory: function (properties) {
-      return new hop.Terminal(properties);
-    },
-    destructor: function (widget) {
-      widget._destroyed = true;
-      if (widget._ws) {
-        try { widget._ws.close(); } catch (e) {}
-        widget._ws = null;
-      }
-      if (widget._terminal) {
-        try { widget._terminal.dispose(); } catch (e) {}
-        widget._terminal = null;
-      }
-      if (widget._container && widget._container.parentNode) {
-        widget._container.parentNode.removeChild(widget._container);
-      }
-    },
-    properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
-    events: ["terminalError"],
-  });
 
   upgradeStubTerminals();
 
