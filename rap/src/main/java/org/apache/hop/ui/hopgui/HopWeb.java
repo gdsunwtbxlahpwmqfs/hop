@@ -87,7 +87,8 @@ public class HopWeb implements ApplicationConfiguration {
             "ui/images/show-selected.svg",
             "ui/images/show-results.svg",
             "ui/images/hide-results.svg",
-            "ui/images/assistant.svg"
+            "ui/images/assistant.svg",
+            "ui/images/terminal.svg"
           }) {
         addResource(application, path, uiClassLoader);
       }

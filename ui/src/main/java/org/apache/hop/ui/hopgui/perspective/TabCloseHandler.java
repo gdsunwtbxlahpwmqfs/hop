@@ -51,16 +51,26 @@ public class TabCloseHandler {
     MenuItem miClose = new MenuItem(menu, SWT.NONE);
     miClose.setText(BaseMessages.getString(PKG, "HopGui.TabItem.Close.Text"));
     miClose.addListener(
-        SWT.Selection, event -> tabClosablePerspective.closeTab(null, selectedItem));
+        SWT.Selection,
+        event -> {
+          CTabItem item = selectedItem != null ? selectedItem : tabFolder.getSelection();
+          if (item != null) {
+            tabClosablePerspective.closeTab(null, item);
+          }
+        });
 
     MenuItem miCloseOthers = new MenuItem(menu, SWT.NONE);
     miCloseOthers.setText(BaseMessages.getString(PKG, "HopGui.TabItem.CloseOther.Text"));
     miCloseOthers.addListener(
         SWT.Selection,
-        event ->
+        event -> {
+          CTabItem ref = selectedItem != null ? selectedItem : tabFolder.getSelection();
+          if (ref != null) {
             tabClosablePerspective
-                .getOtherTabs(selectedItem)
-                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem)));
+                .getOtherTabs(ref)
+                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem));
+          }
+        });
 
     MenuItem miCloseAll = new MenuItem(menu, SWT.NONE);
     miCloseAll.setText(BaseMessages.getString(PKG, "HopGui.TabItem.CloseAll.Text"));
@@ -76,19 +86,27 @@ public class TabCloseHandler {
     miCloseLeft.setText(BaseMessages.getString(PKG, "HopGui.TabItem.CloseLeft.Text"));
     miCloseLeft.addListener(
         SWT.Selection,
-        event ->
+        event -> {
+          CTabItem ref = selectedItem != null ? selectedItem : tabFolder.getSelection();
+          if (ref != null) {
             tabClosablePerspective
-                .getTabsToLeft(selectedItem)
-                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem)));
+                .getTabsToLeft(ref)
+                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem));
+          }
+        });
 
     MenuItem miCloseRight = new MenuItem(menu, SWT.NONE);
     miCloseRight.setText(BaseMessages.getString(PKG, "HopGui.TabItem.CloseRight.Text"));
     miCloseRight.addListener(
         SWT.Selection,
-        event ->
+        event -> {
+          CTabItem ref = selectedItem != null ? selectedItem : tabFolder.getSelection();
+          if (ref != null) {
             tabClosablePerspective
-                .getTabsToRight(selectedItem)
-                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem)));
+                .getTabsToRight(ref)
+                .forEach(tabItem -> tabClosablePerspective.closeTab(null, tabItem));
+          }
+        });
   }
 
   private void handleMouseUp(Event event, TabClosable tabClosablePerspective) {

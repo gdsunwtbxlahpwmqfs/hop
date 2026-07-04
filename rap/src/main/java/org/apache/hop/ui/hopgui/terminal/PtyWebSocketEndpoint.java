@@ -19,6 +19,7 @@ package org.apache.hop.ui.hopgui.terminal;
 
 import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
+import com.pty4j.WinSize;
 import jakarta.websocket.CloseReason;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
@@ -43,6 +44,7 @@ public class PtyWebSocketEndpoint {
 
   private static final LogChannel log = new LogChannel("PtyWS");
   private static final Map<String, PtySession> sessions = new ConcurrentHashMap<>();
+  private static final String RESIZE_PREFIX = "\u0000RESIZE:";
   private static final ExecutorService readerPool =
       Executors.newCachedThreadPool(
           r -> {
@@ -104,6 +106,21 @@ public class PtyWebSocketEndpoint {
       log.logDebug("No PTY session found for id: " + ptyId);
       return;
     }
+
+    // Check for resize command
+    if (message.startsWith(RESIZE_PREFIX)) {
+      try {
+        String[] parts = message.substring(RESIZE_PREFIX.length()).split(",");
+        int cols = Integer.parseInt(parts[0].trim());
+        int rows = Integer.parseInt(parts[1].trim());
+        ptySession.process.setWinSize(new WinSize(cols, rows));
+        log.logDebug("PTY resized to " + cols + "x" + rows + " for " + ptyId);
+      } catch (Exception e) {
+        log.logDebug("Failed to parse resize command: " + message, e);
+      }
+      return;
+    }
+
     try {
       OutputStream os = ptySession.process.getOutputStream();
       os.write(message.getBytes(StandardCharsets.UTF_8));

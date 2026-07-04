@@ -1,13 +1,16 @@
 "use strict";
 
 (function () {
-  var XTERM_BASE = "rwt-resources/xterm";
 
-  function buildWsUrl(ptyId) {
+  function buildWsUrl(ptyId, shellPath, workingDirectory) {
     var loc = window.location;
     var proto = loc.protocol === "https:" ? "wss:" : "ws:";
     var path = loc.pathname.replace(/\/ui-dark$|\/ui$/, "") + "/pty/" + encodeURIComponent(ptyId);
-    return proto + "//" + loc.host + path;
+    var params = [];
+    if (shellPath) params.push("shell=" + encodeURIComponent(shellPath));
+    if (workingDirectory) params.push("cwd=" + encodeURIComponent(workingDirectory));
+    var query = params.length > 0 ? "?" + params.join("&") : "";
+    return proto + "//" + loc.host + path + query;
   }
 
   if (!window.hop) {
@@ -27,17 +30,27 @@
     return document.getElementById(parentId);
   }
 
+  // Resize protocol: client sends text message starting with \x00RESIZE:cols,rows
+  // Normal terminal input is sent as text without this prefix.
+  // PTY output comes as binary from server.
+  var RESIZE_PREFIX = "\x00RESIZE:";
+
+  rwt.define("hop");
+
   hop.Terminal = function (properties) {
     this._destroyed = false;
     this._terminal = null;
     this._ws = null;
     this._container = null;
+    this._fitAddon = null;
+    this._resizeObserver = null;
     this._properties = properties || {};
 
     this._doCreate();
   };
 
   hop.Terminal.prototype = {
+
     _doCreate: function () {
       var parentId = this._properties.parent;
       var ptyId = this._properties.ptyId;
@@ -59,80 +72,7 @@
       parentEl.appendChild(container);
       this._container = container;
 
-      this._loadXterm(function () {
-        if (self._destroyed) return;
-        self._initTerminal(container, ptyId);
-      });
-    },
-
-    _loadXterm: function (callback) {
-      var self = this;
-      var base = XTERM_BASE;
-      var loadedCount = 0;
-      var requiredCount = 0;
-
-      if (!window.Terminal) {
-        requiredCount++;
-      }
-      if (!window.AttachAddon) {
-        requiredCount++;
-      }
-      if (!window.FitAddon) {
-        requiredCount++;
-      }
-
-      if (requiredCount === 0) {
-        callback();
-        return;
-      }
-
-      var checkLoaded = function () {
-        if (++loadedCount >= requiredCount) {
-          callback();
-        }
-      };
-
-      if (!window.Terminal) {
-        var script = document.createElement("script");
-        script.src = base + "/xterm.js";
-        script.onload = checkLoaded;
-        script.onerror = function () {
-          var fallback = document.createElement("script");
-          fallback.src = "https://cdn.jsdelivr.net/npm/xterm@" + self._getXtermVersion() + "/lib/xterm.js";
-          fallback.onload = checkLoaded;
-          fallback.onerror = checkLoaded;
-          document.head.appendChild(fallback);
-        };
-        document.head.appendChild(script);
-      }
-
-      if (!window.AttachAddon) {
-        var attachScript = document.createElement("script");
-        attachScript.src = base + "/xterm-addon-attach.js";
-        attachScript.onload = checkLoaded;
-        attachScript.onerror = function () {
-          var fallback = document.createElement("script");
-          fallback.src = "https://cdn.jsdelivr.net/npm/xterm-addon-attach@" + self._getAttachVersion() + "/lib/xterm-addon-attach.js";
-          fallback.onload = checkLoaded;
-          fallback.onerror = checkLoaded;
-          document.head.appendChild(fallback);
-        };
-        document.head.appendChild(attachScript);
-      }
-
-      if (!window.FitAddon) {
-        var fitScript = document.createElement("script");
-        fitScript.src = base + "/xterm-addon-fit.js";
-        fitScript.onload = checkLoaded;
-        fitScript.onerror = function () {
-          var fallback = document.createElement("script");
-          fallback.src = "https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js";
-          fallback.onload = checkLoaded;
-          fallback.onerror = checkLoaded;
-          document.head.appendChild(fallback);
-        };
-        document.head.appendChild(fitScript);
-      }
+      this._initTerminal(container, ptyId);
     },
 
     _initTerminal: function (container, ptyId) {
@@ -149,10 +89,15 @@
             brightCyan: "#34e2e2", brightWhite: "#eeeeee" }
         : { background: "#ffffff", foreground: "#000000", cursor: "#000000" };
 
+      var baseFont = 13;
+      var fontSizePercent = this._properties.fontSizePercent;
+      if (fontSizePercent == null) fontSizePercent = 100;
+      var fontSize = Math.round(baseFont * (fontSizePercent / 100));
+
       var terminal = new Terminal({
         cursorBlink: true,
         cursorStyle: "block",
-        fontSize: 13,
+        fontSize: fontSize,
         fontFamily: "Menlo, Monaco, 'Courier New', monospace",
         theme: theme,
         allowTransparency: false,
@@ -162,8 +107,11 @@
       });
       self._terminal = terminal;
 
-      var wsUrl = buildWsUrl(ptyId);
+      var shellPath = this._properties.shellPath;
+      var workingDirectory = this._properties.workingDirectory;
+      var wsUrl = buildWsUrl(ptyId, shellPath, workingDirectory);
       var ws = new WebSocket(wsUrl);
+      ws.binaryType = "arraybuffer";
       self._ws = ws;
 
       ws.onopen = function () {
@@ -171,36 +119,60 @@
           ws.close();
           return;
         }
-        var attachAddon = new AttachAddon.AttachAddon(ws);
-        terminal.loadAddon(attachAddon);
+
+        // Open terminal in container
         terminal.open(container);
 
+        // Fit addon - delay to allow container layout to settle
         var fitAddon = null;
         if (typeof FitAddon !== 'undefined') {
           try {
             fitAddon = new FitAddon.FitAddon();
             terminal.loadAddon(fitAddon);
-            fitAddon.fit();
           } catch (e) {
             fitAddon = null;
           }
         }
         self._fitAddon = fitAddon;
 
+        // Delay fit() to ensure container has proper dimensions
+        setTimeout(function () {
+          if (self._destroyed) return;
+          self._doFit();
+        }, 100);
+
+        // Handle user input: send to WebSocket as text
+        terminal.onData(function (data) {
+          if (self._destroyed || !ws || ws.readyState !== WebSocket.OPEN) return;
+          ws.send(data);
+        });
+
         terminal.focus();
 
+        // Observe container resize
         var ro = new ResizeObserver(function () {
           if (self._destroyed || !terminal.element) return;
-          if (self._fitAddon) {
-            try { self._fitAddon.fit(); } catch (e) {}
-          }
+          self._doFit();
         });
         ro.observe(container);
         self._resizeObserver = ro;
       };
 
+      // Handle PTY output: write to terminal
+      ws.onmessage = function (event) {
+        if (self._destroyed) return;
+        if (typeof event.data === "string") {
+          terminal.write(event.data);
+        } else if (event.data instanceof ArrayBuffer) {
+          // Binary data from PTY - write to terminal
+          var bytes = new Uint8Array(event.data);
+          terminal.write(bytes);
+        }
+      };
+
       ws.onerror = function () {
-        terminal.write("WebSocket connection error.\r\n");
+        if (self._destroyed) return;
+        terminal.write("\r\nWebSocket connection error.\r\n");
         self._notifyError("WebSocket connection failed for PTY " + ptyId);
       };
 
@@ -209,6 +181,23 @@
           terminal.write("\r\nConnection closed.\r\n");
         }
       };
+    },
+
+    // Fit terminal to container and notify PTY of new size
+    _doFit: function () {
+      if (this._destroyed || !this._fitAddon || !this._terminal) return;
+      try {
+        this._fitAddon.fit();
+      } catch (e) {
+        return;
+      }
+      // Send resize notification to PTY
+      if (this._ws && this._ws.readyState === WebSocket.OPEN) {
+        var msg = RESIZE_PREFIX + this._terminal.cols + "," + this._terminal.rows;
+        try {
+          this._ws.send(msg);
+        } catch (e) {}
+      }
     },
 
     _notifyError: function (message) {
@@ -220,27 +209,38 @@
       } catch (e) {}
     },
 
-    _getXtermVersion: function () {
-      return "5.3.0";
-    },
-
-    _getAttachVersion: function () {
-      return "0.9.0";
-    },
-
     set: function (properties) {
       if (this._destroyed) return;
 
       if (properties.fontSizePercent !== undefined && this._terminal) {
         var base = 13;
-        this._terminal.setOption("fontSize", Math.round(base * (properties.fontSizePercent / 100)));
-        if (this._fitAddon) {
-          try { this._fitAddon.fit(); } catch (e) {}
+        var fontSize = Math.round(base * (properties.fontSizePercent / 100));
+        if (this._terminal.options) {
+          this._terminal.options.fontSize = fontSize;
+        } else if (this._terminal.setOption) {
+          this._terminal.setOption("fontSize", fontSize);
         }
+        this._doFit();
       }
     },
 
-    destroy: function() {
+    setPtyId: function (ptyId) {
+      this._properties.ptyId = ptyId;
+    },
+
+    setShellPath: function (shellPath) {
+      this._properties.shellPath = shellPath;
+    },
+
+    setWorkingDirectory: function (workingDirectory) {
+      this._properties.workingDirectory = workingDirectory;
+    },
+
+    setFontSizePercent: function (fontSizePercent) {
+      this.set({ fontSizePercent: fontSizePercent });
+    },
+
+    destroy: function () {
       this._destroyed = true;
       if (this._ws) {
         try { this._ws.close(); } catch (e) {}
@@ -253,25 +253,18 @@
       if (this._container && this._container.parentNode) {
         this._container.parentNode.removeChild(this._container);
       }
-    }
+    },
   };
 
-  function upgradeStubTerminals() {
-    var objs = rap.getObjects ? rap.getObjects() : [];
-    for (var i = 0; i < objs.length; i++) {
-      var obj = objs[i];
-      if (obj && obj._stub && obj._properties) {
-        obj._destroyed = false;
-        obj._terminal = null;
-        obj._ws = null;
-        obj._container = null;
-
-        obj._doCreate();
-        obj._stub = false;
-      }
-    }
-  }
-
-  upgradeStubTerminals();
+  rap.registerTypeHandler("hop.Terminal", {
+    factory: function (properties) {
+      return new hop.Terminal(properties);
+    },
+    destructor: function (widget) {
+      widget.destroy();
+    },
+    properties: ["ptyId", "shellPath", "workingDirectory", "fontSizePercent"],
+    events: ["terminalError"],
+  });
 
 })();

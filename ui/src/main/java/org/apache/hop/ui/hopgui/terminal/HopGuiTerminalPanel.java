@@ -411,6 +411,9 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
   /** Close a terminal tab (implements TabClosable interface) */
   @Override
   public void closeTab(CTabFolderEvent event, CTabItem tabItem) {
+    if (tabItem == null) {
+      return;
+    }
     if (tabItem == newTerminalTab) {
       if (event != null) {
         event.doit = false;
