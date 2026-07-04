@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- HFXT logo (dark backgrounds): T-Rex emblem + WHITE HFXT wordmark. -->
+<!-- AI Data Process logo (dark backgrounds): T-Rex emblem + WHITE AI DATA PROCESS wordmark. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-     viewBox="0 0 286 100" width="286" height="100">
+     viewBox="0 0 300 80" width="300" height="80">
     <defs>
         <radialGradient id="amber" cx="50%" cy="38%" r="72%">
             <stop offset="0%" stop-color="#F9CB76"/>
@@ -10,9 +10,8 @@
         </radialGradient>
     </defs>
 
-    <!-- ===== Emblem ===== -->
-    <circle cx="50" cy="50" r="47" fill="url(#amber)"/>
-    <g transform="translate(47,50) scale(0.9) translate(-50.5,-47)" fill="#0E3A5A">
+    <circle cx="40" cy="40" r="38" fill="url(#amber)"/>
+    <g transform="translate(37.6,40) scale(0.72) translate(-50.5,-47)" fill="#0E3A5A">
         <path d="M 10 36
                  C 20 32 28 34 34 38
                  C 40 40 44 36 48 34
@@ -56,12 +55,8 @@
         <circle cx="74" cy="20" r="2.2" fill="#FFFFFF"/>
     </g>
 
-    <!-- ===== HFXT wordmark (white, for dark backgrounds) ===== -->
-    <g transform="translate(112,10)" fill="#FFFFFF">
-        <path d="M0 16 H9 V36 H27 V16 H36 V64 H27 V45 H9 V64 H0 Z"/>
-        <path d="M44 16 H77 V25 H53 V36 H71 V45 H53 V64 H44 Z"/>
-        <path d="M81.6 21.9 L117.6 63.9 L124.4 58.1 L88.4 16.1 Z
-                 M124.4 21.9 L88.4 63.9 L81.6 58.1 L117.6 16.1 Z"/>
-        <path d="M129 16 H162 V25 H150 V64 H141 V25 H129 Z"/>
+    <g transform="translate(90,8)" fill="#FFFFFF">
+        <text x="0" y="35" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="800" letter-spacing="1">AI</text>
+        <text x="0" y="62" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="600" letter-spacing="3">DATA PROCESS</text>
     </g>
 </svg>

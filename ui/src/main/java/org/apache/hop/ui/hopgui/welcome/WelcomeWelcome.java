@@ -65,8 +65,8 @@ public class WelcomeWelcome {
     // No data to set on these widgets
   }
 
-  public static final String WEB_NAME_HOP_APACHE_ORG = "HFXT Data Process";
-  public static final String WEB_LINK_HOP_APACHE_ORG = "https://hop.apache.org/";
+  public static final String WEB_NAME_HOP_APACHE_ORG = "AI Data Process";
+  public static final String WEB_LINK_HOP_APACHE_ORG = "https://aidataprocess.apache.org/";
   public static final String WEB_NAME_GITHUB_STAR = "starring";
   public static final String WEB_LINK_GITHUB_STAR = "https://github.com/apache/hop";
 
@@ -75,7 +75,7 @@ public class WelcomeWelcome {
       parentId = WELCOME_WELCOME_PARENT_ID,
       type = GuiElementType.LINK,
       label =
-          "If you like HFXT Data Process, please consider <a>"
+          "If you like AI Data Process, please consider <a>"
               + WEB_NAME_GITHUB_STAR
               + "</a> \u2B50 the project on github. \n")
   public void githubStarLink(Event event) {
@@ -87,9 +87,9 @@ public class WelcomeWelcome {
       parentId = WELCOME_WELCOME_PARENT_ID,
       type = GuiElementType.LINK,
       label =
-          "Welcome to the HFXT Data Process project!\n\n"
-              + "HFXT Data Process aims to facilitate all aspects of data and metadata orchestration.\n\n"
-              + "The HFXT Data Process website can be found at <a>"
+          "Welcome to the AI Data Process project!\n\n"
+              + "AI Data Process aims to facilitate all aspects of data and metadata orchestration.\n\n"
+              + "The AI Data Process website can be found at <a>"
               + WEB_NAME_HOP_APACHE_ORG
               + "</a>.\n\nBelow are a few documentation links to get started:\n")
   public void homepageLink(Event event) {
@@ -109,7 +109,7 @@ public class WelcomeWelcome {
     handleWebLinkEvent(event, WEB_NAME_GETTING_STARTED, WEB_LINK_GETTING_STARTED);
   }
 
-  public static final String WEB_NAME_USER_MANUAL = "The HFXT user manual";
+  public static final String WEB_NAME_USER_MANUAL = "The AI Data Process user manual";
   public static final String WEB_LINK_USER_MANUAL = "https://hop.apache.org/manual/latest/";
 
   @GuiWidgetElement(
