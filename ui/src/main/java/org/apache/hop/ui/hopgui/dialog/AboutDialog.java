@@ -119,9 +119,9 @@ public class AboutDialog extends Dialog {
 
     Link wLink = new Link(composite, SWT.WRAP | SWT.MULTI);
     wLink.setText(
-            "<a href=\"https://aidataprocess.apache.org\">"
-                + BaseMessages.getString(PKG, "AboutDialog.ApplicationName")
-                + "</a>");
+        "<a href=\"https://aidataprocess.apache.org\">"
+            + BaseMessages.getString(PKG, "AboutDialog.ApplicationName")
+            + "</a>");
     wLink.addListener(
         SWT.Selection,
         e -> {

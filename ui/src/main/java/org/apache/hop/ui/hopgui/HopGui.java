@@ -148,7 +148,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-@GuiPlugin(name = "AI Data Process GUI", description = "The main AI Data Process graphical user interface")
+@GuiPlugin(
+    name = "AI Data Process GUI",
+    description = "The main AI Data Process graphical user interface")
 @SuppressWarnings("java:S1104")
 @Getter
 @Setter

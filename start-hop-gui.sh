@@ -3,11 +3,11 @@
 set -e
 
 HOP_CLIENT_ZIP="./assemblies/client/target/hop-client-2.19.0-SNAPSHOT.zip"
-HOP_INSTALL_DIR="$HOME/hop-client"
+HOP_INSTALL_DIR="./hop-client-run"
 HOP_DIR="$HOP_INSTALL_DIR/hop"
 
 echo "============================================"
-echo "  HFXT GUI 启动脚本"
+echo "  AI Data Process GUI 启动脚本"
 echo "============================================"
 
 if [ ! -f "$HOP_CLIENT_ZIP" ]; then
@@ -16,12 +16,11 @@ if [ ! -f "$HOP_CLIENT_ZIP" ]; then
     exit 1
 fi
 
-if [ ! -d "$HOP_DIR" ]; then
-    echo "解压 Hop 客户端到 $HOP_INSTALL_DIR..."
-    mkdir -p "$HOP_INSTALL_DIR"
-    unzip -q "$HOP_CLIENT_ZIP" -d "$HOP_INSTALL_DIR"
-    echo "解压完成"
-fi
+echo "解压 Hop 客户端到 $HOP_INSTALL_DIR..."
+rm -rf "$HOP_INSTALL_DIR" 2>/dev/null || true
+mkdir -p "$HOP_INSTALL_DIR"
+unzip -q -o "$HOP_CLIENT_ZIP" -d "$HOP_INSTALL_DIR"
+echo "解压完成"
 
 echo ""
 echo "检查 LiteLLM 代理..."
@@ -47,6 +46,6 @@ echo "  HOP_LLM_API_URL: $HOP_LLM_API_URL"
 echo "  HOP_LLM_MODEL: $HOP_LLM_MODEL"
 
 echo ""
-echo "启动 HFXT GUI..."
+echo "启动 AI Data Process GUI..."
 cd "$HOP_DIR"
 ./hop-gui.sh "$@"
