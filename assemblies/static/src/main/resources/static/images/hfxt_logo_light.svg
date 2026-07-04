@@ -12,7 +12,7 @@
 
     <!-- ===== Emblem ===== -->
     <circle cx="50" cy="50" r="47" fill="url(#amber)"/>
-    <g transform="translate(47,50) scale(0.9) translate(-50.5,-47)" fill="#0E3D5C">
+    <g transform="translate(47,50) scale(0.9) translate(-50.5,-47)" fill="#0E3A5A">
         <path d="M 10 36
                  C 20 32 28 34 34 38
                  C 40 40 44 36 48 34
