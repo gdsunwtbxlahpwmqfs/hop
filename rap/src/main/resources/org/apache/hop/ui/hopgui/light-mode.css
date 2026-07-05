@@ -19,7 +19,7 @@
     color: #000000;
     background-color: #fff;
     background-image: none;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
 }
 
 *:disabled {
@@ -30,7 +30,7 @@ Widget-Badge {
     background-color: #dd4040;
     border: none;
     border-radius: 10px;
-    font: 10px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 10px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #000000;
 }
 
@@ -40,7 +40,7 @@ Widget-ToolTip {
     background-image: none;
     border: #808080;
     border-radius: 1px;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #000000;
     opacity: 0.9;
     animation: fadeIn 150ms ease-in, fadeOut 150ms ease-in;
@@ -86,7 +86,7 @@ Display {
     rwt-fontlist: 14px 'Segoe UI', Corbel, Calibri, Tahoma, 'Lucida Sans Unicode';
 
     background-image: url(resource/widget/rap/display/browser_bg.png);
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
 }
 
 SystemMessage-DisplayOverlay {
@@ -95,14 +95,14 @@ SystemMessage-DisplayOverlay {
 }
 
 ErrorBox-Titlebar {
-    font: bold 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: bold 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: white;
     background-color: #406796;
 }
 
 ErrorBox {
     border: 1px solid #3B5998;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: white;
 }
@@ -137,18 +137,18 @@ Composite {
 
 Composite[BORDER] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 /* Button default theme */
 
 Button {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-image: none;
     background-repeat: repeat;
     background-position: left top;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 6px 15px;
     spacing: 2px;
     cursor: default;
@@ -169,7 +169,7 @@ Button[TOGGLE][BORDER],
 Button[PUSH][FLAT],
 Button[TOGGLE][FLAT] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 6px 15px;
     background-image: gradient(
             linear, left top, left bottom,
@@ -185,7 +185,7 @@ Button[ARROW],
 Button[ARROW][BORDER],
 Button[ARROW][FLAT] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 10px;
     background-image: gradient(
             linear, left top, left bottom,
@@ -198,7 +198,7 @@ Button[ARROW][FLAT] {
 Button[ARROW]:default,
 Button[PUSH]:default,
 Button[TOGGLE]:default {
-    background-color: #416693;
+    background-color: #3584e4;
     background-image: gradient(
             linear, left top, left bottom,
             from(#e2eefc),
@@ -265,7 +265,7 @@ Button[RADIO][BORDER] {
     cursor: default;
     background-image: none;
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 Button-CheckIcon {
@@ -344,7 +344,7 @@ Button-FocusIndicator[CHECK], Button-FocusIndicator[RADIO] {
 
 Combo,
 Combo[BORDER] {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #000000;
     background-color: #ffffff;
     border: 1px solid #aaaaaa;
@@ -358,8 +358,8 @@ Combo:focused,
 Combo[BORDER]:focused {
     color: #000000;
     background-color: #ffffff;
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 Combo:disabled,
@@ -400,9 +400,9 @@ Combo-Button-Icon:hover {
 }
 
 Combo-List {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
-    border-radius: 2px;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
+    border-radius: 4px;
 }
 
 Combo-List-Item {
@@ -419,7 +419,7 @@ Combo-List-Item:hover, Combo-List-Item:even:hover {
 }
 
 Combo-List-Item:selected, Combo-List-Item:even:selected {
-    background-color: #c5dbef;
+    background-color: #aecef5;
 }
 
 Combo-Field {
@@ -436,9 +436,9 @@ Combo-FocusIndicator {
 /* DropDown default theme */
 
 DropDown {
-    border: 1px solid #4f7cb1;
+    border: 1px solid #3584e4;
     border-radius: 0;
-    box-shadow: 0 0 5px #4f7cb1;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 DropDown-Item {
@@ -455,7 +455,7 @@ DropDown-Item:hover {
 }
 
 DropDown-Item:selected {
-    background-color: #c5dbef;
+    background-color: #aecef5;
 }
 
 /* CoolBar default theme */
@@ -473,11 +473,11 @@ CoolItem-Handle {
 
 CTabFolder {
     border-color: #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 CTabItem {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: transparent;
     background-image: none;
@@ -516,7 +516,7 @@ CTabFolder-DropDownButton-Icon[RIGHT_TO_LEFT]:hover {
 /* Group default theme */
 
 Group {
-    font: 10px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 10px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: #ffffff;
     border: none;
@@ -526,7 +526,7 @@ Group-Frame {
     margin: 20px 0 0 0;
     padding: 15px 8px 8px 8px;
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 Group-Label {
@@ -545,7 +545,7 @@ Group-Label {
 /* Label default theme */
 
 Label {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: #ffffff;
     background-image: none;
@@ -562,7 +562,7 @@ Label {
 
 Label[BORDER] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 Label-SeparatorLine {
@@ -576,7 +576,7 @@ Label-SeparatorLine {
 /* Link default theme */
 
 Link {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: #ffffff;
     background-image: none;
@@ -591,7 +591,7 @@ Link[BORDER] {
 }
 
 Link-Hyperlink {
-    color: #416693;
+    color: #3584e4;
     text-shadow: none;
     text-decoration: none;
 }
@@ -612,7 +612,7 @@ Link-Hyperlink:hover:disabled {
 /* List default theme */
 
 List {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     border: none;
     color: #4a4a4a;
@@ -624,7 +624,7 @@ List[BORDER] {
 
 List-Item {
     padding: 5px 10px 5px 10px;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     color: inherit;
     background-image: none;
@@ -641,7 +641,7 @@ List-Item:selected {
     color: #4a4a4a;
     /* background-color property is used on the server to compute system color with id
        SWT.COLOR_LIST_SELECTION (see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=434191) */
-    background-color: #c5dbef;
+    background-color: #aecef5;
 }
 
 List-Item:selected:unfocused {
@@ -680,7 +680,7 @@ Menu {
             to(#ffffff)
     );
     border: 1px solid #a0b3ca;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 0 4px #ababab;
     opacity: 1;
     animation: none;
@@ -703,8 +703,8 @@ MenuItem:hover {
     color: #ffffff;
     background-image: gradient(
             linear, left top, left bottom,
-            from(#5882b5),
-            to(#416693)
+            from(#3584e4),
+            to(#3584e4)
     );
 }
 
@@ -712,8 +712,8 @@ MenuItem:pressed {
     color: #ffffff;
     background-image: gradient(
             linear, left top, left bottom,
-            from(#416693),
-            to(#5882b5)
+            from(#3584e4),
+            to(#3584e4)
     );
 }
 
@@ -757,8 +757,8 @@ ProgressBar-Indicator {
     background-color: #00589f;
     background-image: gradient(
             linear, left top, left bottom,
-            from(#5882b5),
-            to(#416693)
+            from(#3584e4),
+            to(#3584e4)
     );
     opacity: 1;
 }
@@ -784,7 +784,7 @@ ProgressBar-Indicator:error {
 Shell {
     animation: none;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     color: #000000;
     background-color: #ffffff;
     background-image: none;
@@ -796,7 +796,7 @@ Shell {
 Shell[TITLE], Shell[BORDER] {
     background-color: #ffffff;
     border: 1px solid #6e6e6e;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 0 4px #ababab;
 }
 
@@ -821,7 +821,7 @@ Shell-DisplayOverlay {
 /* Shell titlebar */
 
 Shell-Titlebar {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #303050;
     background-gradient-color: #0080c0;
     color: #ffffff;
@@ -929,7 +929,7 @@ Shell-CloseButton:inactive:hover {
 /* Spinner default theme */
 
 Spinner {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 0 2px 2px 0;
     color: #4a4a4a;
@@ -946,8 +946,8 @@ Spinner[BORDER] {
 }
 
 Spinner[BORDER]:focused {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 Spinner:disabled,
@@ -1026,7 +1026,7 @@ Spinner-DownButton-Icon:hover {
 /* TabFolder default theme */
 
 TabFolder {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
 }
 
@@ -1048,8 +1048,8 @@ TabItem {
     );
     background-repeat: repeat;
     background-position: left top;
-    border-top-color: #5882b5;
-    border-bottom-color: #5882b5;
+    border-top-color: #3584e4;
+    border-bottom-color: #3584e4;
     text-shadow: 0 1px 0 #ffffff;
     padding: 6px;
     margin: 6px 1px 1px 0px;
@@ -1079,7 +1079,7 @@ TabItem:selected {
     );
     margin: 3px -1px 0px -2px;
     border: 1px solid #bdbdbd;
-    border-top: 3px solid #5882b5;
+    border-top: 3px solid #3584e4;
     border-bottom: none;
 }
 
@@ -1091,7 +1091,7 @@ TabItem:bottom:selected {
     margin: 0px -1px 3px -2px;
     border: 1px solid #bdbdbd;
     border-top: none;
-    border-bottom: 3px solid #5882b5;
+    border-bottom: 3px solid #3584e4;
 }
 
 TabItem[RIGHT_TO_LEFT]:bottom:selected {
@@ -1117,7 +1117,7 @@ TabItem[RIGHT_TO_LEFT]:bottom:selected:first {
 /* Table default theme */
 
 Table {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #808080;
     background-image: none;
     color: #000000;
@@ -1129,7 +1129,7 @@ Table[BORDER] {
 }
 
 TableColumn {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #f0f0f0;
     padding: 8px 3px 8px 3px;
     background-image: gradient(
@@ -1255,7 +1255,7 @@ Table-Checkbox:checked:grayed:hover {
 /* Text default theme */
 
 Text {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 0;
     padding: 5px 10px 5px 10px;
@@ -1285,8 +1285,8 @@ Text[MULTI][BORDER] {
 
 Text[BORDER]:focused,
 Text[MULTI][BORDER]:focused {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 Text[BORDER]:disabled,
@@ -1314,7 +1314,7 @@ Text-Cancel-Icon {
 /* ToolBar default theme */
 
 ToolBar {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     padding: 0;
     spacing: 0;
@@ -1545,7 +1545,7 @@ ToolItem-Separator {
 /* Tree/Grid default theme */
 
 Tree, Grid {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     border: none;
     color: #4a4a4a;
@@ -1599,7 +1599,7 @@ Tree-RowOverlay:selected:unfocused, Grid-RowOverlay:selected:unfocused {
 }
 
 TreeColumn, GridColumn {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: inherit;
     background-color: #f0f0f0;
     background-image: gradient(
@@ -1845,13 +1845,13 @@ Scale-Thumb {
 }
 
 Scale-Thumb:focused {
-    border: 1px solid #4f7cb1;
+    border: 1px solid #3584e4;
 }
 
 /* DateTime default theme */
 
 DateTime {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 0 2px 2px 0;
     color: #464a4e;
@@ -1862,8 +1862,8 @@ DateTime {
 }
 
 DateTime[BORDER]:focused {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 DateTime-Field {
@@ -1896,12 +1896,12 @@ DateTime-Calendar-Day:today {
 
 DateTime-Field:selected,
 DateTime-Calendar-Day:selected {
-    background-color: #5882b5;
+    background-color: #3584e4;
     color: #ffffff;
 }
 
 DateTime-Calendar-Day:selected:hover {
-    background-color: #5882b5;
+    background-color: #3584e4;
     color: #ffffff;
 }
 
@@ -1924,10 +1924,10 @@ DateTime-Calendar-Navbar {
     background-color: #00569c;
     background-image: gradient(
             linear, left top, left bottom,
-            from(#416693), to(#5882b5)
+            from(#3584e4), to(#3584e4)
     );
     color: white;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
@@ -2100,12 +2100,12 @@ ExpandBar {
 
 ExpandBar[BORDER] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 ExpandItem {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 ExpandItem-Header {
@@ -2169,7 +2169,7 @@ Sash-Handle:vertical {
 Slider {
     border: none;
     background-color: #f0f0f0;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 /* Thumb */
@@ -2179,7 +2179,7 @@ Slider-Thumb[VERTICAL] {
     background-color: #e4e4e4;
     background-image: url(resource/widget/rap/slider/slider-background.png);
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 /* Buttons */
@@ -2261,7 +2261,7 @@ Slider-DownButton-Icon[VERTICAL] {
 ToolTip {
     cursor: default;
     border: 1px solid #a0b3ca;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 8px;
     opacity: 1;
     color: #4a4a4a;
@@ -2270,7 +2270,7 @@ ToolTip {
             from(#f8f9ff),
             to(#f4f4f4)
     );
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #fcfcfc;
     animation: fadeIn 200ms linear, fadeOut 600ms ease-out;
     box-shadow: 0 0 4px #adadad;
@@ -2292,20 +2292,20 @@ ToolTip-Image[ICON_WARNING] {
 
 ToolTip-Text {
     color: #4a4a4a;
-    font: bold 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: bold 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
 ToolTip-Message {
     color: #4a4a4a;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
 /* CCombo default theme */
 
 CCombo {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #000000;
     background-color: #ffffff;
     background-image: none;
@@ -2322,8 +2322,8 @@ CCombo[BORDER] {
 }
 
 CCombo[BORDER]:focused {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
 }
 
 CCombo:disabled,
@@ -2364,9 +2364,9 @@ CCombo-Button-Icon:hover {
 }
 
 CCombo-List {
-    border: 1px solid #4f7cb1;
-    box-shadow: 0 0 5px #4f7cb1;
-    border-radius: 2px;
+    border: 1px solid #3584e4;
+    box-shadow: 0 0 5px #3584e4;
+    border-radius: 4px;
 }
 
 CCombo-List-Item {
@@ -2383,7 +2383,7 @@ CCombo-List-Item:hover, CCombo-List-Item:even:hover {
 }
 
 CCombo-List-Item:selected, CCombo-List-Item:even:selected {
-    background-color: #c5dbef;
+    background-color: #aecef5;
 }
 
 CCombo-Field {
@@ -2400,7 +2400,7 @@ CCombo-FocusIndicator {
 /* CLabel default theme */
 
 CLabel {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #4a4a4a;
     background-color: #ffffff;
     background-image: none;
@@ -2416,7 +2416,7 @@ CLabel {
 
 CLabel[BORDER] {
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 /* Browser default theme */
@@ -2464,7 +2464,7 @@ ScrollBar-DownButton {
 /* FileUpload default theme */
 
 FileUpload {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-image: gradient(
             linear, left top, left bottom,
             from(#f9f9f9),
@@ -2473,7 +2473,7 @@ FileUpload {
     background-repeat: repeat;
     background-position: left top;
     border: 1px solid #bdbdbd;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 6px 15px;
     spacing: 2px;
     cursor: pointer;

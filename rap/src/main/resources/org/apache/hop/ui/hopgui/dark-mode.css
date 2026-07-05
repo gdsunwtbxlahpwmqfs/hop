@@ -24,7 +24,7 @@
     color: #e8e8e8;
     background-color: #242424;
     background-image: none;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
 }
 
 *:disabled {
@@ -35,7 +35,7 @@ Widget-Badge {
     background-color: #c0392b;
     border: none;
     border-radius: 10px;
-    font: 10px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 10px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #ffffff;
 }
 
@@ -45,7 +45,7 @@ Widget-ToolTip {
     background-image: none;
     border: 1px solid #404040;
     border-radius: 6px;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     opacity: 0.98;
     animation: fadeIn 150ms ease-in, fadeOut 150ms ease-in;
@@ -91,7 +91,7 @@ Display {
     rwt-fontlist: 14px 'Segoe UI', Corbel, Calibri, Tahoma, 'Lucida Sans Unicode';
 
     background-image: url(resource/widget/rap/display/browser_bg.png);
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
 }
 
 SystemMessage-DisplayOverlay {
@@ -100,14 +100,14 @@ SystemMessage-DisplayOverlay {
 }
 
 ErrorBox-Titlebar {
-    font: bold 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: bold 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #ffffff;
     background-color: #c0392b;
 }
 
 ErrorBox {
     border: 1px solid #404040;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: #2d2d2d;
 }
@@ -145,7 +145,7 @@ Composite[BORDER] {
 /* Button default theme */
 
 Button {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-image: none;
     background-repeat: repeat;
     background-position: left top;
@@ -347,7 +347,7 @@ Button-FocusIndicator[CHECK], Button-FocusIndicator[RADIO] {
 
 Combo,
 Combo[BORDER] {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: #2d2d2d;
     border: 1px solid #404040;
@@ -479,7 +479,7 @@ CTabFolder {
 }
 
 CTabItem {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #b0b0b0;
     background-color: transparent;
     background-image: none;
@@ -518,7 +518,7 @@ CTabFolder-DropDownButton-Icon[RIGHT_TO_LEFT]:hover {
 /* Group default theme */
 
 Group {
-    font: 10px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 10px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: #242424;
     border: none;
@@ -547,7 +547,7 @@ Group-Label {
 /* Label default theme */
 
 Label {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: transparent;
     background-image: none;
@@ -578,7 +578,7 @@ Label-SeparatorLine {
 /* Link default theme */
 
 Link {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: transparent;
     background-image: none;
@@ -615,7 +615,7 @@ Link-Hyperlink:hover:disabled {
 /* List default theme */
 
 List {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #242424;
     border: none;
     color: #e8e8e8;
@@ -627,7 +627,7 @@ List[BORDER] {
 
 List-Item {
     padding: 5px 10px 5px 10px;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: transparent;
     color: inherit;
     background-image: none;
@@ -817,7 +817,7 @@ Shell-DisplayOverlay {
 /* Shell titlebar */
 
 Shell-Titlebar {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #2d2d2d;
     background-gradient-color: #363636;
     color: #e8e8e8;
@@ -925,7 +925,7 @@ Shell-CloseButton:inactive:hover {
 /* Spinner default theme */
 
 Spinner {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 4px;
     color: #e8e8e8;
@@ -1021,7 +1021,7 @@ Spinner-DownButton-Icon:hover {
 /* TabFolder default theme */
 
 TabFolder {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
 }
 
@@ -1112,7 +1112,7 @@ TabItem[RIGHT_TO_LEFT]:bottom:selected:first {
 /* Table default theme */
 
 Table {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #242424;
     background-image: none;
     color: #e8e8e8;
@@ -1124,7 +1124,7 @@ Table[BORDER] {
 }
 
 TableColumn {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     padding: 8px 3px 8px 3px;
     background-image: gradient(
             linear, left top, left bottom,
@@ -1247,7 +1247,7 @@ Table-Checkbox:checked:grayed:hover {
 /* Text default theme */
 
 Text {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 4px;
     padding: 5px 10px 5px 10px;
@@ -1305,7 +1305,7 @@ Text-Cancel-Icon {
 /* ToolBar default theme */
 
 ToolBar {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     padding: 0;
     spacing: 0;
@@ -1541,7 +1541,7 @@ ToolItem-Separator {
 /* Tree/Grid default theme */
 
 Tree, Grid {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-color: #242424;
     border: none;
     color: #e8e8e8;
@@ -1592,7 +1592,7 @@ Tree-RowOverlay:selected:unfocused, Grid-RowOverlay:selected:unfocused {
 }
 
 TreeColumn, GridColumn {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: inherit;
     background-color: #363636;
     background-image: gradient(
@@ -1844,7 +1844,7 @@ Scale-Thumb:focused {
 /* DateTime default theme */
 
 DateTime {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     border: none;
     border-radius: 0 2px 2px 0;
     color: #b0b0b0;
@@ -1920,7 +1920,7 @@ DateTime-Calendar-Navbar {
             from(#2870c2), to(#3584e4)
     );
     color: white;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
@@ -2260,7 +2260,7 @@ ToolTip {
     color: #e8e8e8;
     background-image: none;
     background-color: #2d2d2d;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     animation: fadeIn 200ms linear, fadeOut 600ms ease-out;
     box-shadow: 0 4px 12px #000000;
     width: auto;
@@ -2281,20 +2281,20 @@ ToolTip-Image[ICON_WARNING] {
 
 ToolTip-Text {
     color: #e8e8e8;
-    font: bold 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: bold 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
 ToolTip-Message {
     color: #b0b0b0;
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     text-shadow: none;
 }
 
 /* CCombo default theme */
 
 CCombo {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: #2d2d2d;
     background-image: none;
@@ -2388,7 +2388,7 @@ CCombo-FocusIndicator {
 /* CLabel default theme */
 
 CLabel {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     color: #e8e8e8;
     background-color: #242424;
     background-image: none;
@@ -2452,7 +2452,7 @@ ScrollBar-DownButton {
 /* FileUpload default theme */
 
 FileUpload {
-    font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+    font: 12px "Segoe UI", Roboto, Verdana, Arial, Helvetica, sans-serif;
     background-image: gradient(
             linear, left top, left bottom,
             from(#363636),
