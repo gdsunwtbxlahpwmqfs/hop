@@ -236,6 +236,9 @@ public class HopGui
   /** Id for the terminal toggle button in the sidebar bottom toolbar. */
   public static final String SIDEBAR_TOOLBAR_ITEM_TERMINAL = "HopGui-SidebarToolbar-Terminal";
 
+  /** Id for the logout button in the sidebar bottom toolbar (Hop Web only). */
+  public static final String SIDEBAR_TOOLBAR_ITEM_LOGOUT = "HopGui-SidebarToolbar-Logout";
+
   public static final String DEFAULT_HOP_GUI_NAMESPACE = "hop-gui";
 
   public boolean firstShowing = true;
@@ -310,6 +313,13 @@ public class HopGui
    */
   private Consumer<Boolean> webThemeRedirectCallback;
 
+  /**
+   * Logout handler for Hop Web. When set (by the RAP entry point), a logout button is shown in the
+   * bottom-left sidebar toolbar. Clicking it invokes this handler which typically invalidates the
+   * HTTP session and redirects to the login page. Not used in desktop.
+   */
+  private Runnable webLogoutHandler;
+
   protected HopGui() {
     this(Display.getCurrent());
   }
@@ -369,6 +379,21 @@ public class HopGui
 
   public void setWebThemeRedirectCallback(Consumer<Boolean> callback) {
     this.webThemeRedirectCallback = callback;
+  }
+
+  /**
+   * Sets the logout handler for Hop Web. When non-null, a logout button appears at the bottom of
+   * the left sidebar toolbar (below the terminal toggle). The RAP entry point sets this to
+   * invalidate the session and redirect to /login.
+   *
+   * @param handler logout action, or null to hide the button
+   */
+  public void setWebLogoutHandler(Runnable handler) {
+    this.webLogoutHandler = handler;
+    // If the toolbar already exists, refresh so the button appears/disappears.
+    if (bottomToolbar != null && !bottomToolbar.isDisposed()) {
+      refreshBottomToolbarItems();
+    }
   }
 
   /**
@@ -1678,8 +1703,27 @@ public class HopGui
 
     // Register built-in sidebar toolbar items (visibility depends on active perspective).
     // File explorer: both terminal and execution. Other perspectives: terminal only.
-    // List order: terminal then execution; refresh draws in reverse so execution appears above.
+    // List order: logout, terminal then execution; refresh draws in reverse so execution appears
+    // above terminal, and logout (always last in list) renders at the very bottom of the sidebar.
     int sidebarIconSize = 21;
+    // Logout button: only in web mode and only when a logout handler has been registered by the
+    // RAP entry point. Placed first in the list so it renders last (bottom-most) after reversal.
+    if (EnvironmentUtils.getInstance().isWeb() && webLogoutHandler != null) {
+      sidebarToolbarDescriptors.add(
+          SidebarToolbarItemDescriptor.builder()
+              .id(SIDEBAR_TOOLBAR_ITEM_LOGOUT)
+              .imagePath("ui/images/shutdown.svg")
+              .imageSize(sidebarIconSize)
+              .tooltip(BaseMessages.getString(PKG, "HopGui.Sidebar.Toolbar.Logout.Tooltip"))
+              .onSelect(
+                  () -> {
+                    if (webLogoutHandler != null) {
+                      webLogoutHandler.run();
+                    }
+                  })
+              .available(true)
+              .build());
+    }
     sidebarToolbarDescriptors.add(
         SidebarToolbarItemDescriptor.builder()
             .id(SIDEBAR_TOOLBAR_ITEM_TERMINAL)

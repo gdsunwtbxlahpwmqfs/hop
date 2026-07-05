@@ -17,6 +17,7 @@
 
 package org.apache.hop.ui.hopgui.terminal;
 
+import com.jediterm.core.util.TermSize;
 import com.jediterm.terminal.TerminalColor;
 import com.jediterm.terminal.TextStyle;
 import com.jediterm.terminal.TtyConnector;
@@ -386,6 +387,7 @@ public class JediTerminalWidget implements ITerminalWidget {
   }
 
   @Override
+  @SuppressWarnings("deprecation")
   public void dispose() {
     try {
       if (bridgeComposite != null && !bridgeComposite.isDisposed()) {
@@ -464,10 +466,6 @@ public class JediTerminalWidget implements ITerminalWidget {
       this.outputStream = ptyProcess.getOutputStream();
     }
 
-    public boolean init() {
-      return true;
-    }
-
     public void close() {
       try {
         if (ptyProcess != null && ptyProcess.isAlive()) {
@@ -515,10 +513,11 @@ public class JediTerminalWidget implements ITerminalWidget {
       return inputStream.available() > 0;
     }
 
-    public void resize(int cols, int rows) {
+    @Override
+    public void resize(TermSize termSize) {
       if (ptyProcess != null && ptyProcess.isAlive()) {
         try {
-          ptyProcess.setWinSize(new WinSize(cols, rows));
+          ptyProcess.setWinSize(new WinSize(termSize.getColumns(), termSize.getRows()));
         } catch (Exception e) {
           log.logError("Error resizing PTY", e);
         }

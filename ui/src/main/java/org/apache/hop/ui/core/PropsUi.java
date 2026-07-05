@@ -86,7 +86,6 @@ public class PropsUi extends Props {
   private static final String DISABLE_ZOOM_SCROLLING = "DisableZoomScrolling";
   private static final String METRICS_ABOVE_SELECTED_TRANSFORMS = "MetricsAboveSelectedTransforms";
   private static final String ENABLE_INFINITE_CANVAS_MOVE = "EnableInfiniteCanvasMove";
-  private static final String USE_ADVANCED_TERMINAL = "UseAdvancedTerminal";
   private static final String RESET_DIALOG_POSITIONS_ON_RESTART = "ResetDialogPositionsOnRestart";
 
   // Metrics panel (pipeline execution grid) – "Show" options
@@ -974,12 +973,6 @@ public class PropsUi extends Props {
     if (font != null && !font.isDisposed() && (widget instanceof Control controlWidget)) {
       controlWidget.setFont(font);
     }
-
-    if (background != null
-        && !background.isDisposed()
-        && (widget instanceof Control controlWidget)) {
-      controlWidget.setBackground(background);
-    }
   }
 
   protected static void setLookOnLinux(final Widget widget, int style) {
@@ -992,7 +985,6 @@ public class PropsUi extends Props {
       case WIDGET_STYLE_DEFAULT:
         break;
       case WIDGET_STYLE_OSX_GROUP:
-        // TODO: Adjust for Linux
         break;
       case WIDGET_STYLE_FIXED:
         font = gui.getFontFixed();
@@ -1005,7 +997,6 @@ public class PropsUi extends Props {
         table.setHeaderForeground(gui.getColorDarkGray());
         break;
       case WIDGET_STYLE_TREE:
-        // TODO: Adjust for Linux
         break;
       case WIDGET_STYLE_TOOLBAR:
         if (PropsUi.getInstance().isDarkMode()) {

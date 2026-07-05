@@ -82,7 +82,14 @@ else
     echo "    Warning: plugins zip not found"
 fi
 
+# Remove conflicting jars:
+# - hop-ui-rcp: conflicts with hop-ui-rap (both provide TextSizeUtilFacadeImpl,
+#   and RCP references SWT methods absent in RAP).
+# - org.eclipse.swt.*: desktop SWT conflicts with RAP's built-in SWT implementation.
+#   RAP provides its own org.eclipse.swt.widgets.Display via org.eclipse.rap.rwt;
+#   the desktop SWT jar causes "Invalid thread access" errors at Display creation.
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/hop-ui-rcp"*
+rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/org.eclipse.swt."*
 
 CATALINA_OPTS="-Xmx2048m"
 CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai"

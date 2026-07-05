@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3b6ea5">
+    <title>Qi Hop - 登录</title>
+    <link rel="stylesheet" href="<!--RESOURCE_PREFIX-->/login.css?v=11">
+    <!--LOGIN_CONFIG-->
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-animation">
+        <span class="bg-bubble"></span>
+        <span class="bg-bubble"></span>
+        <span class="bg-bubble"></span>
+        <span class="bg-bubble"></span>
+        <span class="bg-bubble"></span>
+    </div>
+
+    <!-- Transition overlay shown while navigating to /ui after login -->
+    <div class="transition-overlay" id="transitionOverlay" hidden>
+        <div class="transition-content">
+            <div class="transition-logo">
+                <svg viewBox="0 0 48 48" width="64" height="64" aria-hidden="true">
+                    <defs>
+                        <radialGradient id="overlay-amber" cx="50%" cy="38%" r="72%">
+                            <stop offset="0%" stop-color="#F9CB76"/>
+                            <stop offset="58%" stop-color="#F0AD44"/>
+                            <stop offset="100%" stop-color="#E2952F"/>
+                        </radialGradient>
+                    </defs>
+                    <g transform="scale(0.48)">
+                        <circle cx="50" cy="50" r="47" fill="url(#overlay-amber)"/>
+                        <g transform="translate(47,50) scale(0.9) translate(-50.5,-47)" fill="#0E3A5A">
+                            <path d="M 10 36 C 20 32 28 34 34 38 C 40 40 44 36 48 34 C 52 32 55 30 58 30 C 62 28 64 24 66 20 C 70 16 72 14 76 16 C 80 17 86 19 91 22 C 86 26 81 29 76 30 C 74 32 72 35 70 38 C 68 40 66 42 64 44 C 62 48 60 51 58 54 C 56 60 55 63 54 66 L 56 78 L 62 80 L 58 80 L 52 78 C 50 74 49 71 48 68 C 46 64 45 60 44 56 C 42 54 41 54 40 54 C 36 52 32 50 28 48 C 22 44 16 40 10 36 Z"/>
+                            <path d="M 76 30 C 81 32 86 34 90 37 C 84 38 77 39 70 39 Z"/>
+                            <path d="M 60 45 L 64 46 L 67 54 L 71 61 L 69 62 L 66 56 L 64 61 L 62 60 L 63 53 L 59 49 Z"/>
+                            <path d="M 86 23.5 L 88 23.5 L 87 26.5 Z M 82 25.7 L 84 25.7 L 83 28.7 Z M 78 27.8 L 80 27.8 L 79 30.8 Z" fill="#FFFFFF"/>
+                            <path d="M 79 33 L 81 33 L 80 30 Z M 83 35 L 85 35 L 84 32 Z M 87 36.5 L 89 36.5 L 88 33.5 Z" fill="#FFFFFF"/>
+                            <circle cx="74" cy="20" r="2.2" fill="#FFFFFF"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <p class="transition-text">登录成功，正在进入系统...</p>
+            <div class="transition-spinner"></div>
+        </div>
+    </div>
+ 
+    <!-- Login card -->
+    <main class="login-container" role="main">
+        <div class="login-card" id="loginCard">
+            <!-- Brand header -->
+            <header class="login-header">
+                <div class="brand">
+                    <svg class="brand-logo" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
+                        <defs>
+                            <radialGradient id="logo-amber" cx="50%" cy="38%" r="72%">
+                                <stop offset="0%" stop-color="#F9CB76"/>
+                                <stop offset="58%" stop-color="#F0AD44"/>
+                                <stop offset="100%" stop-color="#E2952F"/>
+                            </radialGradient>
+                        </defs>
+                        <g transform="scale(0.48)">
+                            <circle cx="50" cy="50" r="47" fill="url(#logo-amber)"/>
+                            <g transform="translate(47,50) scale(0.9) translate(-50.5,-47)" fill="#0E3A5A">
+                                <path d="M 10 36 C 20 32 28 34 34 38 C 40 40 44 36 48 34 C 52 32 55 30 58 30 C 62 28 64 24 66 20 C 70 16 72 14 76 16 C 80 17 86 19 91 22 C 86 26 81 29 76 30 C 74 32 72 35 70 38 C 68 40 66 42 64 44 C 62 48 60 51 58 54 C 56 60 55 63 54 66 L 56 78 L 62 80 L 58 80 L 52 78 C 50 74 49 71 48 68 C 46 64 45 60 44 56 C 42 54 41 54 40 54 C 36 52 32 50 28 48 C 22 44 16 40 10 36 Z"/>
+                                <path d="M 76 30 C 81 32 86 34 90 37 C 84 38 77 39 70 39 Z"/>
+                                <path d="M 60 45 L 64 46 L 67 54 L 71 61 L 69 62 L 66 56 L 64 61 L 62 60 L 63 53 L 59 49 Z"/>
+                                <path d="M 86 23.5 L 88 23.5 L 87 26.5 Z M 82 25.7 L 84 25.7 L 83 28.7 Z M 78 27.8 L 80 27.8 L 79 30.8 Z" fill="#FFFFFF"/>
+                                <path d="M 79 33 L 81 33 L 80 30 Z M 83 35 L 85 35 L 84 32 Z M 87 36.5 L 89 36.5 L 88 33.5 Z" fill="#FFFFFF"/>
+                                <circle cx="74" cy="20" r="2.2" fill="#FFFFFF"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="brand-text">
+                        <h1>Qi Hop</h1>
+                        <span>数据治理平台</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Global error banner -->
+            <div class="alert alert-error" id="alertBanner" role="alert" hidden>
+                <svg class="alert-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"/>
+                </svg>
+                <span id="alertText">用户名或密码错误</span>
+            </div>
+
+            <!-- Login form -->
+            <form class="login-form" id="loginForm" novalidate autocomplete="on">
+                <!-- Account field -->
+                <div class="form-group" id="accountGroup">
+                    <label for="username" class="form-label">账号</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-input"
+                               placeholder="请输入账号"
+                               autocomplete="username"
+                               maxlength="64"
+                               required>
+                    </div>
+                    <span class="form-error" id="usernameError" role="status"></span>
+                </div>
+
+                <!-- Password field -->
+                <div class="form-group" id="passwordGroup">
+                    <label for="password" class="form-label">密码</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path fill="currentColor" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-input"
+                               placeholder="请输入密码"
+                               autocomplete="current-password"
+                               maxlength="128"
+                               required>
+                        <button type="button"
+                                class="toggle-password"
+                                id="togglePassword"
+                                aria-label="切换密码可见性"
+                                title="显示/隐藏密码">
+                            <!-- eye-open: shown when the password is VISIBLE
+                                 (reflects current state: "you can see it"). -->
+                            <svg class="eye-open" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="display:none">
+                                <path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                            <!-- eye-closed: shown when the password is HIDDEN
+                                 (reflects current state: "you can't see it"). -->
+                            <svg class="eye-closed" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="display:block">
+                                <path fill="currentColor" d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="form-error" id="passwordError" role="status"></span>
+                </div>
+
+                <!-- Options row -->
+                <div class="form-options">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkbox-custom" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="14" height="14">
+                                <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </span>
+                        <span class="checkbox-label">记住我</span>
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn-submit" id="submitBtn" disabled>
+                    <span class="btn-text">登 录</span>
+                    <span class="btn-loading" hidden>
+                        <span class="spinner"></span>
+                    </span>
+                </button>
+            </form>
+
+            <!-- Footer hints -->
+            <footer class="login-footer">
+                <p class="hint-text">默认账号：admin ／ 密码：admin@2026</p>
+            </footer>
+        </div>
+    </main>
+
+    <script src="<!--RESOURCE_PREFIX-->/login.js?v=11"></script>
+</body>
+</html>

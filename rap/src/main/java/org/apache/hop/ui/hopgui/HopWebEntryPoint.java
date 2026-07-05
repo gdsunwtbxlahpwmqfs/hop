@@ -188,6 +188,28 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
           .logError("Error calling extension point plugin(s) for HopGuiInit", e);
     }
 
+    // Register a logout handler so a logout button appears at the bottom of the left sidebar
+    // toolbar. Clicking it redirects the browser to /logout (GET), which invalidates the HTTP
+    // session server-side and redirects to /login. We avoid calling session.invalidate() directly
+    // from the UI thread because that can cause "Invalid thread access" errors during RAP's
+    // session teardown.
+    HopGui.getInstance()
+        .setWebLogoutHandler(
+            () -> {
+              JavaScriptExecutor executor = RWT.getClient().getService(JavaScriptExecutor.class);
+              if (executor != null) {
+                // Clear "remember me" credentials from localStorage before navigating to /logout.
+                // Otherwise the login page would read them and silently re-login the user,
+                // defeating the logout. Keys must match those used in login.js.
+                executor.execute(
+                    "try{localStorage.removeItem('hop.login.remember');"
+                        + "localStorage.removeItem('hop.login.rememberedUser');"
+                        + "localStorage.removeItem('hop.login.rememberedPwd');"
+                        + "}catch(e){}"
+                        + "window.location.href='logout';");
+              }
+            });
+
     HopGui.getInstance().open();
 
     // URL params were only for initial project/file; clear so they don't affect CLI/run.

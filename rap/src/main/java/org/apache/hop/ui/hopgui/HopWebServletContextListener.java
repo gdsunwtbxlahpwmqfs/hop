@@ -17,15 +17,23 @@
 
 package org.apache.hop.ui.hopgui;
 
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletRegistration;
 import jakarta.websocket.DeploymentException;
 import jakarta.websocket.server.ServerContainer;
 import jakarta.websocket.server.ServerEndpointConfig;
+import java.util.EnumSet;
 import java.util.logging.Logger;
 import org.apache.hop.core.HopEnvironment;
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.history.AuditManager;
+import org.apache.hop.ui.hopgui.auth.AuthConstants;
+import org.apache.hop.ui.hopgui.auth.AuthenticationFilter;
+import org.apache.hop.ui.hopgui.auth.LoginServlet;
+import org.apache.hop.ui.hopgui.auth.LogoutServlet;
 import org.apache.hop.ui.hopgui.terminal.PtyWebSocketEndpoint;
 import org.eclipse.rap.rwt.engine.RWTServletContextListener;
 
@@ -88,6 +96,9 @@ public class HopWebServletContextListener extends RWTServletContextListener {
       throw e;
     }
 
+    // Register Hop Web authentication (login/logout servlets + route-protection filter).
+    registerAuthComponents(event);
+
     try {
       logger.info("Registering PTY WebSocket endpoint...");
       registerPtyWebSocketEndpoint(event);
@@ -97,6 +108,36 @@ public class HopWebServletContextListener extends RWTServletContextListener {
     }
 
     logger.info("=== Hop Web ServletContextListener initialization completed ===");
+  }
+
+  /**
+   * Programmatically registers the login servlet, logout servlet, and the authentication filter
+   * that protects the Hop Web entry points ({@code /ui}, {@code /ui-dark}). This keeps all auth
+   * wiring inside the rap module without requiring changes to the WAR's {@code web.xml}.
+   */
+  private void registerAuthComponents(ServletContextEvent event) {
+    var context = event.getServletContext();
+
+    // Login servlet: serves the HTML page (GET /login), processes auth (POST /login),
+    // and serves static CSS/JS assets (GET /login-resources/*).
+    ServletRegistration.Dynamic loginServlet =
+        context.addServlet("hopLoginServlet", new LoginServlet());
+    loginServlet.addMapping(AuthConstants.PATH_LOGIN, AuthConstants.PATH_LOGIN_RESOURCES + "/*");
+    loginServlet.setAsyncSupported(false);
+
+    // Logout servlet: invalidates the session and redirects to login.
+    ServletRegistration.Dynamic logoutServlet =
+        context.addServlet("hopLogoutServlet", new LogoutServlet());
+    logoutServlet.addMapping(AuthConstants.PATH_LOGOUT);
+
+    // Authentication filter: intercepts /ui and /ui-dark, redirecting to login when needed.
+    FilterRegistration.Dynamic authFilter =
+        context.addFilter("hopAuthFilter", new AuthenticationFilter());
+    authFilter.addMappingForUrlPatterns(
+        EnumSet.of(DispatcherType.REQUEST), false, "/ui", "/ui-dark");
+
+    logger.info("Hop Web authentication components registered (login, logout, filter)");
+    LogChannel.UI.logBasic("Hop Web authentication components registered");
   }
 
   private void registerPtyWebSocketEndpoint(ServletContextEvent event) {

@@ -693,6 +693,7 @@ public class GuiResource {
 
   // load image from svg
   //
+  @SuppressWarnings("deprecation")
   public Image loadAsResource(Display display, String location, int size) {
     SwtUniversalImage img =
         SwtSvgImageUtil.getUniversalImage(display, getClass().getClassLoader(), location);
