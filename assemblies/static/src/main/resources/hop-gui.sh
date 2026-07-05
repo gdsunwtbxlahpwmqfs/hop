@@ -109,6 +109,9 @@ Darwin)
   HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.UIElement=true"
   HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.quitStrategy=CLOSE_ALL_WINDOWS"
   HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.graphics.UseQuartz=true"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.graphics.UseMetal=false"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dsun.awt.enableExtraMouseButtons=true"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dsun.java2d.opengl=true"
   HOP_OPTIONS="${HOP_OPTIONS} -Djava.awt.headless=false"
   HOP_OPTIONS="${HOP_OPTIONS} -Dswt.enable.ime=true"
   ;;
