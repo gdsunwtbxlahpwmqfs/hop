@@ -106,6 +106,11 @@ Linux)
 Darwin)
   os_path="osx"
   HOP_OPTIONS="${HOP_OPTIONS} -XstartOnFirstThread"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.UIElement=true"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.quitStrategy=CLOSE_ALL_WINDOWS"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dapple.awt.graphics.UseQuartz=true"
+  HOP_OPTIONS="${HOP_OPTIONS} -Djava.awt.headless=false"
+  HOP_OPTIONS="${HOP_OPTIONS} -Dswt.enable.ime=true"
   ;;
 esac
 CLASSPATH="lib/core/*:lib/beam/*:lib/swt/$os_path/$arch_path/*"

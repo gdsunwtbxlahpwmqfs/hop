@@ -45,6 +45,7 @@ import org.apache.hop.core.svg.SvgCache;
 import org.apache.hop.core.svg.SvgCacheEntry;
 import org.apache.hop.core.svg.SvgFile;
 import org.apache.hop.core.xml.XmlHandler;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.metadata.plugin.MetadataPluginType;
 import org.apache.hop.ui.hopgui.perspective.HopPerspectivePluginType;
 import org.eclipse.rap.rwt.application.Application;
@@ -53,6 +54,8 @@ import org.eclipse.rap.rwt.client.WebClient;
 import org.eclipse.rap.rwt.service.ResourceLoader;
 
 public class HopWeb implements ApplicationConfiguration {
+
+  private static final Class<?> PKG = HopWeb.class;
 
   public static final String CONST_LIGHT = "light";
 
@@ -153,14 +156,15 @@ public class HopWeb implements ApplicationConfiguration {
     application.addStyleSheet("dark", "org/apache/hop/ui/hopgui/dark-mode.css");
     application.addStyleSheet(CONST_LIGHT, "org/apache/hop/ui/hopgui/light-mode.css");
 
+    String pageTitle = BaseMessages.getString(PKG, "HopWeb.Page.Title");
     Map<String, String> propertiesLight = new HashMap<>();
-    propertiesLight.put(WebClient.PAGE_TITLE, "HFXT Data Process Web");
+    propertiesLight.put(WebClient.PAGE_TITLE, pageTitle);
     propertiesLight.put(WebClient.FAVICON, "ui/images/logo_icon.png");
     propertiesLight.put(WebClient.THEME_ID, CONST_LIGHT);
     propertiesLight.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));
 
     Map<String, String> propertiesDark = new HashMap<>();
-    propertiesDark.put(WebClient.PAGE_TITLE, "HFXT Data Process Web");
+    propertiesDark.put(WebClient.PAGE_TITLE, pageTitle);
     propertiesDark.put(WebClient.FAVICON, "ui/images/logo_icon.png");
     propertiesDark.put(WebClient.THEME_ID, "dark");
     propertiesDark.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));

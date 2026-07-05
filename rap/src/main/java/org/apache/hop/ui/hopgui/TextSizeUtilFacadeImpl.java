@@ -25,6 +25,10 @@ public class TextSizeUtilFacadeImpl extends TextSizeUtilFacade {
 
   @Override
   Point textExtentInternal(String text) {
-    return TextSizeUtil.stringExtent(Display.getCurrent().getSystemFont(), text);
+    Display display = Display.getCurrent();
+    if (display == null) {
+      return new Point(0, 0);
+    }
+    return TextSizeUtil.stringExtent(display.getSystemFont(), text);
   }
 }

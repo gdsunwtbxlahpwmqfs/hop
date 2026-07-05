@@ -143,6 +143,11 @@ public class PropsUi extends Props {
     if (EnvironmentUtils.getInstance().isWeb()) {
       nativeZoomFactor = globalZoom / 0.75;
     } else {
+      Display display = Display.getCurrent();
+      if (display == null) {
+        nativeZoomFactor = globalZoom;
+        return;
+      }
       // Calculate the native default zoom factor...
       // We take the default font and render it, calculate the height.
       // Compare that to the standard small icon size of 16
