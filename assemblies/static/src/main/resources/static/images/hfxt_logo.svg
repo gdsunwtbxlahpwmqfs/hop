@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- AI Data Process logo (light backgrounds): T-Rex emblem + navy AI DATA PROCESS wordmark. -->
+<!-- Qi Hop logo (light backgrounds): T-Rex emblem + navy QI HOP wordmark. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
      viewBox="0 0 300 80" width="300" height="80">
     <defs>
@@ -55,8 +55,5 @@
         <circle cx="74" cy="20" r="2.2" fill="#FFFFFF"/>
     </g>
 
-    <g transform="translate(90,8)" fill="#0E3A5A">
-        <text x="0" y="35" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="800" letter-spacing="1">AI</text>
-        <text x="0" y="62" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="600" letter-spacing="3">DATA PROCESS</text>
-    </g>
+    <text x="90" y="50" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" letter-spacing="1" fill="#0E3A5A">Qi Hop</text>
 </svg>

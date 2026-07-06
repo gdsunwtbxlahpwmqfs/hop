@@ -7,7 +7,7 @@ HOP_INSTALL_DIR="./hop-client-run"
 HOP_DIR="$HOP_INSTALL_DIR/hop"
 
 echo "============================================"
-echo "  AI Data Process GUI 启动脚本"
+echo "  Qi Hop GUI 启动脚本"
 echo "============================================"
 
 if [ ! -f "$HOP_CLIENT_ZIP" ]; then
@@ -46,6 +46,6 @@ echo "  HOP_LLM_API_URL: $HOP_LLM_API_URL"
 echo "  HOP_LLM_MODEL: $HOP_LLM_MODEL"
 
 echo ""
-echo "启动 AI Data Process GUI..."
+echo "启动 Qi Hop GUI..."
 cd "$HOP_DIR"
 ./hop-gui.sh "$@"

@@ -146,9 +146,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-@GuiPlugin(
-    name = "AI Data Process GUI",
-    description = "The main AI Data Process graphical user interface")
+@GuiPlugin(name = "i18n::HopGui.GuiPlugin.Name", description = "i18n::HopGui.GuiPlugin.Description")
 @SuppressWarnings("java:S1104")
 @Getter
 @Setter
@@ -455,7 +453,7 @@ public class HopGui
         hopGui.open();
       } catch (Throwable e) {
         originalSystemErr.println(
-            "Serious error detected in the AI Data Process GUI: "
+            "Serious error detected in the Qi Hop GUI: "
                 + e.getMessage()
                 + Const.CR
                 + Const.getStackTracker(e));
@@ -464,7 +462,7 @@ public class HopGui
 
       System.exit(errors ? 1 : 0);
     } catch (Throwable e) {
-      originalSystemErr.println("Error starting the AI Data Process GUI: " + e.getMessage());
+      originalSystemErr.println("Error starting the Qi Hop GUI: " + e.getMessage());
       e.printStackTrace(originalSystemErr);
       System.exit(1);
     }
