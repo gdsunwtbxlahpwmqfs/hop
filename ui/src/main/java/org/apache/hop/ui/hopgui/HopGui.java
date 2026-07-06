@@ -42,7 +42,6 @@ import org.apache.hop.core.DbCache;
 import org.apache.hop.core.HopEnvironment;
 import org.apache.hop.core.Props;
 import org.apache.hop.core.config.DescribedVariablesConfigFile;
-import org.apache.hop.core.config.HopConfig;
 import org.apache.hop.core.database.DatabaseMeta;
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.extension.ExtensionPointHandler;
@@ -121,7 +120,6 @@ import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
 import org.apache.hop.ui.hopgui.perspective.metadata.MetadataPerspective;
 import org.apache.hop.ui.hopgui.perspective.search.HopSearchPerspective;
 import org.apache.hop.ui.hopgui.search.HopGuiSearchLocation;
-import org.apache.hop.ui.hopgui.welcome.WelcomeDialog;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.apache.hop.ui.util.EnvironmentUtils;
 import org.eclipse.swt.SWT;
@@ -582,17 +580,6 @@ public class HopGui
     // Activate the default perspective
     //
     getExplorerPerspective().activate();
-
-    // See if we need to show the Welcome dialog
-    //
-
-    boolean doNotShowWelcomeDialog =
-        HopConfig.readOptionBoolean(WelcomeDialog.HOP_CONFIG_NO_SHOW_OPTION, false);
-    doNotShowWelcomeDialog |=
-        Const.toBoolean(variables.getVariable(WelcomeDialog.VARIABLE_HOP_NO_WELCOME_DIALOG));
-    if (!doNotShowWelcomeDialog) {
-      new WelcomeDialog().open();
-    }
 
     // On RAP, return here otherwise UIThread doesn't get terminated properly.
     if (EnvironmentUtils.getInstance().isWeb()) {

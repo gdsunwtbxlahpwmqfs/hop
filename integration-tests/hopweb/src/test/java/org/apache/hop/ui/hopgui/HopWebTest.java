@@ -119,9 +119,6 @@ public class HopWebTest {
 
     // sleep for 2 minutes to give Hop Web plenty of time to fully start.
     Thread.sleep(Integer.valueOf(properties.getProperty("sleepStart")));
-
-    // check if the help dialog is shown. If it is, close it.
-    checkWelcomeDialog();
   }
 
   @AfterAll
@@ -170,29 +167,8 @@ public class HopWebTest {
     createNewTransform(transformName);
   }
 
-  /**
-   * Check if the Hop welcome dialog is shown. If it is, check if it is benign, then close it.
-   *
-   * @throws InterruptedException
-   */
-  private static void checkWelcomeDialog() throws InterruptedException, IOException {
-
-    try {
-      WebElement welcomeCloseElement =
-          driver.findElement(By.xpath("//div[text()='" + "Apache Hop" + "']/../div[5]"));
-
-      if (welcomeCloseElement != null) {
-        new Actions(driver).moveToElement(welcomeCloseElement).click().perform();
-      }
-    } catch (NoSuchElementException e) {
-      screenshotUtil.takeScreenshot(driver, "welcome-dialog-close-failed.png");
-    }
-  }
-
   private void closeAndcreateNewPipeline() throws InterruptedException, IOException {
     driver.navigate().refresh();
-
-    checkWelcomeDialog();
 
     testNewPipeline();
   }

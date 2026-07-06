@@ -460,7 +460,6 @@
                         <exclude>**/org/apache/hop/projects/config/ProjectsConfigOptionPlugin*</exclude>
                         <exclude>**/org/apache/hop/ui/hopgui/perspective/**</exclude>
                         <exclude>**/org/apache/hop/ui/hopgui/terminal/**</exclude>
-                        <exclude>**/org/apache/hop/ui/hopgui/welcome/**</exclude>
                         <exclude>**/org/apache/hop/ui/hopgui/shared/**</exclude>
                         <exclude>**/org/apache/hop/ui/hopgui/partition/**</exclude>
                         <exclude>**/org/apache/hop/ui/hopgui/file/**/delegates/**</exclude>

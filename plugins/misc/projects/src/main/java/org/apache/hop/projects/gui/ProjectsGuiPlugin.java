@@ -506,7 +506,7 @@ public class ProjectsGuiPlugin {
   //////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * used by the welcome dialog to switch to the samples project.
+   * Switch to the project with the given name.
    *
    * @param projectName The name of the project to switch to.
    * @throws HopException when the project cannot be found

@@ -384,6 +384,5 @@
   "explorer-perspective" : {
     "lazyLoadingDepth" : "0",
     "fileLoadingMaxSize" : "16"
-  },
-  "doNotShowWelcomeDialog" : true
+  }
 }

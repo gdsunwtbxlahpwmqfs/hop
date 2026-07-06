@@ -416,6 +416,5 @@
     "enabled" : true,
     "searchingParentFolders" : false,
     "fetchAutomatic" : false
-  },
-  "doNotShowWelcomeDialog" : true
+  }
 }
