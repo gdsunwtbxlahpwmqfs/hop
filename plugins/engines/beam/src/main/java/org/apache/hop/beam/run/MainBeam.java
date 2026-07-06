@@ -46,7 +46,7 @@ public class MainBeam {
 
   public static void main(String[] args) {
     try {
-      System.out.println(">>>>>> Initializing HFXT");
+      System.out.println(">>>>>> Initializing Qi Hop");
       HopEnvironment.init();
 
       // Read the pipeline XML and metadata JSON (optionally from Hadoop FS)

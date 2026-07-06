@@ -1,4 +1,4 @@
-# hfxt data process 知识库系统设计方案
+# Qi数据治理平台 知识库系统设计方案
 
 > 基于 `docs/hop-assistant-manual` 语料，为现有 LLM 助理提供 RAG 增强能力。
 

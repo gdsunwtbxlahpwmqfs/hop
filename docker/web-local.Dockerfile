@@ -18,7 +18,7 @@
 
 
 FROM tomcat:10-jdk21
-LABEL maintainer="HFXT Team"
+LABEL maintainer="Qi Hop Team"
 # The UID for the created user
 ARG HOP_UID=501
 # The GID for the created user

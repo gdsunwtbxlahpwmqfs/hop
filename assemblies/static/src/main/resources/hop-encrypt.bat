@@ -88,10 +88,10 @@ GOTO Run
 set _cmdline=%*
 
 :Run
-echo Command to start HFXT will be:
+echo Command to start Qi Hop will be:
 echo %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.core.encryption.Encr %_cmdline%
 echo.
-echo ===[Starting HFXT Encrypt]=========================================================
+echo ===[Starting Qi Hop Encrypt]=========================================================
 
 %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.encryption.HopEncrypt %_cmdline%
 @echo off

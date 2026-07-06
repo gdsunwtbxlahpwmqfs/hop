@@ -90,9 +90,9 @@ GOTO Run
 set _cmdline=%*
 
 :Run
-echo Command to start HFXT will be:
+echo Command to start Qi Hop will be:
 echo %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.www.HopServer %_cmdline%
 echo.
-echo ===[Starting HFXT Server]=========================================================
+echo ===[Starting Qi Hop Server]=========================================================
 
 %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.www.HopServer %_cmdline%

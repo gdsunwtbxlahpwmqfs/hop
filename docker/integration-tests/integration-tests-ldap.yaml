@@ -33,7 +33,7 @@ services:
       - "389:389"
       - "636:636"
     environment:
-      - LDAP_ORGANISATION=HFXT Data Process
+      - LDAP_ORGANISATION=Qi Hop
       - LDAP_DOMAIN=hop.apache.org
       - LDAP_ADMIN_PASSWORD=admin
       - LDAP_CONFIG_PASSWORD=config

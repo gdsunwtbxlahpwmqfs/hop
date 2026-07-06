@@ -380,7 +380,7 @@ public class AdvancedXmlOutput extends BaseTransform<AdvancedXmlOutputMeta, Adva
         if (meta.getFileSupport().isZipped()) {
           data.zip = new ZipOutputStream(data.countingStream);
           ZipEntry entry = new ZipEntry(new File(innerName).getName());
-          entry.setComment("Compressed by HFXT Data Process");
+          entry.setComment("Compressed by Qi Hop");
           data.zip.putNextEntry(entry);
           payloadSink = data.zip;
         } else {

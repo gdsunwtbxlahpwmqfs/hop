@@ -89,7 +89,7 @@ if [ -n "${HOP_PROJECT_FOLDER}" ]; then
         --environment="${HOP_ENVIRONMENT_NAME}" \
         --environment-create \
         --environment-project="${HOP_PROJECT_NAME}" \
-        --environment-purpose="HFXT Data Process docker container" \
+        --environment-purpose="Qi Hop docker container" \
         --environment-config-files="${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS}"
     fi
 

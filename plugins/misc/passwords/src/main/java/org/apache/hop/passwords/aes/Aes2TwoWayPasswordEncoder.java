@@ -44,7 +44,7 @@ import org.apache.hop.core.variables.Variables;
 @TwoWayPasswordEncoderPlugin(
     id = "AES2",
     name = "AES2 Password encoder",
-    description = "Allows for 128/192/256 bit password encryption of passwords in HFXT")
+    description = "Allows for 128/192/256 bit password encryption of passwords in Qi Hop")
 public class Aes2TwoWayPasswordEncoder implements ITwoWayPasswordEncoder {
 
   public static final String VARIABLE_HOP_AES_ENCODER_KEY = "HOP_AES_ENCODER_KEY";

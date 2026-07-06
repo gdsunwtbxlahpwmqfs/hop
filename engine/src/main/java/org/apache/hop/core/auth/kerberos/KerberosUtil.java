@@ -53,7 +53,7 @@ public class KerberosUtil {
   }
 
   /** The application name to use when creating login contexts. */
-  public static final String KERBEROS_APP_NAME = "HFXT Data Process";
+  public static final String KERBEROS_APP_NAME = "Qi Hop";
 
   /**
    * The environment property to set to enable JAAS debugging for the LoginConfiguration created by

@@ -16,7 +16,7 @@
 # under the License.
 
 FROM alpine
-LABEL maintainer="HFXT Data Process Team"
+LABEL maintainer="Qi Hop Team"
 # The UID for the created user
 ARG HOP_UID=501
 # The GID for the created user

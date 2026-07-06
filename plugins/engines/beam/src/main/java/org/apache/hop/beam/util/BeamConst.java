@@ -45,7 +45,7 @@ public class BeamConst {
   public static final String STRING_BEAM_KAFKA_PRODUCE_PLUGIN_ID = "BeamKafkaProduce";
   public static final String STRING_BEAM_ROW_GENERATOR_PLUGIN_ID = "RowGenerator";
 
-  public static final String STRING_HOP_BEAM = "HFXT Beam";
+  public static final String STRING_HOP_BEAM = "Qi Hop Beam";
 
   public static final String STRING_TRANSFORM_FLAG_BATCH = "Batch";
   public static final String STRING_TRANSFORM_FLAG_SINGLE_THREADED = "SingleThreaded";
@@ -269,7 +269,7 @@ public class BeamConst {
           }
         }
       } else {
-        System.out.println("Warning: couldn't find HFXT lib folder: " + libFolder);
+        System.out.println("Warning: couldn't find Qi Hop lib folder: " + libFolder);
       }
     }
 

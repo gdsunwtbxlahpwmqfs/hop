@@ -33,14 +33,14 @@ if [%1]==[Help] set _temphelp=1
 if %_temphelp%==1 (GOTO Help) ELSE (GOTO NormalStart)
 
 :Help
-echo ===[HFXT Help - hop-gui.bat]===============================================
-echo Normally, no parameters are required to start HFXT.  There is a debug mode
+echo ===[Qi Hop Help - hop-gui.bat]===============================================
+echo Normally, no parameters are required to start Qi Hop.  There is a debug mode
 echo that you can start by passing in DEBUG as the first parameter after hop-gui.bat
 echo.
 echo Example:
 echo   hop-gui.bat DEBUG
 echo
-echo The debug mode opens port 5005 locally when HFXT starts allowing you to attaching
+echo The debug mode opens port 5005 locally when Qi Hop starts allowing you to attaching
 echo a debugger from your favorite Java IDE tool and step code.
 echo ==========================================================================
 GOTO End
@@ -99,10 +99,10 @@ echo Java identified as %_HOP_JAVA%
 echo.
 echo HOP_OPTIONS=%HOP_OPTIONS%
 echo.
-echo Command to start HFXT will be:
+echo Command to start Qi Hop will be:
 echo %_HOP_JAVA% -classpath %CLASSPATH% -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.ui.hopgui.HopGui
 echo.
-echo ===[Starting HFXT]=========================================================
+echo ===[Starting Qi Hop]=========================================================
 
 %_HOP_JAVA% -classpath %CLASSPATH% -Dswt.autoScale=false -Djava.library.path=%LIBSPATH% %HOP_OPTIONS% org.apache.hop.ui.hopgui.HopGui
 if ERRORLEVEL 1 (pause)

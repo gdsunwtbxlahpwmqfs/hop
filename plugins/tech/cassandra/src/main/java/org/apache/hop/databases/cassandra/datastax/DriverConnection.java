@@ -117,7 +117,7 @@ public class DriverConnection implements AutoCloseable {
 
   public CqlSessionBuilder getSessionBuilder() {
 
-    CqlSessionBuilder builder = CqlSession.builder().withApplicationName("HFXT Data Process");
+    CqlSessionBuilder builder = CqlSession.builder().withApplicationName("Qi Hop");
     for (InetSocketAddress inetSocketAddress : getAddresses()) {
       builder = builder.addContactPoint(inetSocketAddress);
     }
@@ -155,7 +155,7 @@ public class DriverConnection implements AutoCloseable {
               TypedDriverOption.PROTOCOL_COMPRESSION.getRawOption(), "lz4");
     }
 
-    DefaultCodecRegistry codecRegistry = new DefaultCodecRegistry("HFXT Data Process");
+    DefaultCodecRegistry codecRegistry = new DefaultCodecRegistry("Qi Hop");
     registerCodecs(codecRegistry);
     builder = builder.withCodecRegistry(codecRegistry);
 

@@ -11,7 +11,7 @@
       "pluginsToStage": "",
       "tempLocation": "gs://apache-hop-it/tmp/",
       "gcpWorkerDiskType": "",
-      "gcpAppName": "HFXT",
+      "gcpAppName": "Qi Hop",
       "gcpInitialNumberOfWorkers": "1",
       "gcpStagingLocation": "gs://apache-hop-it/binaries/",
       "fatJar": "/home/matt/parking/hop-2.2-fat.jar",

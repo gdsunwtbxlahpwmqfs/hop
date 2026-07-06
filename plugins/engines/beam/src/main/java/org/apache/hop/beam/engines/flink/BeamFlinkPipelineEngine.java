@@ -33,7 +33,7 @@ public class BeamFlinkPipelineEngine extends BeamPipelineEngine
   @Override
   public IPipelineEngineRunConfiguration createDefaultPipelineEngineRunConfiguration() {
     BeamFlinkPipelineRunConfiguration runConfiguration = new BeamFlinkPipelineRunConfiguration();
-    runConfiguration.setUserAgent("HFXT");
+    runConfiguration.setUserAgent("Qi Hop");
     return runConfiguration;
   }
 

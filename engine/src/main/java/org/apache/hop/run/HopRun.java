@@ -92,7 +92,7 @@ public class HopRun extends HopRunBase implements Runnable, IHasHopMetadataProvi
         System.exit(1);
       } else {
         hopRun.run();
-        System.out.println("HFXT Run exit.");
+        System.out.println("Qi Hop Run exit.");
         if (hopRun.isFinishedWithoutError()) {
           System.exit(0);
         } else {

@@ -2,7 +2,7 @@
 
 ## 1. 项目背景与目标
 
-HFXT data processor 是一个数据/元数据编排平台，支持通过拖拽方式在画布上构建 ETL Pipeline。目前 HFXT data processor 已具备：
+Qi Hop data processor 是一个数据/元数据编排平台，支持通过拖拽方式在画布上构建 ETL Pipeline。目前 Qi Hop data processor 已具备：
 
 - 150+ Transform 插件（输入、输出、转换、脚本等）
 - 拖拽式画布编辑器（桌面 RCP / 网页 RAP 双端）
