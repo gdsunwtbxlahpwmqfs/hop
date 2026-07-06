@@ -1,7 +1,9 @@
 # MySQL批量加载（Bulk load into MySQL）
 
-`Bulk load into MySQL` 动作将文本文件中的数据加载到 MySQL 表中。
+## 功能概述
 
+
+`Bulk load into MySQL` 动作将文本文件中的数据加载到 MySQL 表中。
 此动作使用 MySQL 的 [`LOAD DATA`](https://dev.mysql.com/doc/refman/8.0/en/load-data.html) 命令。
 
 ## 主要选项

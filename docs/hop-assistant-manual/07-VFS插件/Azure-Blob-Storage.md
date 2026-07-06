@@ -2,7 +2,7 @@
 
 ## 核心功能
 
-hfxt data process 通过 Apache VFS 支持在平台几乎任何位置读取和写入 Azure Blob Storage。
+Qi 数据治理平台 通过 Apache VFS 支持在平台几乎任何位置读取和写入 Azure Blob Storage。
 
 **提示**：我们仅支持分层命名空间（hierarchical namespaces），请确保存储容器已按此配置。
 

@@ -4,7 +4,7 @@
 
 描述一个可跨多个 Salesforce 转换重复使用的 Salesforce 连接。
 
-Salesforce 连接元数据类型允许您定义一次连接设置，并在 hfxt data process 项目中的所有 Salesforce 转换中重复使用它们。这消除了重复输入连接信息的需要，并提供了对 Salesforce 认证凭据的集中化管理。
+Salesforce 连接元数据类型允许您定义一次连接设置，并在 Qi 数据治理平台 项目中的所有 Salesforce 转换中重复使用它们。这消除了重复输入连接信息的需要，并提供了对 Salesforce 认证凭据的集中化管理。
 
 ## 认证类型
 

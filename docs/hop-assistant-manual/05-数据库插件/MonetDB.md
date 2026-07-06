@@ -2,7 +2,7 @@
 
 ## 概述
 
-MonetDB 是一个开源的列式存储（Column Store）数据库管理系统，专为数据仓库和数据分析场景设计。其 JDBC 驱动已内置在 hfxt data process 中。
+MonetDB 是一个开源的列式存储（Column Store）数据库管理系统，专为数据仓库和数据分析场景设计。其 JDBC 驱动已内置在 Qi 数据治理平台 中。
 
 ## 主要连接参数
 

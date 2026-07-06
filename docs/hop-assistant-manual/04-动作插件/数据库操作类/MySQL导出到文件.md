@@ -1,5 +1,8 @@
 # MySQL导出到文件（Bulk load from MySQL into file）
 
+## 功能概述
+
+
 `Bulk load from MySQL into file` 动作将 MySQL 表中的数据批量加载到文件中。
 
 ## 主要选项

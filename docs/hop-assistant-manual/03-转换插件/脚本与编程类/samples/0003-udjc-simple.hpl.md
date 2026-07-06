@@ -13,7 +13,7 @@
 | name | UserDefinedJavaClass |
 | values | UniqueRowsByHashSet |
 | More than 1 row | Abort |
-| name <> "Apache Hop" | FilterRows |
+| name <> "Qi Hop" | FilterRows |
 
 ## Hops
 
@@ -21,5 +21,5 @@
 |------|----|
 | 10k rows | name |
 | name | values |
-| values | name <> "Apache Hop" |
-| name <> "Apache Hop" | More than 1 row |
+| values | name <> "Qi Hop" |
+| name <> "Qi Hop" | More than 1 row |

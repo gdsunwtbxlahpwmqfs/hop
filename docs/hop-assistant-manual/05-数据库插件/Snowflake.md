@@ -2,7 +2,7 @@
 
 ## 概述
 
-Snowflake 是一个基于云的现代数据平台，提供数据仓库、数据湖和数据工程等功能。其 JDBC 驱动已内置在 hfxt data process 中。Snowflake 支持建立 SSL 认证连接。
+Snowflake 是一个基于云的现代数据平台，提供数据仓库、数据湖和数据工程等功能。其 JDBC 驱动已内置在 Qi 数据治理平台 中。Snowflake 支持建立 SSL 认证连接。
 
 ## 主要连接参数
 

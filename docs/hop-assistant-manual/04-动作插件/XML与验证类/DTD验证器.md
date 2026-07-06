@@ -1,5 +1,8 @@
 # DTD验证器（DTD validator）
 
+## 功能概述
+
+
 `DTD validator` 动作根据文档类型定义（[DTD](http://en.wikipedia.org/wiki/Document_Type_Definition)）验证 XML 文件是否对应于特定结构或格式。
 
 ## 主要选项

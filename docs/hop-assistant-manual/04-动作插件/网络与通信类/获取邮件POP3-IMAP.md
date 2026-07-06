@@ -1,5 +1,8 @@
 # 获取邮件POP3-IMAP（Get mails (POP3/IMAP)）
 
+## 功能概述
+
+
 `Get mails (POP3/IMAP)` 动作从 POP3 或 IMAP 服务器检索邮件，并将其存储到一个或多个文件中。
 
 ## 主要选项

@@ -23,7 +23,6 @@
 | flatten | Denormaliser |
 | format percentage | ScriptValueMod |
 | keep | FilterRows |
-| keep | FilterRows |
 | keep line? | ScriptValueMod |
 | keep table data | ScriptValueMod |
 | limit fields | SelectValues |

@@ -1,7 +1,9 @@
 # Apache Tika
 
-Apache Tika 转换解析各种格式的文件，并提取文本内容以及可用的元数据。该转换使用 [Apache Tika](http://tika.apache.org) 库执行解析工作。
+## 功能概述
 
+
+Apache Tika 转换解析各种格式的文件，并提取文本内容以及可用的元数据。该转换使用 [Apache Tika](http://tika.apache.org) 库执行解析工作。
 提取的元数据以 JSON 格式提供。如果需要从此元数据中获取特定信息，可以使用 JSON Input 转换进行提取。
 
 ## 主要选项
@@ -11,7 +13,160 @@ Apache Tika 转换解析各种格式的文件，并提取文本内容以及可�
 | 转换名称（Transform name） | 转换的名称，在单个管道中必须唯一 |
 | 文件选项卡（File tab） | 指定要读取和检查的文件 |
 
+## XML代码模板
+
+```xml
+<pipeline>
+  <info>
+    <name>0026-replace-in-string-with-backslash</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
+    <parameters>
+      <parameter>
+        <name>REPLACE_PARAM</name>
+        <default_value>xx\zz</default_value>
+        <description>Variable with backslash</description>
+      </parameter>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2022/11/27 16:28:58.618</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2022/11/27 16:28:58.618</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <order>
+    <hop>
+      <from>sample data</from>
+      <to>Replace in string</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Replace in string</from>
+      <to>Verify</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Replace in string</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <case_sensitive>N</case_sensitive>
+        <in_stream_name>value_variable</in_stream_name>
+        <is_unicode>N</is_unicode>
+        <replace_by_string>${REPLACE_PARAM}</replace_by_string>
+        <replace_string>backslash</replace_string>
+        <set_empty_string>N</set_empty_string>
+        <use_regex>N</use_regex>
+        <whole_word>N</whole_word>
+      </field>
+      <field>
+        <case_sensitive>N</case_sensitive>
+        <in_stream_name>value_field</in_stream_name>
+        <is_unicode>N</is_unicode>
+        <replace_field_by_string>replaceBy</replace_field_by_string>
+        <replace_string>backslash</replace_string>
+        <set_empty_string>N</set_empty_string>
+        <use_regex>N</use_regex>
+        <whole_word>N</whole_word>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Verify</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sample data</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <data>
+      <line>
+        <item>try to specify the backslash</item>
+        <item>single \ backslash</item>
+      </line>
+      <line>
+        <item>method to replace the backslash</item>
+        <item>double \\ backslash</item>
+      </line>
+    </data>
+    <fields>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>value_variable</name>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>value_field</name>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>replaceBy</name>
+        <type>String</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>
+```
+
 ## 注意事项
 
-- 在 Spark、Flink、Dataflow 引擎上可能受支持（Maybe Supported），Hop Engine 完全支持。
+- 在 Spark、Flink、Dataflow 引擎上可能受支持（Maybe Supported），Qi 数据治理平台 Engine 完全支持。
 - 提取的元数据为 JSON 格式，可配合 JSON Input 转换做进一步处理。

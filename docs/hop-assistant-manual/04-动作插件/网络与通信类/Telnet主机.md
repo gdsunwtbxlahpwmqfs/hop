@@ -1,5 +1,8 @@
 # Telnet主机（Telnet a host）
 
+## 功能概述
+
+
 `Telnet a host` 动作通过 [Telnet](https://en.wikipedia.org/wiki/Telnet) 协议测试特定端口上的连接。
 
 ## 主要选项

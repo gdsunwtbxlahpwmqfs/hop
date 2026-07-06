@@ -2,7 +2,7 @@
 
 ## 概述
 
-Amazon Redshift 是 AWS 提供的云数据仓库服务，适用于大规模数据分析场景。其 JDBC 驱动已内置在 hfxt data process 中，此插件依赖 PostgreSQL 数据库插件。
+Amazon Redshift 是 AWS 提供的云数据仓库服务，适用于大规模数据分析场景。其 JDBC 驱动已内置在 Qi 数据治理平台 中，此插件依赖 PostgreSQL 数据库插件。
 
 ## 主要连接参数
 

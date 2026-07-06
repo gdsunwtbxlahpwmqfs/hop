@@ -1,7 +1,9 @@
 # Ping主机（Ping a host）
 
-`Ping a host` 动作可用于使用 ICMP 协议 ping 主机。
+## 功能概述
 
+
+`Ping a host` 动作可用于使用 ICMP 协议 ping 主机。
 当主机可达时结果为 true，否则为 false。
 
 ## 主要选项

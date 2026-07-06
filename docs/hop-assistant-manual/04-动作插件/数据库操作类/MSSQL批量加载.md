@@ -1,7 +1,9 @@
 # MSSQL批量加载（Bulk load into MSSQL）
 
-`Bulk load into MSSQL` 动作将文件中的数据批量加载到 MSSQL 中。
+## 功能概述
 
+
+`Bulk load into MSSQL` 动作将文件中的数据批量加载到 MSSQL 中。
 与转换批量加载器不同，此动作需要预先存在的文件，该文件将被批量加载到 MS SQL 中。
 
 ## 主要选项

@@ -1,5 +1,8 @@
 # FTP删除（FTP delete）
 
+## 功能概述
+
+
 `FTP delete` 动作删除 FTP 服务器上的文件。
 
 ## 主要选项

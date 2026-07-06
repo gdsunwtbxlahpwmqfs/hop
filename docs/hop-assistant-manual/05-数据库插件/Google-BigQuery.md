@@ -4,7 +4,7 @@
 
 Google BigQuery 是 Google Cloud 提供的企业级数据仓库服务，支持快速进行 SQL 查询分析。使用此数据库需要单独下载 Simba JDBC 驱动程序。
 
-Simba 驱动以 .zip 压缩包形式打包，包含多个 jar 文件。使用 BigQuery JDBC 与 hfxt data process 时，只需要驱动中的一部分 jar 文件。此外，某些 jar 文件可能与 Hop 自带的 jar 冲突，*必须*排除在外。
+Simba 驱动以 .zip 压缩包形式打包，包含多个 jar 文件。使用 BigQuery JDBC 与 Qi 数据治理平台 时，只需要驱动中的一部分 jar 文件。此外，某些 jar 文件可能与 Hop 自带的 jar 冲突，*必须*排除在外。
 
 ## 主要连接参数
 

@@ -1,7 +1,9 @@
 # PGP加密文件（Encrypt files with PGP）
 
-`Encrypt files with PGP` 动作可用于使用 GnuPG 包加密和签名文件。
+## 功能概述
 
+
+`Encrypt files with PGP` 动作可用于使用 GnuPG 包加密和签名文件。
 GnuPG 包必须安装在运行时环境中，并且加密密钥必须添加到运行时用户密钥库中才能正常工作。
 
 ## 主要选项

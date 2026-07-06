@@ -1,8 +1,10 @@
 # Snowflake仓库管理器（Snowflake warehouse manager）
 
-`Snowflake warehouse manager` 动作提供创建、删除、恢复、暂停和更改仓库的功能。
+## 功能概述
 
-这允许 hfxt data process 工作流在加载之前恢复仓库，并在完成后立即暂停仓库，同时可以为可能需要更多处理能力的加载部分调整仓库大小。
+
+`Snowflake warehouse manager` 动作提供创建、删除、恢复、暂停和更改仓库的功能。
+这允许 Qi 数据治理平台 工作流在加载之前恢复仓库，并在完成后立即暂停仓库，同时可以为可能需要更多处理能力的加载部分调整仓库大小。
 
 ## 主要选项
 

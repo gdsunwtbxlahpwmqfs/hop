@@ -30,6 +30,21 @@ if echo "$STATUS_RESP" | grep -q '"enabled":false'; then
   exit 1
 fi
 
+echo "==> Clearing existing index..."
+CLEAR_RESP=$(curl -s -w "\n%{http_code}" -X DELETE "$HOP_REST_URL/knowledgebase")
+CLEAR_HTTP_CODE=$(echo "$CLEAR_RESP" | tail -1)
+CLEAR_RESP_BODY=$(echo "$CLEAR_RESP" | sed '$d')
+
+echo "    HTTP Status: $CLEAR_HTTP_CODE"
+echo "    Response: $CLEAR_RESP_BODY"
+echo ""
+
+if [ "$CLEAR_HTTP_CODE" -ne 200 ]; then
+  echo "    WARNING: Failed to clear existing index: $CLEAR_RESP_BODY"
+  echo "    Continuing with index build..."
+  echo ""
+fi
+
 echo "==> Starting index build..."
 BUILD_RESP=$(curl -s -w "\n%{http_code}" -X POST "$HOP_REST_URL/knowledgebase/index")
 

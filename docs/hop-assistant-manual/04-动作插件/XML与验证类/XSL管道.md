@@ -1,7 +1,9 @@
 # XSL管道（XSL pipeline）
 
-`XSL pipeline` 动作使用可扩展样式表语言转换（[XSLT](http://en.wikipedia.org/wiki/XSLT)）将 XML 文档转换为其他文档（XML 或其他格式，如 HTML 或纯文本）。
+## 功能概述
 
+
+`XSL pipeline` 动作使用可扩展样式表语言转换（[XSLT](http://en.wikipedia.org/wiki/XSLT)）将 XML 文档转换为其他文档（XML 或其他格式，如 HTML 或纯文本）。
 原始文档不会改变；而是基于 XML 文件的内容创建新文档。
 
 ## 主要选项

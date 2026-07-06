@@ -2,7 +2,7 @@
 
 ## 概述
 
-Apache Hive 是建立在 Hadoop 之上的数据仓库基础设施，用于对存储在各种文件系统中的大型数据集进行查询和分析。其 JDBC 驱动已内置在 hfxt data process 中。
+Apache Hive 是建立在 Hadoop 之上的数据仓库基础设施，用于对存储在各种文件系统中的大型数据集进行查询和分析。其 JDBC 驱动已内置在 Qi 数据治理平台 中。
 
 Apache Hive 需要在字段定义之前生成 PARTITION 子句。为此，您可以在名为 "Table-partition clauses" 的特定 Hive 字段中添加表和子句定义。
 

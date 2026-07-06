@@ -1,7 +1,9 @@
 # PGP解密文件（Decrypt files with PGP）
 
-`Decrypt Files With PGP` 动作可用于解密文件。
+## 功能概述
 
+
+`Decrypt Files With PGP` 动作可用于解密文件。
 GnuPG 包必须安装在运行时环境中，并且加密密钥必须添加到运行时用户密钥库中才能正常工作。
 
 ## 主要选项

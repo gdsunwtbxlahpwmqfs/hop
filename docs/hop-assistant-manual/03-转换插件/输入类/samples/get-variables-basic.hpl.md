@@ -22,6 +22,6 @@
 
 ## Notes
 
-get a number of different variables from the current Apache Hop project, os, java and user environment
+get a number of different variables from the current Qi Hop project, os, java and user environment
 
 ---

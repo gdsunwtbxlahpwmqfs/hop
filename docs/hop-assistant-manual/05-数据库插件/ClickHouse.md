@@ -2,7 +2,7 @@
 
 ## 概述
 
-ClickHouse 是一个面向列式存储（Columnar）的数据库管理系统，适用于在线分析处理（OLAP）场景。其 JDBC 驱动已内置在 hfxt data process 中。
+ClickHouse 是一个面向列式存储（Columnar）的数据库管理系统，适用于在线分析处理（OLAP）场景。其 JDBC 驱动已内置在 Qi 数据治理平台 中。
 
 ## 主要连接参数
 

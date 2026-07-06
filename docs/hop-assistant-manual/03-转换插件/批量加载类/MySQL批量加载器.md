@@ -1,7 +1,9 @@
 # MySQL 批量加载器
 
-MySQL 批量加载器（MySql Bulk Loader）转换使用 copy 命令加载数据，而不是发送单独的插入语句。
+## 功能概述
 
+
+MySQL 批量加载器（MySql Bulk Loader）转换使用 copy 命令加载数据，而不是发送单独的插入语句。
 它会创建一个本地文件，然后使用 `LOAD DATA` 命令加载该文件。更多信息请参见 https://dev.mysql.com/doc/refman/9.2/en/load-data.html[MySQL 文档]。
 
 ## 主要选项
@@ -13,6 +15,531 @@ MySQL 批量加载器（MySql Bulk Loader）转换使用 copy 命令加载数据
 | 目标表 | 要加载的目标表名 |
 | 字段映射 | 输入字段到表列的映射 |
 | 加载操作 | 加载操作类型 |
+
+## XML代码模板
+
+```xml
+<pipeline>
+  <info>
+    <name>validate-tests-in-folder</name>
+    <name_sync_with_filename>N</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
+    <parameters>
+      <parameter>
+        <name>PARENT_FOLDER</name>
+        <default_value/>
+        <description>The folder in which the parent workflow was executed.</description>
+      </parameter>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2019/08/07 14:54:33.013</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2019/08/07 14:54:33.013</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorred>201</backgroundcolorred>
+      <bordercolorblue>90</bordercolorblue>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorred>14</bordercolorred>
+      <fontbold>N</fontbold>
+      <fontcolorblue>90</fontcolorblue>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorred>14</fontcolorred>
+      <fontitalic>N</fontitalic>
+      <fontname>Noto Sans</fontname>
+      <fontsize>11</fontsize>
+      <height>-1</height>
+      <xloc>112</xloc>
+      <yloc>368</yloc>
+      <note>Find all tests and limit the pipelines to the ones in ${TEST_FOLDER}
+Then execute all the tests and get the results.
+If any of the tests fails, log a report and abort.  </note>
+      <width>354</width>
+    </notepad>
+  </notepads>
+  <order>
+    <hop>
+      <from>limit paths</from>
+      <to>Execute Unit Tests</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get all tests</from>
+      <to>parentFolder</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>with data set</from>
+      <to>message</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>message</from>
+      <to>Errors only</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Errors only</from>
+      <to>count</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Log failing tests</from>
+      <to>Abort</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>count</from>
+      <to>count>0</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>count>0</from>
+      <to>Log failing tests</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>parentFolder</from>
+      <to>folder</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>folder</from>
+      <to>limit paths</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Execute Unit Tests</from>
+      <to>with data set</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Abort</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <abort_option>ABORT_WITH_ERROR</abort_option>
+    <always_log_rows>N</always_log_rows>
+    <message>There was at least one failing unit test in ${TEST_FOLDER}</message>
+    <row_threshold>0</row_threshold>
+    <attributes/>
+    <GUI>
+      <xloc>848</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Errors only</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>=</function>
+        <leftvalue>error</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+        <value>
+          <isnull>N</isnull>
+          <length>-1</length>
+          <name>constant</name>
+          <precision>-1</precision>
+          <text>Y</text>
+          <type>Boolean</type>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Execute Unit Tests</name>
+    <type>ExecuteTests</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <comment_field>comment</comment_field>
+    <data_set_name_field>dataset</data_set_name_field>
+    <error_field>error</error_field>
+    <pipeline_name_field>pipeline</pipeline_name_field>
+    <test_name_input_field>name</test_name_input_field>
+    <transform_name_field>transform</transform_name_field>
+    <type_to_execute>DEVELOPMENT</type_to_execute>
+    <unit_test_name_field>unittest</unit_test_name_field>
+    <attributes/>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Get all tests</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name>${PROJECT_HOME}/metadata/unit-test/</name>
+      <filemask>.*\.json$</filemask>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>name</name>
+        <path>$.name</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>filename</name>
+        <path>$.pipeline_filename</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>64</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Log failing tests</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <displayHeader>Y</displayHeader>
+    <fields>
+      <field>
+        <name>failingTests</name>
+      </field>
+    </fields>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <loglevel>Basic</loglevel>
+    <logmessage>There are failing tests:</logmessage>
+    <attributes/>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>count</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <add_linenr>N</add_linenr>
+    <all_rows>N</all_rows>
+    <directory>${java.io.tmpdir}</directory>
+    <fields>
+      <field>
+        <aggregate>count</aggregate>
+        <subject>comment</subject>
+        <type>COUNT_ALL</type>
+      </field>
+      <field>
+        <aggregate>failingTests</aggregate>
+        <subject>unittest</subject>
+        <type>CONCAT_STRING</type>
+        <valuefield>, </valuefield>
+      </field>
+    </fields>
+    <give_back_row>Y</give_back_row>
+    <group>
+</group>
+    <ignore_aggregate>N</ignore_aggregate>
+    <prefix>grp</prefix>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>count>0</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>&gt;</function>
+        <leftvalue>count</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+        <value>
+          <isnull>N</isnull>
+          <length>-1</length>
+          <mask>####0;-####0</mask>
+          <name>constant</name>
+          <precision>0</precision>
+          <text>0</text>
+          <type>Integer</type>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>folder</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <case_sensitive>N</case_sensitive>
+        <in_stream_name>parentFolder</in_stream_name>
+        <is_unicode>N</is_unicode>
+        <out_stream_name>folder</out_stream_name>
+        <replace_string>file://${PROJECT_HOME}</replace_string>
+        <set_empty_string>N</set_empty_string>
+        <use_regex>N</use_regex>
+        <whole_word>N</whole_word>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>limit paths</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>CONTAINS</function>
+        <leftvalue>filename</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+        <rightvalue>folder</rightvalue>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>message</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var message;
+if (error==true) {
+  message = "ERROR";
+} else {
+  message = "SUCCESS";
+}
+
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>message</name>
+        <rename>message</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>parentFolder</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>parentFolder</name>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <type>String</type>
+        <variable>${PARENT_FOLDER}</variable>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>with data set</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>IS NOT NULL</function>
+        <leftvalue>dataset</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>
+```
 
 ## 注意事项
 

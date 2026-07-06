@@ -1,7 +1,9 @@
 # PGP验证文件签名（Verify file signature with PGP）
 
-`Verify file signature with PGP` 动作可用于验证文件[签名以确保其真实性](https://www.gnupg.org/gph/en/manual/x135.html)。
+## 功能概述
 
+
+`Verify file signature with PGP` 动作可用于验证文件[签名以确保其真实性](https://www.gnupg.org/gph/en/manual/x135.html)。
 GnuPG 包必须安装在运行时环境中，并且加密密钥必须添加到运行时用户密钥库中才能正常工作。
 
 ## 主要选项
