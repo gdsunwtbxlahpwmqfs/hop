@@ -1497,6 +1497,7 @@ public class HopGui
       root = ID_MAIN_MENU,
       id = ID_MAIN_MENU_VIEW_FULL_SCREEN,
       label = "i18n::HopGui.Menu.View.FullScreen",
+      image = "ui/images/fullscreen.svg",
       parentId = ID_MAIN_MENU_VIEW_PARENT_ID)
   @GuiKeyboardShortcut(alt = true, key = SWT.F11)
   @GuiOsxKeyboardShortcut(command = true, control = true, key = 'F')

@@ -87,6 +87,8 @@ import org.apache.hop.ui.core.gui.IToolbarContainer;
 import org.apache.hop.ui.core.widget.TreeMemory;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.HopGuiExtensionPoint;
+import org.apache.hop.ui.hopgui.perspective.explorer.config.ExplorerPerspectiveConfig;
+import org.apache.hop.ui.hopgui.perspective.explorer.config.ExplorerPerspectiveConfigSingleton;
 import org.apache.hop.ui.hopgui.HopGuiKeyHandler;
 import org.apache.hop.ui.hopgui.HopWebUrlHelper;
 import org.apache.hop.ui.hopgui.ToolbarFacade;
@@ -463,7 +465,15 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
     String oldRootFolder = rootFolder;
     String oldRootName = rootName;
     rootFolder = hopGui.getVariables().getVariable("user.home");
-    rootName = "Home folder";
+    rootName = BaseMessages.getString(PKG, "ExplorerPerspective.RootFolder.Name");
+
+    ExplorerPerspectiveConfig config = ExplorerPerspectiveConfigSingleton.getConfig();
+    if (StringUtils.isNotEmpty(config.getRootFolder())) {
+      rootFolder = config.getRootFolder();
+    }
+    if (StringUtils.isNotEmpty(config.getRootName())) {
+      rootName = config.getRootName();
+    }
 
     DetermineRootFolderExtension ext =
         new DetermineRootFolderExtension(hopGui, rootFolder, rootName);

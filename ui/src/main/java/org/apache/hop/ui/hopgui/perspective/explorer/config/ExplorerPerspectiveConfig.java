@@ -25,12 +25,16 @@ public class ExplorerPerspectiveConfig {
   private String fileLoadingMaxSize;
   private Boolean fileExplorerVisibleByDefault;
   private Boolean openingHelpFiles;
+  private String rootFolder;
+  private String rootName;
 
   public ExplorerPerspectiveConfig() {
     this.lazyLoadingDepth = "0";
     this.fileLoadingMaxSize = "16";
     this.fileExplorerVisibleByDefault = true;
     this.openingHelpFiles = false;
+    this.rootFolder = null;
+    this.rootName = null;
   }
 
   public ExplorerPerspectiveConfig(ExplorerPerspectiveConfig config) {
@@ -39,6 +43,8 @@ public class ExplorerPerspectiveConfig {
     this.fileLoadingMaxSize = config.fileLoadingMaxSize;
     this.fileExplorerVisibleByDefault = config.fileExplorerVisibleByDefault;
     this.openingHelpFiles = config.openingHelpFiles;
+    this.rootFolder = config.rootFolder;
+    this.rootName = config.rootName;
   }
 
   public String getLazyLoadingDepth() {
@@ -71,5 +77,21 @@ public class ExplorerPerspectiveConfig {
 
   public void setOpeningHelpFiles(Boolean openingHelpFiles) {
     this.openingHelpFiles = openingHelpFiles;
+  }
+
+  public String getRootFolder() {
+    return rootFolder;
+  }
+
+  public void setRootFolder(String rootFolder) {
+    this.rootFolder = rootFolder;
+  }
+
+  public String getRootName() {
+    return rootName;
+  }
+
+  public void setRootName(String rootName) {
+    this.rootName = rootName;
   }
 }
