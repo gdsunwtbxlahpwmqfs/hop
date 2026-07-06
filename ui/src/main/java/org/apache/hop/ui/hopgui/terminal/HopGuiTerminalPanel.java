@@ -385,6 +385,7 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       root = HopGui.ID_MAIN_MENU,
       id = ID_MAIN_MENU_TOOLS_TERMINAL,
       label = "i18n::HopGuiTerminalPanel.Menu.Terminal",
+      image = "ui/images/terminal.svg",
       parentId = HopGui.ID_MAIN_MENU_TOOLS_PARENT_ID)
   @GuiKeyboardShortcut(control = true, key = 'j', global = true)
   @GuiOsxKeyboardShortcut(command = true, key = 'j', global = true)
@@ -401,6 +402,7 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       root = HopGui.ID_MAIN_MENU,
       id = ID_MAIN_MENU_TOOLS_NEW_TERMINAL,
       label = "i18n::HopGuiTerminalPanel.Menu.NewTerminal",
+      image = "ui/images/terminal.svg",
       parentId = HopGui.ID_MAIN_MENU_TOOLS_PARENT_ID)
   @GuiKeyboardShortcut(control = true, shift = true, key = 'j', global = true)
   @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'j', global = true)

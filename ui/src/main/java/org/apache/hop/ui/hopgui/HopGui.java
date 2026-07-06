@@ -1033,7 +1033,10 @@ public class HopGui
   public void menu() {
     GuiContextUtil.getInstance()
         .handleActionSelection(
-            shell, "Menu actions...", null, new MenuContextHandler(ID_MAIN_MENU, mainMenuWidgets));
+            shell,
+            BaseMessages.getString(PKG, "HopGui.Menu.Actions"),
+            null,
+            new MenuContextHandler(ID_MAIN_MENU, mainMenuWidgets));
   }
 
   @GuiMenuElement(
