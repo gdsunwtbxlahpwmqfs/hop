@@ -23,7 +23,6 @@ import lombok.Setter;
 import org.apache.hop.metadata.api.HopMetadata;
 import org.apache.hop.metadata.api.HopMetadataBase;
 import org.apache.hop.metadata.api.HopMetadataProperty;
-import org.apache.hop.metadata.api.IHopMetadata;
 
 @HopMetadata(
     key = "variable-resolver",
@@ -33,7 +32,7 @@ import org.apache.hop.metadata.api.IHopMetadata;
     documentationUrl = "/metadata-types/variable-resolver/")
 @Getter
 @Setter
-public class VariableResolver extends HopMetadataBase implements IHopMetadata {
+public class VariableResolver extends HopMetadataBase {
   public static final String GUI_PLUGIN_ELEMENT_PARENT_ID =
       "VariableResolver-PluginSpecific-Options";
 

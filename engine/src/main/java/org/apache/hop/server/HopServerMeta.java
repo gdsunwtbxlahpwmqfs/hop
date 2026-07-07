@@ -766,11 +766,13 @@ public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml {
         @SuppressWarnings("deprecation")
         SSLConnectionSocketFactory socketFactory =
             new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
+        @SuppressWarnings("deprecation")
         Registry<ConnectionSocketFactory> socketFactoryRegistry =
             RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("https", socketFactory)
                 .register("http", PlainConnectionSocketFactory.getSocketFactory())
                 .build();
+        @SuppressWarnings("deprecation")
         BasicHttpClientConnectionManager connectionManager =
             new BasicHttpClientConnectionManager(socketFactoryRegistry);
         return HttpClients.custom().setConnectionManager(connectionManager).build();
