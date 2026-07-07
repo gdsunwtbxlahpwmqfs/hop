@@ -45,16 +45,20 @@ import org.apache.hc.client5.http.impl.auth.BasicAuthCache;
 import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.auth.BasicScheme;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.BasicHttpClientConnectionManager;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.client5.http.socket.ConnectionSocketFactory;
+import org.apache.hc.client5.http.socket.PlainConnectionSocketFactory;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
-import org.apache.hc.client5.http.ssl.TrustSelfSignedStrategy;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.config.Registry;
+import org.apache.hc.core5.http.config.RegistryBuilder;
 import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
@@ -76,7 +80,6 @@ import org.apache.hop.metadata.api.HopMetadata;
 import org.apache.hop.metadata.api.HopMetadataBase;
 import org.apache.hop.metadata.api.HopMetadataProperty;
 import org.apache.hop.metadata.api.HopMetadataPropertyType;
-import org.apache.hop.metadata.api.IHopMetadata;
 import org.apache.hop.metadata.api.IHopMetadataProvider;
 import org.apache.hop.www.GetPipelineStatusServlet;
 import org.apache.hop.www.GetStatusServlet;
@@ -107,7 +110,7 @@ import org.w3c.dom.Node;
     documentationUrl = "/metadata-types/hop-server.html",
     hopMetadataPropertyType = HopMetadataPropertyType.SERVER_DEFINITION,
     supportsGlobalReplace = true)
-public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, IHopMetadata {
+public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml {
   private static final Class<?> PKG = HopServerMeta.class;
   public static final String STRING_HOP_SERVER = "Qi Hop Server";
   private static final Random RANDOM = new Random();
@@ -343,11 +346,17 @@ public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, I
     if (!(obj instanceof HopServerMeta server)) {
       return false;
     }
+    if (name == null) {
+      return false;
+    }
     return name.equalsIgnoreCase(server.getName());
   }
 
   @Override
   public int hashCode() {
+    if (name == null) {
+      return 0;
+    }
     return name.toLowerCase().hashCode();
   }
 
@@ -546,9 +555,10 @@ public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, I
    */
   private String executeAuth(IVariables variables, ClassicHttpRequest method)
       throws IOException, HopException {
-    ClassicHttpResponse httpResponse =
-        (ClassicHttpResponse) getHttpClient().execute(method, getAuthContext(variables));
-    return getResponse(variables, method, httpResponse);
+    try (ClassicHttpResponse httpResponse =
+        getHttpClient().executeOpen(null, method, getAuthContext(variables))) {
+      return getResponse(variables, method, httpResponse);
+    }
   }
 
   private String getResponse(
@@ -703,9 +713,8 @@ public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, I
     org.apache.hc.client5.http.classic.methods.HttpGet method =
         buildExecuteServiceMethod(variables, service, headerValues);
     // Execute request
-    try {
-      ClassicHttpResponse httpResponse =
-          (ClassicHttpResponse) getHttpClient().execute(method, getAuthContext(variables));
+    try (ClassicHttpResponse httpResponse =
+        getHttpClient().executeOpen(null, method, getAuthContext(variables))) {
       int statusCode = httpResponse.getCode();
 
       // The status code
@@ -750,13 +759,21 @@ public class HopServerMeta extends HopMetadataBase implements Cloneable, IXml, I
       if (sslMode) {
         // Connect over an HTTPS connection
         //
-        TrustStrategy acceptingTrustStrategy = new TrustSelfSignedStrategy();
+        TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
         SSLContext sslContext =
             SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
 
+        @SuppressWarnings("deprecation")
         SSLConnectionSocketFactory socketFactory =
             new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
-        return HttpClients.custom().setConnectionManagerShared(true).build();
+        Registry<ConnectionSocketFactory> socketFactoryRegistry =
+            RegistryBuilder.<ConnectionSocketFactory>create()
+                .register("https", socketFactory)
+                .register("http", PlainConnectionSocketFactory.getSocketFactory())
+                .build();
+        BasicHttpClientConnectionManager connectionManager =
+            new BasicHttpClientConnectionManager(socketFactoryRegistry);
+        return HttpClients.custom().setConnectionManager(connectionManager).build();
       } else {
         // Connect using a regular HTTP connection
         //

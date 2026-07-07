@@ -27,7 +27,6 @@ import org.apache.hop.core.config.plugin.ConfigPlugin;
 import org.apache.hop.core.logging.HopLogStore;
 import org.apache.hop.core.plugins.JarCache;
 import org.apache.hop.hop.Hop;
-import org.apache.hop.metadata.api.IHasHopMetadataProvider;
 import org.apache.hop.metadata.util.HopMetadataInstance;
 import org.apache.hop.metadata.util.HopMetadataUtil;
 import picocli.CommandLine;
@@ -38,7 +37,7 @@ import picocli.CommandLine.ParameterException;
 @Getter
 @Setter
 @Command(versionProvider = HopVersionProvider.class)
-public class HopRun extends HopRunBase implements Runnable, IHasHopMetadataProvider {
+public class HopRun extends HopRunBase {
 
   public HopRun() {
     super();

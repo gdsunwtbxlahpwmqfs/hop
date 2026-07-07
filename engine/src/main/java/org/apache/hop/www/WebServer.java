@@ -60,7 +60,6 @@ import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.LowResourceMonitor;
 import org.eclipse.jetty.server.NetworkConnectionLimit;
 import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
@@ -94,6 +93,9 @@ public class WebServer {
   @Setter @Getter private String hostname;
 
   @Setter @Getter private int port;
+
+  // Retained for API compatibility; shutdown is handled by WebServerShutdownHook.
+  @SuppressWarnings("unused")
   private final int shutdownPort;
 
   private String passwordFile;
@@ -409,7 +411,6 @@ public class WebServer {
    * @param connector
    */
   protected void setupJettyOptions(ServerConnector connector) {
-    LowResourceMonitor lowResourceMonitor = new LowResourceMonitor(server);
     if (validProperty(Const.HOP_SERVER_JETTY_ACCEPTORS)) {
       server.addBean(
           new NetworkConnectionLimit(
@@ -491,6 +492,8 @@ public class WebServer {
     return false;
   }
 
+  // Retained for potential future use; currently shutdown is handled by WebServerShutdownHook.
+  @SuppressWarnings("unused")
   private static class MonitorThread extends Thread {
 
     private final ServerSocket socket;
