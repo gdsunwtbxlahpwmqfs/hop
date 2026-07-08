@@ -115,6 +115,8 @@ import org.apache.hop.ui.hopgui.perspective.explorer.file.types.FolderFileType;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.types.GenericFileType;
 import org.apache.hop.ui.hopgui.perspective.metadata.MetadataPerspective;
 import org.apache.hop.ui.hopgui.shared.CanvasZoomHelper;
+import org.apache.hop.ui.hopgui.upload.IUploadService;
+import org.apache.hop.ui.hopgui.upload.UploadServiceFactory;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.apache.hop.ui.util.EnvironmentUtils;
 import org.apache.hop.workflow.WorkflowMeta;
@@ -192,6 +194,7 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       "ExplorerPerspective-Toolbar-10400-Show-hidden";
   public static final String TOOLBAR_ITEM_SELECT_OPENED_FILE =
       "ExplorerPerspective-Toolbar-10500-Select-opened-file";
+  public static final String TOOLBAR_ITEM_UPLOAD = "ExplorerPerspective-Toolbar-10600-Upload";
   public static final String CONTEXT_MENU_CREATE_FOLDER =
       "ExplorerPerspective-ContextMenu-10050-CreateFolder";
   public static final String CONTEXT_MENU_EXPAND_ALL =
@@ -323,6 +326,9 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
 
     createTree(sash);
     createTabFolder(sash);
+
+    // Populate the tree with the home directory on first load
+    refresh();
 
     sash.setWeights(20, 80);
 
@@ -906,6 +912,9 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
   private void openFile(Event event) {
     if (event.item instanceof TreeItem item) {
       TreeItemFolder tif = (TreeItemFolder) item.getData();
+      if (tif == null) {
+        return;
+      }
       if (tif.folder) {
         if (!item.getExpanded()) {
           lazyLoadFolderOnExpand(event);
@@ -2638,6 +2647,52 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
 
   @GuiToolbarElement(
       root = GUI_PLUGIN_TOOLBAR_PARENT_ID,
+      id = TOOLBAR_ITEM_UPLOAD,
+      toolTip = "i18n::ExplorerPerspective.ToolbarElement.Upload.Tooltip",
+      image = "ui/images/upload.svg",
+      separator = true)
+  public void uploadFile() {
+    String dest = getSelectedDirectory();
+
+    try {
+      IUploadService uploadService = UploadServiceFactory.getInstance();
+      uploadService.upload(hopGui.getShell(), dest, this::refresh);
+    } catch (Exception e) {
+      hopGui.getLog().logError("Error opening upload dialog", e);
+    }
+  }
+
+  private String getSelectedDirectory() {
+    String dest = rootFolder;
+    TreeItem[] selection = tree.getSelection();
+    if (selection != null && selection.length > 0) {
+      TreeItem item = selection[0];
+      TreeItemFolder tif = (TreeItemFolder) item.getData();
+      if (tif != null) {
+        Path tifPath = Paths.get(tif.path);
+        if (tif.folder) {
+          dest = tif.path;
+        } else {
+          dest = tifPath.getParent().toString();
+        }
+      }
+    }
+
+    try {
+      Path resolved = Paths.get(dest).normalize();
+      Path root = Paths.get(rootFolder).normalize();
+      if (!resolved.startsWith(root)) {
+        dest = rootFolder;
+      }
+    } catch (Exception e) {
+      dest = rootFolder;
+    }
+
+    return dest;
+  }
+
+  @GuiToolbarElement(
+      root = GUI_PLUGIN_TOOLBAR_PARENT_ID,
       id = TOOLBAR_ITEM_EXPAND_ALL,
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.ExpandAll.Tooltip",
       image = "ui/images/expand-all.svg")
@@ -3010,8 +3065,14 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       }
 
     } catch (Exception e) {
+      // Mark the item as loaded so expanding it again won't retry automatically;
+      // also set a placeholder TreeItemFolder data so clicking the error item is safe.
+      if (item.getData() instanceof TreeItemFolder tif) {
+        tif.loaded = true;
+      }
       TreeItem treeItem = new TreeItem(item, SWT.NONE);
-      treeItem.setText("!!Error refreshing folder!!");
+      treeItem.setText("⚠ Error refreshing folder (check permissions)");
+      treeItem.setForeground(hopGui.getDisplay().getSystemColor(SWT.COLOR_RED));
       hopGui.getLog().logError("Error refresh folder '" + path + "'", e);
     }
   }

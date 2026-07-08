@@ -162,9 +162,25 @@ public class PtyWebSocketEndpoint {
     cleanup(ptyId);
   }
 
+  /** Destroy all active PTY sessions and shut down the reader thread pool. */
+  public static void shutdown() {
+    for (String ptyId : sessions.keySet()) {
+      cleanup(ptyId);
+    }
+    readerPool.shutdownNow();
+    log.logBasic("PTY WebSocket endpoint shut down, all sessions cleaned");
+  }
+
   private static void cleanup(String ptyId) {
     PtySession ptySession = sessions.remove(ptyId);
     if (ptySession != null) {
+      try {
+        // Close the WebSocket session first so the reader loop exits
+        if (ptySession.session.isOpen()) {
+          ptySession.session.close();
+        }
+      } catch (Exception ignored) {
+      }
       try {
         ptySession.process.destroy();
         log.logBasic("Terminal PTY destroyed: " + ptyId);

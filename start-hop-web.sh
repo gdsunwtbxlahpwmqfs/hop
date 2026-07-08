@@ -91,6 +91,23 @@ fi
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/hop-ui-rcp"*
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/org.eclipse.swt."*
 
+# Re-extract hop-ui jars from the war, because the client assembly zip above may
+# have overwritten them with an older cached version (the client zip is built from
+# .m2 and may lag behind the freshly built war).
+unzip -j -o "assemblies/web/target/hop.war" "WEB-INF/lib/hop-ui-*" -d "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" >/dev/null 2>&1
+# Remove the RCP jar that was just re-extracted (keep only hop-ui and hop-ui-rap)
+rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/hop-ui-rcp"*
+
+echo ""
+echo "==> Setting up RAP resources..."
+mkdir -p "${CATALINA_BASE}/rwt-resources/xterm"
+if [ -d "${WEBAPP_DIR}/ROOT/xterm" ]; then
+    cp "${WEBAPP_DIR}/ROOT/xterm/"* "${CATALINA_BASE}/rwt-resources/xterm/"
+    echo "    Copied xterm resources"
+else
+    echo "    Warning: xterm resources not found in webapp"
+fi
+
 CATALINA_OPTS="-Xmx2048m"
 CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_LEVEL=Debug"
@@ -99,7 +116,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=${CATALINA_BASE}/config"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=Hop"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/lib"
-CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources"
+CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 
 export CATALINA_HOME
@@ -108,6 +125,15 @@ export CATALINA_OPTS
 
 mkdir -p "${CATALINA_BASE}/audit"
 mkdir -p "${CATALINA_BASE}/config"
+
+echo ""
+echo "==> Copying configuration files..."
+if [ -f "${HOP_HOME}/resources/disabledGuiElements.xml" ]; then
+    cp "${HOP_HOME}/resources/disabledGuiElements.xml" "${CATALINA_BASE}/config/"
+    echo "    Copied disabledGuiElements.xml"
+else
+    echo "    Warning: disabledGuiElements.xml not found"
+fi
 
 echo ""
 echo "检查 LiteLLM 代理..."

@@ -35,6 +35,8 @@ import org.apache.hop.ui.hopgui.auth.AuthenticationFilter;
 import org.apache.hop.ui.hopgui.auth.LoginServlet;
 import org.apache.hop.ui.hopgui.auth.LogoutServlet;
 import org.apache.hop.ui.hopgui.terminal.PtyWebSocketEndpoint;
+import org.apache.hop.ui.hopgui.upload.TusUploadServlet;
+import org.apache.hop.ui.hopgui.upload.UploadManager;
 import org.eclipse.rap.rwt.engine.RWTServletContextListener;
 
 public class HopWebServletContextListener extends RWTServletContextListener {
@@ -99,6 +101,9 @@ public class HopWebServletContextListener extends RWTServletContextListener {
     // Register Hop Web authentication (login/logout servlets + route-protection filter).
     registerAuthComponents(event);
 
+    // Register upload servlet and extend auth filter for /upload paths.
+    registerUploadComponents(event);
+
     try {
       logger.info("Registering PTY WebSocket endpoint...");
       registerPtyWebSocketEndpoint(event);
@@ -130,7 +135,8 @@ public class HopWebServletContextListener extends RWTServletContextListener {
         context.addServlet("hopLogoutServlet", new LogoutServlet());
     logoutServlet.addMapping(AuthConstants.PATH_LOGOUT);
 
-    // Authentication filter: intercepts /ui and /ui-dark, redirecting to login when needed.
+    // Authentication filter: intercepts /ui, /ui-dark, redirecting to login when needed.
+    // /upload is intentionally not filtered — see AuthenticationFilter.isProtectedPath().
     FilterRegistration.Dynamic authFilter =
         context.addFilter("hopAuthFilter", new AuthenticationFilter());
     authFilter.addMappingForUrlPatterns(
@@ -138,6 +144,24 @@ public class HopWebServletContextListener extends RWTServletContextListener {
 
     logger.info("Hop Web authentication components registered (login, logout, filter)");
     LogChannel.UI.logBasic("Hop Web authentication components registered");
+  }
+
+  private void registerUploadComponents(ServletContextEvent event) {
+    var context = event.getServletContext();
+
+    // Tus upload servlet: handles the tus resumable upload protocol
+    // (OPTIONS/POST/HEAD/PATCH/DELETE)
+    // as well as serving the upload HTML page (GET) and static assets.
+    ServletRegistration.Dynamic uploadServlet =
+        context.addServlet("hopUploadServlet", new TusUploadServlet());
+    uploadServlet.addMapping(
+        AuthConstants.PATH_UPLOAD,
+        AuthConstants.PATH_UPLOAD + "/*",
+        AuthConstants.PATH_UPLOAD_RESOURCES + "/*");
+    uploadServlet.setAsyncSupported(true);
+
+    logger.info("Hop Web upload components registered (TusUploadServlet)");
+    LogChannel.UI.logBasic("Hop Web upload components registered");
   }
 
   private void registerPtyWebSocketEndpoint(ServletContextEvent event) {
@@ -166,10 +190,24 @@ public class HopWebServletContextListener extends RWTServletContextListener {
   @Override
   public void contextDestroyed(ServletContextEvent event) {
     logger.info("=== Hop Web ServletContextListener contextDestroyed called ===");
+
+    // Clean up PTY sessions and reader threads before RWT cleanup
+    try {
+      PtyWebSocketEndpoint.shutdown();
+    } catch (Exception e) {
+      logger.warning("Error during PTY shutdown: " + e.getMessage());
+    }
+
+    // Shut down upload cleanup executor
+    try {
+      UploadManager.getInstance().shutdown();
+    } catch (Exception e) {
+      logger.warning("Error during UploadManager shutdown: " + e.getMessage());
+    }
+
     logger.info("Calling super.contextDestroyed() for RWT cleanup...");
     super.contextDestroyed(event);
-    logger.warning("Shutting down Hop Web VM...");
-    // Kill all remaining things in this VM!
-    System.exit(0);
+
+    logger.info("Hop Web shutdown complete, JVM will exit normally");
   }
 }

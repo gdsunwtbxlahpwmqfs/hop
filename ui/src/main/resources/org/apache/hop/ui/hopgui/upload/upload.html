@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hop Web - Upload Files</title>
+  <link rel="stylesheet" href="<!--RESOURCE_PREFIX-->/upload.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="header-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+      </div>
+      <h1 id="page-heading"></h1>
+    </header>
+
+    <section id="dest-section">
+      <label id="dest-dir-label"></label>
+      <span id="dest-display"></span>
+    </section>
+
+    <section id="strategy-section">
+      <label id="strategy-label"></label>
+      <label class="radio-inline"><input type="radio" name="strategy" value="rename" checked /><span id="strategy-rename"></span></label>
+      <label class="radio-inline"><input type="radio" name="strategy" value="overwrite" /><span id="strategy-overwrite"></span></label>
+    </section>
+
+    <section id="drop-zone">
+      <div class="drop-content">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p id="drop-area-text"></p>
+        <input type="file" id="file-input" multiple style="display:none" />
+      </div>
+    </section>
+
+    <section id="file-list">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-name" id="th-name"></th>
+            <th class="col-size" id="th-size"></th>
+            <th class="col-progress" id="th-progress"></th>
+            <th class="col-speed" id="th-speed"></th>
+            <th class="col-status" id="th-status"></th>
+            <th class="col-action" id="th-action"></th>
+          </tr>
+        </thead>
+        <tbody id="file-tbody"></tbody>
+      </table>
+      <div id="empty-msg"></div>
+    </section>
+
+    <section id="actions">
+      <button id="btn-pause-all" disabled></button>
+      <button id="btn-cancel-all" disabled></button>
+      <button id="btn-close"></button>
+    </section>
+  </div>
+
+  <script src="<!--RESOURCE_PREFIX-->/tus.min.js"></script>
+  <!--I18N_CONFIG-->
+  <!--UPLOAD_CONFIG-->
+  <script src="<!--RESOURCE_PREFIX-->/upload.js"></script>
+</body>
+</html>

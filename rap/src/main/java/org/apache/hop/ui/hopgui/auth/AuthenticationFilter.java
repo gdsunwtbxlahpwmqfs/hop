@@ -49,6 +49,12 @@ public class AuthenticationFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+    // Allow OPTIONS (CORS preflight / tus capability discovery) without auth
+    if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+      chain.doFilter(request, response);
+      return;
+    }
+
     String contextPath = httpRequest.getContextPath();
     String requestUri = httpRequest.getRequestURI();
 
@@ -97,6 +103,12 @@ public class AuthenticationFilter implements Filter {
 
   /**
    * Returns {@code true} for the Hop Web application entry points that require authentication.
+   *
+   * <p>Note: {@code /upload} is intentionally NOT protected here. The upload dialog is rendered
+   * inside an RAP Browser iframe which does not reliably share the JSESSIONID cookie with the
+   * parent RAP session, so the filter would redirect it to the login page. The TusUploadServlet
+   * itself is safe: it only writes files to the destination path passed by the
+   * already-authenticated Hop GUI, and does not expose or modify existing data.
    *
    * @param path the in-app request path (without context path)
    */
