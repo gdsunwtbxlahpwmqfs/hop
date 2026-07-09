@@ -91,6 +91,8 @@ import org.apache.hop.ui.hopgui.HopGuiKeyHandler;
 import org.apache.hop.ui.hopgui.HopWebUrlHelper;
 import org.apache.hop.ui.hopgui.ToolbarFacade;
 import org.apache.hop.ui.hopgui.context.IGuiContextHandler;
+import org.apache.hop.ui.hopgui.download.DownloadServiceFactory;
+import org.apache.hop.ui.hopgui.download.IDownloadService;
 import org.apache.hop.ui.hopgui.file.HopFileTypePluginType;
 import org.apache.hop.ui.hopgui.file.IHopFileType;
 import org.apache.hop.ui.hopgui.file.IHopFileTypeHandler;
@@ -195,6 +197,7 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
   public static final String TOOLBAR_ITEM_SELECT_OPENED_FILE =
       "ExplorerPerspective-Toolbar-10500-Select-opened-file";
   public static final String TOOLBAR_ITEM_UPLOAD = "ExplorerPerspective-Toolbar-10600-Upload";
+  public static final String TOOLBAR_ITEM_DOWNLOAD = "ExplorerPerspective-Toolbar-10700-Download";
   public static final String CONTEXT_MENU_CREATE_FOLDER =
       "ExplorerPerspective-ContextMenu-10050-CreateFolder";
   public static final String CONTEXT_MENU_EXPAND_ALL =
@@ -2699,6 +2702,36 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
     }
 
     return dest;
+  }
+
+  @GuiToolbarElement(
+      root = GUI_PLUGIN_TOOLBAR_PARENT_ID,
+      id = TOOLBAR_ITEM_DOWNLOAD,
+      toolTip = "i18n::ExplorerPerspective.ToolbarElement.Download.Tooltip",
+      image = "ui/images/download.svg")
+  public void downloadFile() {
+    ExplorerFile file = getSelectedFile();
+    if (file == null) {
+      return;
+    }
+
+    String filePath = file.getFilename();
+    try {
+      Path resolved = Paths.get(filePath).normalize();
+      Path root = Paths.get(rootFolder).normalize();
+      if (!resolved.startsWith(root)) {
+        return;
+      }
+    } catch (Exception e) {
+      return;
+    }
+
+    try {
+      IDownloadService downloadService = DownloadServiceFactory.getInstance();
+      downloadService.download(hopGui.getShell(), filePath, null);
+    } catch (Exception e) {
+      hopGui.getLog().logError("Error downloading file", e);
+    }
   }
 
   @GuiToolbarElement(

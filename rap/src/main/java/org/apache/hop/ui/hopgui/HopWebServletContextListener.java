@@ -34,6 +34,7 @@ import org.apache.hop.ui.hopgui.auth.AuthConstants;
 import org.apache.hop.ui.hopgui.auth.AuthenticationFilter;
 import org.apache.hop.ui.hopgui.auth.LoginServlet;
 import org.apache.hop.ui.hopgui.auth.LogoutServlet;
+import org.apache.hop.ui.hopgui.download.FileDownloadServlet;
 import org.apache.hop.ui.hopgui.terminal.PtyWebSocketEndpoint;
 import org.apache.hop.ui.hopgui.upload.TusUploadServlet;
 import org.apache.hop.ui.hopgui.upload.UploadManager;
@@ -104,6 +105,9 @@ public class HopWebServletContextListener extends RWTServletContextListener {
     // Register upload servlet and extend auth filter for /upload paths.
     registerUploadComponents(event);
 
+    // Register download servlet for file downloads.
+    registerDownloadComponents(event);
+
     try {
       logger.info("Registering PTY WebSocket endpoint...");
       registerPtyWebSocketEndpoint(event);
@@ -162,6 +166,19 @@ public class HopWebServletContextListener extends RWTServletContextListener {
 
     logger.info("Hop Web upload components registered (TusUploadServlet)");
     LogChannel.UI.logBasic("Hop Web upload components registered");
+  }
+
+  private void registerDownloadComponents(ServletContextEvent event) {
+    var context = event.getServletContext();
+
+    // File download servlet: streams files (or zipped directories) to the browser.
+    ServletRegistration.Dynamic downloadServlet =
+        context.addServlet("hopDownloadServlet", new FileDownloadServlet());
+    downloadServlet.addMapping(AuthConstants.PATH_DOWNLOAD);
+    downloadServlet.setAsyncSupported(true);
+
+    logger.info("Hop Web download components registered (FileDownloadServlet)");
+    LogChannel.UI.logBasic("Hop Web download components registered");
   }
 
   private void registerPtyWebSocketEndpoint(ServletContextEvent event) {

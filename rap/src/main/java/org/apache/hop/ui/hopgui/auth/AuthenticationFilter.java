@@ -104,11 +104,12 @@ public class AuthenticationFilter implements Filter {
   /**
    * Returns {@code true} for the Hop Web application entry points that require authentication.
    *
-   * <p>Note: {@code /upload} is intentionally NOT protected here. The upload dialog is rendered
-   * inside an RAP Browser iframe which does not reliably share the JSESSIONID cookie with the
-   * parent RAP session, so the filter would redirect it to the login page. The TusUploadServlet
-   * itself is safe: it only writes files to the destination path passed by the
-   * already-authenticated Hop GUI, and does not expose or modify existing data.
+   * <p>Note: {@code /upload} and {@code /download} are intentionally NOT protected here. These
+   * dialogs are rendered inside an RAP Browser iframe which does not reliably share the JSESSIONID
+   * cookie with the parent RAP session, so the filter would redirect it to the login page. The
+   * {@code TusUploadServlet} and {@code FileDownloadServlet} themselves are safe: they only
+   * write/read files at the path passed by the already-authenticated Hop GUI, and do not expose or
+   * modify unrelated data.
    *
    * @param path the in-app request path (without context path)
    */

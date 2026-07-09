@@ -30,6 +30,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 import org.apache.hop.core.logging.LogChannel;
+import org.apache.hop.i18n.BaseMessages;
 
 /**
  * Handles three concerns in a single endpoint:
@@ -42,6 +43,8 @@ import org.apache.hop.core.logging.LogChannel;
  * </ul>
  */
 public class LoginServlet extends HttpServlet {
+
+  private static final Class<?> PKG = LoginServlet.class;
 
   private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
@@ -107,10 +110,11 @@ public class LoginServlet extends HttpServlet {
       LogChannel.UI.logBasic("Hop Web login successful for user: " + username);
     } else {
       logger.warning("Hop Web login failed for user: " + username);
+      String errorMsg = BaseMessages.getString(PKG, "LoginServlet.Alert.Error.InvalidCredentials");
       if (isAjax) {
-        sendJson(response, HttpServletResponse.SC_UNAUTHORIZED, "用户名或密码错误", null);
+        sendJson(response, HttpServletResponse.SC_UNAUTHORIZED, errorMsg, null);
       } else {
-        String loginUrl = buildErrorRedirectUrl(request, "用户名或密码错误");
+        String loginUrl = buildErrorRedirectUrl(request, errorMsg);
         response.sendRedirect(loginUrl);
       }
     }
@@ -181,7 +185,7 @@ public class LoginServlet extends HttpServlet {
     String resourcePrefix = request.getContextPath() + AuthConstants.PATH_LOGIN_RESOURCES;
     html = html.replace("<!--RESOURCE_PREFIX-->", resourcePrefix);
 
-    // Inject runtime values into the page via data attributes on a config script.
+    // Inject runtime values and i18n messages into the page via config script.
     StringBuilder config = new StringBuilder();
     config.append("<script id=\"login-config\" type=\"application/json\">{");
     config.append("\"contextPath\":\"").append(escapeJson(request.getContextPath())).append("\"");
@@ -191,6 +195,32 @@ public class LoginServlet extends HttpServlet {
     if ("1".equals(errorFlag)) {
       config.append(",\"error\":true");
     }
+
+    // Inject i18n messages
+    config.append(",\"i18n\":{");
+    appendI18n(config, "pageTitle", "LoginServlet.Page.Title");
+    appendI18n(config, "pageSubtitle", "LoginServlet.Page.Subtitle");
+    appendI18n(config, "accountLabel", "LoginServlet.Form.Account.Label");
+    appendI18n(config, "accountPlaceholder", "LoginServlet.Form.Account.Placeholder");
+    appendI18n(config, "passwordLabel", "LoginServlet.Form.Password.Label");
+    appendI18n(config, "passwordPlaceholder", "LoginServlet.Form.Password.Placeholder");
+    appendI18n(config, "passwordToggleTitle", "LoginServlet.Form.Password.Toggle.Title");
+    appendI18n(config, "rememberLabel", "LoginServlet.Form.Remember.Label");
+    appendI18n(config, "submitButton", "LoginServlet.Form.Submit.Button");
+    appendI18n(config, "hintText", "LoginServlet.Form.Hint");
+    appendI18n(config, "transitionText", "LoginServlet.Transition.Text");
+    appendI18n(config, "errorInvalidCredentials", "LoginServlet.Alert.Error.InvalidCredentials");
+    appendI18n(config, "errorRememberExpired", "LoginServlet.Alert.Error.RememberExpired");
+    appendI18n(config, "errorPasswordEncrypt", "LoginServlet.Alert.Error.PasswordEncrypt");
+    appendI18n(config, "errorLoginFailed", "LoginServlet.Alert.Error.LoginFailed");
+    appendI18n(config, "valAccountEmpty", "LoginServlet.Validation.Account.Empty");
+    appendI18n(config, "valAccountTooShort", "LoginServlet.Validation.Account.TooShort");
+    appendI18n(config, "valAccountInvalid", "LoginServlet.Validation.Account.Invalid");
+    appendI18n(config, "valPasswordEmpty", "LoginServlet.Validation.Password.Empty");
+    appendI18n(config, "valPasswordTooShort", "LoginServlet.Validation.Password.TooShort");
+    appendI18n(config, "valPasswordInvalid", "LoginServlet.Validation.Password.Invalid");
+    config.append("}");
+
     config.append("}</script>");
 
     // Replace placeholder so the page knows its context path (important when deployed under a
@@ -199,6 +229,15 @@ public class LoginServlet extends HttpServlet {
     try (PrintWriter out = response.getWriter()) {
       out.print(html);
     }
+  }
+
+  /** Appends an i18n key-value pair to the config JSON. */
+  private void appendI18n(StringBuilder sb, String jsKey, String msgKey) {
+    if (sb.charAt(sb.length() - 1) != '{') {
+      sb.append(",");
+    }
+    String val = BaseMessages.getString(PKG, msgKey);
+    sb.append("\"").append(jsKey).append("\":\"").append(escapeJson(val)).append("\"");
   }
 
   /**

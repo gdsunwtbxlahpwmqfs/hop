@@ -60,6 +60,9 @@ public final class AuthConstants {
   /** Path prefix for static upload resources (CSS/JS). */
   public static final String PATH_UPLOAD_RESOURCES = "/upload-resources";
 
+  /** URL path for the file download endpoint. */
+  public static final String PATH_DOWNLOAD = "/download";
+
   /**
    * Resolves the initial admin password from system property / environment variable, falling back
    * to the hardcoded default. This is only used to seed the database on first start.

@@ -30,7 +30,7 @@
   /* =======================================================================
      1. Config — parsed from the JSON injected by LoginServlet
      ===================================================================== */
-  var config = { contextPath: '', redirect: '', error: false };
+  var config = { contextPath: '', redirect: '', error: false, i18n: {} };
   var configEl = document.getElementById('login-config');
   if (configEl && configEl.textContent) {
     try {
@@ -38,9 +38,35 @@
       config.contextPath = parsed.contextPath || '';
       config.redirect = parsed.redirect || '';
       config.error = !!parsed.error;
+      config.i18n = parsed.i18n || {};
     } catch (e) {
       console.warn('Failed to parse login config', e);
     }
+  }
+
+  /** Gets an i18n message, falling back to the key itself if not found. */
+  function t(key) {
+    return config.i18n[key] || key;
+  }
+
+  /** Applies i18n translations to all elements with data-i18n attributes. */
+  function applyI18n() {
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      el.textContent = t(key);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      el.placeholder = t(key);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-aria-label');
+      el.setAttribute('aria-label', t(key));
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-title');
+      el.setAttribute('title', t(key));
+    });
   }
 
   /* =======================================================================
@@ -60,13 +86,13 @@
    */
   function validateAccount(value) {
     if (!value) {
-      return { valid: false, message: '请输入账号' };
+      return { valid: false, message: t('valAccountEmpty') };
     }
     if (value.length < 2) {
-      return { valid: false, message: '账号至少 2 个字符' };
+      return { valid: false, message: t('valAccountTooShort') };
     }
     if (!USERNAME_RE.test(value)) {
-      return { valid: false, message: '账号含不允许的字符' };
+      return { valid: false, message: t('valAccountInvalid') };
     }
     return { valid: true, message: '' };
   }
@@ -78,13 +104,13 @@
    */
   function validatePassword(value) {
     if (!value) {
-      return { valid: false, message: '请输入密码' };
+      return { valid: false, message: t('valPasswordEmpty') };
     }
     if (value.length < 8) {
-      return { valid: false, message: '密码至少 8 位字符' };
+      return { valid: false, message: t('valPasswordTooShort') };
     }
     if (!PASSWORD_RE.test(value)) {
-      return { valid: false, message: '密码须包含字母和数字' };
+      return { valid: false, message: t('valPasswordInvalid') };
     }
     return { valid: true, message: '' };
   }
@@ -298,7 +324,7 @@
         // the stale remembered hash and let the user log in manually.
         setLoading(false);
         try { localStorage.removeItem(STORAGE_KEY_PWD); } catch (e) {}
-        showAlert('已记住的账号信息已失效，请重新登录');
+        showAlert(t('errorRememberExpired'));
         passwordInput.focus();
       }
     })
@@ -510,7 +536,7 @@
           window.location.href = data.redirect;
         } else {
           setLoading(false);
-          showAlert(data.message || '登录失败，请重试');
+          showAlert(data.message || t('errorLoginFailed'));
           passwordInput.value = '';
           passwordInput.focus();
         }
@@ -535,7 +561,7 @@
     }).catch(function () {
       // SHA-256 computation failed (extremely rare) — abort safely.
       setLoading(false);
-      showAlert('密码加密失败，请刷新页面后重试');
+      showAlert(t('errorPasswordEncrypt'));
     });
   });
 
@@ -552,9 +578,11 @@
      Init
      ===================================================================== */
 
+  applyI18n();
+
   // Show server-side error flag if present (non-AJS fallback login attempt)
   if (config.error) {
-    showAlert('用户名或密码错误');
+    showAlert(t('errorInvalidCredentials'));
   }
 
   restoreRememberedUser();
