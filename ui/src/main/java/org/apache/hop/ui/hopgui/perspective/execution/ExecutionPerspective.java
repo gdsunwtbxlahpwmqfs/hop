@@ -203,8 +203,12 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
     return "execution-perspective";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'i', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'i', global = true)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::ExecutionPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'i',
+      global = true)
   @Override
   public void activate() {
     // Prevents refreshes when not needed.
@@ -640,8 +644,8 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
       id = TOOLBAR_ITEM_FORCE_REFRESH,
       toolTip = "i18n::ExecutionPerspective.ToolbarElement.ForceRefresh.Tooltip",
       image = "ui/images/force-refresh.svg")
-  @GuiKeyboardShortcut(key = SWT.F6)
-  @GuiOsxKeyboardShortcut(key = SWT.F6)
+  @GuiKeyboardShortcut(key = SWT.F6, label = "i18n::ExecutionPerspective.Key.ForcedRefresh")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExecutionPerspective.Key.ForcedRefresh", key = SWT.F6)
   public void forcedRefresh() {
     // This is a manual refresh button push.
     // As such we consider this a forced refresh.
@@ -661,8 +665,8 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
       id = TOOLBAR_ITEM_REFRESH,
       toolTip = "i18n::ExecutionPerspective.ToolbarElement.Refresh.Tooltip",
       image = "ui/images/refresh.svg")
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiKeyboardShortcut(key = SWT.F5, label = "i18n::ExecutionPerspective.Key.Refresh")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExecutionPerspective.Key.Refresh", key = SWT.F5)
   public void refresh() {
     // Only refresh if we're actually displaying anything.
     // Let's be conservative with responsiveness.
@@ -1037,8 +1041,8 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
       toolTip = "i18n::ExecutionPerspective.ToolbarElement.Delete.Tooltip",
       image = "ui/images/delete.svg",
       separator = true)
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::ExecutionPerspective.Key.Delete")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExecutionPerspective.Key.Delete", key = SWT.DEL)
   public void delete() {
     try {
       if (tree.getSelectionCount() != 1) {

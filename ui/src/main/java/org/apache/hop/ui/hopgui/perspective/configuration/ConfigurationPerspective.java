@@ -27,7 +27,6 @@ import lombok.Getter;
 import org.apache.hop.core.Props;
 import org.apache.hop.core.gui.plugin.GuiPlugin;
 import org.apache.hop.core.gui.plugin.GuiRegistry;
-import org.apache.hop.core.gui.plugin.key.GuiKeyboardShortcut;
 import org.apache.hop.core.gui.plugin.key.GuiOsxKeyboardShortcut;
 import org.apache.hop.core.gui.plugin.tab.GuiTabItem;
 import org.apache.hop.core.logging.LogChannel;
@@ -122,8 +121,12 @@ public class ConfigurationPerspective implements IHopPerspective {
     return "configuration";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'c', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'c', global = true)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::ConfigurationPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'c',
+      global = true)
   @Override
   public void activate() {
     hopGui.setActivePerspective(this);

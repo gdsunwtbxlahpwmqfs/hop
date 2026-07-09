@@ -3328,8 +3328,14 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Toolbar.EditProperties.Tooltip",
       image = "ui/images/pipeline.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 't')
-  @GuiOsxKeyboardShortcut(command = true, key = 't')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 't',
+      label = "i18n::HopGuiPipelineGraph.Key.EditPipelineProperties")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiPipelineGraph.Key.EditPipelineProperties",
+      command = true,
+      key = 't')
   public void editPipelineProperties() {
     editProperties(pipelineMeta, hopGui);
   }
@@ -4348,8 +4354,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Tooltip.VerifyPipeline",
       image = "ui/images/check.svg",
       separator = true)
-  @GuiKeyboardShortcut(key = SWT.F7)
-  @GuiOsxKeyboardShortcut(key = SWT.F7)
+  @GuiKeyboardShortcut(key = SWT.F7, label = "i18n::HopGuiPipelineGraph.Key.CheckPipeline")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.CheckPipeline", key = SWT.F7)
   public void checkPipeline() {
 
     // Show the results views
@@ -5427,8 +5433,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Toolbar.Undo.Tooltip",
       image = "ui/images/undo.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, key = 'z')
+  @GuiKeyboardShortcut(control = true, key = 'z', label = "i18n::HopGuiPipelineGraph.Key.Undo")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.Undo", command = true, key = 'z')
   @Override
   public void undo() {
     pipelineUndoDelegate.undoPipelineAction(this, pipelineMeta);
@@ -5441,8 +5447,16 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       // label = "Redo",
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Toolbar.Redo.Tooltip",
       image = "ui/images/redo.svg")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'z')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'z',
+      label = "i18n::HopGuiPipelineGraph.Key.Redo")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiPipelineGraph.Key.Redo",
+      command = true,
+      shift = true,
+      key = 'z')
   @Override
   public void redo() {
     pipelineUndoDelegate.redoPipelineAction(this, pipelineMeta);
@@ -5524,16 +5538,19 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     return canvas.forceFocus();
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'a')
-  @GuiOsxKeyboardShortcut(command = true, key = 'a')
+  @GuiKeyboardShortcut(control = true, key = 'a', label = "i18n::HopGuiPipelineGraph.Key.SelectAll")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiPipelineGraph.Key.SelectAll",
+      command = true,
+      key = 'a')
   @Override
   public void selectAll() {
     pipelineMeta.selectAll();
     updateGui();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ESC)
-  @GuiOsxKeyboardShortcut(key = SWT.ESC)
+  @GuiKeyboardShortcut(key = SWT.ESC, label = "i18n::HopGuiPipelineGraph.Key.UnselectAll")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.UnselectAll", key = SWT.ESC)
   @Override
   public void unselectAll() {
     clearSettings();
@@ -5541,8 +5558,14 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     updateGui();
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'c')
-  @GuiOsxKeyboardShortcut(command = true, key = 'c')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'c',
+      label = "i18n::HopGuiPipelineGraph.Key.CopySelected")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiPipelineGraph.Key.CopySelected",
+      command = true,
+      key = 'c')
   @Override
   public void copySelectedToClipboard() {
     if (pipelineLogDelegate.hasSelectedText()) {
@@ -5553,8 +5576,14 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     }
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'x')
-  @GuiOsxKeyboardShortcut(command = true, key = 'x')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'x',
+      label = "i18n::HopGuiPipelineGraph.Key.CutSelected")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiPipelineGraph.Key.CutSelected",
+      command = true,
+      key = 'x')
   @Override
   public void cutSelectedToClipboard() {
     pipelineClipboardDelegate.copySelected(
@@ -5563,8 +5592,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     notePadDelegate.deleteNotes(pipelineMeta, pipelineMeta.getSelectedNotes());
   }
 
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::HopGuiPipelineGraph.Key.DeleteSelected")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.DeleteSelected", key = SWT.DEL)
   @Override
   public void deleteSelected() {
     // Shortcut only fires when focus is in this graph; delete if we have selection
@@ -5578,8 +5607,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     updateGui();
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'v')
-  @GuiOsxKeyboardShortcut(command = true, key = 'v')
+  @GuiKeyboardShortcut(control = true, key = 'v', label = "i18n::HopGuiPipelineGraph.Key.Paste")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.Paste", command = true, key = 'v')
   @Override
   public void pasteFromClipboard() {
     pasteFromClipboard(new Point(currentMouseX, currentMouseY));
@@ -5617,8 +5646,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
         pipelineMeta, Arrays.asList(context.getTransformMeta()), Collections.emptyList());
   }
 
-  @GuiKeyboardShortcut(key = ' ')
-  @GuiOsxKeyboardShortcut(key = ' ')
+  @GuiKeyboardShortcut(key = ' ', label = "i18n::HopGuiPipelineGraph.Key.ShowOutputFields")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.ShowOutputFields", key = ' ')
   public void showOutputFields() {
     if (lastMove != null) {
 
@@ -5635,8 +5664,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     }
   }
 
-  @GuiKeyboardShortcut(key = 'z')
-  @GuiOsxKeyboardShortcut(key = 'z')
+  @GuiKeyboardShortcut(key = 'z', label = "i18n::HopGuiPipelineGraph.Key.OpenReferencedObject")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiPipelineGraph.Key.OpenReferencedObject", key = 'z')
   public void openReferencedObject() {
     if (lastMove != null) {
 

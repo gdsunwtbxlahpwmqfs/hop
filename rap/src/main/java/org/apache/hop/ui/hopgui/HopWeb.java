@@ -138,7 +138,8 @@ public class HopWeb implements ApplicationConfiguration {
             "org/apache/hop/ui/hopgui/canvas-zoom.js",
             "org/apache/hop/ui/hopgui/monaco-editor.js",
             "org/apache/hop/ui/hopgui/mac-command-keys.js",
-            "org/apache/hop/ui/hopgui/terminal.js")
+            "org/apache/hop/ui/hopgui/terminal.js",
+            "org/apache/hop/ui/hopgui/fullscreen.js")
         .forEach(
             str ->
                 application.addResource(

@@ -387,8 +387,16 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       label = "i18n::HopGuiTerminalPanel.Menu.Terminal",
       image = "ui/images/terminal.svg",
       parentId = HopGui.ID_MAIN_MENU_TOOLS_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, key = 'j', global = true)
-  @GuiOsxKeyboardShortcut(command = true, key = 'j', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'j',
+      global = true,
+      label = "i18n::HopGuiTerminalPanel.Key.ToggleTerminal")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiTerminalPanel.Key.ToggleTerminal",
+      command = true,
+      key = 'j',
+      global = true)
   public void toggleTerminal() {
     if (terminalVisible) {
       hideTerminal();
@@ -404,8 +412,18 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       label = "i18n::HopGuiTerminalPanel.Menu.NewTerminal",
       image = "ui/images/terminal.svg",
       parentId = HopGui.ID_MAIN_MENU_TOOLS_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'j', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'j', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'j',
+      global = true,
+      label = "i18n::HopGuiTerminalPanel.Key.NewTerminal")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiTerminalPanel.Key.NewTerminal",
+      command = true,
+      shift = true,
+      key = 'j',
+      global = true)
   public void newTerminal() {
     createNewTerminal(null, null);
   }

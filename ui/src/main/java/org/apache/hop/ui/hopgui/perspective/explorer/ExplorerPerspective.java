@@ -289,8 +289,12 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
     return "explorer-perspective";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'e', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'e', global = true)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::ExplorerPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'e',
+      global = true)
   @Override
   public void activate() {
     hopGui.setActivePerspective(this);
@@ -2545,8 +2549,8 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       id = TOOLBAR_ITEM_OPEN,
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.Open.Tooltip",
       image = "ui/images/arrow-right.svg")
-  @GuiKeyboardShortcut(key = SWT.F3)
-  @GuiOsxKeyboardShortcut(key = SWT.F3)
+  @GuiKeyboardShortcut(key = SWT.F3, label = "i18n::ExplorerPerspective.Key.OpenFile")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExplorerPerspective.Key.OpenFile", key = SWT.F3)
   public void openFile() {
     TreeItem[] selection = tree.getSelection();
     if (selection == null || selection.length == 0) {
@@ -2636,8 +2640,14 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       id = TOOLBAR_ITEM_SELECT_OPENED_FILE,
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.SelectOpenedFile.Tooltip",
       image = "ui/images/select-target.svg")
-  @GuiKeyboardShortcut(alt = true, key = SWT.F1)
-  @GuiOsxKeyboardShortcut(alt = true, key = SWT.F1)
+  @GuiKeyboardShortcut(
+      alt = true,
+      key = SWT.F1,
+      label = "i18n::ExplorerPerspective.Key.SelectInTree")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::ExplorerPerspective.Key.SelectInTree",
+      alt = true,
+      key = SWT.F1)
   public void selectInTree() {
     CTabFolder active = getTargetTabFolder();
     if (active.getSelectionIndex() >= 0) {
@@ -2769,8 +2779,8 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.Delete.Tooltip",
       image = "ui/images/delete.svg",
       separator = true)
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::ExplorerPerspective.Key.DeleteFile")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExplorerPerspective.Key.DeleteFile", key = SWT.DEL)
   public void deleteFile() {
     // Shortcut only fires when focus is in file explorer
     TreeItem[] selection = tree.getSelection();
@@ -2793,8 +2803,8 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.Rename.Tooltip",
       image = "ui/images/rename.svg",
       separator = false)
-  @GuiKeyboardShortcut(key = SWT.F2)
-  @GuiOsxKeyboardShortcut(key = SWT.F2)
+  @GuiKeyboardShortcut(key = SWT.F2, label = "i18n::ExplorerPerspective.Key.RenameFile")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExplorerPerspective.Key.RenameFile", key = SWT.F2)
   public void renameFile() {
     TreeItem[] selection = tree.getSelection();
     if (selection == null || selection.length == 0) {
@@ -2838,8 +2848,8 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
       id = TOOLBAR_ITEM_REFRESH,
       toolTip = "i18n::ExplorerPerspective.ToolbarElement.Refresh.Tooltip",
       image = "ui/images/refresh.svg")
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiKeyboardShortcut(key = SWT.F5, label = "i18n::ExplorerPerspective.Key.Refresh")
+  @GuiOsxKeyboardShortcut(label = "i18n::ExplorerPerspective.Key.Refresh", key = SWT.F5)
   public void refresh() {
     try {
       determineRootFolderName(hopGui);

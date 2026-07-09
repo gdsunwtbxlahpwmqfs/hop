@@ -47,8 +47,16 @@ public class HopImportGuiPlugin {
       image = "kettle-logo.svg",
       parentId = HopGui.ID_MAIN_MENU_FILE,
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'i', global = true)
-  @GuiOsxKeyboardShortcut(command = true, key = 'i', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'i',
+      global = true,
+      label = "i18n::HopImportGuiPlugin.Key.Import")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopImportGuiPlugin.Key.Import",
+      command = true,
+      key = 'i',
+      global = true)
   public void menuToolsImport() {
     HopGui hopGui = HopGui.getInstance();
     try {

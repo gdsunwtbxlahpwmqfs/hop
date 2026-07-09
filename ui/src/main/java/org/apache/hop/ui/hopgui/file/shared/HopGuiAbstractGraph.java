@@ -26,7 +26,6 @@ import org.apache.hop.core.gui.DPoint;
 import org.apache.hop.core.gui.Point;
 import org.apache.hop.core.gui.Rectangle;
 import org.apache.hop.core.gui.SnapAllignDistribute;
-import org.apache.hop.core.gui.plugin.key.GuiKeyboardShortcut;
 import org.apache.hop.core.gui.plugin.key.GuiOsxKeyboardShortcut;
 import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.core.variables.Variables;
@@ -182,14 +181,19 @@ public abstract class HopGuiAbstractGraph extends DragViewZoomBase
     setChanged();
   }
 
-  @GuiKeyboardShortcut(alt = true, key = SWT.ARROW_RIGHT)
-  @GuiOsxKeyboardShortcut(alt = true, key = SWT.ARROW_RIGHT)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiAbstractGraph.Key.DistributeHorizontal",
+      alt = true,
+      key = SWT.ARROW_RIGHT)
   public void distributeHorizontal() {
     createSnapAlignDistribute().distributehorizontal();
     setChanged();
   }
 
-  @GuiOsxKeyboardShortcut(alt = true, key = SWT.ARROW_UP)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiAbstractGraph.Key.DistributeVertical",
+      alt = true,
+      key = SWT.ARROW_UP)
   public void distributeVertical() {
     createSnapAlignDistribute().distributevertical();
     setChanged();

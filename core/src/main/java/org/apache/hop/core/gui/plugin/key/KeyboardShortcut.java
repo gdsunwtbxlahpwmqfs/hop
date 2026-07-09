@@ -36,6 +36,13 @@ public class KeyboardShortcut {
 
   private String parentMethodName;
 
+  private String label;
+
+  /**
+   * The declaring class of the method, kept for i18n resource lookup with the correct ClassLoader.
+   */
+  private Class<?> declaringClass;
+
   public KeyboardShortcut() {
     keyCode = 0;
   }
@@ -50,6 +57,8 @@ public class KeyboardShortcut {
     this.global = shortcut.global();
     this.parentClassName = parentMethod.getDeclaringClass().getName();
     this.parentMethodName = parentMethod.getName();
+    this.declaringClass = parentMethod.getDeclaringClass();
+    this.label = translateLabel(shortcut.label(), parentMethod.getDeclaringClass());
   }
 
   public KeyboardShortcut(GuiOsxKeyboardShortcut shortcut, Method parentMethod) {
@@ -62,6 +71,23 @@ public class KeyboardShortcut {
     this.global = shortcut.global();
     this.parentClassName = parentMethod.getDeclaringClass().getName();
     this.parentMethodName = parentMethod.getName();
+    this.declaringClass = parentMethod.getDeclaringClass();
+    this.label = translateLabel(shortcut.label(), parentMethod.getDeclaringClass());
+  }
+
+  private String translateLabel(String label, Class<?> declaringClass) {
+    if (label == null || label.isEmpty()) {
+      return label;
+    }
+    try {
+      String translated = org.apache.hop.core.util.TranslateUtil.translate(label, declaringClass);
+      if (translated != null && !translated.isEmpty()) {
+        return translated;
+      }
+    } catch (Exception e) {
+      // Fall through, return original label
+    }
+    return label;
   }
 
   @Override
@@ -345,6 +371,31 @@ public class KeyboardShortcut {
    */
   public void setParentMethodName(String parentMethodName) {
     this.parentMethodName = parentMethodName;
+  }
+
+  public String getLabel() {
+    return label;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  /**
+   * Gets the declaring class of the shortcut method, used for i18n resource lookup with the correct
+   * ClassLoader.
+   *
+   * @return the declaring class, or null if not available
+   */
+  public Class<?> getDeclaringClass() {
+    return declaringClass;
+  }
+
+  /**
+   * @param declaringClass The declaring class to set
+   */
+  public void setDeclaringClass(Class<?> declaringClass) {
+    this.declaringClass = declaringClass;
   }
 
   public boolean isGlobal() {

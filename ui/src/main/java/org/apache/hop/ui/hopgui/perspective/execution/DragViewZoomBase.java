@@ -68,47 +68,47 @@ public abstract class DragViewZoomBase extends Composite {
 
   public abstract void setZoomLabel();
 
-  @GuiKeyboardShortcut(key = SWT.HOME)
-  @GuiOsxKeyboardShortcut(key = SWT.HOME)
+  @GuiKeyboardShortcut(key = SWT.HOME, label = "i18n::DragViewZoomBase.Key.ViewReset")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ViewReset", key = SWT.HOME)
   public void viewReset() {
     offset = new DPoint(0.0, 0.0);
     redraw();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ARROW_LEFT)
-  @GuiOsxKeyboardShortcut(key = SWT.ARROW_LEFT)
+  @GuiKeyboardShortcut(key = SWT.ARROW_LEFT, label = "i18n::DragViewZoomBase.Key.ViewLeft")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ViewLeft", key = SWT.ARROW_LEFT)
   public void viewLeft() {
     offset.x += 15 * magnification * PropsUi.getNativeZoomFactor();
     validateOffset();
     redraw();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ARROW_RIGHT)
-  @GuiOsxKeyboardShortcut(key = SWT.ARROW_RIGHT)
+  @GuiKeyboardShortcut(key = SWT.ARROW_RIGHT, label = "i18n::DragViewZoomBase.Key.ViewRight")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ViewRight", key = SWT.ARROW_RIGHT)
   public void viewRight() {
     offset.x -= 15 * magnification * PropsUi.getNativeZoomFactor();
     validateOffset();
     redraw();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ARROW_UP)
-  @GuiOsxKeyboardShortcut(key = SWT.ARROW_UP)
+  @GuiKeyboardShortcut(key = SWT.ARROW_UP, label = "i18n::DragViewZoomBase.Key.ViewUp")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ViewUp", key = SWT.ARROW_UP)
   public void viewUp() {
     offset.y += 15 * magnification * PropsUi.getNativeZoomFactor();
     validateOffset();
     redraw();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ARROW_DOWN)
-  @GuiOsxKeyboardShortcut(key = SWT.ARROW_DOWN)
+  @GuiKeyboardShortcut(key = SWT.ARROW_DOWN, label = "i18n::DragViewZoomBase.Key.ViewDown")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ViewDown", key = SWT.ARROW_DOWN)
   public void viewDown() {
     offset.y -= 15 * magnification * PropsUi.getNativeZoomFactor();
     validateOffset();
     redraw();
   }
 
-  @GuiKeyboardShortcut(control = true, key = '+')
-  @GuiOsxKeyboardShortcut(command = true, key = '+')
+  @GuiKeyboardShortcut(control = true, key = '+', label = "i18n::DragViewZoomBase.Key.ZoomIn")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ZoomIn", command = true, key = '+')
   public void zoomIn() {
     magnification += 0.1f;
     // Minimum 1000%
@@ -157,14 +157,14 @@ public abstract class DragViewZoomBase extends Composite {
   }
 
   // Double keyboard shortcut zoom in '+' or '='
-  @GuiKeyboardShortcut(control = true, key = '=')
-  @GuiOsxKeyboardShortcut(command = true, key = '=')
+  @GuiKeyboardShortcut(control = true, key = '=', label = "i18n::DragViewZoomBase.Key.ZoomIn2")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ZoomIn2", command = true, key = '=')
   public void zoomIn2() {
     zoomIn();
   }
 
-  @GuiKeyboardShortcut(control = true, key = '-')
-  @GuiOsxKeyboardShortcut(command = true, key = '-')
+  @GuiKeyboardShortcut(control = true, key = '-', label = "i18n::DragViewZoomBase.Key.ZoomOut")
+  @GuiOsxKeyboardShortcut(label = "i18n::DragViewZoomBase.Key.ZoomOut", command = true, key = '-')
   public void zoomOut() {
     magnification -= 0.1f;
     // Minimum 10%
@@ -211,8 +211,10 @@ public abstract class DragViewZoomBase extends Composite {
     redraw();
   }
 
-  @GuiKeyboardShortcut(control = true, key = '0')
-  @GuiOsxKeyboardShortcut(command = true, key = '0')
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::DragViewZoomBase.Key.Zoom100Percent",
+      command = true,
+      key = '0')
   public void zoom100Percent() {
     magnification = 1.0f;
     validateOffset();
@@ -221,14 +223,18 @@ public abstract class DragViewZoomBase extends Composite {
   }
 
   // Double keyboard shortcut zoom 100% '0' or keypad 0
-  @GuiKeyboardShortcut(control = true, key = SWT.KEYPAD_0)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.KEYPAD_0)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::DragViewZoomBase.Key.Zoom100Percent2",
+      command = true,
+      key = SWT.KEYPAD_0)
   public void zoom100Percent2() {
     zoom100Percent();
   }
 
-  @GuiKeyboardShortcut(control = true, key = '*')
-  @GuiOsxKeyboardShortcut(command = true, key = '*')
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::DragViewZoomBase.Key.ZoomFitToScreen",
+      command = true,
+      key = '*')
   public void zoomFitToScreen() {
     if (maximum.x <= 0 || maximum.y <= 0) {
       return;
@@ -255,8 +261,10 @@ public abstract class DragViewZoomBase extends Composite {
   }
 
   // Double keyboard shortcut zoom fit to screen '*' or keypad *
-  @GuiKeyboardShortcut(control = true, key = SWT.KEYPAD_MULTIPLY)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.KEYPAD_MULTIPLY)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::DragViewZoomBase.Key.ZoomFitToScreen2",
+      command = true,
+      key = SWT.KEYPAD_MULTIPLY)
   public void zoomFitToScreen2() {
     zoomFitToScreen();
   }

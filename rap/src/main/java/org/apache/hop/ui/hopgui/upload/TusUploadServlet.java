@@ -342,6 +342,7 @@ public class TusUploadServlet extends HttpServlet {
     appendI18n(i18n, "statusResume", "Upload.Status.Resume");
     appendI18n(i18n, "statusRetry", "Upload.Status.Retry");
     appendI18n(i18n, "remove", "Upload.Remove");
+    appendI18n(i18n, "confirmClose", "Upload.Confirm.Close");
     appendI18n(i18n, "errorTooLarge", "Upload.Error.TooLarge");
     i18n.append("};</script>");
     html = html.replace("<!--I18N_CONFIG-->", i18n.toString());

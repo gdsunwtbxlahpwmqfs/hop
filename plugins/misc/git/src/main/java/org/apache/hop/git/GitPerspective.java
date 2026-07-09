@@ -230,8 +230,18 @@ public class GitPerspective implements IHopPerspective {
     return "GitPerspective";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'g', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'g', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'g',
+      global = true,
+      label = "i18n::GitPerspective.Key.Activate")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'g',
+      global = true)
   @Override
   public void activate() {
     hopGui.setActivePerspective(this);
@@ -1056,8 +1066,14 @@ public class GitPerspective implements IHopPerspective {
       id = GitPerspective.TOOLBAR_ITEM_PULL,
       toolTip = "i18n::GitGuiPlugin.Toolbar.Pull.Tooltip",
       image = "pull.svg")
-  @GuiKeyboardShortcut(control = true, key = 'T')
-  @GuiOsxKeyboardShortcut(control = true, key = 'T')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'T',
+      label = "i18n::GitPerspective.Key.ShowBranchDialog")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitPerspective.Key.ShowBranchDialog",
+      control = true,
+      key = 'T')
   public void pull() {
     try {
       GitGuiPlugin.getInstance().getGit().pull();
@@ -1272,8 +1288,14 @@ public class GitPerspective implements IHopPerspective {
       id = TOOLBAR_ITEM_FILE_SHOW_TEXT_DIFF,
       toolTip = "i18n::GitPerspective.Toolbar.ShowTextDiff.Tooltip",
       image = "diff-text.svg")
-  @GuiKeyboardShortcut(control = true, key = 'D')
-  @GuiOsxKeyboardShortcut(control = true, key = 'D')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'D',
+      label = "i18n::GitPerspective.Key.DiscardAllChanges")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitPerspective.Key.DiscardAllChanges",
+      control = true,
+      key = 'D')
   public void showTextDiff() {
     RevCommit commit = getSelectedCommit();
     String fileName = getSelectedFile();
@@ -1312,8 +1334,16 @@ public class GitPerspective implements IHopPerspective {
       id = TOOLBAR_ITEM_FILE_SHOW_GRAPH_DIFF,
       toolTip = "i18n::GitPerspective.Toolbar.ShowGraphDiff.Tooltip",
       image = "diff-graph.svg")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'D')
-  @GuiOsxKeyboardShortcut(control = true, shift = true, key = 'D')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'D',
+      label = "i18n::GitPerspective.Key.DiscardSelectedChanges")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitPerspective.Key.DiscardSelectedChanges",
+      control = true,
+      shift = true,
+      key = 'D')
   public void showGraphDiff() {
     RevCommit commit = getSelectedCommit();
     String fileName = getSelectedFile();

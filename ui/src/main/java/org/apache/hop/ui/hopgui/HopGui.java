@@ -1057,8 +1057,8 @@ public class HopGui
       id = ID_MAIN_TOOLBAR_NEW,
       image = "ui/images/add.svg",
       toolTip = "i18n::HopGui.Menu.File.New")
-  @GuiKeyboardShortcut(control = true, key = 'n')
-  @GuiOsxKeyboardShortcut(command = true, key = 'n')
+  @GuiKeyboardShortcut(control = true, key = 'n', label = "i18n::HopGui.Key.FileNew")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.FileNew", command = true, key = 'n')
   public void menuFileNew() {
     contextDelegate.fileNew();
   }
@@ -1075,8 +1075,8 @@ public class HopGui
       image = "ui/images/open.svg",
       toolTip = "i18n::HopGui.Menu.File.Open",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'o')
-  @GuiOsxKeyboardShortcut(command = true, key = 'o')
+  @GuiKeyboardShortcut(control = true, key = 'o', label = "i18n::HopGui.Key.FileOpen")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.FileOpen", command = true, key = 'o')
   public void menuFileOpen() {
     fileDelegate.fileOpen();
   }
@@ -1102,8 +1102,8 @@ public class HopGui
       id = ID_MAIN_TOOLBAR_SAVE,
       image = "ui/images/save.svg",
       toolTip = "i18n::HopGui.Menu.File.Save")
-  @GuiKeyboardShortcut(control = true, key = 's')
-  @GuiOsxKeyboardShortcut(command = true, key = 's')
+  @GuiKeyboardShortcut(control = true, key = 's', label = "i18n::HopGui.Key.FileSave")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.FileSave", command = true, key = 's')
   public void menuFileSave() {
     fileDelegate.fileSave();
   }
@@ -1119,8 +1119,16 @@ public class HopGui
       id = ID_MAIN_TOOLBAR_SAVE_AS,
       image = "ui/images/save-as.svg",
       toolTip = "i18n::HopGui.Menu.File.SaveAs")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 's')
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 's')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 's',
+      label = "i18n::HopGui.Key.FileSaveAs")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.FileSaveAs",
+      command = true,
+      shift = true,
+      key = 's')
   public void menuFileSaveAs() {
     fileDelegate.fileSaveAs();
   }
@@ -1143,8 +1151,8 @@ public class HopGui
       parentId = ID_MAIN_MENU_FILE,
       image = "ui/images/close.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'w')
-  @GuiOsxKeyboardShortcut(command = true, key = 'w')
+  @GuiKeyboardShortcut(control = true, key = 'w', label = "i18n::HopGui.Key.FileClose")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.FileClose", command = true, key = 'w')
   public void menuFileClose() {
     fileDelegate.fileClose();
   }
@@ -1155,8 +1163,16 @@ public class HopGui
       label = "i18n::HopGui.Menu.File.Close.All",
       parentId = ID_MAIN_MENU_FILE,
       image = "ui/images/close.svg")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'w')
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'w')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'w',
+      label = "i18n::HopGui.Key.FileCloseAll")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.FileCloseAll",
+      command = true,
+      shift = true,
+      key = 'w')
   public void menuFileCloseAll() {
     if (fileDelegate.saveGuardAllFiles()) {
       fileDelegate.closeAllFiles();
@@ -1170,8 +1186,8 @@ public class HopGui
       parentId = ID_MAIN_MENU_FILE,
       image = "ui/images/shutdown.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'q')
-  @GuiOsxKeyboardShortcut(command = true, key = 'q')
+  @GuiKeyboardShortcut(control = true, key = 'q', label = "i18n::HopGui.Key.FileExit")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.FileExit", command = true, key = 'q')
   public void menuFileExit() {
 
     if (fileDelegate.fileExit()) {
@@ -1198,8 +1214,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Undo",
       image = "ui/images/undo.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, key = 'z')
+  @GuiKeyboardShortcut(control = true, key = 'z', label = "i18n::HopGui.Key.EditUndo")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditUndo", command = true, key = 'z')
   public void menuEditUndo() {
     getActiveFileTypeHandler().undo();
   }
@@ -1210,8 +1226,12 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Redo",
       image = "ui/images/redo.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'z')
+  @GuiKeyboardShortcut(control = true, shift = true, key = 'z', label = "i18n::HopGui.Key.EditRedo")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditRedo",
+      command = true,
+      shift = true,
+      key = 'z')
   public void menuEditRedo() {
     getActiveFileTypeHandler().redo();
   }
@@ -1223,8 +1243,8 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       image = "ui/images/select-all.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'a')
-  @GuiOsxKeyboardShortcut(command = true, key = 'a')
+  @GuiKeyboardShortcut(control = true, key = 'a', label = "i18n::HopGui.Key.EditSelectAll")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditSelectAll", command = true, key = 'a')
   public void menuEditSelectAll() {
     getActiveFileTypeHandler().selectAll();
   }
@@ -1235,8 +1255,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.ClearSelection",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       image = "ui/images/unselect-all.svg")
-  @GuiKeyboardShortcut(key = SWT.ESC)
-  @GuiOsxKeyboardShortcut(key = SWT.ESC)
+  @GuiKeyboardShortcut(key = SWT.ESC, label = "i18n::HopGui.Key.EditUnselectAll")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditUnselectAll", key = SWT.ESC)
   public void menuEditUnselectAll() {
     getActiveFileTypeHandler().unselectAll();
   }
@@ -1247,8 +1267,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Find",
       image = "ui/images/search.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(key = 'f', control = true)
-  @GuiOsxKeyboardShortcut(key = 'f', command = true)
+  @GuiKeyboardShortcut(key = 'f', control = true, label = "i18n::HopGui.Key.EditFind")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditFind", key = 'f', command = true)
   public void menuEditFind() {
     IHopPerspective perspective = perspectiveManager.findPerspective(HopSearchPerspective.class);
     if (perspective != null) {
@@ -1263,8 +1283,8 @@ public class HopGui
       image = "ui/images/copy.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'c')
-  @GuiOsxKeyboardShortcut(command = true, key = 'c')
+  @GuiKeyboardShortcut(control = true, key = 'c', label = "i18n::HopGui.Key.EditCopySelected")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditCopySelected", command = true, key = 'c')
   public void menuEditCopySelected() {
     Control focusControl = display.getFocusControl();
     if (isStyledTextControl(focusControl)) {
@@ -1283,8 +1303,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.PasteFromClipboard",
       image = "ui/images/paste.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, key = 'v')
-  @GuiOsxKeyboardShortcut(command = true, key = 'v')
+  @GuiKeyboardShortcut(control = true, key = 'v', label = "i18n::HopGui.Key.EditPaste")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditPaste", command = true, key = 'v')
   public void menuEditPaste() {
     Control focusControl = display.getFocusControl();
     if (isStyledTextControl(focusControl)) {
@@ -1302,8 +1322,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Cut",
       image = "ui/images/cut.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(control = true, key = 'x')
-  @GuiOsxKeyboardShortcut(command = true, key = 'x')
+  @GuiKeyboardShortcut(control = true, key = 'x', label = "i18n::HopGui.Key.EditCutSelected")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditCutSelected", command = true, key = 'x')
   public void menuEditCutSelected() {
     getActiveFileTypeHandler().cutSelectedToClipboard();
   }
@@ -1339,8 +1359,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Delete",
       image = "ui/images/delete.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID)
-  @GuiKeyboardShortcut(control = false, key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(command = false, key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::HopGui.Key.EditDeleteSelected")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditDeleteSelected", key = SWT.DEL)
   public void menuEditDeleteSelected() {
     getActiveFileTypeHandler().deleteSelected();
   }
@@ -1352,8 +1372,8 @@ public class HopGui
       image = "ui/images/snap-to-grid.svg",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = SWT.HOME)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.HOME)
+  @GuiKeyboardShortcut(control = true, key = SWT.HOME, label = "i18n::HopGui.Key.EditSnapToGrid")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.EditSnapToGrid", command = true, key = SWT.HOME)
   public void menuEditSnapToGrid() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1367,8 +1387,14 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.AlignLeft",
       image = "ui/images/align-left.svg")
-  @GuiKeyboardShortcut(control = true, key = SWT.ARROW_LEFT)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.ARROW_LEFT)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = SWT.ARROW_LEFT,
+      label = "i18n::HopGui.Key.EditAlignLeft")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditAlignLeft",
+      command = true,
+      key = SWT.ARROW_LEFT)
   public void menuEditAlignLeft() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1383,8 +1409,14 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.AlignRight",
       image = "ui/images/align-right.svg")
-  @GuiKeyboardShortcut(control = true, key = SWT.ARROW_RIGHT)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.ARROW_RIGHT)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = SWT.ARROW_RIGHT,
+      label = "i18n::HopGui.Key.EditAlignRight")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditAlignRight",
+      command = true,
+      key = SWT.ARROW_RIGHT)
   public void menuEditAlignRight() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1399,8 +1431,11 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.AlignTop",
       image = "ui/images/align-top.svg")
-  @GuiKeyboardShortcut(control = true, key = SWT.ARROW_UP)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.ARROW_UP)
+  @GuiKeyboardShortcut(control = true, key = SWT.ARROW_UP, label = "i18n::HopGui.Key.EditAlignTop")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditAlignTop",
+      command = true,
+      key = SWT.ARROW_UP)
   public void menuEditAlignTop() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1415,8 +1450,14 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.AlignBottom",
       image = "ui/images/align-bottom.svg")
-  @GuiKeyboardShortcut(control = true, key = SWT.ARROW_DOWN)
-  @GuiOsxKeyboardShortcut(command = true, key = SWT.ARROW_DOWN)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = SWT.ARROW_DOWN,
+      label = "i18n::HopGui.Key.EditAlignBottom")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditAlignBottom",
+      command = true,
+      key = SWT.ARROW_DOWN)
   public void menuEditAlignBottom() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1431,8 +1472,14 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.DistributeHorizontally",
       image = "ui/images/distribute-horizontally.svg")
-  @GuiKeyboardShortcut(alt = true, key = SWT.ARROW_RIGHT)
-  @GuiOsxKeyboardShortcut(alt = true, key = SWT.ARROW_RIGHT)
+  @GuiKeyboardShortcut(
+      alt = true,
+      key = SWT.ARROW_RIGHT,
+      label = "i18n::HopGui.Key.EditDistributeHorizontal")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditDistributeHorizontal",
+      alt = true,
+      key = SWT.ARROW_RIGHT)
   public void menuEditDistributeHorizontal() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1447,8 +1494,14 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       label = "i18n::HopGui.Menu.Edit.DistributeVertically",
       image = "ui/images/distribute-vertically.svg")
-  @GuiKeyboardShortcut(alt = true, key = SWT.ARROW_UP)
-  @GuiOsxKeyboardShortcut(alt = true, key = SWT.ARROW_UP)
+  @GuiKeyboardShortcut(
+      alt = true,
+      key = SWT.ARROW_UP,
+      label = "i18n::HopGui.Key.EditDistributeVertical")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditDistributeVertical",
+      alt = true,
+      key = SWT.ARROW_UP)
   public void menuEditDistributeVertical() {
     IHopFileTypeHandler activeFileTypeHandler = getActiveFileTypeHandler();
     if (activeFileTypeHandler instanceof IGraphSnapAlignDistribute iGraphSnapAlignDistribute) {
@@ -1464,8 +1517,16 @@ public class HopGui
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       image = "ui/images/arrow-left.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, alt = true, key = SWT.ARROW_LEFT)
-  @GuiOsxKeyboardShortcut(command = true, alt = true, key = SWT.ARROW_LEFT)
+  @GuiKeyboardShortcut(
+      control = true,
+      alt = true,
+      key = SWT.ARROW_LEFT,
+      label = "i18n::HopGui.Key.EditNavigatePreviousFile")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditNavigatePreviousFile",
+      command = true,
+      alt = true,
+      key = SWT.ARROW_LEFT)
   public void menuEditNavigatePreviousFile() {
     getActivePerspective().navigateToPreviousFile();
   }
@@ -1476,8 +1537,16 @@ public class HopGui
       label = "i18n::HopGui.Menu.Edit.Navigate.Next",
       parentId = ID_MAIN_MENU_EDIT_PARENT_ID,
       image = "ui/images/arrow-right.svg")
-  @GuiKeyboardShortcut(control = true, alt = true, key = SWT.ARROW_RIGHT)
-  @GuiOsxKeyboardShortcut(command = true, alt = true, key = SWT.ARROW_RIGHT)
+  @GuiKeyboardShortcut(
+      control = true,
+      alt = true,
+      key = SWT.ARROW_RIGHT,
+      label = "i18n::HopGui.Key.EditNavigateNextFile")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.EditNavigateNextFile",
+      command = true,
+      alt = true,
+      key = SWT.ARROW_RIGHT)
   public void menuEditNavigateNextFile() {
     getActivePerspective().navigateToNextFile();
   }
@@ -1499,8 +1568,12 @@ public class HopGui
       label = "i18n::HopGui.Menu.View.FullScreen",
       image = "ui/images/fullscreen.svg",
       parentId = ID_MAIN_MENU_VIEW_PARENT_ID)
-  @GuiKeyboardShortcut(alt = true, key = SWT.F11)
-  @GuiOsxKeyboardShortcut(command = true, control = true, key = 'F')
+  @GuiKeyboardShortcut(alt = true, key = SWT.F11, label = "i18n::HopGui.Key.ViewFullScreen")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.ViewFullScreen",
+      command = true,
+      control = true,
+      key = 'F')
   public void menuViewFullScreen() {
     if (!shell.isDisposed()) {
       shell.setFullScreen(!shell.getFullScreen());
@@ -1524,8 +1597,8 @@ public class HopGui
       label = "i18n::HopGui.Menu.Run.StartExecution",
       image = "ui/images/run.svg",
       parentId = ID_MAIN_MENU_RUN_PARENT_ID)
-  @GuiKeyboardShortcut(key = SWT.F8)
-  @GuiOsxKeyboardShortcut(key = SWT.F8)
+  @GuiKeyboardShortcut(key = SWT.F8, label = "i18n::HopGui.Key.RunStart")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.RunStart", key = SWT.F8)
   public void menuRunStart() {
     getActiveFileTypeHandler().start();
   }
@@ -2263,8 +2336,8 @@ public class HopGui
     }
   }
 
-  @GuiKeyboardShortcut(key = SWT.F1)
-  @GuiOsxKeyboardShortcut(key = SWT.F1)
+  @GuiKeyboardShortcut(key = SWT.F1, label = "i18n::HopGui.Key.Help")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGui.Key.Help", key = SWT.F1)
   public void help() {
     HopPerspectivePlugin plugin =
         activePerspective.getClass().getAnnotation(HopPerspectivePlugin.class);
@@ -2422,15 +2495,31 @@ public class HopGui
     return false;
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = SWT.ARROW_UP)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = SWT.ARROW_UP)
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = SWT.ARROW_UP,
+      label = "i18n::HopGui.Key.PreviousPerspective")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.PreviousPerspective",
+      command = true,
+      shift = true,
+      key = SWT.ARROW_UP)
   public void previousPerspective() {
     IHopPerspective perspective = getActivePerspective();
     getPerspectiveManager().showPreviousPerspective(perspective);
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = SWT.ARROW_DOWN)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = SWT.ARROW_DOWN)
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = SWT.ARROW_DOWN,
+      label = "i18n::HopGui.Key.NextPerspective")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGui.Key.NextPerspective",
+      command = true,
+      shift = true,
+      key = SWT.ARROW_DOWN)
   public void nextPerspective() {
     IHopPerspective perspective = getActivePerspective();
     getPerspectiveManager().showNextPerspective(perspective);

@@ -42,4 +42,7 @@ public @interface GuiKeyboardShortcut {
 
   /** If true, shortcut works from anywhere (e.g. perspective activate, toggle terminal). */
   boolean global() default false;
+
+  /** Optional label for internationalization (e.g. "i18n::Class.Name.Key"). */
+  String label() default "";
 }

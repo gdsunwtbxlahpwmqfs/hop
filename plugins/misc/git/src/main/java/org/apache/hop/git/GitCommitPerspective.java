@@ -132,8 +132,18 @@ public class GitCommitPerspective implements IHopPerspective {
     return "GitCommitPerspective";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'o', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'o', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'o',
+      global = true,
+      label = "i18n::GitCommitPerspective.Key.Activate")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitCommitPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'o',
+      global = true)
   @Override
   public void activate() {
     hopGui.setActivePerspective(this);
@@ -318,8 +328,16 @@ public class GitCommitPerspective implements IHopPerspective {
     getShell().setDefaultButton(wCommit);
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'k', global = true)
-  @GuiOsxKeyboardShortcut(command = true, key = 'k', global = true)
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'k',
+      global = true,
+      label = "i18n::GitCommitPerspective.Key.SelectAllStaged")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitCommitPerspective.Key.SelectAllStaged",
+      command = true,
+      key = 'k',
+      global = true)
   public void selectAllStaged() {
     TreeItem stagedRootItem = this.getStagedRootItem();
     if (stagedRootItem != null) {
@@ -414,8 +432,16 @@ public class GitCommitPerspective implements IHopPerspective {
       id = TOOLBAR_ITEM_ADD,
       toolTip = "i18n::GitCommitPerspective.Toolbar.AddToGit.Tooltip",
       image = "git-add.svg")
-  @GuiKeyboardShortcut(control = true, alt = true, key = 'A')
-  @GuiOsxKeyboardShortcut(control = true, alt = true, key = 'A')
+  @GuiKeyboardShortcut(
+      control = true,
+      alt = true,
+      key = 'A',
+      label = "i18n::GitCommitPerspective.Key.AddFilesToGit")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitCommitPerspective.Key.AddFilesToGit",
+      control = true,
+      alt = true,
+      key = 'A')
   public void addFilesToGit() {
     try {
       List<UIFile> files = getSelectedFiles();
@@ -633,8 +659,14 @@ public class GitCommitPerspective implements IHopPerspective {
       separator = true,
       label = "i18n::GitCommitPerspective.Menu.ShowTextDiff.Text",
       image = "diff-text.svg")
-  @GuiKeyboardShortcut(control = true, key = 'D')
-  @GuiOsxKeyboardShortcut(control = true, key = 'D')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'D',
+      label = "i18n::GitCommitPerspective.Key.ShowTextDiff")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitCommitPerspective.Key.ShowTextDiff",
+      control = true,
+      key = 'D')
   public void showTextDiff() {
     try {
       TreeItem treeItem = wTree.getSelection()[0];
@@ -661,8 +693,16 @@ public class GitCommitPerspective implements IHopPerspective {
       id = CONTEXT_MENU_SHOW_GRAPH_DIFF,
       label = "i18n::GitCommitPerspective.Menu.ShowGraphDiff.Text",
       image = "diff-graph.svg")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'D')
-  @GuiOsxKeyboardShortcut(control = true, shift = true, key = 'D')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'D',
+      label = "i18n::GitCommitPerspective.Key.ShowGraphDiff")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::GitCommitPerspective.Key.ShowGraphDiff",
+      control = true,
+      shift = true,
+      key = 'D')
   public void showGraphDiff() {
     try {
       TreeItem treeItem = wTree.getSelection()[0];

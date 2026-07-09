@@ -37,7 +37,7 @@ public class TranslateUtil {
       if (StringUtils.isEmpty(packageName)) {
         translation = BaseMessages.getString(parentObjectClass, key);
       } else {
-        translation = BaseMessages.getString(packageName, key);
+        translation = BaseMessages.getString(packageName, key, parentObjectClass);
       }
       return translation;
     } else {

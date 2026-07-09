@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.hop.core.Const;
 import org.apache.hop.core.gui.plugin.key.KeyboardShortcut;
+import org.apache.hop.i18n.BaseMessages;
 import org.eclipse.swt.SWT;
 
 /**
@@ -28,6 +29,8 @@ import org.eclipse.swt.SWT;
  * Used by menus, toolbars, and the keyboard shortcuts configuration tab so display is consistent.
  */
 public final class ShortcutDisplayUtil {
+
+  private static final Class<?> PKG = ShortcutDisplayUtil.class;
 
   private ShortcutDisplayUtil() {}
 
@@ -58,11 +61,46 @@ public final class ShortcutDisplayUtil {
     List<String> out = new ArrayList<>();
     boolean isMacOS = Const.isOSX();
     // Same order on all platforms: Control, Option/Alt, Shift, Command
-    if (shortcut.isControl()) out.add(isMacOS ? "⌃" : "Ctrl");
-    if (shortcut.isAlt()) out.add(isMacOS ? "⌥" : "Alt");
-    if (shortcut.isShift()) out.add(isMacOS ? "⇧" : "Shift");
-    if (shortcut.isCommand()) out.add(isMacOS ? "⌘" : "Cmd");
+    if (shortcut.isControl())
+      out.add(isMacOS ? "⌃" : BaseMessages.getString(PKG, "Shortcut.Key.Ctrl"));
+    if (shortcut.isAlt()) out.add(isMacOS ? "⌥" : BaseMessages.getString(PKG, "Shortcut.Key.Alt"));
+    if (shortcut.isShift())
+      out.add(isMacOS ? "⇧" : BaseMessages.getString(PKG, "Shortcut.Key.Shift"));
+    if (shortcut.isCommand())
+      out.add(isMacOS ? "⌘" : BaseMessages.getString(PKG, "Shortcut.Key.Cmd"));
     return out;
+  }
+
+  public enum KeyCategory {
+    MODIFIER,
+    SPECIAL,
+    FUNCTION,
+    SINGLE_CHAR
+  }
+
+  /** Returns the category of a key for badge width calculation (locale-independent). */
+  public static KeyCategory getKeyCategory(int keyCode) {
+    if (keyCode == 32) return KeyCategory.SPECIAL;
+    if (keyCode >= 65 && keyCode <= 90) return KeyCategory.SINGLE_CHAR;
+    if (keyCode >= 97 && keyCode <= 122) return KeyCategory.SINGLE_CHAR;
+    if (keyCode == 96) return KeyCategory.SINGLE_CHAR;
+    if (keyCode == 127) return KeyCategory.SPECIAL;
+    if ((keyCode >= 48 && keyCode <= 57) || "+-/*=".indexOf(keyCode) >= 0) {
+      return KeyCategory.SINGLE_CHAR;
+    }
+
+    if ((keyCode & (1 << 24)) != 0) {
+      int code = keyCode & (0xFFFF);
+      if (code >= 10 && code <= 29) {
+        return KeyCategory.FUNCTION;
+      }
+      return KeyCategory.SPECIAL;
+    }
+
+    if (keyCode == SWT.ESC) return KeyCategory.SPECIAL;
+    if (keyCode == SWT.BS) return KeyCategory.SPECIAL;
+
+    return KeyCategory.SINGLE_CHAR;
   }
 
   /**
@@ -83,12 +121,12 @@ public final class ShortcutDisplayUtil {
       return String.valueOf(keyCode - SWT.KEYPAD_0);
     }
 
-    if (keyCode == 32) return "Space";
+    if (keyCode == 32) return BaseMessages.getString(PKG, "Shortcut.Key.Space");
     if (keyCode >= 65 && keyCode <= 90) return String.valueOf((char) keyCode);
     if (keyCode >= 97 && keyCode <= 122)
       return String.valueOf(Character.toUpperCase((char) keyCode));
     if (keyCode == 96) return "`";
-    if (keyCode == 127) return isMacOS ? "⌫" : "Del";
+    if (keyCode == 127) return isMacOS ? "⌫" : BaseMessages.getString(PKG, "Shortcut.Key.Delete");
     if ((keyCode >= 48 && keyCode <= 57) || "+-/*=".indexOf(keyCode) >= 0) {
       return String.valueOf((char) keyCode);
     }
@@ -96,47 +134,47 @@ public final class ShortcutDisplayUtil {
     if ((keyCode & (1 << 24)) != 0) {
       switch (keyCode & (0xFFFF)) {
         case 1:
-          return "↑";
+          return BaseMessages.getString(PKG, "Shortcut.Key.ArrowUp");
         case 2:
-          return "↓";
+          return BaseMessages.getString(PKG, "Shortcut.Key.ArrowDown");
         case 3:
-          return "←";
+          return BaseMessages.getString(PKG, "Shortcut.Key.ArrowLeft");
         case 4:
-          return "→";
+          return BaseMessages.getString(PKG, "Shortcut.Key.ArrowRight");
         case 5:
-          return "PgUp";
+          return BaseMessages.getString(PKG, "Shortcut.Key.PageUp");
         case 6:
-          return "PgDn";
+          return BaseMessages.getString(PKG, "Shortcut.Key.PageDown");
         case 7:
-          return "Home";
+          return BaseMessages.getString(PKG, "Shortcut.Key.Home");
         case 8:
-          return "End";
+          return BaseMessages.getString(PKG, "Shortcut.Key.End");
         case 9:
-          return "Ins";
+          return BaseMessages.getString(PKG, "Shortcut.Key.Insert");
         case 10:
-          return "F1";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F1");
         case 11:
-          return "F2";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F2");
         case 12:
-          return "F3";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F3");
         case 13:
-          return "F4";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F4");
         case 14:
-          return "F5";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F5");
         case 15:
-          return "F6";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F6");
         case 16:
-          return "F7";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F7");
         case 17:
-          return "F8";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F8");
         case 18:
-          return "F9";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F9");
         case 19:
-          return "F10";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F10");
         case 20:
-          return "F11";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F11");
         case 21:
-          return "F12";
+          return BaseMessages.getString(PKG, "Shortcut.Key.F12");
         case 22:
           return "F13";
         case 23:
@@ -158,8 +196,10 @@ public final class ShortcutDisplayUtil {
       }
     }
 
-    if (keyCode == SWT.ESC) return isMacOS ? "⎋" : "Esc";
-    if (keyCode == SWT.BS) return isMacOS ? "⌫" : "Backspace";
+    if (keyCode == SWT.ESC)
+      return isMacOS ? "⎋" : BaseMessages.getString(PKG, "Shortcut.Key.Escape");
+    if (keyCode == SWT.BS)
+      return isMacOS ? "⌫" : BaseMessages.getString(PKG, "Shortcut.Key.Backspace");
 
     return "";
   }

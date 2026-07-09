@@ -2271,23 +2271,32 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
   }
 
   @Override
-  @GuiKeyboardShortcut(control = true, key = 'a')
-  @GuiOsxKeyboardShortcut(command = true, key = 'a')
+  @GuiKeyboardShortcut(control = true, key = 'a', label = "i18n::HopGuiWorkflowGraph.Key.SelectAll")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiWorkflowGraph.Key.SelectAll",
+      command = true,
+      key = 'a')
   public void selectAll() {
     workflowMeta.selectAll();
     updateGui();
   }
 
-  @GuiKeyboardShortcut(key = SWT.ESC)
-  @GuiOsxKeyboardShortcut(key = SWT.ESC)
+  @GuiKeyboardShortcut(key = SWT.ESC, label = "i18n::HopGuiWorkflowGraph.Key.UnselectAll")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.UnselectAll", key = SWT.ESC)
   @Override
   public void unselectAll() {
     clearSettings();
     updateGui();
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'c')
-  @GuiOsxKeyboardShortcut(command = true, key = 'c')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'c',
+      label = "i18n::HopGuiWorkflowGraph.Key.CopySelected")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiWorkflowGraph.Key.CopySelected",
+      command = true,
+      key = 'c')
   @Override
   public void copySelectedToClipboard() {
     if (workflowLogDelegate.hasSelectedText()) {
@@ -2298,8 +2307,14 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     }
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'x')
-  @GuiOsxKeyboardShortcut(command = true, key = 'x')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'x',
+      label = "i18n::HopGuiWorkflowGraph.Key.CutSelected")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiWorkflowGraph.Key.CutSelected",
+      command = true,
+      key = 'x')
   @Override
   public void cutSelectedToClipboard() {
     workflowClipboardDelegate.copySelected(
@@ -2307,16 +2322,16 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     deleteSelected();
   }
 
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::HopGuiWorkflowGraph.Key.DeleteSelected")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.DeleteSelected", key = SWT.DEL)
   @Override
   public void deleteSelected() {
     // Shortcut only fires when focus is in this graph
     deleteSelected(null);
   }
 
-  @GuiKeyboardShortcut(control = true, key = 'v')
-  @GuiOsxKeyboardShortcut(command = true, key = 'v')
+  @GuiKeyboardShortcut(control = true, key = 'v', label = "i18n::HopGuiWorkflowGraph.Key.Paste")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.Paste", command = true, key = 'v')
   @Override
   public void pasteFromClipboard() {
     workflowClipboardDelegate.pasteXml(
@@ -2371,8 +2386,14 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       id = TOOLBAR_ITEM_EDIT_WORKFLOW,
       toolTip = "i18n::WorkflowGraph.Toolbar.EditWorkflow.Tooltip",
       image = "ui/images/workflow.svg")
-  @GuiKeyboardShortcut(control = true, key = 'l')
-  @GuiOsxKeyboardShortcut(command = true, key = 'l')
+  @GuiKeyboardShortcut(
+      control = true,
+      key = 'l',
+      label = "i18n::HopGuiWorkflowGraph.Key.EditWorkflowProperties")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiWorkflowGraph.Key.EditWorkflowProperties",
+      command = true,
+      key = 'l')
   public void editWorkflowProperties() {
     editProperties(workflowMeta, hopGui, true);
   }
@@ -3520,8 +3541,8 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Toolbar.Undo.Tooltip",
       image = "ui/images/undo.svg",
       separator = true)
-  @GuiKeyboardShortcut(control = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, key = 'z')
+  @GuiKeyboardShortcut(control = true, key = 'z', label = "i18n::HopGuiWorkflowGraph.Key.Undo")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.Undo", command = true, key = 'z')
   @Override
   public void undo() {
     workflowUndoDelegate.undoWorkflowAction(this, workflowMeta);
@@ -3534,8 +3555,16 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       // label = "Redo",
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Toolbar.Redo.Tooltip",
       image = "ui/images/redo.svg")
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'z')
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'z')
+  @GuiKeyboardShortcut(
+      control = true,
+      shift = true,
+      key = 'z',
+      label = "i18n::HopGuiWorkflowGraph.Key.Redo")
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopGuiWorkflowGraph.Key.Redo",
+      command = true,
+      shift = true,
+      key = 'z')
   @Override
   public void redo() {
     workflowUndoDelegate.redoWorkflowAction(this, workflowMeta);
@@ -3819,8 +3848,8 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       toolTip = "i18n:org.apache.hop.ui.hopgui:HopGui.Tooltip.VerifyWorkflow",
       image = "ui/images/check.svg",
       separator = true)
-  @GuiKeyboardShortcut(key = SWT.F7)
-  @GuiOsxKeyboardShortcut(key = SWT.F7)
+  @GuiKeyboardShortcut(key = SWT.F7, label = "i18n::HopGuiWorkflowGraph.Key.CheckWorkflow")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.CheckWorkflow", key = SWT.F7)
   public void checkWorkflow() {
     // Show the results views
     //
@@ -4363,8 +4392,8 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     updateGui();
   }
 
-  @GuiKeyboardShortcut(key = 'z')
-  @GuiOsxKeyboardShortcut(key = 'z')
+  @GuiKeyboardShortcut(key = 'z', label = "i18n::HopGuiWorkflowGraph.Key.OpenReferencedObject")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopGuiWorkflowGraph.Key.OpenReferencedObject", key = 'z')
   public void openReferencedObject() {
     if (lastMove != null) {
 

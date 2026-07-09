@@ -289,17 +289,17 @@ public class ConfigKeyboardShortcutsTab {
     // Add modifier keys and main key (same order and symbols as menus/toolbars)
     Control lastKey = null;
     for (String modifier : ShortcutDisplayUtil.getModifierDisplayStrings(shortcut)) {
-      lastKey = createKeyBadge(keysComposite, modifier, lastKey, margin);
+      lastKey = createKeyBadge(keysComposite, modifier, lastKey, margin, 0);
     }
     String keyText = ShortcutDisplayUtil.getKeyDisplayText(shortcut.getKeyCode());
     if (!Utils.isEmpty(keyText)) {
-      lastKey = createKeyBadge(keysComposite, keyText, lastKey, margin);
+      lastKey = createKeyBadge(keysComposite, keyText, lastKey, margin, shortcut.getKeyCode());
     }
 
     // Add method name on the right - starts at fixed position
     Label methodLabel = new Label(row, SWT.LEFT);
     PropsUi.setLook(methodLabel);
-    methodLabel.setText(formatMethodName(shortcut.getParentMethodName()));
+    methodLabel.setText(getShortcutLabel(shortcut));
 
     FormData fdMethod = new FormData();
     fdMethod.left = new FormAttachment(keysComposite, margin);
@@ -320,7 +320,8 @@ public class ConfigKeyboardShortcutsTab {
    * @param margin The margin to use
    * @return The created label
    */
-  private Label createKeyBadge(Composite parent, String text, Control lastControl, int margin) {
+  private Label createKeyBadge(
+      Composite parent, String text, Control lastControl, int margin, int keyCode) {
     Label key = new Label(parent, SWT.CENTER | SWT.BORDER);
     key.setText(text);
     key.setBackground(keyBackgroundColor);
@@ -338,7 +339,7 @@ public class ConfigKeyboardShortcutsTab {
     fdKey.top = new FormAttachment(0, 0);
     fdKey.bottom = new FormAttachment(100, 0);
     // Set width based on key category
-    fdKey.width = getBadgeWidth(text);
+    fdKey.width = getBadgeWidth(text, keyCode);
     key.setLayoutData(fdKey);
 
     return key;
@@ -348,37 +349,30 @@ public class ConfigKeyboardShortcutsTab {
    * Determines the appropriate badge width based on the key text category.
    *
    * @param text The key text
+   * @param keyCode The SWT key code
    * @return The badge width in pixels
    */
-  private int getBadgeWidth(String text) {
-    // Category 1: Modifier and special keys (Ctrl, Alt, Shift, Del, Home, etc.)
-    if (text.equals("Ctrl")
-        || text.equals("Alt")
-        || text.equals("Cmd")
-        || text.equals("Shift")
-        || text.equals("Del")
-        || text.equals("Home")
-        || text.equals("End")
-        || text.equals("PgUp")
-        || text.equals("PgDn")
-        || text.equals("Ins")
-        || text.equals("Esc")
-        || text.equals("Space")) {
-      return 60;
-    }
-
-    // Category 2: Function keys (F1-F20)
-    if (text.startsWith("F") && text.length() >= 2 && text.length() <= 3) {
-      try {
-        Integer.parseInt(text.substring(1));
-        return 45;
-      } catch (NumberFormatException e) {
-        // Not a function key
+  private int getBadgeWidth(String text, int keyCode) {
+    if (keyCode != 0) {
+      switch (ShortcutDisplayUtil.getKeyCategory(keyCode)) {
+        case MODIFIER:
+          return 60;
+        case SPECIAL:
+          return 60;
+        case FUNCTION:
+          return 45;
+        case SINGLE_CHAR:
+        default:
+          return 32;
       }
     }
 
-    // Category 3: Single characters, digits, symbols, and Unicode modifier symbols
-    return 32;
+    // For modifier keys (Ctrl, Alt, Shift, Cmd) which don't have a keyCode
+    if (text.length() <= 2) {
+      // macOS modifier symbols (⌘, ⌥, ⇧, ⌃)
+      return 32;
+    }
+    return 60;
   }
 
   /**
@@ -406,6 +400,37 @@ public class ConfigKeyboardShortcutsTab {
     }
 
     return formatted.toString();
+  }
+
+  private String getShortcutLabel(KeyboardShortcut shortcut) {
+    String label = shortcut.getLabel();
+    if (Utils.isEmpty(label)) {
+      label = findLabelFromCounterpart(shortcut);
+    }
+    if (!Utils.isEmpty(label)) {
+      return label;
+    }
+    return formatMethodName(shortcut.getParentMethodName());
+  }
+
+  /**
+   * Looks up the label from the counterpart (non-OSX or OSX) shortcut for the same method in the
+   * same class. This handles the common case where only one annotation carries the label.
+   */
+  private String findLabelFromCounterpart(KeyboardShortcut shortcut) {
+    List<KeyboardShortcut> all =
+        GuiRegistry.getInstance().getKeyboardShortcuts(shortcut.getParentClassName());
+    if (all == null) {
+      return null;
+    }
+    for (KeyboardShortcut other : all) {
+      if (other.isOsx() != shortcut.isOsx()
+          && shortcut.getParentMethodName().equals(other.getParentMethodName())
+          && !Utils.isEmpty(other.getLabel())) {
+        return other.getLabel();
+      }
+    }
+    return null;
   }
 
   /** Plugin name from class name: registry first, then @GuiPlugin, then simple name. */

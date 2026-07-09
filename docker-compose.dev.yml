@@ -31,7 +31,8 @@ services:
       - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
       - ./rest/target/hop-rest-2.19.0-SNAPSHOT.war:/usr/local/tomcat/webapps/hop.war
       - ./assemblies/web/target/webapp/config:/opt/hop/config
-      - ./resources/disabledGuiElements.xml:/opt/hop/config/disabledGuiElements.xml:ro
+      # disabledGuiElements.xml is copied into webapp/config/ by start-web-dev.sh
+      # to avoid macOS VirtioFS nested-mount failure.
       - ./docker/resources:/opt/hop/rest-config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./resources/jdbc-drivers:/opt/hop/jdbc

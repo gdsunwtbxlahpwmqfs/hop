@@ -3,15 +3,6 @@
 (function () {
   'use strict';
 
-  function showError(msg) {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:red;color:white;padding:10px;z-index:9999;font-size:14px;word-break:break-all;';
-    d.textContent = 'JS Error: ' + msg;
-    document.body.appendChild(d);
-  }
-
-  try {
-
   // ----- Config -----
   var config = {};
   try {
@@ -265,7 +256,6 @@
         );
       },
       onError: function (error) {
-        appendDebug('onError: ' + (error && error.message ? error.message : String(error)));
         var u = uploads[id];
         if (u) {
           u.status = 'error';
@@ -275,7 +265,6 @@
         }
       },
       onProgress: function (bytesSent, bytesTotal) {
-        appendDebug('onProgress: ' + bytesSent + '/' + bytesTotal);
         var u = uploads[id];
         if (!u) return;
         var nowT = now();
@@ -309,7 +298,6 @@
   }
 
   function startUpload(file) {
-    appendDebug('startUpload: ' + file.name + ' (' + file.size + ' bytes)');
     var id = createRow(file);
     var upload = new tus.Upload(file, createUploadOptions(file, id));
 
@@ -327,10 +315,7 @@
 
     try {
       upload.start();
-      appendDebug('upload.start() OK for ' + file.name);
-    } catch (e) {
-      appendDebug('upload.start() ERROR: ' + e.message);
-    }
+    } catch (e) { /* ignore */ }
     updateRow(id);
     updateButtons();
   }
@@ -353,9 +338,12 @@
     updateButtons();
   }
 
-  function cancelUpload(id) {
+  function cancelUpload(id, callback) {
     var u = uploads[id];
-    if (!u) return;
+    if (!u) {
+      if (callback) callback();
+      return;
+    }
     u.status = 'cancelled';
     try {
       u.upload.abort(true);
@@ -364,9 +352,17 @@
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', u.upload.url, true);
       xhr.setRequestHeader('Tus-Resumable', '1.0.0');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          removeRow(id);
+          if (callback) callback();
+        }
+      };
       xhr.send();
+    } else {
+      removeRow(id);
+      if (callback) callback();
     }
-    removeRow(id);
   }
 
   function retryUpload(id) {
@@ -400,16 +396,25 @@
     }
   }
 
-  function cancelAll() {
+  function cancelAll(callback) {
     var ids = Object.keys(uploads);
+    if (ids.length === 0) {
+      if (callback) callback();
+      return;
+    }
+    var cancelledCount = 0;
     for (var i = 0; i < ids.length; i++) {
-      cancelUpload(ids[i]);
+      cancelUpload(ids[i], function() {
+        cancelledCount++;
+        if (cancelledCount >= ids.length && callback) {
+          callback();
+        }
+      });
     }
   }
 
   // ----- File input -----
   function handleFiles(files) {
-    appendDebug('handleFiles: ' + (files ? files.length : 0) + ' files');
     if (!files || files.length === 0) return;
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
@@ -425,7 +430,6 @@
 
   // ----- Events -----
   fileInput.addEventListener('change', function () {
-    appendDebug('fileInput.change fired');
     handleFiles(this.files);
     this.value = '';
   });
@@ -456,39 +460,25 @@
 
   btnClose.addEventListener('click', function () {
     if (hasActiveUploads()) {
-      var confirmMsg = I18N.confirmClose || 'There are active uploads. They will be paused. Continue?';
+      var confirmMsg = I18N.confirmClose || 'There are active uploads. They will be cancelled. Continue?';
       if (!confirm(confirmMsg)) {
         return;
       }
-      // Pause all running uploads before closing
-      for (var id in uploads) {
-        if (uploads[id].status === 'running') {
-          try { uploads[id].upload.abort(); } catch (e) { /* ignore */ }
-          uploads[id].status = 'paused';
-          updateRow(id);
+      cancelAll(function() {
+        if (window.onHopUploadClose) {
+          window.onHopUploadClose();
+        } else {
+          window.close();
         }
+      });
+    } else {
+      if (window.onHopUploadClose) {
+        window.onHopUploadClose();
+      } else {
+        window.close();
       }
     }
-    if (window.onHopUploadClose) {
-      window.onHopUploadClose();
-    } else {
-      window.close();
-    }
   });
-
-  // ----- Debug -----
-  var debugLines = [];
-  function appendDebug(msg) {
-    debugLines.push(msg);
-    var dbg = document.getElementById('js-debug');
-    if (!dbg) {
-      dbg = document.createElement('div');
-      dbg.id = 'js-debug';
-      dbg.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#333;color:#0f0;padding:4px 8px;z-index:9999;font-size:11px;font-family:monospace;max-height:200px;overflow-y:auto;white-space:pre-wrap;';
-      document.body.appendChild(dbg);
-    }
-    dbg.textContent = debugLines.join('\n');
-  }
 
   // ----- Display dest -----
   if (destDisplay) {
@@ -499,9 +489,6 @@
       destDisplay.style.color = 'var(--warning)';
     }
   }
-
-  // ----- Debug: mark JS as loaded -----
-  appendDebug('JS OK | dest=' + DEST + ' | endpoint=' + TUS_ENDPOINT + ' | tus=' + (typeof tus !== 'undefined' ? 'yes' : 'no'));
 
   // ----- Utility -----
   function escapeHtml(str) {
@@ -520,10 +507,6 @@
         window.parent.postMessage({ type: 'hop-upload-complete' }, '*');
       } catch (e) { /* ignore */ }
     }
-  }
-
-  } catch (err) {
-    showError(err && err.message ? err.message : String(err));
   }
 
 })();

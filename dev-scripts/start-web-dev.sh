@@ -25,6 +25,12 @@ if [ -z "$(ls -A "$WEBAPP_DIR" 2>/dev/null)" ] || [ "assemblies/web/target/hop.w
   unzip -q assemblies/web/target/hop.war -d "$WEBAPP_DIR"
 fi
 
+# Copy disabledGuiElements.xml into webapp/config/
+# (docker-compose.dev.yml mounts webapp/config/ to /opt/hop/config; macOS VirtioFS
+# does not support nested file mounts, so the file must exist in the directory.)
+echo "==> Copying disabledGuiElements.xml to webapp/config/..."
+cp -f resources/disabledGuiElements.xml assemblies/web/target/webapp/config/disabledGuiElements.xml
+
 # Copy Hop core/beam libraries into the webapp.
 # hop.war does NOT bundle hop-core/hop-engine (see docker/web.Dockerfile which does
 # the same COPY). Without this, Tomcat fails with NoClassDefFoundError: HopException.

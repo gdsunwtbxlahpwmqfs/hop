@@ -179,8 +179,12 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
     return "metadata-perspective";
   }
 
-  @GuiKeyboardShortcut(control = true, shift = true, key = 'm', global = true)
-  @GuiOsxKeyboardShortcut(command = true, shift = true, key = 'm', global = true)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::MetadataPerspective.Key.Activate",
+      command = true,
+      shift = true,
+      key = 'm',
+      global = true)
   @Override
   public void activate() {
     hopGui.setActivePerspective(this);
@@ -789,8 +793,8 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
       id = TOOLBAR_ITEM_EDIT,
       toolTip = "i18n::MetadataPerspective.ToolbarElement.Edit.Tooltip",
       image = "ui/images/edit.svg")
-  @GuiKeyboardShortcut(key = SWT.F3)
-  @GuiOsxKeyboardShortcut(key = SWT.F3)
+  @GuiKeyboardShortcut(key = SWT.F3, label = "i18n::MetadataPerspective.Key.EditMetadata")
+  @GuiOsxKeyboardShortcut(label = "i18n::MetadataPerspective.Key.EditMetadata", key = SWT.F3)
   public void onEditMetadata() {
     if (tree.getSelectionCount() != 1) {
       return;
@@ -824,8 +828,8 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
       id = TOOLBAR_ITEM_RENAME,
       toolTip = "i18n::MetadataPerspective.ToolbarElement.Rename.Tooltip",
       image = "ui/images/rename.svg")
-  @GuiKeyboardShortcut(key = SWT.F2)
-  @GuiOsxKeyboardShortcut(key = SWT.F2)
+  @GuiKeyboardShortcut(key = SWT.F2, label = "i18n::MetadataPerspective.Key.RenameMetadata")
+  @GuiOsxKeyboardShortcut(label = "i18n::MetadataPerspective.Key.RenameMetadata", key = SWT.F2)
   public void onRenameMetadata() {
 
     if (tree.getSelectionCount() < 1) {
@@ -1351,8 +1355,8 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
       id = TOOLBAR_ITEM_DELETE,
       toolTip = "i18n::MetadataPerspective.ToolbarElement.Delete.Tooltip",
       image = "ui/images/delete.svg")
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::MetadataPerspective.Key.DeleteMetadata")
+  @GuiOsxKeyboardShortcut(label = "i18n::MetadataPerspective.Key.DeleteMetadata", key = SWT.DEL)
   public void onDeleteMetadata() {
 
     if (tree.getSelectionCount() != 1) {
@@ -1675,8 +1679,8 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
       id = TOOLBAR_ITEM_REFRESH,
       toolTip = "i18n::MetadataPerspective.ToolbarElement.Refresh.Tooltip",
       image = "ui/images/refresh.svg")
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiKeyboardShortcut(key = SWT.F5, label = "i18n::MetadataPerspective.Key.Refresh")
+  @GuiOsxKeyboardShortcut(label = "i18n::MetadataPerspective.Key.Refresh", key = SWT.F5)
   public void refresh() {
     try {
       tree.setRedraw(false);

@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.hop.core.Const;
 import org.apache.hop.core.gui.plugin.GuiPlugin;
-import org.apache.hop.core.gui.plugin.key.GuiKeyboardShortcut;
 import org.apache.hop.core.gui.plugin.key.GuiOsxKeyboardShortcut;
 import org.apache.hop.core.plugins.IPlugin;
 import org.apache.hop.core.plugins.PluginRegistry;
@@ -97,8 +96,11 @@ public class HopSearchPerspective implements IHopPerspective {
   }
 
   @Override
-  @GuiKeyboardShortcut(control = true, key = 'f', global = true)
-  @GuiOsxKeyboardShortcut(command = true, key = 'f', global = true)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::HopSearchPerspective.Key.Activate",
+      command = true,
+      key = 'f',
+      global = true)
   public void activate() {
     // Someone clicked on the search icon of used CTRL-F
     //

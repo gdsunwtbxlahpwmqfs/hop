@@ -125,6 +125,9 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
     // Load terminal.js for xterm.js based web terminal
     jsLoader.require(resourceManager.getLocation("js/terminal.js"));
 
+    // Load fullscreen.js to handle browser fullscreen mode (requires user gesture context)
+    jsLoader.require(resourceManager.getLocation("js/fullscreen.js"));
+
     // Configure keyboard shortcuts for RAP dynamically from annotations
     // ACTIVE_KEYS tells RAP to send these key combinations to the server
     // CANCEL_KEYS prevents the browser from handling these shortcuts

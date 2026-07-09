@@ -801,8 +801,8 @@ public class PipelineExecutionViewer extends BaseExecutionViewer
       toolTip = "i18n::PipelineExecutionViewer.ToolbarElement.Refresh.Tooltip",
       image = "ui/images/refresh.svg",
       separator = true)
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiKeyboardShortcut(key = SWT.F5, label = "i18n::PipelineExecutionViewer.Key.Refresh")
+  @GuiOsxKeyboardShortcut(label = "i18n::PipelineExecutionViewer.Key.Refresh", key = SWT.F5)
   public void refresh() {
     refreshStatus();
     refreshMetrics();
@@ -829,8 +829,9 @@ public class PipelineExecutionViewer extends BaseExecutionViewer
       id = TOOLBAR_ITEM_TO_EDITOR,
       toolTip = "i18n::PipelineExecutionViewer.ToolbarElement.NavigateToEditor.Tooltip",
       image = "ui/images/data_orch.svg")
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiOsxKeyboardShortcut(
+      label = "i18n::PipelineExecutionViewer.Key.NavigateToEditor",
+      key = SWT.F5)
   public void navigateToEditor() {
     try {
       // First try to see if this pipeline is running in Hop GUI...

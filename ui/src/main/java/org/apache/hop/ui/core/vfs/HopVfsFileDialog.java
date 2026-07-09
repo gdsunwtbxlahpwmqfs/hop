@@ -107,7 +107,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-@GuiPlugin(name = "File Browser", description = "Allows you to browse to local or VFS locations")
+@GuiPlugin(
+    name = "i18n::HopVfsFileDialog.Plugin.Name",
+    description = "i18n::HopVfsFileDialog.Plugin.Description")
 public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
 
   private static final Class<?> PKG = HopVfsFileDialog.class;
@@ -1346,9 +1348,8 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
       id = BROWSER_ITEM_ID_RENAME,
       toolTip = "i18n::HopVfsFileDialog.RenameFile.Tooltip.Message",
       image = "ui/images/rename.svg")
-  // FIXME: Keyboard don't work
-  @GuiKeyboardShortcut(key = SWT.F2)
-  @GuiOsxKeyboardShortcut(key = SWT.F2)
+  @GuiKeyboardShortcut(key = SWT.F2, label = "i18n::HopVfsFileDialog.Key.RenameFile")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopVfsFileDialog.Key.RenameFile", key = SWT.F2)
   public void renameFile() {
     FileObject file = getSelectedFileObject();
     if (file != null) {
@@ -1408,8 +1409,8 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
       id = BROWSER_ITEM_ID_DELETE,
       toolTip = "i18n::HopVfsFileDialog.DeleteFile.Tooltip.Message",
       image = "ui/images/delete.svg")
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::HopVfsFileDialog.Key.DeleteFile")
+  @GuiOsxKeyboardShortcut(label = "i18n::HopVfsFileDialog.Key.DeleteFile", key = SWT.DEL)
   public void deleteFile() {
     FileObject file = getSelectedFileObject();
     if (file != null) {

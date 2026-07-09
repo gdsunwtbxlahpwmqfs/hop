@@ -137,14 +137,18 @@ fi
 
 echo ""
 echo "检查 LiteLLM 代理..."
-if ! docker ps | grep -q "hop-litellm-dev"; then
-    echo "启动 LiteLLM 代理..."
-    cd "${HOP_HOME}"
-    docker compose -f docker-compose.dev.yml up -d litellm
-    sleep 3
-    echo "LiteLLM 代理已启动"
+if command -v docker &>/dev/null && docker ps &>/dev/null; then
+    if ! docker ps | grep -q "hop-litellm-dev"; then
+        echo "启动 LiteLLM 代理..."
+        cd "${HOP_HOME}"
+        docker compose -f docker-compose.dev.yml up -d litellm
+        sleep 3
+        echo "LiteLLM 代理已启动"
+    else
+        echo "LiteLLM 代理已在运行"
+    fi
 else
-    echo "LiteLLM 代理已在运行"
+    echo "警告: Docker 未运行，跳过 LiteLLM 代理启动"
 fi
 
 echo ""
