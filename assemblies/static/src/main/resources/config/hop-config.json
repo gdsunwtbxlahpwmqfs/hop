@@ -413,7 +413,7 @@
     "emulatorUrl" : null
   },
   "gitConfig" : {
-    "enabled" : true,
+    "enabled" : false,
     "searchingParentFolders" : false,
     "fetchAutomatic" : false
   }

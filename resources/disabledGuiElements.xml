@@ -18,10 +18,29 @@
   ~ under the License.
   -->
 
-<!-- Hides the Plugin Explorer and Search perspectives from the Hop GUI left sidebar.
+<!-- Hides the Plugin Explorer, Search and Git perspectives from the Hop GUI left sidebar.
      These are auxiliary perspectives, not required for core pipeline/workflow editing.
      IDs match the @HopPerspectivePlugin annotation values. -->
 <exclusions>
     <exclusion>400-HopSearchPerspective</exclusion>
     <exclusion>500-HopPluginExplorerPerspective</exclusion>
+
+    <!-- Git perspectives (left sidebar) -->
+    <exclusion>310-GitCommitPerspective</exclusion>
+    <exclusion>311-GitPerspective</exclusion>
+
+    <!-- Git toolbar buttons injected into the Explorer perspective -->
+    <exclusion>ExplorerPerspective-Toolbar-20100-GitInfo</exclusion>
+    <exclusion>ExplorerPerspective-Toolbar-20200-Add</exclusion>
+    <exclusion>ExplorerPerspective-Toolbar-20300-Revert</exclusion>
+    <exclusion>ExplorerPerspective-Toolbar-21000-Commit</exclusion>
+
+    <!-- Git context menu items in the Explorer perspective -->
+    <exclusion>ExplorerPerspective-ContextMenu-20100-GitInfo</exclusion>
+    <exclusion>ExplorerPerspective-ContextMenu-20200-GitAdd</exclusion>
+    <exclusion>ExplorerPerspective-ContextMenu-20300-GitRevert</exclusion>
+    <exclusion>ExplorerPerspective-ContextMenu-21000-GitCommit</exclusion>
+
+    <!-- Git branch selector button in the bottom status toolbar -->
+    <exclusion>toolbar-item-30000-git</exclusion>
 </exclusions>

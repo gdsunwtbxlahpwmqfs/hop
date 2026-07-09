@@ -1066,14 +1066,8 @@ public class GitPerspective implements IHopPerspective {
       id = GitPerspective.TOOLBAR_ITEM_PULL,
       toolTip = "i18n::GitGuiPlugin.Toolbar.Pull.Tooltip",
       image = "pull.svg")
-  @GuiKeyboardShortcut(
-      control = true,
-      key = 'T',
-      label = "i18n::GitPerspective.Key.ShowBranchDialog")
-  @GuiOsxKeyboardShortcut(
-      label = "i18n::GitPerspective.Key.ShowBranchDialog",
-      control = true,
-      key = 'T')
+  @GuiKeyboardShortcut(control = true, key = 'T', label = "i18n::GitPerspective.Key.Pull")
+  @GuiOsxKeyboardShortcut(label = "i18n::GitPerspective.Key.Pull", control = true, key = 'T')
   public void pull() {
     try {
       GitGuiPlugin.getInstance().getGit().pull();
@@ -1122,8 +1116,8 @@ public class GitPerspective implements IHopPerspective {
       separator = true,
       label = "i18n::GitPerspective.Menu.Rename.Text",
       image = "ui/images/rename.svg")
-  @GuiKeyboardShortcut(key = SWT.F2)
-  @GuiOsxKeyboardShortcut(key = SWT.F2)
+  @GuiKeyboardShortcut(key = SWT.F2, label = "i18n::GitPerspective.Key.RenameReference")
+  @GuiOsxKeyboardShortcut(key = SWT.F2, label = "i18n::GitPerspective.Key.RenameReference")
   public void renameReference() {
     Ref ref = this.getSelectedReference();
     if (ref != null) {
@@ -1175,8 +1169,8 @@ public class GitPerspective implements IHopPerspective {
       id = REF_CONTEXT_MENU_DELETE,
       label = "i18n::GitPerspective.Menu.Delete.Text",
       image = "ui/images/delete.svg")
-  @GuiKeyboardShortcut(key = SWT.DEL)
-  @GuiOsxKeyboardShortcut(key = SWT.DEL)
+  @GuiKeyboardShortcut(key = SWT.DEL, label = "i18n::GitPerspective.Key.DeleteReference")
+  @GuiOsxKeyboardShortcut(key = SWT.DEL, label = "i18n::GitPerspective.Key.DeleteReference")
   public void deleteReference() {
     Ref ref = this.getSelectedReference();
     if (ref != null) {
@@ -1288,12 +1282,9 @@ public class GitPerspective implements IHopPerspective {
       id = TOOLBAR_ITEM_FILE_SHOW_TEXT_DIFF,
       toolTip = "i18n::GitPerspective.Toolbar.ShowTextDiff.Tooltip",
       image = "diff-text.svg")
-  @GuiKeyboardShortcut(
-      control = true,
-      key = 'D',
-      label = "i18n::GitPerspective.Key.DiscardAllChanges")
+  @GuiKeyboardShortcut(control = true, key = 'D', label = "i18n::GitPerspective.Key.ShowTextDiff")
   @GuiOsxKeyboardShortcut(
-      label = "i18n::GitPerspective.Key.DiscardAllChanges",
+      label = "i18n::GitPerspective.Key.ShowTextDiff",
       control = true,
       key = 'D')
   public void showTextDiff() {
@@ -1338,9 +1329,9 @@ public class GitPerspective implements IHopPerspective {
       control = true,
       shift = true,
       key = 'D',
-      label = "i18n::GitPerspective.Key.DiscardSelectedChanges")
+      label = "i18n::GitPerspective.Key.ShowGraphDiff")
   @GuiOsxKeyboardShortcut(
-      label = "i18n::GitPerspective.Key.DiscardSelectedChanges",
+      label = "i18n::GitPerspective.Key.ShowGraphDiff",
       control = true,
       shift = true,
       key = 'D')
@@ -1580,8 +1571,8 @@ public class GitPerspective implements IHopPerspective {
       id = TOOLBAR_ITEM_REFRESH,
       toolTip = "i18n::GitPerspective.Toolbar.Refresh.Tooltip",
       image = "ui/images/refresh.svg")
-  @GuiKeyboardShortcut(key = SWT.F5)
-  @GuiOsxKeyboardShortcut(key = SWT.F5)
+  @GuiKeyboardShortcut(key = SWT.F5, label = "i18n::GitPerspective.Key.Refresh")
+  @GuiOsxKeyboardShortcut(key = SWT.F5, label = "i18n::GitPerspective.Key.Refresh")
   public void refresh() {
     refresh(false);
   }
