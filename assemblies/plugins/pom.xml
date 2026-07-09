@@ -547,12 +547,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-oraclerdb</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-databases-postgresql</artifactId>

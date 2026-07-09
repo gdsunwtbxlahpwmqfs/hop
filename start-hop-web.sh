@@ -16,14 +16,14 @@ echo "============================================="
 echo "  Hop Web Local Development Server"
 echo "============================================="
 
-if [ ! -f "assemblies/web/target/hop.war" ]; then
+if [ ! -f "${HOP_HOME}/assemblies/web/target/hop.war" ]; then
     echo ""
-    echo "==> Building Hop Web assembly (macOS platform)..."
+    echo "==> Building Hop Web assembly..."
     ./mvnw clean install -Dfast-build -DskipTests \
       -Dswt.artifactId=org.eclipse.swt.cocoa.macosx.x86_64 \
       -Denv=mac \
       -P'!swt-linux,assemblies'
-    if [ ! -f "assemblies/web/target/hop.war" ]; then
+    if [ ! -f "${HOP_HOME}/assemblies/web/target/hop.war" ]; then
         echo "ERROR: Failed to build hop.war"
         exit 1
     fi
@@ -41,17 +41,38 @@ mkdir -p "${CATALINA_BASE}/logs"
 mkdir -p "${CATALINA_BASE}/work"
 mkdir -p "${CATALINA_BASE}/temp"
 mkdir -p "${WEBAPP_DIR}"
+mkdir -p "${CATALINA_BASE}/audit"
+mkdir -p "${CATALINA_BASE}/config"
 
 if [ ! -d "${CATALINA_BASE}/conf" ]; then
+    echo ""
     echo "==> Copying Tomcat config files..."
     cp -r "${CATALINA_HOME}/conf" "${CATALINA_BASE}/conf"
 fi
 
-rm -rf "${WEBAPP_DIR}/ROOT"
-rm -rf "${WEBAPP_DIR}/hop"
+echo ""
+echo "==> Copying configuration files..."
+if [ -f "${HOP_HOME}/resources/disabledGuiElements.xml" ]; then
+    cp "${HOP_HOME}/resources/disabledGuiElements.xml" "${CATALINA_BASE}/config/"
+    echo "    Copied disabledGuiElements.xml"
+else
+    echo "    Warning: disabledGuiElements.xml not found"
+fi
+
+echo ""
+echo "==> Copying JDBC drivers..."
+mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
+if [ -d "${HOP_HOME}/resources/jdbc-drivers" ]; then
+    cp -r "${HOP_HOME}/resources/jdbc-drivers/"* "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers/"
+    echo "    Copied JDBC drivers"
+else
+    echo "    Warning: jdbc-drivers not found in resources/"
+fi
 
 echo ""
 echo "==> Deploying hop.war..."
+rm -rf "${WEBAPP_DIR}/ROOT"
+rm -rf "${WEBAPP_DIR}/hop"
 unzip -q "assemblies/web/target/hop.war" -d "${WEBAPP_DIR}/ROOT"
 
 echo ""
@@ -83,29 +104,11 @@ else
 fi
 
 echo ""
-echo "==> Copying JDBC drivers..."
-mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
-if [ -d "${HOP_HOME}/resources/jdbc-drivers" ]; then
-    cp -r "${HOP_HOME}/resources/jdbc-drivers/"* "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers/"
-    echo "    Copied JDBC drivers"
-else
-    echo "    Warning: jdbc-drivers not found in resources/"
-fi
-
-# Remove conflicting jars:
-# - hop-ui-rcp: conflicts with hop-ui-rap (both provide TextSizeUtilFacadeImpl,
-#   and RCP references SWT methods absent in RAP).
-# - org.eclipse.swt.*: desktop SWT conflicts with RAP's built-in SWT implementation.
-#   RAP provides its own org.eclipse.swt.widgets.Display via org.eclipse.rap.rwt;
-#   the desktop SWT jar causes "Invalid thread access" errors at Display creation.
+echo "==> Removing conflicting jars..."
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/hop-ui-rcp"*
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/org.eclipse.swt."*
 
-# Re-extract hop-ui jars from the war, because the client assembly zip above may
-# have overwritten them with an older cached version (the client zip is built from
-# .m2 and may lag behind the freshly built war).
 unzip -j -o "assemblies/web/target/hop.war" "WEB-INF/lib/hop-ui-*" -d "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" >/dev/null 2>&1
-# Remove the RCP jar that was just re-extracted (keep only hop-ui and hop-ui-rap)
 rm -f "${WEBAPP_DIR}/ROOT/WEB-INF/lib/hop-ui-rcp"*
 
 echo ""
@@ -118,7 +121,7 @@ else
     echo "    Warning: xterm resources not found in webapp"
 fi
 
-CATALINA_OPTS="-Xmx2048m"
+CATALINA_OPTS="-Xmx4096m"
 CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_LEVEL=Debug"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=${CATALINA_BASE}/audit"
@@ -132,18 +135,6 @@ CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 export CATALINA_HOME
 export CATALINA_BASE
 export CATALINA_OPTS
-
-mkdir -p "${CATALINA_BASE}/audit"
-mkdir -p "${CATALINA_BASE}/config"
-
-echo ""
-echo "==> Copying configuration files..."
-if [ -f "${HOP_HOME}/resources/disabledGuiElements.xml" ]; then
-    cp "${HOP_HOME}/resources/disabledGuiElements.xml" "${CATALINA_BASE}/config/"
-    echo "    Copied disabledGuiElements.xml"
-else
-    echo "    Warning: disabledGuiElements.xml not found"
-fi
 
 echo ""
 echo "检查 LiteLLM 代理..."

@@ -1220,13 +1220,6 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
             || !workflowMeta.getSelectedNotes().isEmpty())) {
       workflowMeta.unselectAll();
       updateGui();
-
-      // Show a short tooltip
-      //
-      toolTip.setVisible(false);
-      toolTip.setText(Const.CR + "  Selection cleared " + Const.CR);
-      showToolTip(new org.eclipse.swt.graphics.Point(event.x, event.y));
-
       return;
     }
 

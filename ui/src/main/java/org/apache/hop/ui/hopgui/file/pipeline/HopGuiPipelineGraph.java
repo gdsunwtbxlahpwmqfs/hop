@@ -1457,14 +1457,6 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       pipelineMeta.unselectAll();
       updateGui();
       pipelineGridDelegate.onPipelineSelectionChanged();
-
-      // Show a short tooltip
-      //
-      toolTip.setVisible(false);
-      toolTip.setAutoHide(true);
-      toolTip.setText(Const.CR + "  Selection cleared " + Const.CR);
-      showToolTip(new org.eclipse.swt.graphics.Point(e.x, e.y));
-
       return;
     }
 

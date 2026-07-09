@@ -36,8 +36,11 @@ echo ""
 # ============================================================
 # Format: "groupId:artifactId:version:description"
 MAVEN_DRIVERS=(
-    # MySQL Connector/J (GPL License - scope=provided in Hop)
-    "com.mysql:mysql-connector-j:9.1.0:MySQL Connector/J (GPL)"
+    # MySQL Connector/J 8+ (GPL License - scope=provided in Hop)
+    "com.mysql:mysql-connector-j:9.1.0:MySQL Connector/J (GPL, MySQL 8+)"
+
+    # MySQL Connector/J 5.x (for older MySQL versions)
+    "mysql:mysql-connector-java:5.1.49:MySQL Connector/J 5.x (GPL, MySQL 5.x)"
 
     # MariaDB Connector/J (LGPL License)
     "org.mariadb.jdbc:mariadb-java-client:3.5.2:MariaDB Connector/J (LGPL)"
@@ -60,6 +63,18 @@ MAVEN_DRIVERS=(
 
     # ClickHouse JDBC
     "com.clickhouse:clickhouse-jdbc:0.6.0:ClickHouse JDBC Driver"
+
+    # H2 Database (for Generic database testing)
+    "com.h2database:h2:2.2.224:H2 Database Engine"
+
+    # SQLite JDBC (for Generic database)
+    "org.xerial:sqlite-jdbc:3.45.3.0:SQLite JDBC Driver"
+
+    # PostgreSQL JDBC (included for completeness)
+    "org.postgresql:postgresql:42.7.3:PostgreSQL JDBC Driver"
+
+    # Apache Derby (for Generic database testing)
+    "org.apache.derby:derby:10.17.1.0:Apache Derby"
 )
 
 download_maven_driver() {
@@ -99,6 +114,12 @@ URL_DRIVERS=(
     # Oracle JDBC 23ai (ojdbc11 - JDK11/21 compatible)
     # Oracle provides direct download links without login
     "https://download.oracle.com/otn-pub/otn_software/jdbc/238/ojdbc11.jar|ojdbc11-23.8.0.25.04.jar|Oracle JDBC Driver (ojdbc11 23ai)"
+
+    # Oracle JDBC 21c (ojdbc11 - JDK11/21 compatible, alternative URL)
+    "https://download.oracle.com/otn-pub/otn_software/jdbc/213/ojdbc11.jar|ojdbc11-21.3.0.0.jar|Oracle JDBC Driver (ojdbc11 21c)"
+
+    # Oracle JDBC 19c (ojdbc8 - JDK8/11 compatible)
+    "https://download.oracle.com/otn-pub/otn_software/jdbc/1918/ojdbc8.jar|ojdbc8-19.18.0.0.jar|Oracle JDBC Driver (ojdbc8 19c)"
 )
 
 download_url_driver() {
@@ -166,6 +187,7 @@ echo "========================================"
 MANUAL_DRIVERS=(
     "Google BigQuery - Simba JDBC Driver"
     "Teradata JDBC Driver"
+    "Oracle RDB - Oracle RDB JDBC Driver (oracle.rdb.jdbc.rdbThin.Driver)"
 )
 
 if [[ $failed -eq 0 ]]; then
@@ -180,6 +202,13 @@ echo ""
 echo "To use these drivers with Docker:"
 echo "  - Set HOP_SHARED_JDBC_FOLDERS=/opt/hop/jdbc"
 echo "  - Mount ./resources/jdbc:/opt/hop/jdbc"
+echo ""
+echo "Driver compatibility notes:"
+echo "  - MySQL 8+: use mysql-connector-j-9.1.0.jar (driver: com.mysql.cj.jdbc.Driver)"
+echo "  - MySQL 5.x: use mysql-connector-java-5.1.49.jar (driver: org.gjt.mm.mysql.Driver)"
+echo "  - Oracle 19c/21c/23ai: use ojdbc8-*.jar or ojdbc11-*.jar (driver: oracle.jdbc.driver.OracleDriver)"
+echo "  - Oracle RDB: requires manual download (driver: oracle.rdb.jdbc.rdbThin.Driver)"
+echo "  - Generic database: use h2-*.jar, sqlite-jdbc-*.jar, or derby-*.jar as needed"
 echo ""
 echo "Drivers requiring manual download (see todo_list.md):"
 for driver in "${MANUAL_DRIVERS[@]}"; do
