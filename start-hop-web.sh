@@ -82,6 +82,16 @@ else
     echo "    Warning: plugins zip not found"
 fi
 
+echo ""
+echo "==> Copying JDBC drivers..."
+mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
+if [ -d "${HOP_HOME}/resources/jdbc-drivers" ]; then
+    cp -r "${HOP_HOME}/resources/jdbc-drivers/"* "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers/"
+    echo "    Copied JDBC drivers"
+else
+    echo "    Warning: jdbc-drivers not found in resources/"
+fi
+
 # Remove conflicting jars:
 # - hop-ui-rcp: conflicts with hop-ui-rap (both provide TextSizeUtilFacadeImpl,
 #   and RCP references SWT methods absent in RAP).
@@ -115,7 +125,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=${CATALINA_BASE}/audit"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=${CATALINA_BASE}/config"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=Hop"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/lib"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
 CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 

@@ -114,6 +114,8 @@ Darwin)
   HOP_OPTIONS="${HOP_OPTIONS} -Dsun.java2d.opengl=true"
   HOP_OPTIONS="${HOP_OPTIONS} -Djava.awt.headless=false"
   HOP_OPTIONS="${HOP_OPTIONS} -Dswt.enable.ime=true"
+  HOP_OPTIONS="${HOP_OPTIONS} -Xdock:name=Qi Hop"
+  HOP_OPTIONS="${HOP_OPTIONS} -Xdock:icon=${BASEDIR}/static/images/favicon.ico"
   ;;
 esac
 CLASSPATH="lib/core/*:lib/beam/*:lib/swt/$os_path/$arch_path/*"

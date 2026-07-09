@@ -154,21 +154,28 @@ public class HopWeb implements ApplicationConfiguration {
     registerMonacoResources(application);
     registerXtermResources(application);
 
-    // Only 2 choices for now
-    //
+    application.addResource(
+        "static/images/favicon.ico",
+        new ResourceLoader() {
+          @Override
+          public InputStream getResourceAsStream(String resourceName) {
+            return HopWeb.class.getClassLoader().getResourceAsStream("static/images/favicon.ico");
+          }
+        });
+
     application.addStyleSheet("dark", "org/apache/hop/ui/hopgui/dark-mode.css");
     application.addStyleSheet(CONST_LIGHT, "org/apache/hop/ui/hopgui/light-mode.css");
 
     String pageTitle = BaseMessages.getString(PKG, "HopWeb.Page.Title");
     Map<String, String> propertiesLight = new HashMap<>();
     propertiesLight.put(WebClient.PAGE_TITLE, pageTitle);
-    propertiesLight.put(WebClient.FAVICON, "ui/images/logo_icon.png");
+    propertiesLight.put(WebClient.FAVICON, "static/images/favicon.ico");
     propertiesLight.put(WebClient.THEME_ID, CONST_LIGHT);
     propertiesLight.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));
 
     Map<String, String> propertiesDark = new HashMap<>();
     propertiesDark.put(WebClient.PAGE_TITLE, pageTitle);
-    propertiesDark.put(WebClient.FAVICON, "ui/images/logo_icon.png");
+    propertiesDark.put(WebClient.FAVICON, "static/images/favicon.ico");
     propertiesDark.put(WebClient.THEME_ID, "dark");
     propertiesDark.put(WebClient.HEAD_HTML, readTextFromResource("head.html"));
 
