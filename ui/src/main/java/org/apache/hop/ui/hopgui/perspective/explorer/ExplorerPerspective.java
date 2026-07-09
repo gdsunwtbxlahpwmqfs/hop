@@ -2941,14 +2941,11 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
   public void showHideHidden() {
     showingHiddenFiles = !showingHiddenFiles;
 
-    ToolItem toolItem = toolBarWidgets.findToolItem(TOOLBAR_ITEM_SHOW_HIDDEN);
-    if (toolItem != null) {
-      if (showingHiddenFiles) {
-        toolItem.setImage(GuiResource.getInstance().getImageShow());
-      } else {
-        toolItem.setImage(GuiResource.getInstance().getImageHide());
-      }
-    }
+    // Use setToolbarItemImage() so the icon toggles correctly in both desktop and web (RAP)
+    // mode. findToolItem().setImage() only works in desktop SWT (ToolItem), not in RWT where
+    // toolbar buttons are Composite widgets.
+    String imagePath = showingHiddenFiles ? "ui/images/show.svg" : "ui/images/hide.svg";
+    toolBarWidgets.setToolbarItemImage(TOOLBAR_ITEM_SHOW_HIDDEN, imagePath);
 
     refresh();
   }

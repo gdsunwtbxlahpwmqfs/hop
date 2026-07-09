@@ -80,6 +80,7 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
   @Getter private boolean terminalVisible = false;
   @Getter private int terminalHeightPercent = 35;
   private boolean isClearing = false;
+  private boolean isRestoring = false;
   private int terminalCounter = 1;
 
   /** Font size scale for all terminal tabs (100 = 100%). Persisted and applied to new tabs. */
@@ -367,6 +368,9 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
 
       layout(true, true);
       hopGui.refreshSidebarToolbarButtonStates();
+      if (!isRestoring) {
+        saveOpenTerminals();
+      }
     }
   }
 
@@ -377,6 +381,9 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       verticalSash.setMaximizedControl(perspectiveComposite);
       layout(true, true);
       hopGui.refreshSidebarToolbarButtonStates();
+      if (!isRestoring) {
+        saveOpenTerminals();
+      }
     }
   }
 
@@ -768,6 +775,7 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
 
   /** Restore terminals from previous session; respects saved panel visibility (minimized state). */
   public void restoreTerminals() {
+    isRestoring = true;
     try {
       String namespace = HopNamespace.getNamespace();
 
@@ -860,6 +868,8 @@ public class HopGuiTerminalPanel extends Composite implements TabClosable {
       hopGui
           .getLog()
           .logError(BaseMessages.getString(PKG, "HopGuiTerminalPanel.Error.RestoringTerminals"), e);
+    } finally {
+      isRestoring = false;
     }
   }
 

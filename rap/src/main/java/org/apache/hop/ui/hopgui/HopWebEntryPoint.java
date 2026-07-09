@@ -237,6 +237,12 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
                     return;
                   }
                   hopGui.auditDelegate.writeLastOpenFiles();
+                  // Persist terminal panel visibility + open terminal tabs so that a
+                  // page refresh restores the exact state (e.g. a hidden terminal stays
+                  // hidden). Without this, restoreTerminals() reads stale state from disk.
+                  if (hopGui.getTerminalPanel() != null) {
+                    hopGui.getTerminalPanel().saveTerminalsOnShutdown();
+                  }
                 } catch (SWTException e) {
                   if (e.code != SWT.ERROR_WIDGET_DISPOSED) {
                     LogChannel.UI.logError("Error persisting open files on session end", e);

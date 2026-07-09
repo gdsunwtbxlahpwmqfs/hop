@@ -102,7 +102,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -1478,14 +1477,11 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
   public void showHideHidden() {
     showingHiddenFiles = !showingHiddenFiles;
 
-    ToolItem toolItem = browserToolbarWidgets.findToolItem(BROWSER_ITEM_ID_SHOW_HIDDEN);
-    if (toolItem != null) {
-      if (showingHiddenFiles) {
-        toolItem.setImage(GuiResource.getInstance().getImageShow());
-      } else {
-        toolItem.setImage(GuiResource.getInstance().getImageHide());
-      }
-    }
+    // Use setToolbarItemImage() so the icon toggles correctly in both desktop and web (RAP)
+    // mode. findToolItem().setImage() only works in desktop SWT (ToolItem), not in RWT where
+    // toolbar buttons are Composite widgets.
+    String imagePath = showingHiddenFiles ? "ui/images/show.svg" : "ui/images/hide.svg";
+    browserToolbarWidgets.setToolbarItemImage(BROWSER_ITEM_ID_SHOW_HIDDEN, imagePath);
 
     refreshBrowser();
   }
