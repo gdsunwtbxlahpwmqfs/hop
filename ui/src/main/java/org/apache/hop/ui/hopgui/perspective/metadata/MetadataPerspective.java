@@ -1970,7 +1970,7 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return new ArrayList<>();
   }
 

@@ -160,11 +160,11 @@ public class HopSearch implements Runnable, IHasHopMetadataProvider, IHopCommand
 
       // Get all the searchable analysers from the plugin registry...
       //
-      Map<Class<ISearchableAnalyser>, ISearchableAnalyser> searchableAnalyserMap = new HashMap<>();
+      Map<Class<?>, ISearchableAnalyser<?>> searchableAnalyserMap = new HashMap<>();
       PluginRegistry registry = PluginRegistry.getInstance();
       for (IPlugin analyserPlugin : registry.getPlugins(SearchableAnalyserPluginType.class)) {
-        ISearchableAnalyser searchableAnalyser =
-            (ISearchableAnalyser) registry.loadClass(analyserPlugin);
+        ISearchableAnalyser<?> searchableAnalyser =
+            (ISearchableAnalyser<?>) registry.loadClass(analyserPlugin);
         searchableAnalyserMap.put(searchableAnalyser.getSearchableClass(), searchableAnalyser);
       }
 
@@ -176,12 +176,12 @@ public class HopSearch implements Runnable, IHasHopMetadataProvider, IHopCommand
         System.out.println(
             "-----------------------------------------------------------------------------------");
 
-        Iterator<ISearchable> iterator =
+        Iterator<ISearchable<?>> iterator =
             searchablesLocation.getSearchables(metadataProvider, variables);
         while (iterator.hasNext()) {
           // Load the next object
           //
-          ISearchable searchable = iterator.next();
+          ISearchable<?> searchable = iterator.next();
 
           Object object = searchable.getSearchableObject();
           if (object != null) {
@@ -190,10 +190,11 @@ public class HopSearch implements Runnable, IHasHopMetadataProvider, IHopCommand
             }
             // Find an analyser...
             //
-            ISearchableAnalyser searchableAnalyser = searchableAnalyserMap.get(object.getClass());
+            ISearchableAnalyser<?> searchableAnalyser = searchableAnalyserMap.get(object.getClass());
             if (searchableAnalyser != null) {
+              @SuppressWarnings({"rawtypes", "unchecked"})
               List<ISearchResult> searchResults =
-                  searchableAnalyser.search(searchable, searchQuery);
+                  ((ISearchableAnalyser) searchableAnalyser).search(searchable, searchQuery);
 
               // Print the results...
               //

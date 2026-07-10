@@ -3119,6 +3119,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       image = "ui/images/add-item.svg",
       category = "i18n::HopGuiPipelineGraph.ContextualAction.Category.Basic.Text",
       categoryOrder = "13")
+  @SuppressWarnings("unchecked")
   public void insertTransform(HopGuiPipelineHopContext context) {
     // Build actions list
     //
@@ -3367,6 +3368,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     return enabled;
   }
 
+  @SuppressWarnings("unused")
   private AreaOwner setToolTip(int x, int y, int screenX, int screenY) {
     AreaOwner subject = null;
 
@@ -3595,12 +3597,6 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       }
 
     } else if (!newTip.equalsIgnoreCase(getToolTipText())) {
-      Image tooltipImage = null;
-      if (tipImage != null) {
-        tooltipImage = tipImage;
-      } else {
-        tooltipImage = GuiResource.getInstance().getImageHopUi();
-      }
       showSpecialTooltip(newTip, screenX, screenY);
     }
 
@@ -4047,7 +4043,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     }
   }
 
-  @Override
+  @SuppressWarnings("all")
   public String getName() {
     return pipelineMeta.getName();
   }
@@ -4502,6 +4498,11 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
     sashForm.setWeights(60, 40);
   }
 
+  @SuppressWarnings("deprecation")
+  private void setPipelinePreviewMode(IPipelineEngine<PipelineMeta> pipeline) {
+    pipeline.setPreview(true);
+  }
+
   public synchronized void start(PipelineExecutionConfiguration executionConfiguration)
       throws HopException {
 
@@ -4728,7 +4729,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
         // Create a new pipeline to execution
         //
         pipeline = new LocalPipelineEngine(pipelineMeta, variables, hopGui.getLoggingObject());
-        pipeline.setPreview(true);
+        setPipelinePreviewMode(pipeline);
         pipeline.setVariable(IPipelineEngine.PIPELINE_IN_PREVIEW_MODE, "Y");
         pipeline.setMetadataProvider(hopGui.getMetadataProvider());
 

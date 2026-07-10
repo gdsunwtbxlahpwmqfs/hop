@@ -30,12 +30,12 @@ import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.perspective.IHopPerspective;
 
 /** Lazily load the searchables during next() */
-public class HopGuiSearchLocationIterator implements Iterator<ISearchable> {
+public class HopGuiSearchLocationIterator implements Iterator<ISearchable<?>> {
 
   private HopGui hopGui;
   private HopGuiSearchLocation location;
-  private List<ISearchable> searchables;
-  private Iterator<ISearchable> searchableIterator;
+  private List<ISearchable<?>> searchables;
+  private Iterator<ISearchable<?>> searchableIterator;
 
   public HopGuiSearchLocationIterator(HopGui hopGui, HopGuiSearchLocation location)
       throws HopException {
@@ -83,7 +83,7 @@ public class HopGuiSearchLocationIterator implements Iterator<ISearchable> {
   }
 
   @Override
-  public ISearchable next() {
+  public ISearchable<?> next() {
     return searchableIterator.next();
   }
 

@@ -13,9 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package org.apache.hop.pipeline.transforms.types;
+package org.apache.hop.ui.hopgui.perspective.explorer.file;
 
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.variables.IVariables;
@@ -27,34 +28,33 @@ import org.apache.hop.ui.hopgui.file.empty.EmptyHopFileTypeHandler;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerFile;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.capabilities.FileTypeCapabilities;
-import org.apache.hop.ui.hopgui.perspective.explorer.file.types.text.BaseTextExplorerFileType;
+import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplorerFileType;
 
+/**
+ * Opens Excel files (.xls, .xlsx) in the explorer perspective by reading cell data with Apache POI
+ * and rendering it as an HTML table in a Browser widget, showing the actual spreadsheet grid.
+ */
 @HopFileTypePlugin(
-    id = "TextExplorerFileType",
-    name = "TXT File Type",
-    description = "Text file handling in the explorer perspective",
-    image = "text.svg")
-public class TextExplorerFileType extends BaseTextExplorerFileType<TextExplorerFileTypeHandler> {
+    id = "ExcelExplorerFileType",
+    name = "Excel File Type",
+    description = "Excel file handling in the explorer perspective",
+    image = "excel.svg")
+public class ExcelExplorerFileType extends BaseExplorerFileType<ExcelExplorerFileTypeHandler> {
 
-  public TextExplorerFileType() {
+  public ExcelExplorerFileType() {
     super(
-        "TXT File",
-        ".txt",
-        new String[] {"*.txt"},
-        new String[] {"TXT files"},
+        "Excel File",
+        ".xlsx",
+        new String[] {"*.xls", "*.xlsx"},
+        new String[] {"Excel files"},
         FileTypeCapabilities.getCapabilities(
-            IHopFileType.CAPABILITY_SAVE,
-            IHopFileType.CAPABILITY_SAVE_AS,
-            IHopFileType.CAPABILITY_CLOSE,
-            IHopFileType.CAPABILITY_FILE_HISTORY,
-            IHopFileType.CAPABILITY_COPY,
-            IHopFileType.CAPABILITY_SELECT));
+            IHopFileType.CAPABILITY_CLOSE, IHopFileType.CAPABILITY_FILE_HISTORY));
   }
 
   @Override
-  public TextExplorerFileTypeHandler createFileTypeHandler(
+  public ExcelExplorerFileTypeHandler createFileTypeHandler(
       HopGui hopGui, ExplorerPerspective perspective, ExplorerFile file) {
-    return new TextExplorerFileTypeHandler(hopGui, perspective, file);
+    return new ExcelExplorerFileTypeHandler(hopGui, perspective, file);
   }
 
   @Override

@@ -33,7 +33,7 @@ import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplore
     id = "HtmlExplorerFileType",
     name = "HTML File Type",
     description = "HTML file handling in the explorer perspective",
-    image = "ui/images/html.svg")
+    image = "html.svg")
 public class HtmlExplorerFileType extends BaseExplorerFileType<HtmlExplorerFileTypeHandler> {
 
   public HtmlExplorerFileType() {

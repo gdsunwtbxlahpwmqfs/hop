@@ -13,9 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package org.apache.hop.pipeline.transforms.types;
+package org.apache.hop.ui.hopgui.perspective.explorer.file;
 
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.variables.IVariables;
@@ -27,34 +28,34 @@ import org.apache.hop.ui.hopgui.file.empty.EmptyHopFileTypeHandler;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerFile;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.capabilities.FileTypeCapabilities;
-import org.apache.hop.ui.hopgui.perspective.explorer.file.types.text.BaseTextExplorerFileType;
+import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplorerFileType;
 
+/**
+ * Opens Word documents (.doc, .docx) in the explorer perspective by extracting formatted HTML with
+ * Apache Tika and rendering it in a Browser widget. This preserves headings, bold, lists and other
+ * formatting.
+ */
 @HopFileTypePlugin(
-    id = "TextExplorerFileType",
-    name = "TXT File Type",
-    description = "Text file handling in the explorer perspective",
-    image = "text.svg")
-public class TextExplorerFileType extends BaseTextExplorerFileType<TextExplorerFileTypeHandler> {
+    id = "WordExplorerFileType",
+    name = "Word Document File Type",
+    description = "Word document handling in the explorer perspective",
+    image = "word.svg")
+public class TikaExplorerFileType extends BaseExplorerFileType<TikaExplorerFileTypeHandler> {
 
-  public TextExplorerFileType() {
+  public TikaExplorerFileType() {
     super(
-        "TXT File",
-        ".txt",
-        new String[] {"*.txt"},
-        new String[] {"TXT files"},
+        "Word Document",
+        ".docx",
+        new String[] {"*.doc", "*.docx"},
+        new String[] {"Word documents"},
         FileTypeCapabilities.getCapabilities(
-            IHopFileType.CAPABILITY_SAVE,
-            IHopFileType.CAPABILITY_SAVE_AS,
-            IHopFileType.CAPABILITY_CLOSE,
-            IHopFileType.CAPABILITY_FILE_HISTORY,
-            IHopFileType.CAPABILITY_COPY,
-            IHopFileType.CAPABILITY_SELECT));
+            IHopFileType.CAPABILITY_CLOSE, IHopFileType.CAPABILITY_FILE_HISTORY));
   }
 
   @Override
-  public TextExplorerFileTypeHandler createFileTypeHandler(
+  public TikaExplorerFileTypeHandler createFileTypeHandler(
       HopGui hopGui, ExplorerPerspective perspective, ExplorerFile file) {
-    return new TextExplorerFileTypeHandler(hopGui, perspective, file);
+    return new TikaExplorerFileTypeHandler(hopGui, perspective, file);
   }
 
   @Override

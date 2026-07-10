@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  - Licensed to the Apache Software Foundation (ASF) under one or more
+  - contributor license agreements.  See the NOTICE file distributed with
+  - this work for additional information regarding copyright ownership.
+  - The ASF licenses this file to You under the Apache License, Version 2.0
+  - (the "License"); you may not use this file except in compliance with
+  - the License.  You may obtain a copy of the License at
+  -
+  -       http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -->
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    viewBox="0 0 128 128"
+    width="128"
+    height="128">
+  <title>Word Document</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#2b579a"/>
+      <stop offset="100%" style="stop-color:#1e3f6e"/>
+    </linearGradient>
+  </defs>
+  <!-- Page with fold -->
+  <path d="M28 8 L78 8 L100 30 L100 120 Q100 124 96 124 L28 124 Q24 124 24 120 L24 12 Q24 8 28 8 Z"
+        fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <path d="M78 8 L78 30 L100 30 Z" fill="#d0d5e0"/>
+  <!-- Blue W banner -->
+  <rect x="16" y="52" width="96" height="56" rx="4" fill="url(#bg)"/>
+  <text x="64" y="92" font-family="Arial,sans-serif" font-size="38" font-weight="bold"
+        fill="#fff" text-anchor="middle">W</text>
+</svg>

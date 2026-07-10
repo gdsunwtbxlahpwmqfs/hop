@@ -1167,7 +1167,7 @@ public class HopNeo4jPerspective implements IHopPerspective {
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return new ArrayList<>();
   }
 }

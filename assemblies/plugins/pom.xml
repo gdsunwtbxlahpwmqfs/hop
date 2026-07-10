@@ -649,12 +649,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-misc-git</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-misc-import</artifactId>

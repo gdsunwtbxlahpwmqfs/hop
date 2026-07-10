@@ -44,18 +44,15 @@ import org.apache.hop.ui.hopgui.search.HopGuiPipelineSearchable;
 import org.apache.hop.ui.hopgui.search.HopGuiWorkflowSearchable;
 import org.apache.hop.workflow.WorkflowMeta;
 
-// TODO: implement lazy loading of the searchables.
 //
-public class ProjectSearchablesIterator implements Iterator<ISearchable> {
+public class ProjectSearchablesIterator implements Iterator<ISearchable<?>> {
 
-  private ProjectConfig projectConfig;
-  private List<ISearchable> searchables;
-  private Iterator<ISearchable> iterator;
+  private List<ISearchable<?>> searchables;
+  private Iterator<ISearchable<?>> iterator;
 
   public ProjectSearchablesIterator(
       IHopMetadataProvider metadataProvider, IVariables variables, ProjectConfig projectConfig)
       throws HopException {
-    this.projectConfig = projectConfig;
     this.searchables = new ArrayList<>();
 
     ProjectsConfig config = ProjectsConfigSingleton.getConfig();
@@ -147,7 +144,7 @@ public class ProjectSearchablesIterator implements Iterator<ISearchable> {
   }
 
   @Override
-  public ISearchable next() {
+  public ISearchable<?> next() {
     return iterator.next();
   }
 }

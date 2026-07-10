@@ -131,6 +131,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=Hop"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
 CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED"
 
 export CATALINA_HOME
 export CATALINA_BASE

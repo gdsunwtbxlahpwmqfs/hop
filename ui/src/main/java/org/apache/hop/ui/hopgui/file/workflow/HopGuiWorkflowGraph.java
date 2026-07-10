@@ -2788,6 +2788,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       image = "ui/images/add-item.svg",
       category = "i18n::HopGuiWorkflowGraph.ContextualAction.Category.Basic.Text",
       categoryOrder = "3")
+  @SuppressWarnings("unchecked")
   public void insertAction(HopGuiWorkflowHopContext context) {
 
     // Build actions list
@@ -2935,14 +2936,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     }
   }
 
-  private void modalMessageDialog(String title, String message, int swtFlags) {
-    MessageBox messageBox = new MessageBox(hopShell(), swtFlags);
-    messageBox.setMessage(message);
-    messageBox.setText(title);
-    messageBox.open();
-  }
-
-  @SuppressWarnings({"java:S1854", "java:S1481"})
+  @SuppressWarnings({"java:S1854", "java:S1481", "unused"})
   // Ignore warning of setting tipImage
   protected void setToolTip(int x, int y, int screenX, int screenY) {
     if (!hopGui.getProps().showToolTips() || openedContextDialog) {
@@ -4208,7 +4202,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     m.open();
   }
 
-  private IActionListener createRefreshActionListener() {
+  private IActionListener<WorkflowMeta> createRefreshActionListener() {
     return new IActionListener<>() {
 
       @Override
@@ -4445,7 +4439,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
     // Do nothing
   }
 
-  @Override
+  @SuppressWarnings("all")
   public String getName() {
     return workflowMeta.getName();
   }
@@ -4612,6 +4606,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       image = "ui/images/execution.svg",
       category = "Basic",
       categoryOrder = "1")
+  @SuppressWarnings("unchecked")
   public void viewActionExecutionInfo(HopGuiWorkflowActionContext context) {
     try {
       if (workflow == null) {
@@ -4664,6 +4659,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
   }
 
   @GuiContextActionFilter(parentId = HopGuiWorkflowActionContext.CONTEXT_ID)
+  @SuppressWarnings("unchecked")
   public boolean filterWorkflowAction(String contextActionId, HopGuiWorkflowActionContext context) {
     ActionMeta actionMeta = context.getActionMeta();
 

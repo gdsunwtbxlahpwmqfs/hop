@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -505,8 +506,8 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
           e);
     }
 
-    if (!StringUtils.equals(oldRootFolder, rootFolder)
-        || !StringUtils.equals(oldRootName, rootName)) {
+    if (!Objects.equals(oldRootFolder, rootFolder)
+        || !Objects.equals(oldRootName, rootName)) {
       // call the root changed listeners...
       //
       for (IExplorerRootChangedListener listener : rootChangedListeners) {
@@ -3401,7 +3402,6 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
     String filename = fileTypeHandler.getFilename();
     if (filename != null) {
 
-      // TODO: Check if it's really needed normalize
       // Normalize the filename to an absolute path
       try {
         filename = HopVfs.normalize(filename);
@@ -3554,7 +3554,7 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return new ArrayList<>();
   }
 

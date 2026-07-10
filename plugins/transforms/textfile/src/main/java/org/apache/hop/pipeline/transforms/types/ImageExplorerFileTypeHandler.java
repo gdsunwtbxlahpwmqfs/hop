@@ -6,13 +6,14 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package org.apache.hop.pipeline.transforms.types;
@@ -23,7 +24,6 @@ import java.util.Base64;
 import org.apache.hop.core.Const;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.core.vfs.HopVfs;
-import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerFile;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
@@ -34,23 +34,19 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 
-/** This handles a PDF file in the file explorer perspective: open, view, ... */
-public class PdfExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
+/** Renders an image file (.png/.jpg/.gif/.bmp) in the explorer using a Browser widget. */
+public class ImageExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
 
   private Browser wBrowser;
 
-  public PdfExplorerFileTypeHandler(
+  public ImageExplorerFileTypeHandler(
       HopGui hopGui, ExplorerPerspective perspective, ExplorerFile explorerFile) {
     super(hopGui, perspective, explorerFile);
   }
 
   @Override
   public void renderFile(Composite composite) {
-    // Render the file by showing the PDF content in a browser widget
-    // The browser widget can display PDFs using the browser's built-in PDF viewer
-    //
     wBrowser = new Browser(composite, SWT.NONE);
-    PropsUi.setLook(wBrowser);
     FormData fdBrowser = new FormData();
     fdBrowser.left = new FormAttachment(0, 0);
     fdBrowser.right = new FormAttachment(100, 0);
@@ -65,17 +61,12 @@ public class PdfExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
   public void reload() {
     try {
       String filename = explorerFile.getFilename();
-
-      // Check if file exists
       if (!HopVfs.fileExists(filename)) {
         showError("File not found: " + filename);
         return;
       }
 
-      // Read the PDF into a base64 data URI.
-      // In RAP (web) mode the Browser is an iframe in the user's browser, so file://
-      // URLs are blocked by cross-protocol security. A data URI works everywhere.
-      //
+      String mimeType = getMimeType(filename);
       try (InputStream input = HopVfs.getInputStream(filename, getVariables())) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[8192];
@@ -84,49 +75,65 @@ public class PdfExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
           baos.write(buffer, 0, n);
         }
         String base64 = Base64.getEncoder().encodeToString(baos.toByteArray());
-        String dataUri = "data:application/pdf;base64," + base64;
+        String dataUri = "data:" + mimeType + ";base64," + base64;
 
         String html =
             "<html><head><meta charset=\"UTF-8\"><style>"
-                + "body,html{margin:0;padding:0;height:100%;overflow:hidden}"
+                + "html,body{margin:0;padding:0;height:100%;background:#fff;display:flex;"
+                + "align-items:center;justify-content:center;overflow:hidden}"
+                + "img{max-width:100%;max-height:100%;object-fit:contain;"
+                + "image-rendering:auto;box-shadow:0 2px 10px rgba(0,0,0,.15)}"
                 + "</style></head><body>"
-                + "<embed src=\""
+                + "<img src=\""
                 + dataUri
-                + "\" type=\"application/pdf\" "
-                + "style=\"width:100%;height:100vh\">"
+                + "\" alt=\""
+                + escapeAttr(filename)
+                + "\">"
                 + "</body></html>";
         wBrowser.setText(html);
       }
-
       clearChanged();
     } catch (Exception e) {
-      LogChannel.UI.logError("Error loading PDF file '" + explorerFile.getFilename() + "'", e);
-      showError("Error loading PDF file: " + Const.NVL(e.getMessage(), "Unknown error"));
+      LogChannel.UI.logError("Error loading image '" + explorerFile.getFilename() + "'", e);
+      showError("Error loading image: " + Const.NVL(e.getMessage(), "Unknown error"));
     }
   }
 
-  /**
-   * Show an error message in the browser widget
-   *
-   * @param message The error message to display
-   */
   private void showError(String message) {
     wBrowser.setText(
-        "<html><body><h1>Error loading PDF file</h1><p>" + message + "</p></body></html>");
+        "<html><body style=\"background:#fff;color:#333;font-family:sans-serif;"
+            + "display:flex;align-items:center;justify-content:center;height:100vh;margin:0\">"
+            + "<p>"
+            + escapeAttr(message)
+            + "</p></body></html>");
   }
 
-  @Override
-  public void selectAll() {
-    // Browser widget doesn't support selectAll for PDF content
+  private static String getMimeType(String filename) {
+    String ext = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+    switch (ext) {
+      case "png":
+        return "image/png";
+      case "jpg":
+      case "jpeg":
+        return "image/jpeg";
+      case "gif":
+        return "image/gif";
+      case "bmp":
+        return "image/bmp";
+      case "webp":
+        return "image/webp";
+      case "ico":
+        return "image/x-icon";
+      default:
+        return "image/png";
+    }
   }
 
-  @Override
-  public void unselectAll() {
-    // Browser widget doesn't support unselectAll for PDF content
-  }
-
-  @Override
-  public void copySelectedToClipboard() {
-    // Browser widget doesn't directly support copy to clipboard for PDF content
+  private static String escapeAttr(String text) {
+    if (text == null) return "";
+    return text.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;");
   }
 }

@@ -23,18 +23,10 @@ import org.apache.hop.core.search.ISearchable;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.context.IGuiContextHandler;
 import org.apache.hop.ui.hopgui.file.IHopFileType;
-import org.apache.hop.ui.hopgui.file.IHopFileTypeHandler;
-import org.apache.hop.ui.hopgui.file.empty.EmptyHopFileTypeHandler;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 public class EmptyHopPerspective implements IHopPerspective {
-
-  private IHopFileTypeHandler emptyHandler;
-
-  public EmptyHopPerspective() {
-    emptyHandler = new EmptyHopFileTypeHandler();
-  }
 
   @Override
   public String getId() {
@@ -77,7 +69,7 @@ public class EmptyHopPerspective implements IHopPerspective {
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return List.of();
   }
 }

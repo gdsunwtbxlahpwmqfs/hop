@@ -125,7 +125,7 @@ public interface IHopPerspective extends IActionContextHandlersProvider {
   /**
    * @return A list of searchable items
    */
-  default List<ISearchable> getSearchables() {
+  default List<ISearchable<?>> getSearchables() {
     return List.of();
   }
 

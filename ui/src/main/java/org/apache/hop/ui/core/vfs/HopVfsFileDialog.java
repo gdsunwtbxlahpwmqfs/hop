@@ -120,7 +120,6 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
   public static final String DIALOG_STATE_VALUE_SORT_ASCENDING = "sortAscending";
 
   public static final String BOOKMARKS_TOOLBAR_PARENT_ID = "HopVfsFileDialog-BookmarksToolbar";
-  private static final String BOOKMARKS_ITEM_ID_BOOKMARKS = "0000-bookmarks";
   private static final String BOOKMARKS_ITEM_ID_BOOKMARK_ADD = "0010-bookmark-add";
   private static final String BOOKMARKS_ITEM_ID_BOOKMARK_GOTO = "0020-bookmark-goto";
   private static final String BOOKMARKS_ITEM_ID_BOOKMARK_REMOVE = "0030-bookmark-remove";
@@ -504,8 +503,7 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
     wBrowser = new Tree(browseSash, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
     PropsUi.setLook(wBrowser);
     wBrowser.setHeaderVisible(true);
-    wBrowser.setLinesVisible(false); // TODO needed?
-
+    wBrowser.setLinesVisible(false); 
     TreeColumn folderColumn = new TreeColumn(wBrowser, SWT.LEFT);
     folderColumn.setText(BaseMessages.getString(PKG, "HopVfsFileDialog.Folder.Name.Label"));
     folderColumn.setWidth((int) (200 * props.getZoomFactor()));

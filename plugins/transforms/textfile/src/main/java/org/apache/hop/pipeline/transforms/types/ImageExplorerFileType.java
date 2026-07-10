@@ -13,6 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package org.apache.hop.pipeline.transforms.types;
@@ -27,34 +28,30 @@ import org.apache.hop.ui.hopgui.file.empty.EmptyHopFileTypeHandler;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerFile;
 import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.capabilities.FileTypeCapabilities;
-import org.apache.hop.ui.hopgui.perspective.explorer.file.types.text.BaseTextExplorerFileType;
+import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplorerFileType;
 
+/** Opens image files (.png, .jpg, .jpeg, .gif, .bmp) in the explorer perspective. */
 @HopFileTypePlugin(
-    id = "TextExplorerFileType",
-    name = "TXT File Type",
-    description = "Text file handling in the explorer perspective",
-    image = "text.svg")
-public class TextExplorerFileType extends BaseTextExplorerFileType<TextExplorerFileTypeHandler> {
+    id = "ImageExplorerFileType",
+    name = "Image File Type",
+    description = "Image file handling in the explorer perspective",
+    image = "image.svg")
+public class ImageExplorerFileType extends BaseExplorerFileType<ImageExplorerFileTypeHandler> {
 
-  public TextExplorerFileType() {
+  public ImageExplorerFileType() {
     super(
-        "TXT File",
-        ".txt",
-        new String[] {"*.txt"},
-        new String[] {"TXT files"},
+        "Image File",
+        ".png",
+        new String[] {"*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "*.ico", "*.webp"},
+        new String[] {"Image files"},
         FileTypeCapabilities.getCapabilities(
-            IHopFileType.CAPABILITY_SAVE,
-            IHopFileType.CAPABILITY_SAVE_AS,
-            IHopFileType.CAPABILITY_CLOSE,
-            IHopFileType.CAPABILITY_FILE_HISTORY,
-            IHopFileType.CAPABILITY_COPY,
-            IHopFileType.CAPABILITY_SELECT));
+            IHopFileType.CAPABILITY_CLOSE, IHopFileType.CAPABILITY_FILE_HISTORY));
   }
 
   @Override
-  public TextExplorerFileTypeHandler createFileTypeHandler(
+  public ImageExplorerFileTypeHandler createFileTypeHandler(
       HopGui hopGui, ExplorerPerspective perspective, ExplorerFile file) {
-    return new TextExplorerFileTypeHandler(hopGui, perspective, file);
+    return new ImageExplorerFileTypeHandler(hopGui, perspective, file);
   }
 
   @Override

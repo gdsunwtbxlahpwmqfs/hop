@@ -33,7 +33,7 @@ import org.apache.hop.ui.hopgui.perspective.explorer.file.types.text.BaseTextExp
     id = "CsvExplorerFileType",
     name = "CSV File Type",
     description = "CSV file handling in the explorer perspective",
-    image = "textfile.svg")
+    image = "csv.svg")
 public class CsvExplorerFileType extends BaseTextExplorerFileType<TextExplorerFileTypeHandler> {
 
   public CsvExplorerFileType() {

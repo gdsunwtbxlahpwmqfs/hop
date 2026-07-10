@@ -266,8 +266,6 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
   }
 
   protected void createTree(Composite parent) {
-    PropsUi props = PropsUi.getInstance();
-
     // Create composite
     //
     Composite composite = new Composite(parent, SWT.BORDER);
@@ -317,8 +315,6 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
   }
 
   protected void createTabFolder(Composite parent) {
-    PropsUi props = PropsUi.getInstance();
-
     tabFolder = new CTabFolder(parent, SWT.MULTI | SWT.BORDER);
     tabFolder.addCTabFolder2Listener(
         new CTabFolder2Adapter() {
@@ -450,6 +446,7 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
     }
   }
 
+  @SuppressWarnings("deprecation")
   public void createExecutionViewer(
       String locationName, Execution execution, ExecutionState executionState) throws Exception {
     Cursor busyCursor = getBusyCursor();
@@ -471,7 +468,6 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
       // Load metadata
       IHopMetadataProvider provider = new SerializableMetadataProvider(execution.getMetadataJson());
       IVariables variables = Variables.getADefaultVariableSpace();
-      //noinspection deprecation
       variables.setVariables(execution.getVariableValues());
 
       switch (execution.getExecutionType()) {
@@ -1022,8 +1018,6 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
   public boolean remove(IHopFileTypeHandler typeHandler) {
     if (typeHandler instanceof MetadataEditor<?> editor) {
       if (editor.isCloseable()) {
-        viewers.remove(editor);
-
         for (CTabItem item : tabFolder.getItems()) {
           if (editor.equals(item.getData())) {
             item.dispose();
@@ -1128,7 +1122,7 @@ public class ExecutionPerspective implements IHopPerspective, TabClosable {
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return new ArrayList<>();
   }
 

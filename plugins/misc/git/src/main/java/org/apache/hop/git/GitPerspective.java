@@ -71,7 +71,6 @@ import org.eclipse.jgit.diff.RenameDetector;
 import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.merge.MergeStrategy;
@@ -196,7 +195,6 @@ public class GitPerspective implements IHopPerspective {
   private HopGui hopGui;
   private SashForm wSashForm;
 
-  private Control wRefToolBar;
   private Control wFileToolBar;
   private Control wHistoryToolBar;
 
@@ -205,7 +203,6 @@ public class GitPerspective implements IHopPerspective {
   private Tree wFileTree;
   private Table wHistoryTable;
 
-  private Control wDiff; // Can be Text (web) or DiffStyledTextComp (desktop)
   private Control wDiffStyled; // Declared as Control (not DiffStyledTextComp) so works in hop web
   private Text wSearchText;
   private Text wDiffText;
@@ -327,10 +324,6 @@ public class GitPerspective implements IHopPerspective {
     //    refToolBarWidgets.createToolbarWidgets(toolBarContainer,
     // GUI_PLUGIN_REF_TOOLBAR_PARENT_ID);
     //
-    //    wRefToolBar = toolBarContainer.getControl();
-    //    wRefToolBar.setLayoutData(FormDataBuilder.builder().fullWidth().top().result());
-    //    wRefToolBar.pack();
-    //    PropsUi.setLook(wRefToolBar, Props.WIDGET_STYLE_TOOLBAR);
 
     wRefTree = new Tree(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
     wRefTree.setHeaderVisible(false);
@@ -363,7 +356,6 @@ public class GitPerspective implements IHopPerspective {
           boolean isCurrentBranch = branch.equals(currentBranch);
           boolean isHeads = ref.getName().startsWith(Constants.R_HEADS);
           boolean isRemotes = ref.getName().startsWith(Constants.R_REMOTES);
-          boolean isTags = ref.getName().startsWith(Constants.R_TAGS);
 
           refMenuWidgets.findMenuItem(REF_CONTEXT_MENU_CHECKOUT).setEnabled(!isCurrentBranch);
           refMenuWidgets.findMenuItem(REF_CONTEXT_MENU_MERGE_BRANCH).setEnabled(!isCurrentBranch);
@@ -734,7 +726,7 @@ public class GitPerspective implements IHopPerspective {
 
       try {
         Git git = uigit.getGit();
-        RevCommit revertCommit = git.revert().include(commit).call();
+        git.revert().include(commit).call();
 
         refresh(true);
       } catch (Exception e) {
@@ -1428,6 +1420,7 @@ public class GitPerspective implements IHopPerspective {
     fileToolBarWidgets.enableToolbarItem(TOOLBAR_ITEM_FILE_CHERRY_PICK, isFileSelected);
   }
 
+  @SuppressWarnings("unchecked")
   protected void createHistoryTable(Composite parent) {
 
     Composite composite = new Composite(parent, SWT.BORDER);
@@ -1553,16 +1546,12 @@ public class GitPerspective implements IHopPerspective {
       wDiffText = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
       wDiffText.setEditable(false);
       PropsUi.setLook(wDiffText);
-
-      wDiff = wDiffText;
     } else {
       // Desktop: Use DiffStyledTextComp for colored diff
       wDiffStyled =
           new DiffStyledTextComp(
               hopGui.getVariables(), parent, SWT.MULTI | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
       PropsUi.setLook(wDiffStyled, Props.WIDGET_STYLE_FIXED);
-
-      wDiff = wDiffStyled;
     }
   }
 
@@ -1675,7 +1664,6 @@ public class GitPerspective implements IHopPerspective {
   }
 
   public static class VirtualPlotCommit extends PlotCommit<SwtCommitList.Lane> {
-    private static final PersonIdent AUTHOR = new PersonIdent("Index", "staged@changes");
 
     public VirtualPlotCommit(AnyObjectId id, RevCommit headCommit) {
       super(id);

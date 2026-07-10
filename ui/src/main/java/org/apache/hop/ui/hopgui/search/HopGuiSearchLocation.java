@@ -38,7 +38,7 @@ public class HopGuiSearchLocation implements ISearchablesLocation {
   }
 
   @Override
-  public Iterator<ISearchable> getSearchables(
+  public Iterator<ISearchable<?>> getSearchables(
       IHopMetadataProvider metadataProvider, IVariables variables) throws HopException {
     return new HopGuiSearchLocationIterator(hopGui, this);
   }

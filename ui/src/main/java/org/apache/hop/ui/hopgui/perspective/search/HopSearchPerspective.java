@@ -362,7 +362,7 @@ public class HopSearchPerspective implements IHopPerspective {
     }
 
     ISearchResult searchResult = allSearchResults.get(itemNr - 1);
-    ISearchable searchable = searchResult.getMatchingSearchable();
+    ISearchable<?> searchable = searchResult.getMatchingSearchable();
     try {
       searchable.getSearchCallback().callback(searchable, searchResult);
     } catch (Exception e) {
@@ -390,11 +390,11 @@ public class HopSearchPerspective implements IHopPerspective {
     try {
       // What is the list of available searchable analysers?
       //
-      Map<Class<ISearchableAnalyser>, ISearchableAnalyser> searchableAnalyserMap = new HashMap<>();
+      Map<Class<?>, ISearchableAnalyser<?>> searchableAnalyserMap = new HashMap<>();
       PluginRegistry registry = PluginRegistry.getInstance();
       for (IPlugin analyserPlugin : registry.getPlugins(SearchableAnalyserPluginType.class)) {
-        ISearchableAnalyser searchableAnalyser =
-            (ISearchableAnalyser) registry.loadClass(analyserPlugin);
+        ISearchableAnalyser<?> searchableAnalyser =
+            (ISearchableAnalyser<?>) registry.loadClass(analyserPlugin);
         searchableAnalyserMap.put(searchableAnalyser.getSearchableClass(), searchableAnalyser);
       }
 
@@ -409,20 +409,22 @@ public class HopSearchPerspective implements IHopPerspective {
           AUDIT_TYPE_SEARCH_LOCATION, searchablesLocation.getLocationDescription());
       AuditManagerGuiUtil.addLastUsedValue(AUDIT_TYPE_SEARCH_STRING, wSearchString.getText());
 
-      Iterator<ISearchable> iterator =
+      Iterator<ISearchable<?>> iterator =
           searchablesLocation.getSearchables(hopGui.getMetadataProvider(), hopGui.getVariables());
       while (iterator.hasNext()) {
         // Load the next object
         //
-        ISearchable searchable = iterator.next();
+        ISearchable<?> searchable = iterator.next();
 
         Object object = searchable.getSearchableObject();
         if (object != null) {
           // Find an analyser...
           //
-          ISearchableAnalyser searchableAnalyser = searchableAnalyserMap.get(object.getClass());
+          ISearchableAnalyser<?> searchableAnalyser = searchableAnalyserMap.get(object.getClass());
           if (searchableAnalyser != null) {
-            List<ISearchResult> searchResults = searchableAnalyser.search(searchable, searchQuery);
+            @SuppressWarnings({"rawtypes", "unchecked"})
+            List<ISearchResult> searchResults =
+                ((ISearchableAnalyser) searchableAnalyser).search(searchable, searchQuery);
             addSearchResults(searchResults);
           }
         }
@@ -451,7 +453,7 @@ public class HopSearchPerspective implements IHopPerspective {
   private void addSearchResults(List<ISearchResult> searchResults) {
 
     for (ISearchResult searchResult : searchResults) {
-      ISearchable searchable = searchResult.getMatchingSearchable();
+      ISearchable<?> searchable = searchResult.getMatchingSearchable();
 
       TableItem item = new TableItem(wResults.table, SWT.NONE);
       int c = 1;
@@ -496,7 +498,7 @@ public class HopSearchPerspective implements IHopPerspective {
   }
 
   @Override
-  public List<ISearchable> getSearchables() {
+  public List<ISearchable<?>> getSearchables() {
     return new ArrayList<>();
   }
 }

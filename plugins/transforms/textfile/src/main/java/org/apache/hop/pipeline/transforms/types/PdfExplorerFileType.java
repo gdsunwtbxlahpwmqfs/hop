@@ -33,7 +33,7 @@ import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplore
     id = "PdfExplorerFileType",
     name = "PDF File Type",
     description = "PDF file handling in the explorer perspective",
-    image = "ui/images/pdf.svg")
+    image = "pdf.svg")
 public class PdfExplorerFileType extends BaseExplorerFileType<PdfExplorerFileTypeHandler> {
 
   public PdfExplorerFileType() {
