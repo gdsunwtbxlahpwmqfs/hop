@@ -362,6 +362,7 @@ public class MetadataManager<T extends IHopMetadata> {
     return metadataProvider.getSerializer(managedClass);
   }
 
+  @SuppressWarnings("unchecked")
   public boolean openMetaDialog(T object, IHopMetadataSerializer<T> serializer) throws Exception {
     if (object == null) {
       return false;
@@ -550,6 +551,7 @@ public class MetadataManager<T extends IHopMetadata> {
     return dialogClassName;
   }
 
+  @SuppressWarnings("unchecked")
   public MetadataEditor<T> createEditor(T metadata) throws HopException {
 
     // Find the class editor...

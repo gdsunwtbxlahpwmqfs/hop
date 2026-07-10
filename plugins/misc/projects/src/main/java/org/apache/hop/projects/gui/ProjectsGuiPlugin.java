@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -647,14 +648,24 @@ public class ProjectsGuiPlugin {
       image = "project.svg",
       toolTip = "i18n::HopGui.Toolbar.Project.Tooltip")
   public void showProjectContextMenu() {
+    showToolbarMenu(ID_TOOLBAR_ITEM_PROJECT, this::createProjectContextMenu);
+  }
+
+  /**
+   * Positions and displays a popup menu below the given status toolbar item.
+   *
+   * @param toolbarItemId the toolbar element id whose control anchors the popup
+   * @param menuSupplier lazily creates the menu (only invoked if the control is valid)
+   */
+  private void showToolbarMenu(String toolbarItemId, Supplier<Menu> menuSupplier) {
     Control control =
-        HopGui.getInstance().getStatusToolbarWidgets().getControlForMenu(ID_TOOLBAR_ITEM_PROJECT);
+        HopGui.getInstance().getStatusToolbarWidgets().getControlForMenu(toolbarItemId);
     if (control != null && !control.isDisposed()) {
       Rectangle rect = control.getBounds();
       int menuGap = 6;
       Point location =
           control.getParent().toDisplay(new Point(rect.x, rect.y + rect.height + menuGap));
-      Menu menu = createProjectContextMenu();
+      Menu menu = menuSupplier.get();
       menu.setLocation(location);
       menu.setVisible(true);
     }
@@ -775,19 +786,7 @@ public class ProjectsGuiPlugin {
       image = "environment.svg",
       toolTip = "i18n::HopGui.Toolbar.Environment.Tooltip")
   public void showEnvironmentContextMenu() {
-    Control control =
-        HopGui.getInstance()
-            .getStatusToolbarWidgets()
-            .getControlForMenu(ID_TOOLBAR_ITEM_ENVIRONMENT);
-    if (control != null && !control.isDisposed()) {
-      Rectangle rect = control.getBounds();
-      int menuGap = 6;
-      Point location =
-          control.getParent().toDisplay(new Point(rect.x, rect.y + rect.height + menuGap));
-      Menu menu = createEnvironmentContextMenu();
-      menu.setLocation(location);
-      menu.setVisible(true);
-    }
+    showToolbarMenu(ID_TOOLBAR_ITEM_ENVIRONMENT, this::createEnvironmentContextMenu);
   }
 
   public void selectProject() {

@@ -187,7 +187,8 @@ public class LoginServlet extends HttpServlet {
     Locale originalLocale = LanguageChoice.getInstance().getDefaultLocale();
     try {
       if (lang != null && !lang.isEmpty()) {
-        Locale locale = lang.equals("zh") ? Locale.forLanguageTag("zh-CN") : Locale.forLanguageTag("en-US");
+        Locale locale =
+            lang.equals("zh") ? Locale.forLanguageTag("zh-CN") : Locale.forLanguageTag("en-US");
         LanguageChoice.getInstance().setDefaultLocale(locale);
       }
 
