@@ -22,7 +22,7 @@
     <meta name="theme-color" content="#3b6ea5">
     <link rel="icon" href="<!--RESOURCE_PREFIX-->/static/images/favicon.svg" type="image/svg+xml">
     <title data-i18n="pageTitle">Qi Hop - Login</title>
-    <link rel="stylesheet" href="<!--RESOURCE_PREFIX-->/login.css?v=11">
+    <link rel="stylesheet" href="<!--RESOURCE_PREFIX-->/login.css?v=12">
     <!--LOGIN_CONFIG-->
 </head>
 <body>
@@ -70,6 +70,12 @@
         <div class="login-card" id="loginCard">
             <!-- Brand header -->
             <header class="login-header">
+                <div class="lang-selector">
+                    <select id="langSelect" class="lang-select">
+                        <option value="en">English</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
                 <div class="brand">
                     <svg class="brand-logo" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
                         <defs>
@@ -195,6 +201,6 @@
         </div>
     </main>
 
-    <script src="<!--RESOURCE_PREFIX-->/login.js?v=11"></script>
+    <script src="<!--RESOURCE_PREFIX-->/login.js?v=12"></script>
 </body>
 </html>

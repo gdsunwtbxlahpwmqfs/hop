@@ -137,7 +137,7 @@
     },
     {
       "name" : "HOP_PIPELINE_ROWSET_SIZE",
-      "value" : "",
+      "value" : "10000",
       "description" : "Name of the environment variable that contains the size of the pipeline rowset size. This overwrites values that you set pipeline settings"
     },
     {
@@ -319,6 +319,101 @@
       "name" : "HOP_S3_VFS_PART_SIZE",
       "value" : "",
       "description" : "Default part size for new files on S3, Acceptable are 5MB as a minimum and 5GB as a maximum value. (Default: 5MB)"
+    },
+    {
+      "name" : "HOP_PREVIEW_BATCH_SIZE",
+      "value" : "100",
+      "description" : "The default number of rows to fetch in preview mode per transform."
+    },
+    {
+      "name" : "HOP_AUTO_SAVE_METADATA",
+      "value" : "Y",
+      "description" : "Set to 'Y' to automatically save metadata changes without prompting."
+    },
+    {
+      "name" : "HOP_METADATA_CACHE_TTL",
+      "value" : "3600",
+      "description" : "Time-to-live in seconds for metadata cache entries before they are refreshed."
+    },
+    {
+      "name" : "HOP_CLEANUP_TEMP_FILES_ON_EXIT",
+      "value" : "Y",
+      "description" : "Set to 'Y' to clean up temporary files (sort files, etc.) when the JVM shuts down."
+    },
+    {
+      "name" : "HOP_MAX_CONCURRENT_BACKGROUND_TASKS",
+      "value" : "4",
+      "description" : "Maximum number of concurrent background tasks (e.g. metadata serialization, preview queries)."
+    },
+    {
+      "name" : "HOP_USE_VIRTUAL_THREADS",
+      "value" : "Y",
+      "description" : "Set to 'Y' to use JDK 21 virtual threads for transform execution. Requires JDK 21+."
+    },
+    {
+      "name" : "HOP_ROWSET_DEFAULT_SIZE",
+      "value" : "10000",
+      "description" : "Default rowset size when not explicitly set in pipeline properties. Overrides the built-in default."
+    },
+    {
+      "name" : "HOP_DEFAULT_SORT_SIZE",
+      "value" : "500000",
+      "description" : "Default sort size (number of rows) before spilling to disk."
+    },
+    {
+      "name" : "HOP_MEMORY_FREE_THRESHOLD_PERCENT",
+      "value" : "15",
+      "description" : "Minimum percentage of free heap memory below which pipeline execution will be paused or aborted."
+    },
+    {
+      "name" : "HOP_AUTO_CLEAN_TEMP_SORT_FILES",
+      "value" : "Y",
+      "description" : "Set to 'Y' to automatically delete temporary sort files after a sort operation completes."
+    },
+    {
+      "name" : "HOP_METRIC_FLUSH_INTERVAL_MS",
+      "value" : "30000",
+      "description" : "Interval in milliseconds at which pipeline metrics are flushed to registered sinks."
+    },
+    {
+      "name" : "HOP_HIDE_DATABASE_PASSWORDS_IN_LOGS",
+      "value" : "Y",
+      "description" : "Set to 'Y' to mask database password values in log output."
+    },
+    {
+      "name" : "HOP_DISABLE_PLAIN_TEXT_CREDENTIALS",
+      "value" : "Y",
+      "description" : "Set to 'Y' to disallow storing credentials in plain text; forces use of the password encoder."
+    },
+    {
+      "name" : "HOP_MASK_SENSITIVE_OUTPUT",
+      "value" : "Y",
+      "description" : "Set to 'Y' to mask sensitive information (passwords, tokens) in console and preview output."
+    },
+    {
+      "name" : "HOP_SESSION_TIMEOUT_MINUTES",
+      "value" : "60",
+      "description" : "Web session timeout in minutes for Hop Web (RAP) deployments."
+    },
+    {
+      "name" : "HOP_LOG_FILE_MAX_SIZE_MB",
+      "value" : "500",
+      "description" : "Maximum log file size in MB before rotation occurs."
+    },
+    {
+      "name" : "HOP_LOG_FILE_ROTATION_COUNT",
+      "value" : "10",
+      "description" : "Number of rotated log files to retain."
+    },
+    {
+      "name" : "HOP_LOG_BUFFER_LINES",
+      "value" : "5000",
+      "description" : "Number of log lines buffered in memory before flushing to the log output."
+    },
+    {
+      "name" : "HOP_DISABLE_SENSITIVE_DATA_LOGGING",
+      "value" : "Y",
+      "description" : "Set to 'Y' to prevent sensitive data (row values containing passwords/tokens) from being written to logs."
     }
   ],
   "googleCloud" : {
@@ -389,13 +484,13 @@
     "enabled" : true,
     "projectMandatory" : false,
     "environmentMandatory" : false,
-    "environmentsForActiveProject" : false,
-    "sortByNameLastUsedProjects" : false,
+    "environmentsForActiveProject" : true,
+    "sortByNameLastUsedProjects" : true,
     "clearingDbCacheWhenSwitching" : true,
-    "defaultProject" : null,
+    "defaultProject" : "default",
     "defaultEnvironment" : null,
-    "standardParentProject" : null,
-    "standardProjectsFolder" : null,
+    "standardParentProject" : "default",
+    "standardProjectsFolder" : "${HOP_HOME}/projects",
     "defaultProjectConfigFile" : "project-config.json",
     "projectConfigurations" : [ ],
     "lifecycleEnvironments" : [ ],

@@ -26,6 +26,6 @@ import org.apache.hop.metadata.api.IHopMetadataProvider;
 public interface ISearchablesLocation {
   String getLocationDescription();
 
-  Iterator<ISearchable<?>> getSearchables(IHopMetadataProvider metadataProvider, IVariables variables)
-      throws HopException;
+  Iterator<ISearchable<?>> getSearchables(
+      IHopMetadataProvider metadataProvider, IVariables variables) throws HopException;
 }

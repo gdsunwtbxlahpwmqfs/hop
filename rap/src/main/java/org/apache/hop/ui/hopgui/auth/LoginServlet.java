@@ -28,9 +28,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.logging.Logger;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.i18n.BaseMessages;
+import org.apache.hop.i18n.LanguageChoice;
 
 /**
  * Handles three concerns in a single endpoint:
@@ -180,54 +182,62 @@ public class LoginServlet extends HttpServlet {
     String html = readResource("login.html");
     String redirect = request.getParameter(AuthConstants.PARAM_REDIRECT);
     String errorFlag = request.getParameter("error");
+    String lang = request.getParameter("lang");
 
-    // Resolve the resource prefix so CSS/JS links work under any context path.
-    String resourcePrefix = request.getContextPath() + AuthConstants.PATH_LOGIN_RESOURCES;
-    html = html.replace("<!--RESOURCE_PREFIX-->", resourcePrefix);
+    Locale originalLocale = LanguageChoice.getInstance().getDefaultLocale();
+    try {
+      if (lang != null && !lang.isEmpty()) {
+        Locale locale = lang.equals("zh") ? Locale.forLanguageTag("zh-CN") : Locale.forLanguageTag("en-US");
+        LanguageChoice.getInstance().setDefaultLocale(locale);
+      }
 
-    // Inject runtime values and i18n messages into the page via config script.
-    StringBuilder config = new StringBuilder();
-    config.append("<script id=\"login-config\" type=\"application/json\">{");
-    config.append("\"contextPath\":\"").append(escapeJson(request.getContextPath())).append("\"");
-    if (redirect != null && !redirect.isEmpty()) {
-      config.append(",\"redirect\":\"").append(escapeJson(redirect)).append("\"");
-    }
-    if ("1".equals(errorFlag)) {
-      config.append(",\"error\":true");
-    }
+      String resourcePrefix = request.getContextPath() + AuthConstants.PATH_LOGIN_RESOURCES;
+      html = html.replace("<!--RESOURCE_PREFIX-->", resourcePrefix);
 
-    // Inject i18n messages
-    config.append(",\"i18n\":{");
-    appendI18n(config, "pageTitle", "LoginServlet.Page.Title");
-    appendI18n(config, "pageSubtitle", "LoginServlet.Page.Subtitle");
-    appendI18n(config, "accountLabel", "LoginServlet.Form.Account.Label");
-    appendI18n(config, "accountPlaceholder", "LoginServlet.Form.Account.Placeholder");
-    appendI18n(config, "passwordLabel", "LoginServlet.Form.Password.Label");
-    appendI18n(config, "passwordPlaceholder", "LoginServlet.Form.Password.Placeholder");
-    appendI18n(config, "passwordToggleTitle", "LoginServlet.Form.Password.Toggle.Title");
-    appendI18n(config, "rememberLabel", "LoginServlet.Form.Remember.Label");
-    appendI18n(config, "submitButton", "LoginServlet.Form.Submit.Button");
-    appendI18n(config, "hintText", "LoginServlet.Form.Hint");
-    appendI18n(config, "transitionText", "LoginServlet.Transition.Text");
-    appendI18n(config, "errorInvalidCredentials", "LoginServlet.Alert.Error.InvalidCredentials");
-    appendI18n(config, "errorRememberExpired", "LoginServlet.Alert.Error.RememberExpired");
-    appendI18n(config, "errorPasswordEncrypt", "LoginServlet.Alert.Error.PasswordEncrypt");
-    appendI18n(config, "errorLoginFailed", "LoginServlet.Alert.Error.LoginFailed");
-    appendI18n(config, "valAccountEmpty", "LoginServlet.Validation.Account.Empty");
-    appendI18n(config, "valAccountTooShort", "LoginServlet.Validation.Account.TooShort");
-    appendI18n(config, "valAccountInvalid", "LoginServlet.Validation.Account.Invalid");
-    appendI18n(config, "valPasswordEmpty", "LoginServlet.Validation.Password.Empty");
-    appendI18n(config, "valPasswordTooShort", "LoginServlet.Validation.Password.TooShort");
-    appendI18n(config, "valPasswordInvalid", "LoginServlet.Validation.Password.Invalid");
-    config.append("}");
+      StringBuilder config = new StringBuilder();
+      config.append("<script id=\"login-config\" type=\"application/json\">{");
+      config.append("\"contextPath\":\"").append(escapeJson(request.getContextPath())).append("\"");
+      if (redirect != null && !redirect.isEmpty()) {
+        config.append(",\"redirect\":\"").append(escapeJson(redirect)).append("\"");
+      }
+      if ("1".equals(errorFlag)) {
+        config.append(",\"error\":true");
+      }
 
-    config.append("}</script>");
+      config.append(",\"i18n\":{");
+      appendI18n(config, "pageTitle", "LoginServlet.Page.Title");
+      appendI18n(config, "pageSubtitle", "LoginServlet.Page.Subtitle");
+      appendI18n(config, "accountLabel", "LoginServlet.Form.Account.Label");
+      appendI18n(config, "accountPlaceholder", "LoginServlet.Form.Account.Placeholder");
+      appendI18n(config, "passwordLabel", "LoginServlet.Form.Password.Label");
+      appendI18n(config, "passwordPlaceholder", "LoginServlet.Form.Password.Placeholder");
+      appendI18n(config, "passwordToggleTitle", "LoginServlet.Form.Password.Toggle.Title");
+      appendI18n(config, "rememberLabel", "LoginServlet.Form.Remember.Label");
+      appendI18n(config, "submitButton", "LoginServlet.Form.Submit.Button");
+      appendI18n(config, "hintText", "LoginServlet.Form.Hint");
+      appendI18n(config, "transitionText", "LoginServlet.Transition.Text");
+      appendI18n(config, "errorInvalidCredentials", "LoginServlet.Alert.Error.InvalidCredentials");
+      appendI18n(config, "errorRememberExpired", "LoginServlet.Alert.Error.RememberExpired");
+      appendI18n(config, "errorPasswordEncrypt", "LoginServlet.Alert.Error.PasswordEncrypt");
+      appendI18n(config, "errorLoginFailed", "LoginServlet.Alert.Error.LoginFailed");
+      appendI18n(config, "errorNetwork", "LoginServlet.Alert.Error.Network");
+      appendI18n(config, "errorServerUnavailable", "LoginServlet.Alert.Error.ServerUnavailable");
+      appendI18n(config, "valAccountEmpty", "LoginServlet.Validation.Account.Empty");
+      appendI18n(config, "valAccountTooShort", "LoginServlet.Validation.Account.TooShort");
+      appendI18n(config, "valAccountInvalid", "LoginServlet.Validation.Account.Invalid");
+      appendI18n(config, "valPasswordEmpty", "LoginServlet.Validation.Password.Empty");
+      appendI18n(config, "valPasswordTooShort", "LoginServlet.Validation.Password.TooShort");
+      appendI18n(config, "valPasswordInvalid", "LoginServlet.Validation.Password.Invalid");
+      config.append("}");
 
-    // Replace placeholder so the page knows its context path (important when deployed under a
-    // non-root context).
-    html = html.replace("<!--LOGIN_CONFIG-->", config.toString());
-    try (PrintWriter out = response.getWriter()) {
-      out.print(html);
+      config.append("}</script>");
+
+      html = html.replace("<!--LOGIN_CONFIG-->", config.toString());
+      try (PrintWriter out = response.getWriter()) {
+        out.print(html);
+      }
+    } finally {
+      LanguageChoice.getInstance().setDefaultLocale(originalLocale);
     }
   }
 

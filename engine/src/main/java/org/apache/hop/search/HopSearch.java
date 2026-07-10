@@ -190,7 +190,8 @@ public class HopSearch implements Runnable, IHasHopMetadataProvider, IHopCommand
             }
             // Find an analyser...
             //
-            ISearchableAnalyser<?> searchableAnalyser = searchableAnalyserMap.get(object.getClass());
+            ISearchableAnalyser<?> searchableAnalyser =
+                searchableAnalyserMap.get(object.getClass());
             if (searchableAnalyser != null) {
               @SuppressWarnings({"rawtypes", "unchecked"})
               List<ISearchResult> searchResults =

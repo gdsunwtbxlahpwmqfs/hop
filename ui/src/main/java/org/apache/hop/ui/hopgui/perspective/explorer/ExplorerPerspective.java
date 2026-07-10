@@ -506,8 +506,7 @@ public class ExplorerPerspective implements IHopPerspective, TabClosable, IFileD
           e);
     }
 
-    if (!Objects.equals(oldRootFolder, rootFolder)
-        || !Objects.equals(oldRootName, rootName)) {
+    if (!Objects.equals(oldRootFolder, rootFolder) || !Objects.equals(oldRootName, rootName)) {
       // call the root changed listeners...
       //
       for (IExplorerRootChangedListener listener : rootChangedListeners) {

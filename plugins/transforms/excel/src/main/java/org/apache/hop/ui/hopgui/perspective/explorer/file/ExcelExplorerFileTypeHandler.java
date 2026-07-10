@@ -43,8 +43,8 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Renders an Excel file (.xls/.xlsx) in the explorer as a high-quality spreadsheet view in a
- * Browser widget: frozen header row & row-number column, zebra striping, numeric right-alignment,
- * multi-sheet tabs with JavaScript switching.
+ * Browser widget: frozen header row &amp; row-number column, zebra striping, numeric
+ * right-alignment, multi-sheet tabs with JavaScript switching.
  */
 public class ExcelExplorerFileTypeHandler extends BaseExplorerFileTypeHandler {
 

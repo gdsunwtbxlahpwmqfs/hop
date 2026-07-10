@@ -503,7 +503,7 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
     wBrowser = new Tree(browseSash, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
     PropsUi.setLook(wBrowser);
     wBrowser.setHeaderVisible(true);
-    wBrowser.setLinesVisible(false); 
+    wBrowser.setLinesVisible(false);
     TreeColumn folderColumn = new TreeColumn(wBrowser, SWT.LEFT);
     folderColumn.setText(BaseMessages.getString(PKG, "HopVfsFileDialog.Folder.Name.Label"));
     folderColumn.setWidth((int) (200 * props.getZoomFactor()));
