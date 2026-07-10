@@ -52,11 +52,13 @@ import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Dialog;
@@ -80,7 +82,7 @@ public class ProjectDialog extends Dialog {
 
   private Text wName;
   private TextVar wHome;
-  private ComboVar wParentProject;
+  private Combo wParentProject;
   private TextVar wConfigFile;
   private Text wDescription;
   private Text wCompany;
@@ -166,12 +168,9 @@ public class ProjectDialog extends Dialog {
     wCancel.addListener(SWT.Selection, event -> cancel());
     BaseTransformDialog.positionBottomButtons(shell, new Button[] {wOk, wCancel}, margin * 3, null);
 
-    ScrolledComposite scroll = new ScrolledComposite(shell, SWT.V_SCROLL);
+    ScrolledComposite scroll = new ScrolledComposite(shell, SWT.V_SCROLL | SWT.H_SCROLL);
     scroll.setLayout(new FillLayout());
-    scroll.setExpandHorizontal(true);
-    scroll.setExpandVertical(true);
     PropsUi.setLook(scroll);
-    shell.setLayoutData(scroll);
 
     FormData fd = new FormData();
     fd.left = new FormAttachment(0, 0);
@@ -259,7 +258,7 @@ public class ProjectDialog extends Dialog {
     fdlParentProject.right = new FormAttachment(middle, 0);
     fdlParentProject.top = new FormAttachment(lastControl, margin);
     wlParentProject.setLayoutData(fdlParentProject);
-    wParentProject = new ComboVar(variables, comp, SWT.SINGLE | SWT.BORDER | SWT.LEFT);
+    wParentProject = new Combo(comp, SWT.SINGLE | SWT.BORDER | SWT.LEFT);
     PropsUi.setLook(wParentProject);
     FormData fdParentProject = new FormData();
     fdParentProject.left = new FormAttachment(middle, margin);
@@ -468,9 +467,13 @@ public class ProjectDialog extends Dialog {
     getData();
 
     comp.pack();
+    Rectangle compBounds = comp.getBounds();
     scroll.setContent(comp);
-    scroll.setMinSize(comp.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-    shell.setMinimumSize(comp.getBounds().width, 200);
+    scroll.setExpandHorizontal(true);
+    scroll.setExpandVertical(true);
+    scroll.setMinWidth(compBounds.width);
+    scroll.setMinHeight(compBounds.height);
+    shell.setMinimumSize(compBounds.width, 200);
     shell.setDefaultButton(wOk);
     wName.setFocus();
     BaseDialog.defaultShellHandling(shell, c -> ok(), c -> cancel());

@@ -23,10 +23,16 @@ import org.apache.hop.core.database.DatabaseMeta;
 import org.apache.hop.core.gui.plugin.GuiPlugin;
 import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElement;
 import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElementFilter;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.widget.MetaSelectionLine;
+import org.apache.hop.ui.hopgui.HopGui;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 
 @GuiPlugin
 public class MetaSelectionLineClearDbCacheToolbarItem {
+  private static final Class<?> PKG = MetaSelectionLineClearDbCacheToolbarItem.class;
+
   public static final String TOOLBAR_ITEM_CLEAR_CACHE = "10100-metadata-clear-cache";
 
   public MetaSelectionLineClearDbCacheToolbarItem() {
@@ -40,6 +46,10 @@ public class MetaSelectionLineClearDbCacheToolbarItem {
       image = "ui/images/clear.svg")
   public void clearDatabaseCache() {
     DbCache.getInstance().clear(null);
+    MessageBox mb = new MessageBox(HopGui.getInstance().getShell(), SWT.OK | SWT.ICON_INFORMATION);
+    mb.setText(BaseMessages.getString(PKG, "DatabaseToolbarItem.ClearDatabaseCache.Success"));
+    mb.setMessage(BaseMessages.getString(PKG, "DatabaseToolbarItem.ClearDatabaseCache.Success"));
+    mb.open();
   }
 
   @GuiToolbarElementFilter(parentId = MetaSelectionLine.GUI_PLUGIN_TOOLBAR_PARENT_ID)

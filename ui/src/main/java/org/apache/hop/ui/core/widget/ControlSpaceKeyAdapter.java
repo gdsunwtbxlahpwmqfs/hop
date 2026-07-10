@@ -115,6 +115,9 @@ public class ControlSpaceKeyAdapter extends KeyAdapter {
   public void keyPressed(KeyEvent event) {
     // CTRL-<SPACE> --> Insert a variable
     if (isHotKey(event)) {
+      if (EnvironmentUtils.getInstance().isWeb()) {
+        return;
+      }
       event.doit = false;
 
       // textField.setData(TRUE) indicates we have transitioned from the textbox to list mode...

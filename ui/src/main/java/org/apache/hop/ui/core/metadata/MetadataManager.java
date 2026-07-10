@@ -500,6 +500,7 @@ public class MetadataManager<T extends IHopMetadata> {
               "MetadataManager.New.Label",
               TranslateUtil.translate(this.getManagedName(), managedClass)));
 
+      HopGui.getInstance().setActivePerspective(MetadataPerspective.getInstance());
       MetadataPerspective.getInstance().addEditor(editor);
 
       return element;
