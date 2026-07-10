@@ -390,7 +390,10 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
     imageLabel.addListener(SWT.MouseEnter, listener);
     imageLabel.addListener(SWT.MouseExit, listener);
     imageLabel.addListener(SWT.MouseUp, toolbarListener);
-    composite.addListener(SWT.MouseUp, toolbarListener);
+
+    // NOTE: Don't add toolbarListener to composite to avoid double-click events in RAP
+    // The imageLabel and textLabel already handle clicks, and event propagation in RAP
+    // would cause the composite listener to fire as well, resulting in duplicate menu popups
 
     int size =
         (int)
@@ -613,8 +616,9 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
     // and avoid menu dismiss on RAP)
     imageLabel.addListener(SWT.MouseUp, toolbarListener);
 
-    // Make the entire composite clickable (image + text)
-    composite.addListener(SWT.MouseUp, toolbarListener);
+    // NOTE: Don't add toolbarListener to composite to avoid double-click events in RAP
+    // The imageLabel and textLabel already handle clicks, and event propagation in RAP
+    // would cause the composite listener to fire as well, resulting in duplicate menu popups
 
     // Take into account zooming and the extra room for widget decorations
     //

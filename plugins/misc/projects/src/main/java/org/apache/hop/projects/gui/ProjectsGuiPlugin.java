@@ -991,9 +991,32 @@ public class ProjectsGuiPlugin {
 
   private void addProjectFromExistingSourcesInternal() {
     HopGui hopGui = HopGui.getInstance();
-    IVariables variables = hopGui.getVariables();
+    if (hopGui == null) {
+      LogChannel.GENERAL.logError("HopGui is not available");
+      return;
+    }
+    Shell shell = hopGui.getActiveShell();
+    if (shell == null) {
+      shell = hopGui.getShell();
+    }
+    if (shell == null) {
+      org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getCurrent();
+      if (display != null) {
+        shell = display.getActiveShell();
+      }
+    }
+    if (shell == null || shell.isDisposed()) {
+      LogChannel.GENERAL.logError(
+          "No valid shell available for dialog. HopGui may not be fully initialized.");
+      return;
+    }
 
     try {
+      IVariables variables = hopGui.getVariables();
+      if (variables == null) {
+        variables = Variables.getADefaultVariableSpace();
+      }
+
       ProjectsConfig config = ProjectsConfigSingleton.getConfig();
       String standardProjectsFolder = variables.resolve(config.getStandardProjectsFolder());
       String defaultProjectConfigFilename = variables.resolve(config.getDefaultProjectConfigFile());
@@ -1004,7 +1027,7 @@ public class ProjectsGuiPlugin {
       project.setParentProjectName(config.getStandardParentProject());
 
       ProjectDialog projectDialog =
-          new ProjectDialog(hopGui.getActiveShell(), project, projectConfig, variables, false);
+          new ProjectDialog(shell, project, projectConfig, variables, false);
       String projectName = projectDialog.open();
       if (projectName != null) {
         config.addProjectConfig(projectConfig);
@@ -1019,7 +1042,7 @@ public class ProjectsGuiPlugin {
           project.saveToFile();
         } else {
           // If projects exists load configuration
-          MessageBox box = new MessageBox(hopGui.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
+          MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK);
           box.setText(BaseMessages.getString(PKG, "ProjectGuiPlugin.ProjectExists.Dialog.Header"));
           box.setMessage(
               BaseMessages.getString(PKG, "ProjectGuiPlugin.ProjectExists.Dialog.Message"));
@@ -1050,7 +1073,7 @@ public class ProjectsGuiPlugin {
         }
         if (!localFound) {
           PipelineExecutionConfigurationDialog.createLocalPipelineConfiguration(
-              hopGui.getShell(), prcSerializer);
+              shell, prcSerializer);
         }
 
         // Then the local workflow run configuration
@@ -1067,8 +1090,7 @@ public class ProjectsGuiPlugin {
           }
         }
         if (!localFound) {
-          MessageBox box =
-              new MessageBox(HopGui.getInstance().getShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
+          MessageBox box = new MessageBox(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
           box.setText(
               BaseMessages.getString(PKG, "ProjectGuiPlugin.LocalWFRunConfig.Dialog.Header"));
           box.setMessage(
@@ -1092,8 +1114,7 @@ public class ProjectsGuiPlugin {
 
         // Ask to put the project in a lifecycle environment
         //
-        MessageBox box =
-            new MessageBox(HopGui.getInstance().getShell(), SWT.YES | SWT.NO | SWT.ICON_QUESTION);
+        MessageBox box = new MessageBox(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
         box.setText(BaseMessages.getString(PKG, "ProjectGuiPlugin.Lifecycle.Dialog.Header"));
         box.setMessage(
             BaseMessages.getString(PKG, "ProjectGuiPlugin.Lifecycle.Dialog.Message1")
@@ -1108,7 +1129,7 @@ public class ProjectsGuiPlugin {
 
     } catch (Exception e) {
       new ErrorDialog(
-          hopGui.getActiveShell(),
+          shell,
           BaseMessages.getString(PKG, "ProjectGuiPlugin.AddProject.Error.Dialog.Header"),
           BaseMessages.getString(PKG, "ProjectGuiPlugin.AddProject.Error.Dialog.Message"),
           e);

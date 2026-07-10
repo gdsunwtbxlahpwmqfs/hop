@@ -12,22 +12,111 @@ CATALINA_BASE="${HOP_HOME}/tomcat-run"
 WEBAPP_DIR="${CATALINA_BASE}/webapps"
 LOG_DIR="${CATALINA_BASE}/logs"
 
+FORCE_BUILD=false
+for arg in "$@"; do
+    case "$arg" in
+        --force-build|-fb)
+            FORCE_BUILD=true
+            ;;
+    esac
+done
+
+# ============================================================
+# OS/Arch Detection & Configuration
+# ============================================================
+detect_os_arch() {
+    OS_NAME=$(uname -s)
+    OS_ARCH=$(uname -m)
+
+    case "${OS_NAME}" in
+        Linux)
+            OS_FAMILY="linux"
+            if [ "${OS_ARCH}" = "aarch64" ]; then
+                SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.aarch64"
+            else
+                SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.x86_64"
+            fi
+            MAVEN_PROFILES="assemblies"
+            ;;
+        Darwin)
+            OS_FAMILY="mac"
+            if [ "${OS_ARCH}" = "arm64" ]; then
+                SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.aarch64"
+            else
+                SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.x86_64"
+            fi
+            MAVEN_PROFILES="assemblies"
+            ;;
+        CYGWIN*|MINGW*|MSYS*)
+            OS_FAMILY="windows"
+            SWT_ARTIFACT_ID="org.eclipse.swt.win32.win32.x86_64"
+            MAVEN_PROFILES="assemblies"
+            ;;
+        *)
+            echo "ERROR: Unsupported OS: ${OS_NAME}"
+            exit 1
+            ;;
+    esac
+}
+
+detect_os_arch
+
 echo "============================================="
 echo "  Hop Web Local Development Server"
 echo "============================================="
+echo "  OS:      ${OS_NAME}"
+echo "  Arch:    ${OS_ARCH}"
+echo "  SWT:     ${SWT_ARTIFACT_ID}"
+echo "============================================="
 
-if [ ! -f "${HOP_HOME}/assemblies/web/target/hop.war" ]; then
+# ============================================================
+# PHASE 1: Assemblies Package Installation
+# ============================================================
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║                  PHASE 1: Assemblies Installation        ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+
+if [ "${FORCE_BUILD}" = "true" ]; then
     echo ""
-    echo "==> Building Hop Web assembly..."
+    echo "==> Building Hop assemblies..."
     ./mvnw clean install -Dfast-build -DskipTests \
-      -Dswt.artifactId=org.eclipse.swt.cocoa.macosx.x86_64 \
-      -Denv=mac \
-      -P'!swt-linux,assemblies'
-    if [ ! -f "${HOP_HOME}/assemblies/web/target/hop.war" ]; then
-        echo "ERROR: Failed to build hop.war"
-        exit 1
-    fi
+      -Dswt.artifactId=${SWT_ARTIFACT_ID} \
+      -Denv=${OS_FAMILY} \
+      -P${MAVEN_PROFILES}
+else
+    echo ""
+    echo "==> Skipping build (use --force-build or -fb to enable)"
 fi
+
+CLIENT_ZIP=$(ls assemblies/client/target/hop-client-*.zip 2>/dev/null | head -1)
+if [ -n "$CLIENT_ZIP" ]; then
+    echo "    ✓ Client assembly: $(basename "$CLIENT_ZIP")"
+else
+    echo "ERROR: Client assembly zip not found"
+    exit 1
+fi
+
+PLUGINS_ZIP=$(ls assemblies/plugins/target/hop-assemblies-plugins-*-SNAPSHOT.zip 2>/dev/null | head -1)
+if [ -n "$PLUGINS_ZIP" ]; then
+    echo "    ✓ Plugins assembly: $(basename "$PLUGINS_ZIP")"
+else
+    echo "ERROR: Plugins assembly zip not found"
+    exit 1
+fi
+
+STATIC_ZIP=$(ls assemblies/static/target/hop-assemblies-static-*-SNAPSHOT.zip 2>/dev/null | head -1)
+if [ -n "$STATIC_ZIP" ]; then
+    echo "    ✓ Static assembly: $(basename "$STATIC_ZIP")"
+fi
+
+# ============================================================
+# PHASE 2: WAR Deployment & Tomcat Configuration
+# ============================================================
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║             PHASE 2: WAR Deployment & Tomcat Setup       ║"
+echo "╚══════════════════════════════════════════════════════════╝"
 
 if [ ! -d "${TOMCAT_DIR}" ]; then
     echo ""
@@ -51,25 +140,6 @@ if [ ! -d "${CATALINA_BASE}/conf" ]; then
 fi
 
 echo ""
-echo "==> Copying configuration files..."
-if [ -f "${HOP_HOME}/resources/disabledGuiElements.xml" ]; then
-    cp "${HOP_HOME}/resources/disabledGuiElements.xml" "${CATALINA_BASE}/config/"
-    echo "    Copied disabledGuiElements.xml"
-else
-    echo "    Warning: disabledGuiElements.xml not found"
-fi
-
-echo ""
-echo "==> Copying JDBC drivers..."
-mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
-if [ -d "${HOP_HOME}/resources/jdbc-drivers" ]; then
-    cp -r "${HOP_HOME}/resources/jdbc-drivers/"* "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers/"
-    echo "    Copied JDBC drivers"
-else
-    echo "    Warning: jdbc-drivers not found in resources/"
-fi
-
-echo ""
 echo "==> Deploying hop.war..."
 rm -rf "${WEBAPP_DIR}/ROOT"
 rm -rf "${WEBAPP_DIR}/hop"
@@ -77,31 +147,19 @@ unzip -q "assemblies/web/target/hop.war" -d "${WEBAPP_DIR}/ROOT"
 
 echo ""
 echo "==> Copying core/beam libraries..."
-CLIENT_ZIP=$(ls assemblies/client/target/hop-client-*.zip 2>/dev/null | head -1)
-if [ -n "$CLIENT_ZIP" ]; then
-    echo "    Extracting from client assembly..."
-    rm -rf "${CATALINA_HOME}/hop-lib-extracted"
-    unzip -q -o "$CLIENT_ZIP" "hop/lib/core/*" "hop/lib/beam/*" -d "${CATALINA_HOME}/hop-lib-extracted"
-    cp "${CATALINA_HOME}/hop-lib-extracted/hop/lib/core/"*.jar "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" 2>/dev/null || true
-    cp "${CATALINA_HOME}/hop-lib-extracted/hop/lib/beam/"*.jar "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" 2>/dev/null || true
-    rm -rf "${CATALINA_HOME}/hop-lib-extracted"
-else
-    echo "    Warning: client assembly zip not found"
-fi
+rm -rf "${CATALINA_HOME}/hop-lib-extracted"
+unzip -q -o "$CLIENT_ZIP" "hop/lib/core/*" "hop/lib/beam/*" -d "${CATALINA_HOME}/hop-lib-extracted"
+cp "${CATALINA_HOME}/hop-lib-extracted/hop/lib/core/"*.jar "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" 2>/dev/null || true
+cp "${CATALINA_HOME}/hop-lib-extracted/hop/lib/beam/"*.jar "${WEBAPP_DIR}/ROOT/WEB-INF/lib/" 2>/dev/null || true
+rm -rf "${CATALINA_HOME}/hop-lib-extracted"
 
 echo ""
 echo "==> Extracting plugins..."
-PLUGINS_ZIP=$(ls assemblies/plugins/target/hop-assemblies-plugins-*-SNAPSHOT.zip 2>/dev/null | head -1)
-if [ -n "$PLUGINS_ZIP" ]; then
-    echo "    Extracting plugins..."
-    rm -rf "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
-    mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
-    unzip -q "$PLUGINS_ZIP" -d "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
-    mv "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/plugins/"* "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/" 2>/dev/null || true
-    rm -rf "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/plugins"
-else
-    echo "    Warning: plugins zip not found"
-fi
+rm -rf "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
+mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
+unzip -q "$PLUGINS_ZIP" -d "${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
+mv "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/plugins/"* "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/" 2>/dev/null || true
+rm -rf "${WEBAPP_DIR}/ROOT/WEB-INF/plugins/plugins"
 
 echo ""
 echo "==> Removing conflicting jars..."
@@ -122,10 +180,56 @@ else
 fi
 
 # ============================================================
+# PHASE 3: External Resources Copying
+# ============================================================
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║              PHASE 3: External Resources Copying         ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+
+echo ""
+echo "==> Copying configuration files..."
+HOP_CONFIG_SOURCE="${HOP_HOME}/assemblies/static/src/main/resources/config/hop-config.json"
+if [ -f "${HOP_CONFIG_SOURCE}" ]; then
+    cp "${HOP_CONFIG_SOURCE}" "${CATALINA_BASE}/config/"
+    echo "    Copied hop-config.json"
+else
+    echo "    Warning: hop-config.json not found at ${HOP_CONFIG_SOURCE}"
+fi
+
+if [ -f "${HOP_HOME}/resources/disabledGuiElements.xml" ]; then
+    cp "${HOP_HOME}/resources/disabledGuiElements.xml" "${CATALINA_BASE}/config/"
+    echo "    Copied disabledGuiElements.xml"
+else
+    echo "    Warning: disabledGuiElements.xml not found"
+fi
+
+echo ""
+echo "==> Copying default project..."
+DEFAULT_PROJECT_SOURCE="${HOP_HOME}/assemblies/static/src/main/resources/config/projects/default"
+DEFAULT_PROJECT_TARGET="${CATALINA_BASE}/config/projects/default"
+if [ -d "${DEFAULT_PROJECT_SOURCE}" ]; then
+    mkdir -p "${CATALINA_BASE}/config/projects"
+    cp -r "${DEFAULT_PROJECT_SOURCE}" "${CATALINA_BASE}/config/projects/"
+    echo "    Copied default project to ${DEFAULT_PROJECT_TARGET}"
+else
+    echo "    Warning: default project not found at ${DEFAULT_PROJECT_SOURCE}"
+fi
+
+echo ""
+echo "==> Copying JDBC drivers..."
+mkdir -p "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
+if [ -d "${HOP_HOME}/resources/jdbc-drivers" ]; then
+    cp -r "${HOP_HOME}/resources/jdbc-drivers/"* "${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers/"
+    echo "    Copied JDBC drivers"
+else
+    echo "    Warning: jdbc-drivers not found in resources/"
+fi
+
+# ============================================================
 # CATALINA_OPTS — JVM & Hop system properties
 # ============================================================
 
-# --- Memory & JDK 21 optimizations ---
 CATALINA_OPTS="-Xmx4096m"
 CATALINA_OPTS="${CATALINA_OPTS} -Xms1024m"
 CATALINA_OPTS="${CATALINA_OPTS} -XX:+UseZGC -XX:+ZGenerational"
@@ -133,7 +237,6 @@ CATALINA_OPTS="${CATALINA_OPTS} -XX:MaxGCPauseMillis=100"
 CATALINA_OPTS="${CATALINA_OPTS} -XX:+AlwaysPreTouch"
 CATALINA_OPTS="${CATALINA_OPTS} -Djdk.attach.allowAttachSelf=true"
 
-# --- Hop runtime configuration ---
 CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=${CATALINA_BASE}/audit"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=${CATALINA_BASE}/config"
@@ -143,20 +246,23 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_TEMP_FOLDER=${CATALINA_BASE}/temp"
 CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 
-# --- Security ---
+if [ "${OS_FAMILY}" = "mac" ]; then
+    CATALINA_OPTS="${CATALINA_OPTS} -Dapple.awt.UIElement=true"
+    CATALINA_OPTS="${CATALINA_OPTS} -Dapple.awt.quitStrategy=CLOSE_ALL_WINDOWS"
+    CATALINA_OPTS="${CATALINA_OPTS} -Dswt.enable.ime=true"
+fi
+
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=Hop"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_HIDE_DATABASE_PASSWORDS_IN_LOGS=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_DISABLE_PLAIN_TEXT_CREDENTIALS=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_MASK_SENSITIVE_OUTPUT=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_DISABLE_SENSITIVE_DATA_LOGGING=Y"
 
-# --- Logging ---
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_LEVEL=Basic"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_FILE_MAX_SIZE_MB=500"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_FILE_ROTATION_COUNT=10"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_BUFFER_LINES=5000"
 
-# --- Execution & performance ---
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_ROWSET_DEFAULT_SIZE=10000"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_DEFAULT_SORT_SIZE=500000"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_MEMORY_FREE_THRESHOLD_PERCENT=15"
@@ -167,39 +273,59 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_USE_VIRTUAL_THREADS=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_METRIC_FLUSH_INTERVAL_MS=30000"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PREVIEW_BATCH_SIZE=100"
 
-# --- JVM module opens (required by Hop) ---
 CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.xml/jdk.xml.internal=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.lang=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.lang.invoke=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.lang.reflect=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.io=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.net=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.nio=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.util=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/sun.nio.cs=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/sun.security.action=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.base/sun.util.calendar=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED"
+CATALINA_OPTS="${CATALINA_OPTS} --add-exports=java.base/sun.nio.ch=ALL-UNNAMED"
 
 export CATALINA_HOME
 export CATALINA_BASE
 export CATALINA_OPTS
 
-echo ""
-echo "检查 LiteLLM 代理..."
-if command -v docker &>/dev/null && docker ps &>/dev/null; then
-    if ! docker ps | grep -q "hop-litellm-dev"; then
-        echo "启动 LiteLLM 代理..."
-        cd "${HOP_HOME}"
-        docker compose -f docker-compose.dev.yml up -d litellm
-        sleep 3
-        echo "LiteLLM 代理已启动"
+# ============================================================
+# Optional Docker/LiteLLM Integration
+# ============================================================
+if [ "${HOP_DOCKER_ENABLED:-true}" = "true" ]; then
+    echo ""
+    echo "检查 LiteLLM 代理..."
+    if command -v docker &>/dev/null && docker ps &>/dev/null; then
+        if ! docker ps | grep -q "hop-litellm-dev"; then
+            echo "启动 LiteLLM 代理..."
+            cd "${HOP_HOME}"
+            docker compose -f docker-compose.dev.yml up -d litellm
+            sleep 3
+            echo "LiteLLM 代理已启动"
+        else
+            echo "LiteLLM 代理已在运行"
+        fi
     else
-        echo "LiteLLM 代理已在运行"
+        echo "警告: Docker 未运行，跳过 LiteLLM 代理启动"
     fi
-else
-    echo "警告: Docker 未运行，跳过 LiteLLM 代理启动"
+
+    echo ""
+    echo "设置 LLM 环境变量..."
+    export HOP_LLM_ENABLED=true
+    export HOP_LLM_API_URL=http://localhost:4000/v1
+    export HOP_LLM_API_KEY=sk-hop-litellm-dev
+    export HOP_LLM_MODEL=qwen-plus
+
+    echo "  HOP_LLM_ENABLED: ${HOP_LLM_ENABLED}"
+    echo "  HOP_LLM_API_URL: ${HOP_LLM_API_URL}"
+    echo "  HOP_LLM_MODEL: ${HOP_LLM_MODEL}"
 fi
-
-echo ""
-echo "设置 LLM 环境变量..."
-export HOP_LLM_ENABLED=true
-export HOP_LLM_API_URL=http://localhost:4000/v1
-export HOP_LLM_API_KEY=sk-hop-litellm-dev
-export HOP_LLM_MODEL=qwen-plus
-
-echo "  HOP_LLM_ENABLED: ${HOP_LLM_ENABLED}"
-echo "  HOP_LLM_API_URL: ${HOP_LLM_API_URL}"
-echo "  HOP_LLM_MODEL: ${HOP_LLM_MODEL}"
 
 echo ""
 echo "==> Starting Hop Web Server..."

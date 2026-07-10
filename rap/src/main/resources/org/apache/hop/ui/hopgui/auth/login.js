@@ -585,6 +585,7 @@
 
   function setLang(lang) {
     localStorage.setItem(STORAGE_KEY_LANG, lang);
+    document.cookie = STORAGE_KEY_LANG + '=' + lang + '; path=' + config.contextPath + '/; max-age=' + (365 * 24 * 60 * 60) + '; SameSite=Lax';
     var url = window.location.pathname;
     var params = new URLSearchParams(window.location.search);
     params.set('lang', lang);

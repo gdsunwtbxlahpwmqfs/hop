@@ -184,6 +184,21 @@ public class LoginServlet extends HttpServlet {
     String errorFlag = request.getParameter("error");
     String lang = request.getParameter("lang");
 
+    if (lang == null || lang.isEmpty()) {
+      String cookie = request.getHeader("Cookie");
+      if (cookie != null) {
+        String cookiePrefix = "hop.login.language=";
+        int idx = cookie.indexOf(cookiePrefix);
+        if (idx >= 0) {
+          int end = cookie.indexOf(';', idx);
+          if (end < 0) {
+            end = cookie.length();
+          }
+          lang = cookie.substring(idx + cookiePrefix.length(), end).trim();
+        }
+      }
+    }
+
     Locale originalLocale = LanguageChoice.getInstance().getDefaultLocale();
     try {
       if (lang != null && !lang.isEmpty()) {

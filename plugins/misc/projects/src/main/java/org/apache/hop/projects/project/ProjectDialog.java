@@ -100,6 +100,9 @@ public class ProjectDialog extends Dialog {
 
   private final boolean editMode;
 
+  // Flag to suppress modify listeners during initial data loading
+  private boolean loading = false;
+
   public ProjectDialog(
       Shell parent,
       Project project,
@@ -552,6 +555,9 @@ public class ProjectDialog extends Dialog {
   }
 
   private void updateIVariables() {
+    if (loading) {
+      return;
+    }
     Project env = new Project();
     ProjectConfig pc = new ProjectConfig();
     try {
@@ -715,44 +721,49 @@ public class ProjectDialog extends Dialog {
   }
 
   private void getData() {
-    wName.setText(Const.NVL(projectConfig.getProjectName(), ""));
-    wHome.setText(Const.NVL(projectConfig.getProjectHome(), ""));
-    wConfigFile.setText(Const.NVL(projectConfig.getConfigFilename(), ""));
-
-    wDescription.setText(Const.NVL(project.getDescription(), ""));
-    wCompany.setText(Const.NVL(project.getCompany(), ""));
-    wDepartment.setText(Const.NVL(project.getDepartment(), ""));
-    wVersion.setText(Const.NVL(project.getVersion(), ""));
-    wMetadataBaseFolder.setText(Const.NVL(project.getMetadataBaseFolder(), ""));
-    wUnitTestsBasePath.setText(Const.NVL(project.getUnitTestsBasePath(), ""));
-    wDataSetCsvFolder.setText(Const.NVL(project.getDataSetsCsvFolder(), ""));
-    wEnforceHomeExecution.setSelection(project.isEnforcingExecutionInHome());
-    for (int i = 0; i < project.getDescribedVariables().size(); i++) {
-      DescribedVariable describedVariable = project.getDescribedVariables().get(i);
-      TableItem item = wVariables.table.getItem(i);
-      item.setText(1, Const.NVL(describedVariable.getName(), ""));
-      item.setText(2, Const.NVL(describedVariable.getValue(), ""));
-      item.setText(3, Const.NVL(describedVariable.getDescription(), ""));
-    }
-    wVariables.setRowNums();
-    wVariables.optWidth(true);
-
-    // Parent project...
-    //
+    loading = true;
     try {
-      wParentProject.setText(Const.NVL(project.getParentProjectName(), ""));
+      wName.setText(Const.NVL(projectConfig.getProjectName(), ""));
+      wHome.setText(Const.NVL(projectConfig.getProjectHome(), ""));
+      wConfigFile.setText(Const.NVL(projectConfig.getConfigFilename(), ""));
 
-      List<String> names = ProjectsConfigSingleton.getConfig().listProjectConfigNames();
-      if (projectConfig.getProjectName() != null) {
-        names.remove(projectConfig.getProjectName());
+      wDescription.setText(Const.NVL(project.getDescription(), ""));
+      wCompany.setText(Const.NVL(project.getCompany(), ""));
+      wDepartment.setText(Const.NVL(project.getDepartment(), ""));
+      wVersion.setText(Const.NVL(project.getVersion(), ""));
+      wMetadataBaseFolder.setText(Const.NVL(project.getMetadataBaseFolder(), ""));
+      wUnitTestsBasePath.setText(Const.NVL(project.getUnitTestsBasePath(), ""));
+      wDataSetCsvFolder.setText(Const.NVL(project.getDataSetsCsvFolder(), ""));
+      wEnforceHomeExecution.setSelection(project.isEnforcingExecutionInHome());
+      for (int i = 0; i < project.getDescribedVariables().size(); i++) {
+        DescribedVariable describedVariable = project.getDescribedVariables().get(i);
+        TableItem item = wVariables.table.getItem(i);
+        item.setText(1, Const.NVL(describedVariable.getName(), ""));
+        item.setText(2, Const.NVL(describedVariable.getValue(), ""));
+        item.setText(3, Const.NVL(describedVariable.getDescription(), ""));
       }
-      wParentProject.setItems(names.toArray(new String[0]));
-    } catch (Exception e) {
-      new ErrorDialog(
-          shell,
-          BaseMessages.getString(PKG, "ProjectDialog.ProjectList.Error.Dialog.Header"),
-          BaseMessages.getString(PKG, "ProjectDialog.ProjectList.Error.Dialog.Message"),
-          e);
+      wVariables.setRowNums();
+      wVariables.optWidth(true);
+
+      // Parent project...
+      //
+      try {
+        wParentProject.setText(Const.NVL(project.getParentProjectName(), ""));
+
+        List<String> names = ProjectsConfigSingleton.getConfig().listProjectConfigNames();
+        if (projectConfig.getProjectName() != null) {
+          names.remove(projectConfig.getProjectName());
+        }
+        wParentProject.setItems(names.toArray(new String[0]));
+      } catch (Exception e) {
+        new ErrorDialog(
+            shell,
+            BaseMessages.getString(PKG, "ProjectDialog.ProjectList.Error.Dialog.Header"),
+            BaseMessages.getString(PKG, "ProjectDialog.ProjectList.Error.Dialog.Message"),
+            e);
+      }
+    } finally {
+      loading = false;
     }
   }
 

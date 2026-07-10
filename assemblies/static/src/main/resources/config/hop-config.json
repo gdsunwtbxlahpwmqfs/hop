@@ -492,7 +492,11 @@
     "standardParentProject" : "default",
     "standardProjectsFolder" : "${HOP_HOME}/projects",
     "defaultProjectConfigFile" : "project-config.json",
-    "projectConfigurations" : [ ],
+    "projectConfigurations" : [ {
+      "projectName" : "default",
+      "projectHome" : "${HOP_CONFIG_FOLDER}/projects/default",
+      "configFilename" : "project-config.json"
+    } ],
     "lifecycleEnvironments" : [ ],
     "projectLifecycles" : [ ]
   },
