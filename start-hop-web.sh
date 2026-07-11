@@ -205,15 +205,33 @@ else
 fi
 
 echo ""
-echo "==> Copying default project..."
-DEFAULT_PROJECT_SOURCE="${HOP_HOME}/assemblies/static/src/main/resources/config/projects/default"
-DEFAULT_PROJECT_TARGET="${CATALINA_BASE}/config/projects/default"
-if [ -d "${DEFAULT_PROJECT_SOURCE}" ]; then
-    mkdir -p "${CATALINA_BASE}/config/projects"
-    cp -r "${DEFAULT_PROJECT_SOURCE}" "${CATALINA_BASE}/config/projects/"
-    echo "    Copied default project to ${DEFAULT_PROJECT_TARGET}"
+echo "==> Copying projects..."
+mkdir -p "${CATALINA_BASE}/config/projects"
+for PROJECT_NAME in default samples; do
+    PROJECT_SOURCE="${HOP_HOME}/assemblies/static/src/main/resources/config/projects/${PROJECT_NAME}"
+    PROJECT_TARGET="${CATALINA_BASE}/config/projects/${PROJECT_NAME}"
+    if [ -d "${PROJECT_SOURCE}" ]; then
+        cp -r "${PROJECT_SOURCE}" "${CATALINA_BASE}/config/projects/"
+        echo "    Copied ${PROJECT_NAME} project to ${PROJECT_TARGET}"
+    else
+        echo "    Warning: ${PROJECT_NAME} project not found at ${PROJECT_SOURCE}"
+    fi
+done
+
+# Stop running Tomcat instance (if any) so the new projects take effect
+echo ""
+echo "==> Stopping existing Tomcat instance (if running)..."
+if [ -f "${CATALINA_BASE}/work/catalina.pid" ] || pgrep -f "catalina" > /dev/null 2>&1; then
+    "${CATALINA_HOME}/bin/catalina.sh" stop 10 > /dev/null 2>&1 || true
+    # Force kill if still alive
+    if pgrep -f "catalina" > /dev/null 2>&1; then
+        echo "    Force killing remaining Tomcat process..."
+        pkill -9 -f "catalina" || true
+        sleep 2
+    fi
+    echo "    Tomcat stopped"
 else
-    echo "    Warning: default project not found at ${DEFAULT_PROJECT_SOURCE}"
+    echo "    No running Tomcat instance found"
 fi
 
 echo ""

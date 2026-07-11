@@ -686,10 +686,33 @@ public abstract class BaseDialog extends Dialog {
     }
 
     shell.open();
-    while (!shell.isDisposed()) {
-      if (!display.readAndDispatch()) {
-        display.sleep();
+    runEventLoop(shell, display);
+  }
+
+  /**
+   * Runs the standard SWT event loop for a modal dialog. In RAP (web) mode, gracefully handles
+   * UIThreadTerminatedError which is thrown when the browser session ends (tab close, navigation
+   * away, timeout, etc.) while a dialog is open. Instead of logging a scary ERROR stack trace, we
+   * simply exit the loop since the dialog is meaningless without a live session.
+   *
+   * @param shell the dialog shell
+   * @param display the display to pump events from
+   */
+  private static void runEventLoop(Shell shell, Display display) {
+    try {
+      while (!shell.isDisposed()) {
+        if (!display.readAndDispatch()) {
+          display.sleep();
+        }
       }
+    } catch (Error e) {
+      // RAP throws UIThreadTerminatedError (an internal Error subclass) when the browser session
+      // ends. Since we can't import the internal RAP class, check by class name.
+      if (e.getClass().getSimpleName().equals("UIThreadTerminatedError")) {
+        // Session terminated — silently exit the dialog
+        return;
+      }
+      throw e;
     }
   }
 
@@ -826,11 +849,7 @@ public abstract class BaseDialog extends Dialog {
     // Handle the event loop until we're done with this shell...
     //
     Display display = shell.getDisplay();
-    while (!shell.isDisposed()) {
-      if (!display.readAndDispatch()) {
-        display.sleep();
-      }
-    }
+    runEventLoop(shell, display);
   }
 
   public static void addSpacesOnTabs(Composite composite) {
