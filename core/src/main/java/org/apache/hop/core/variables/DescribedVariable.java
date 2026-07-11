@@ -18,6 +18,7 @@
 package org.apache.hop.core.variables;
 
 import java.util.Objects;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.metadata.api.HopMetadataProperty;
 
 public class DescribedVariable {
@@ -27,6 +28,8 @@ public class DescribedVariable {
   @HopMetadataProperty private String value;
 
   @HopMetadataProperty private String description;
+
+  private static final String CORE_PACKAGE = "org.apache.hop.core";
 
   public DescribedVariable() {}
 
@@ -97,6 +100,23 @@ public class DescribedVariable {
    * @return value of description
    */
   public String getDescription() {
+    if (description == null) {
+      return null;
+    }
+    if (description.startsWith("i18n::")) {
+      String key = description.substring(6);
+      String translated = BaseMessages.getString(CORE_PACKAGE, key);
+      if (translated != null && !translated.startsWith("!") && !translated.equals(key)) {
+        return translated;
+      }
+    }
+    if (name != null && !name.isEmpty()) {
+      String i18nKey = "Variable." + name + ".Desc";
+      String translated = BaseMessages.getString(CORE_PACKAGE, i18nKey);
+      if (translated != null && !translated.startsWith("!") && !translated.equals(i18nKey)) {
+        return translated;
+      }
+    }
     return description;
   }
 

@@ -62,7 +62,10 @@ public class ConfigVariablesTab {
       id = "10200-config-perspective-variables-tab",
       parentId = ConfigurationPerspective.CONFIG_PERSPECTIVE_TABS,
       description = "System variables")
+  private CTabFolder wTabFolder;
+
   public void addConfigVariablesTab(CTabFolder wTabFolder) {
+    this.wTabFolder = wTabFolder;
     int margin = PropsUi.getMargin();
 
     CTabItem wVarsTab = new CTabItem(wTabFolder, SWT.NONE);
@@ -123,8 +126,16 @@ public class ConfigVariablesTab {
     fdFields.bottom = new FormAttachment(wbSave, -2 * margin);
     wFields.setLayoutData(fdFields);
 
-    // Get the described variables from hop-config.json
-    //
+    loadVariables();
+
+    wVarsTab.setControl(wVarsTabComp);
+  }
+
+  private void loadVariables() {
+    if (wFields == null || wFields.table == null || wFields.table.isDisposed()) {
+      return;
+    }
+    wFields.table.removeAll();
     List<DescribedVariable> describedVariables = HopConfig.getInstance().getDescribedVariables();
     for (DescribedVariable describedVariable : describedVariables) {
       TableItem item = new TableItem(wFields.table, SWT.NONE);
@@ -134,8 +145,10 @@ public class ConfigVariablesTab {
       item.setText(col, Const.NVL(describedVariable.getDescription(), ""));
     }
     wFields.optimizeTableView();
+  }
 
-    wVarsTab.setControl(wVarsTabComp);
+  public void refreshTranslations() {
+    loadVariables();
   }
 
   private void save(Event event) {

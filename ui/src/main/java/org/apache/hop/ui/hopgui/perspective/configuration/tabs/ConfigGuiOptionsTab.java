@@ -21,6 +21,7 @@ package org.apache.hop.ui.hopgui.perspective.configuration.tabs;
 import org.apache.hop.core.Const;
 import org.apache.hop.core.config.HopConfig;
 import org.apache.hop.core.gui.plugin.GuiPlugin;
+import org.apache.hop.core.gui.plugin.GuiRegistry;
 import org.apache.hop.core.gui.plugin.tab.GuiTab;
 import org.apache.hop.core.util.EnvUtil;
 import org.apache.hop.history.AuditManager;
@@ -32,6 +33,7 @@ import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.BaseDialog;
 import org.apache.hop.ui.core.dialog.ErrorDialog;
 import org.apache.hop.ui.core.gui.GuiResource;
+import org.apache.hop.ui.core.gui.GuiToolbarWidgets;
 import org.apache.hop.ui.core.gui.WindowProperty;
 import org.apache.hop.ui.hopgui.HopGui;
 import org.apache.hop.ui.hopgui.perspective.configuration.ConfigurationPerspective;
@@ -1233,6 +1235,26 @@ public class ConfigGuiOptionsTab {
     String defaultLocale = GlobalMessages.localeCodes[defaultLocaleIndex];
     boolean localeChanged = !previousLocale.equals(defaultLocale);
     LanguageChoice.getInstance().setDefaultLocale(EnvUtil.createLocale(defaultLocale));
+
+    if (localeChanged) {
+      GuiToolbarWidgets mainToolbarWidgets = HopGui.getInstance().getMainToolbarWidgets();
+      GuiToolbarWidgets statusToolbarWidgets = HopGui.getInstance().getStatusToolbarWidgets();
+      if (mainToolbarWidgets != null) {
+        mainToolbarWidgets.refreshTranslations();
+      }
+      if (statusToolbarWidgets != null) {
+        statusToolbarWidgets.refreshTranslations();
+      }
+      Object configVariablesTab =
+          GuiRegistry.getInstance()
+              .findGuiPluginObject(
+                  HopGui.getInstance().getId(),
+                  "org.apache.hop.ui.hopgui.perspective.configuration.tabs.ConfigVariablesTab",
+                  ConfigurationPerspective.CONFIG_PERSPECTIVE_TABS);
+      if (configVariablesTab instanceof ConfigVariablesTab) {
+        ((ConfigVariablesTab) configVariablesTab).refreshTranslations();
+      }
+    }
 
     if (EnvironmentUtils.getInstance().isWeb()) {
       // Hop Web: store theme in audit (per-user); followSystem = follow OS/browser dark mode

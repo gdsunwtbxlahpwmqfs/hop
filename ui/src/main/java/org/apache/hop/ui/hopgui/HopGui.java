@@ -287,6 +287,14 @@ public class HopGui
     return terminalPanel;
   }
 
+  public GuiToolbarWidgets getMainToolbarWidgets() {
+    return mainToolbarWidgets;
+  }
+
+  public GuiToolbarWidgets getStatusToolbarWidgets() {
+    return statusToolbarWidgets;
+  }
+
   private static final PrintStream originalSystemOut = System.out;
   private static final PrintStream originalSystemErr = System.err;
 

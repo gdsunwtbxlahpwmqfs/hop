@@ -1045,4 +1045,71 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
         toolbarItem.getListenerClass(),
         toolbarItem.getListenerMethod());
   }
+
+  public void refreshTranslations() {
+    for (Map.Entry<String, GuiToolbarItem> entry : guiToolBarMap.entrySet()) {
+      String id = entry.getKey();
+      GuiToolbarItem toolbarItem = entry.getValue();
+      String newLabel = Const.NVL(toolbarItem.getLabel(), "");
+      String newToolTip = Const.NVL(toolbarItem.getToolTip(), "");
+
+      Control control = widgetsMap.get(id);
+      ToolItem toolItem = toolItemMap.get(id);
+      Label textLabel = textLabelMap.get(id);
+
+      if (control != null && !control.isDisposed()) {
+        if (control instanceof CLabel cLabel) {
+          cLabel.setText(newLabel);
+          cLabel.setToolTipText(newToolTip);
+          cLabel.pack();
+        } else if (control instanceof Button button) {
+          button.setText(newLabel);
+          button.setToolTipText(newToolTip);
+          button.pack();
+        } else if (control instanceof Combo combo) {
+          combo.setToolTipText(newToolTip);
+        } else if (control instanceof Text text) {
+          text.setToolTipText(newToolTip);
+        } else if (control instanceof Composite composite) {
+          Control[] children = composite.getChildren();
+          for (Control child : children) {
+            if (child instanceof Label label) {
+              label.setToolTipText(newToolTip);
+            }
+          }
+          if (textLabel != null && !textLabel.isDisposed()) {
+            textLabel.setToolTipText(newToolTip);
+          }
+        }
+      }
+
+      if (toolItem != null && !toolItem.isDisposed()) {
+        toolItem.setToolTipText(newToolTip);
+        Object toolItemControl = toolItem.getControl();
+        if (toolItemControl instanceof CLabel cLabel) {
+          cLabel.setText(newLabel);
+          cLabel.setToolTipText(newToolTip);
+          cLabel.pack();
+        } else if (toolItemControl instanceof Button button) {
+          button.setText(newLabel);
+          button.setToolTipText(newToolTip);
+          button.pack();
+        }
+        Control toolItemParent = toolItem.getParent();
+        if (toolItemParent != null && !toolItemParent.isDisposed()) {
+          toolItemParent.pack();
+        }
+      }
+    }
+
+    for (Map.Entry<String, Control> entry : widgetsMap.entrySet()) {
+      Control control = entry.getValue();
+      if (control != null && !control.isDisposed()) {
+        Control parent = control.getParent();
+        if (parent instanceof Composite composite && !composite.isDisposed()) {
+          composite.layout(true, true);
+        }
+      }
+    }
+  }
 }

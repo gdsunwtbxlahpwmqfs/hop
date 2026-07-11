@@ -233,7 +233,7 @@ public class ConfigPluginOptionsTab {
     org.eclipse.swt.widgets.Label instructionLabel =
         new org.eclipse.swt.widgets.Label(instructionsComp, SWT.CENTER | SWT.WRAP);
     instructionLabel.setText(
-        "Select a plugin from the tree on the left to configure its settings.");
+        BaseMessages.getString(PKG, "ConfigPluginOptionsTab.Instruction.Text"));
     PropsUi.setLook(instructionLabel);
     instructionLabel.setForeground(
         instructionsComp.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
