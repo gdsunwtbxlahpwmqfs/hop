@@ -914,12 +914,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-cratedbbulkloader</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-creditcardvalidator</artifactId>
@@ -1022,12 +1022,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-dorisbulkloader</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-drools</artifactId>
@@ -1490,12 +1490,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-snowflake-bulkloader</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-sort</artifactId>
@@ -1616,12 +1616,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-terafast</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-textfile</artifactId>
@@ -1670,12 +1670,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-verticabulkloader</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-transform-webserviceavailable</artifactId>

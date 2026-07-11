@@ -54,7 +54,6 @@ import org.apache.hop.core.gui.plugin.key.GuiOsxKeyboardShortcut;
 import org.apache.hop.core.gui.plugin.key.KeyboardShortcut;
 import org.apache.hop.core.gui.plugin.menu.GuiMenuElement;
 import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElement;
-import org.apache.hop.core.gui.plugin.toolbar.GuiToolbarElementType;
 import org.apache.hop.core.logging.HopLogStore;
 import org.apache.hop.core.logging.ILogChannel;
 import org.apache.hop.core.logging.ILoggingObject;
@@ -124,7 +123,6 @@ import org.apache.hop.ui.hopgui.search.HopGuiSearchLocation;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.apache.hop.ui.util.EnvironmentUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
@@ -236,9 +234,6 @@ public class HopGui
 
   /** Id for the logout button in the sidebar bottom toolbar (Hop Web only). */
   public static final String SIDEBAR_TOOLBAR_ITEM_LOGOUT = "HopGui-SidebarToolbar-Logout";
-
-  /** Id for the username label in the main toolbar (Hop Web only). */
-  public static final String ID_MAIN_TOOLBAR_USERNAME = "toolbar-90000-username";
 
   public static final String DEFAULT_HOP_GUI_NAMESPACE = "hop-gui";
 
@@ -418,7 +413,6 @@ public class HopGui
    */
   public void setCurrentUser(String username) {
     this.currentUser = username;
-    updateUsernameLabel();
   }
 
   /**
@@ -428,22 +422,6 @@ public class HopGui
    */
   public String getCurrentUser() {
     return currentUser;
-  }
-
-  /** Updates the username label in the main toolbar if it exists. */
-  private void updateUsernameLabel() {
-    if (mainToolbarWidgets != null) {
-      Control control = mainToolbarWidgets.getWidget(ID_MAIN_TOOLBAR_USERNAME);
-      if (control instanceof CLabel label) {
-        String userText =
-            StringUtils.isNotEmpty(currentUser)
-                ? BaseMessages.getString(PKG, "HopGui.Toolbar.Username.Label", currentUser)
-                : "";
-        label.setText(userText);
-        label.setVisible(StringUtils.isNotEmpty(userText));
-        label.pack();
-      }
-    }
   }
 
   /**
@@ -1090,16 +1068,6 @@ public class HopGui
             null,
             new MenuContextHandler(ID_MAIN_MENU, mainMenuWidgets));
   }
-
-  /** Username label in main toolbar (Hop Web only). */
-  @GuiToolbarElement(
-      root = ID_MAIN_TOOLBAR,
-      id = ID_MAIN_TOOLBAR_USERNAME,
-      label = "",
-      type = GuiToolbarElementType.LABEL,
-      alignRight = true,
-      extraWidth = 150)
-  public void getUsernameLabel() {}
 
   @GuiMenuElement(
       root = ID_MAIN_MENU,

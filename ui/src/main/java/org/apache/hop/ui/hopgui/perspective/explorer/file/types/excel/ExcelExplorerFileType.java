@@ -16,7 +16,7 @@
  *
  */
 
-package org.apache.hop.ui.hopgui.perspective.explorer.file;
+package org.apache.hop.ui.hopgui.perspective.explorer.file.types.excel;
 
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.variables.IVariables;
@@ -30,20 +30,16 @@ import org.apache.hop.ui.hopgui.perspective.explorer.ExplorerPerspective;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.capabilities.FileTypeCapabilities;
 import org.apache.hop.ui.hopgui.perspective.explorer.file.types.base.BaseExplorerFileType;
 
-/**
- * Opens Excel files (.xls, .xlsx) in the explorer perspective by reading cell data with Apache POI
- * and rendering it as an HTML table in a Browser widget, showing the actual spreadsheet grid.
- */
 @HopFileTypePlugin(
     id = "ExcelExplorerFileType",
     name = "Excel File Type",
     description = "Excel file handling in the explorer perspective",
-    image = "excel.svg")
+    image = "ui/images/excel.svg")
 public class ExcelExplorerFileType extends BaseExplorerFileType<ExcelExplorerFileTypeHandler> {
 
   public ExcelExplorerFileType() {
     super(
-        "Excel File",
+        "Excel",
         ".xlsx",
         new String[] {"*.xls", "*.xlsx"},
         new String[] {"Excel files"},
