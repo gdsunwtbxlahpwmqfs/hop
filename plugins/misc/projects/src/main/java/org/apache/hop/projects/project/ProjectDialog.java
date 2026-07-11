@@ -486,8 +486,11 @@ public class ProjectDialog extends Dialog {
   private void browseHomeFolder(Event event) {
     String homeFolder = BaseDialog.presentDirectoryDialog(shell, wHome, variables);
 
-    // Set the name to the base folder if the name is empty
-    //
+    if (homeFolder != null) {
+      homeFolder = variables.resolve(homeFolder);
+      wHome.setText(homeFolder);
+    }
+
     try {
       if (homeFolder != null && StringUtils.isEmpty(wName.getText())) {
         FileObject file = HopVfs.getFileObject(homeFolder);
@@ -495,23 +498,22 @@ public class ProjectDialog extends Dialog {
       }
     } catch (Exception e) {
       LogChannel.UI.logError("Error getting base filename of home folder: " + homeFolder, e);
-      // Don't change the name
     }
   }
 
   private void browseConfigFolder(Event event) {
     String configFileStr = null;
-    // Set the root of the possible path to config file to project's root
     String rootPath = wHome.getText();
+    rootPath = variables.resolve(rootPath);
 
     File configFile =
         new File(
-            wHome.getText()
+            rootPath
                 + File.separator
                 + "config"
                 + File.separator
                 + ProjectsConfig.DEFAULT_PROJECT_CONFIG_FILENAME);
-    wConfigFile.setText(rootPath);
+    wConfigFile.setText(wHome.getText());
 
     if (configFile.exists()) {
       configFileStr =
@@ -527,15 +529,17 @@ public class ProjectDialog extends Dialog {
               true);
     } else {
       String configDir = BaseDialog.presentDirectoryDialog(shell, wConfigFile, variables);
+      if (configDir != null) {
+        configDir = variables.resolve(configDir);
+      }
       configFileStr =
           (configDir != null ? configDir : "")
               + File.separator
               + ProjectsConfig.DEFAULT_PROJECT_CONFIG_FILENAME;
     }
 
-    // Set the name to the base folder if the name is empty
-    //
     if (configFileStr != null) {
+      configFileStr = variables.resolve(configFileStr);
       String relativeConfigFile = null;
       if (!configFileStr.startsWith(rootPath)) {
         MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK);
@@ -544,7 +548,6 @@ public class ProjectDialog extends Dialog {
             BaseMessages.getString(PKG, "ProjectGuiPlugin.WrongConfigPath.Dialog.Message"));
         box.open();
       } else {
-        // Calculate relative path to existing config file
         String tmpConfigFile = StringUtils.difference(rootPath + File.separator, configFileStr);
         relativeConfigFile =
             (tmpConfigFile.startsWith("/") ? tmpConfigFile.substring(1) : tmpConfigFile);
