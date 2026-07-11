@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>pipeline-with-parameter</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>演示管道参数和环境变量的使用</description>
+    <extended_description>此管道展示如何获取管道参数和环境变量的值，并将其输出到日志中。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
@@ -102,7 +102,7 @@ limitations under the License.
     <displayHeader>Y</displayHeader>
     <limitRows>N</limitRows>
     <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>we received '${PRM_EXAMPLE}' as the value for this pipeline's parameter.</logmessage>
+    <logmessage>本管道参数的值为：'${PRM_EXAMPLE}'</logmessage>
     <fields>
       <field>
         <name>example</name>
@@ -160,7 +160,7 @@ limitations under the License.
     <displayHeader>Y</displayHeader>
     <limitRows>N</limitRows>
     <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>the value for variable ENV_VARIABLE is ${ENV_VARIABLE}</logmessage>
+    <logmessage>变量 ENV_VARIABLE 的值为：${ENV_VARIABLE}</logmessage>
     <fields>
       <field>
         <name>env_variable</name>

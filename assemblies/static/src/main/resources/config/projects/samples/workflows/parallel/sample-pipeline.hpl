@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>sample-pipeline</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>示例管道</description>
+    <extended_description>此管道生成 100 行示例数据并添加序列号。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <parameters>

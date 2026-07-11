@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>loops-get-rows-from-result</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>从结果中获取数据行</description>
+    <extended_description>此管道从上一个执行结果中获取数据行，统计接收到的行数并输出到日志。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>

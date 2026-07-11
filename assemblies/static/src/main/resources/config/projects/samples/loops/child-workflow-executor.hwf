@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>workflow-executor-child-workflow</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>子工作流执行器</description>
+  <extended_description>此工作流接收一个计数器参数，并将其值输出到日志中。</extended_description>
   <workflow_version/>
   <workflow_status>0</workflow_status>
   <created_user>-</created_user>
@@ -32,7 +32,7 @@ limitations under the License.
     <parameter>
       <name>PRM_COUNTER</name>
       <default_value/>
-      <description>receive a counter parameter and print the value to the log.</description>
+      <description>接收一个计数器参数，并将其值输出到日志。</description>
     </parameter>
   </parameters>
   <actions>

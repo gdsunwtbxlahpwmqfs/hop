@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>check-set-counter-value</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>检查并设置计数器值</description>
+    <extended_description>此管道检查计数器是否小于等于 10，如果是则递增计数器，否则设置结束循环的标志。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <parameters>
@@ -145,7 +145,7 @@ limitations under the License.
     <limitRows>N</limitRows>
     <limitRowsNumber>0</limitRowsNumber>
     <logmessage>#####################################
-new counter value set to: 
+新的计数器值设置为：
 #####################################
 </logmessage>
     <fields>

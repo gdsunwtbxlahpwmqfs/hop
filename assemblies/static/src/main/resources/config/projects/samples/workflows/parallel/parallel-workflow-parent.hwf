@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>parallel-workflow-parent</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>并行工作流父级</description>
+  <extended_description>此工作流调用子并行工作流，演示并行执行多个任务的场景。</extended_description>
   <workflow_version/>
   <created_user>-</created_user>
   <created_date>2023/05/01 10:33:29.596</created_date>

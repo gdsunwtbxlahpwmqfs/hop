@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>loops-copy-rows-to-result</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>生成数据行并复制到结果</description>
+    <extended_description>此管道生成 10 行数据并添加序号计数器，然后将数据行复制到结果中以供后续使用。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <parameters>

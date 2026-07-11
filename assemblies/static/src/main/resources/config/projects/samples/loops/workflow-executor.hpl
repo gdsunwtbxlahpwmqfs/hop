@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>workflow-executor</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>工作流执行器示例</description>
+    <extended_description>此管道生成数据行并添加计数器，然后通过工作流执行器调用子工作流，并收集执行结果、结果行和结果文件。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <parameters>

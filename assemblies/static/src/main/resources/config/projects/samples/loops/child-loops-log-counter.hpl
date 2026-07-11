@@ -21,8 +21,8 @@ limitations under the License.
   <info>
     <name>loops-log-counter</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
-    <description/>
-    <extended_description/>
+    <description>输出计数器值到日志</description>
+    <extended_description>此管道接收一个计数器参数，并将其值输出到日志中。</extended_description>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
@@ -30,7 +30,7 @@ limitations under the License.
       <parameter>
         <name>PRM_COUNTER</name>
         <default_value/>
-        <description>receive a counter parameter and print the value to the log.</description>
+        <description>接收一个计数器参数，并将其值输出到日志。</description>
       </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>

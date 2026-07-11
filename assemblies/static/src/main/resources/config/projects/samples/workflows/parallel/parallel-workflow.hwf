@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>parallel-workflow</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>并行工作流</description>
+  <extended_description>此工作流从开始节点并行启动两个管道分支，分别执行并汇总结果。</extended_description>
   <workflow_version/>
   <created_user>-</created_user>
   <created_date>2023/05/01 09:10:07.560</created_date>

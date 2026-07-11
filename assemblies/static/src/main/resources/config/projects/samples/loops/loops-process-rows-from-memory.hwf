@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>loops-process-rows-from-memory</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>从内存中处理数据行</description>
+  <extended_description>此工作流先调用子管道生成数据行并复制到结果，然后将结果中的计数器值逐行传递给子管道进行日志输出。</extended_description>
   <workflow_version/>
   <created_user>-</created_user>
   <created_date>2023/03/05 10:47:19.660</created_date>

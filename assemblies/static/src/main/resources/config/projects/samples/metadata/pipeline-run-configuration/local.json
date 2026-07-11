@@ -13,6 +13,6 @@
   },
   "name": "local",
   "configurationVariables": [],
-  "description": "",
+  "description": "本地管道运行配置",
   "defaultSelection": true
 }

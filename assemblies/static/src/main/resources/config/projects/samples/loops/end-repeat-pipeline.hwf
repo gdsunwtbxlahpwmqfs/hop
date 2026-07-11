@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>end-repeat-pipeline</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>结束重复管道</description>
+  <extended_description>此工作流在循环中检查计数器是否小于等于 5，如果是则调用子管道递增计数器，否则结束循环。</extended_description>
   <workflow_version/>
   <created_user>-</created_user>
   <created_date>2023/03/06 14:12:03.583</created_date>
@@ -114,7 +114,7 @@ limitations under the License.
       <type>WRITE_TO_LOG</type>
       <attributes/>
       <logmessage>##################
-counter: ${COUNTER}
+计数器：${COUNTER}
 ##################
 </logmessage>
       <loglevel>Basic</loglevel>

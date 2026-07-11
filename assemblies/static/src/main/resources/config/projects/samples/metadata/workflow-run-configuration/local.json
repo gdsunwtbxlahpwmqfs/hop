@@ -5,6 +5,6 @@
     }
   },
   "name": "local",
-  "description": "",
+  "description": "本地工作流运行配置",
   "defaultSelection": true
 }

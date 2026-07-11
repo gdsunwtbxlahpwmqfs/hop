@@ -20,8 +20,8 @@ limitations under the License.
 <workflow>
   <name>repeat-action</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
-  <description/>
-  <extended_description/>
+  <description>重复执行操作</description>
+  <extended_description>此工作流演示如何使用 Repeat 操作重复执行管道和工作流，通过计数器变量控制循环。</extended_description>
   <workflow_version/>
   <created_user>-</created_user>
   <created_date>2023/03/06 13:40:43.811</created_date>
