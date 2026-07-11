@@ -1576,7 +1576,38 @@ public class HopGui
       key = 'F')
   public void menuViewFullScreen() {
     if (!shell.isDisposed()) {
-      shell.setFullScreen(!shell.getFullScreen());
+      if (EnvironmentUtils.getInstance().isWeb()) {
+        executeFullscreenToggle();
+      } else {
+        shell.setFullScreen(!shell.getFullScreen());
+      }
+    }
+  }
+
+  private void executeFullscreenToggle() {
+    try {
+      Class<?> rwtClass = Class.forName("org.eclipse.rap.rwt.RWT");
+      Object client = rwtClass.getMethod("getClient").invoke(null);
+      Class<?> executorClass =
+          Class.forName("org.eclipse.rap.rwt.client.service.JavaScriptExecutor");
+      Object executor =
+          client.getClass().getMethod("getService", Class.class).invoke(client, executorClass);
+      executorClass
+          .getMethod("execute", String.class)
+          .invoke(
+              executor,
+              "(function() {"
+                  + "var el = document.documentElement;"
+                  + "if (!document.fullscreenElement && !document.webkitFullscreenElement) {"
+                  + "if (el.requestFullscreen) { el.requestFullscreen(); }"
+                  + "else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }"
+                  + "} else {"
+                  + "if (document.exitFullscreen) { document.exitFullscreen(); }"
+                  + "else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }"
+                  + "}"
+                  + "})()");
+    } catch (Exception e) {
+      LogChannel.UI.logError("Error executing fullscreen toggle", e);
     }
   }
 

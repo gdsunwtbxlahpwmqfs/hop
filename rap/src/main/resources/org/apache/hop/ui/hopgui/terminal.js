@@ -45,6 +45,10 @@
     this._fitAddon = null;
     this._resizeObserver = null;
     this._properties = properties || {};
+    this._reconnectAttempts = 0;
+    this._maxReconnectAttempts = 5;
+    this._reconnectDelay = 3000;
+    this._connecting = false;
 
     this._doCreate();
   };
@@ -107,6 +111,16 @@
       });
       self._terminal = terminal;
 
+      self._connectWebSocket(container, ptyId);
+    },
+
+    _connectWebSocket: function (container, ptyId) {
+      var self = this;
+      var terminal = self._terminal;
+
+      if (self._connecting) return;
+      self._connecting = true;
+
       var shellPath = this._properties.shellPath;
       var workingDirectory = this._properties.workingDirectory;
       var wsUrl = buildWsUrl(ptyId, shellPath, workingDirectory);
@@ -115,15 +129,19 @@
       self._ws = ws;
 
       ws.onopen = function () {
+        self._connecting = false;
+        self._reconnectAttempts = 0;
+        self._reconnectDelay = 3000;
+
         if (self._destroyed) {
           ws.close();
           return;
         }
 
-        // Open terminal in container
-        terminal.open(container);
+        if (!terminal.element) {
+          terminal.open(container);
+        }
 
-        // Fit addon - delay to allow container layout to settle
         var fitAddon = null;
         if (typeof FitAddon !== 'undefined') {
           try {
@@ -135,13 +153,11 @@
         }
         self._fitAddon = fitAddon;
 
-        // Delay fit() to ensure container has proper dimensions
         setTimeout(function () {
           if (self._destroyed) return;
           self._doFit();
         }, 100);
 
-        // Handle user input: send to WebSocket as text
         terminal.onData(function (data) {
           if (self._destroyed || !ws || ws.readyState !== WebSocket.OPEN) return;
           ws.send(data);
@@ -149,22 +165,23 @@
 
         terminal.focus();
 
-        // Observe container resize
-        var ro = new ResizeObserver(function () {
-          if (self._destroyed || !terminal.element) return;
-          self._doFit();
-        });
-        ro.observe(container);
-        self._resizeObserver = ro;
+        if (!self._resizeObserver) {
+          var ro = new ResizeObserver(function () {
+            if (self._destroyed || !terminal.element) return;
+            self._doFit();
+          });
+          ro.observe(container);
+          self._resizeObserver = ro;
+        }
+
+        terminal.write("\r\n");
       };
 
-      // Handle PTY output: write to terminal
       ws.onmessage = function (event) {
         if (self._destroyed) return;
         if (typeof event.data === "string") {
           terminal.write(event.data);
         } else if (event.data instanceof ArrayBuffer) {
-          // Binary data from PTY - write to terminal
           var bytes = new Uint8Array(event.data);
           terminal.write(bytes);
         }
@@ -176,11 +193,36 @@
         self._notifyError("WebSocket connection failed for PTY " + ptyId);
       };
 
-      ws.onclose = function () {
-        if (!self._destroyed) {
-          terminal.write("\r\nConnection closed.\r\n");
+      ws.onclose = function (event) {
+        self._connecting = false;
+        if (self._destroyed) return;
+
+        if (event.code !== 1000 && event.code !== 1001) {
+          terminal.write("\r\nConnection closed unexpectedly.\r\n");
+          self._scheduleReconnect(container, ptyId);
         }
       };
+    },
+
+    _scheduleReconnect: function (container, ptyId) {
+      var self = this;
+      var terminal = self._terminal;
+
+      if (self._reconnectAttempts >= self._maxReconnectAttempts) {
+        terminal.write("\r\nMaximum reconnection attempts reached.\r\n");
+        self._notifyError("Terminal disconnected, max reconnection attempts reached");
+        return;
+      }
+
+      self._reconnectAttempts++;
+      var delay = self._reconnectDelay * Math.pow(1.5, self._reconnectAttempts - 1);
+
+      terminal.write("\r\nReconnecting (" + self._reconnectAttempts + "/" + self._maxReconnectAttempts + ") in " + Math.round(delay / 1000) + "s...\r\n");
+
+      setTimeout(function () {
+        if (self._destroyed) return;
+        self._connectWebSocket(container, ptyId);
+      }, delay);
     },
 
     // Fit terminal to container and notify PTY of new size
@@ -242,13 +284,18 @@
 
     destroy: function () {
       this._destroyed = true;
+      this._reconnectAttempts = this._maxReconnectAttempts;
       if (this._ws) {
-        try { this._ws.close(); } catch (e) {}
+        try { this._ws.close(1000, "Normal close"); } catch (e) {}
         this._ws = null;
       }
       if (this._terminal) {
         try { this._terminal.dispose(); } catch (e) {}
         this._terminal = null;
+      }
+      if (this._resizeObserver) {
+        try { this._resizeObserver.disconnect(); } catch (e) {}
+        this._resizeObserver = null;
       }
       if (this._container && this._container.parentNode) {
         this._container.parentNode.removeChild(this._container);

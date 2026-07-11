@@ -53,6 +53,9 @@ public class GuiToolbarItem extends BaseGuiElements implements Comparable<GuiToo
 
   public GuiToolbarItem() {}
 
+  private String i18nPackageName;
+  private Class<?> resourceClass;
+
   public GuiToolbarItem(
       GuiToolbarElement toolbarElement,
       String listenerClass,
@@ -72,21 +75,23 @@ public class GuiToolbarItem extends BaseGuiElements implements Comparable<GuiToo
     this.singleTon = true;
     this.listenerClass = listenerClass;
     this.listenerMethod = method.getName();
-    this.label =
-        getTranslation(
-            toolbarElement.label(),
-            method.getDeclaringClass().getPackage().getName(),
-            method.getDeclaringClass());
-    this.toolTip =
-        getTranslation(
-            toolbarElement.toolTip(),
-            method.getDeclaringClass().getPackage().getName(),
-            method.getDeclaringClass());
+    this.label = toolbarElement.label();
+    this.toolTip = toolbarElement.toolTip();
+    this.i18nPackageName = method.getDeclaringClass().getPackage().getName();
+    this.resourceClass = method.getDeclaringClass();
     this.classLoader = classLoader;
     this.extraWidth = toolbarElement.extraWidth();
     this.alignRight = toolbarElement.alignRight();
     this.readOnly = toolbarElement.readOnly();
     this.defaultText = toolbarElement.defaultText();
+  }
+
+  public String getLabel() {
+    return getTranslation(label, i18nPackageName, resourceClass);
+  }
+
+  public String getToolTip() {
+    return getTranslation(toolTip, i18nPackageName, resourceClass);
   }
 
   @Override
