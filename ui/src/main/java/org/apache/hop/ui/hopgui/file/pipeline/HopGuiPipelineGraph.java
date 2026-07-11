@@ -2186,9 +2186,8 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
   @GuiToolbarElement(
       root = GUI_PLUGIN_TOOLBAR_PARENT_ID,
       id = TOOLBAR_ITEM_DESIGN_ENGINE,
-      label = "Design for:",
-      toolTip =
-          "Filter the right-click transform palette to the engine you are designing for. The selection persists across restarts.",
+      label = "i18n::HopGuiPipelineGraph.Toolbar.DesignEngine.Label",
+      toolTip = "i18n::HopGuiPipelineGraph.Toolbar.DesignEngine.Tooltip",
       type = GuiToolbarElementType.COMBO,
       alignRight = true,
       comboValuesMethod = "getDesignEngineLabels")

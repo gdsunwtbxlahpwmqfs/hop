@@ -1716,9 +1716,8 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
   @GuiToolbarElement(
       root = GUI_PLUGIN_TOOLBAR_PARENT_ID,
       id = TOOLBAR_ITEM_DESIGN_ENGINE,
-      label = "Design for:",
-      toolTip =
-          "Filter the right-click action palette to the workflow engine you are designing for. The selection persists across restarts.",
+      label = "i18n::HopGuiWorkflowGraph.Toolbar.DesignEngine.Label",
+      toolTip = "i18n::HopGuiWorkflowGraph.Toolbar.DesignEngine.Tooltip",
       type = GuiToolbarElementType.COMBO,
       alignRight = true,
       comboValuesMethod = "getDesignEngineLabels")

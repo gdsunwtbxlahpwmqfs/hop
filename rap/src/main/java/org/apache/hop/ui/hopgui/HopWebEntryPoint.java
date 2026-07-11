@@ -17,6 +17,7 @@
 
 package org.apache.hop.ui.hopgui;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.history.AuditManager;
 import org.apache.hop.history.AuditState;
 import org.apache.hop.ui.core.PropsUi;
+import org.apache.hop.ui.hopgui.auth.AuthConstants;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
@@ -214,6 +216,20 @@ public class HopWebEntryPoint extends AbstractEntryPoint {
             });
 
     HopGui.getInstance().open();
+
+    // Set the current logged-in user for display in the toolbar.
+    // Must be called after open() so the toolbar widgets are already created.
+    try {
+      HttpSession session = RWT.getRequest().getSession(false);
+      if (session != null) {
+        String username = (String) session.getAttribute(AuthConstants.SESSION_ATTR_USER);
+        if (username != null) {
+          HopGui.getInstance().setCurrentUser(username);
+        }
+      }
+    } catch (Exception e) {
+      LogChannel.UI.logDebug("Could not read username from session", e);
+    }
 
     // URL params were only for initial project/file; clear so they don't affect CLI/run.
     HopGui.getInstance().setCommandLineArguments(new ArrayList<>());

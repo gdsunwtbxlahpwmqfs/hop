@@ -464,7 +464,13 @@ public class ProjectDialog extends Dialog {
     // See if we need a project refresh/reload
     //
     wParentProject.addModifyListener(e -> needingProjectRefresh = true);
-    wHome.addModifyListener(e -> needingProjectRefresh = true);
+    wHome.addModifyListener(
+        e -> {
+          needingProjectRefresh = true;
+          if (!loading) {
+            updateIVariables();
+          }
+        });
 
     getData();
 
@@ -734,9 +740,10 @@ public class ProjectDialog extends Dialog {
       wCompany.setText(Const.NVL(project.getCompany(), ""));
       wDepartment.setText(Const.NVL(project.getDepartment(), ""));
       wVersion.setText(Const.NVL(project.getVersion(), ""));
-      wMetadataBaseFolder.setText(Const.NVL(project.getMetadataBaseFolder(), ""));
-      wUnitTestsBasePath.setText(Const.NVL(project.getUnitTestsBasePath(), ""));
-      wDataSetCsvFolder.setText(Const.NVL(project.getDataSetsCsvFolder(), ""));
+      wMetadataBaseFolder.setText(
+          Const.NVL(variables.resolve(project.getMetadataBaseFolder()), ""));
+      wUnitTestsBasePath.setText(Const.NVL(variables.resolve(project.getUnitTestsBasePath()), ""));
+      wDataSetCsvFolder.setText(Const.NVL(variables.resolve(project.getDataSetsCsvFolder()), ""));
       wEnforceHomeExecution.setSelection(project.isEnforcingExecutionInHome());
       for (int i = 0; i < project.getDescribedVariables().size(); i++) {
         DescribedVariable describedVariable = project.getDescribedVariables().get(i);
@@ -776,14 +783,18 @@ public class ProjectDialog extends Dialog {
     projectConfig.setProjectHome(wHome.getText());
     projectConfig.setConfigFilename(wConfigFile.getText());
 
+    if (StringUtils.isNotEmpty(wHome.getText())) {
+      variables.setVariable(ProjectsUtil.VARIABLE_PROJECT_HOME, wHome.getText());
+    }
+
     project.setParentProjectName(wParentProject.getText());
     project.setDescription(wDescription.getText());
     project.setCompany(wCompany.getText());
     project.setDepartment(wDepartment.getText());
     project.setVersion(wVersion.getText());
-    project.setMetadataBaseFolder(wMetadataBaseFolder.getText());
-    project.setUnitTestsBasePath(wUnitTestsBasePath.getText());
-    project.setDataSetsCsvFolder(wDataSetCsvFolder.getText());
+    project.setMetadataBaseFolder(variables.resolve(wMetadataBaseFolder.getText()));
+    project.setUnitTestsBasePath(variables.resolve(wUnitTestsBasePath.getText()));
+    project.setDataSetsCsvFolder(variables.resolve(wDataSetCsvFolder.getText()));
     project.setEnforcingExecutionInHome(wEnforceHomeExecution.getSelection());
     project.getDescribedVariables().clear();
     for (int i = 0; i < wVariables.nrNonEmpty(); i++) {
