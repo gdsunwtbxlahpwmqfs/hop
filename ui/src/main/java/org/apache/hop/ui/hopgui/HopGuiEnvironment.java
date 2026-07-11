@@ -58,6 +58,7 @@ public class HopGuiEnvironment extends HopClientEnvironment {
             SearchableAnalyserPluginType.getInstance()));
   }
 
+  @SuppressWarnings("rawtypes")
   public static void init(List<IPluginType> pluginTypes) throws HopException {
     pluginTypes.forEach(PluginRegistry::addPluginType);
 

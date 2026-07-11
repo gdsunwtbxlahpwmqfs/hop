@@ -46,7 +46,8 @@ public class MetaSelectionLineClearDbCacheToolbarItem {
       image = "ui/images/clear.svg")
   public void clearDatabaseCache() {
     DbCache.getInstance().clear(null);
-    MessageBox mb = new MessageBox(HopGui.getInstance().getShell(), SWT.OK | SWT.ICON_INFORMATION);
+    MessageBox mb =
+        new MessageBox(HopGui.getInstance().getActiveShell(), SWT.OK | SWT.ICON_INFORMATION);
     mb.setText(BaseMessages.getString(PKG, "DatabaseToolbarItem.ClearDatabaseCache.Success"));
     mb.setMessage(BaseMessages.getString(PKG, "DatabaseToolbarItem.ClearDatabaseCache.Success"));
     mb.open();

@@ -91,7 +91,6 @@ public class ConfigGuiOptionsTab {
   private Text wMiddlePct;
   private Combo wGlobalZoom;
   private Text wGridSize;
-  private Label wlGridSize; // Label for grid size (for enable/disable)
   private Button wDarkMode;
 
   /** Hop Web only: follow system light/dark mode; when true, Dark mode checkbox is disabled. */
@@ -266,8 +265,6 @@ public class ConfigGuiOptionsTab {
     Shell shell = wTabFolder.getShell();
     PropsUi props = PropsUi.getInstance();
     int margin = PropsUi.getMargin();
-    int middle = props.getMiddlePct();
-    int h = (int) (40 * props.getZoomFactor());
 
     CTabItem wLookTab = new CTabItem(wTabFolder, SWT.NONE);
     wLookTab.setFont(GuiResource.getInstance().getFontDefault());
@@ -645,7 +642,6 @@ public class ConfigGuiOptionsTab {
             lastCanvasControl,
             margin);
     wGridSize = (Text) gridSizeControls[1];
-    wlGridSize = (Label) gridSizeControls[0];
     wGridSize.setMessage(BaseMessages.getString(PKG, ENTER_OPTIONS_DIALOG_ENTER_NUMBER_HINT));
     wGridSize.addListener(
         SWT.Verify,

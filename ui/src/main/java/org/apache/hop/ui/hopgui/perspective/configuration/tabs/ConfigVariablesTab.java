@@ -58,12 +58,12 @@ public class ConfigVariablesTab {
     // calls the addConfigVariablesTab() method.
   }
 
+  private CTabFolder wTabFolder;
+
   @GuiTab(
       id = "10200-config-perspective-variables-tab",
       parentId = ConfigurationPerspective.CONFIG_PERSPECTIVE_TABS,
       description = "System variables")
-  private CTabFolder wTabFolder;
-
   public void addConfigVariablesTab(CTabFolder wTabFolder) {
     this.wTabFolder = wTabFolder;
     int margin = PropsUi.getMargin();
@@ -170,15 +170,6 @@ public class ConfigVariablesTab {
           "Error saving described variables to the Hop configuration file: "
               + HopConfig.getInstance().getConfigFilename(),
           e);
-    }
-  }
-
-  private void saveValues() {
-    try {
-      HopConfig.getInstance().saveToFile();
-    } catch (Exception e) {
-      new ErrorDialog(
-          HopGui.getInstance().getShell(), "Error", "Error saving configuration to file", e);
     }
   }
 }
