@@ -72,7 +72,6 @@
                 <include>org.apache.commons:commons-math3:jar</include>
                 <include>com.github.albfernandez:juniversalchardet:jar</include>
                 <include>xerces:xercesImpl:jar</include>
-                <include>xml-apis:xml-apis:jar</include>
                 <include>org.apache.commons:commons-collections4:jar</include>
                 <include>org.apache.logging.log4j:log4j-api:jar</include>
                 <include>org.jsoup:jsoup:jar</include>

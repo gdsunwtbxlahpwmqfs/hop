@@ -469,6 +469,7 @@ public class ProjectDialog extends Dialog {
           needingProjectRefresh = true;
           if (!loading) {
             updateIVariables();
+            updateMetadataPathFields();
           }
         });
 
@@ -578,6 +579,36 @@ public class ProjectDialog extends Dialog {
           BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Header"),
           BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Message"),
           e);
+    }
+  }
+
+  /**
+   * Resolve {@code ${PROJECT_HOME}} references in the metadata path fields so that absolute paths
+   * are shown after the project home folder is set or changed. This is particularly useful for new
+   * projects where the default values still contain the {@code ${PROJECT_HOME}} variable reference.
+   */
+  private void updateMetadataPathFields() {
+    loading = true;
+    try {
+      if (StringUtils.isNotEmpty(wHome.getText())) {
+        String metadataBaseFolder = wMetadataBaseFolder.getText();
+        if (StringUtils.isNotEmpty(metadataBaseFolder)
+            && metadataBaseFolder.contains(Const.VAR_PROJECT_HOME)) {
+          wMetadataBaseFolder.setText(variables.resolve(metadataBaseFolder));
+        }
+        String unitTestsBasePath = wUnitTestsBasePath.getText();
+        if (StringUtils.isNotEmpty(unitTestsBasePath)
+            && unitTestsBasePath.contains(Const.VAR_PROJECT_HOME)) {
+          wUnitTestsBasePath.setText(variables.resolve(unitTestsBasePath));
+        }
+        String dataSetCsvFolder = wDataSetCsvFolder.getText();
+        if (StringUtils.isNotEmpty(dataSetCsvFolder)
+            && dataSetCsvFolder.contains(Const.VAR_PROJECT_HOME)) {
+          wDataSetCsvFolder.setText(variables.resolve(dataSetCsvFolder));
+        }
+      }
+    } finally {
+      loading = false;
     }
   }
 

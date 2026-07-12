@@ -55,7 +55,6 @@
             <scope>provided</scope>
             <includes>
                 <include>xerces:xercesImpl:jar</include>
-                <include>xml-apis:xml-apis:jar</include>
                 <include>net.sf.saxon:*:jar</include>
             </includes>
             <outputDirectory>plugins/actions/xml/lib</outputDirectory>

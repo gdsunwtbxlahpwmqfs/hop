@@ -893,6 +893,17 @@
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
                 <version>${xerces.version}</version>
+                <!-- xml-apis:xml-apis 1.4.01 bundles a copy of javax.xml.stream.*
+                     which, under HopURLClassLoader (child-first), shadows the JDK's
+                     STAX API and causes ClassCastException when a WstxInputFactory
+                     loaded by another classloader cannot be cast to this loader's
+                     XMLInputFactory. Use the JDK built-in STAX API instead. -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>xml-apis</groupId>
