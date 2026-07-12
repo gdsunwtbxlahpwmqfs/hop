@@ -54,7 +54,7 @@ public class ActionWorkflowGuiPlugin {
       name = "i18n::ActionWorkflow.Copy.Name",
       tooltip = "i18n::ActionWorkflow.Copy.Description",
       image = "ui/images/copy.svg",
-      category = "Basic",
+      category = "i18n::ActionWorkflow.Category",
       categoryOrder = "1")
   public void copyAsActionToClipboard(HopGuiWorkflowContext context) {
 

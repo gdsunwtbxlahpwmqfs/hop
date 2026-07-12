@@ -51,7 +51,7 @@ public class WebServiceGuiPlugin {
       name = "i18n::WebserviceGuiPlugin.GuiAction.Label",
       tooltip = "i18n::WebserviceGuiPlugin.GuiAction.ToolTip",
       image = "ui/images/webservice.svg",
-      category = "Data routing",
+      category = "i18n::WebserviceGuiPlugin.GuiAction.Category",
       categoryOrder = "2")
   public void addWebServiceForTransform(HopGuiPipelineTransformContext context) {
     PipelineMeta pipelineMeta = context.getPipelineMeta();

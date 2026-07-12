@@ -130,7 +130,7 @@ public class DrillDownGuiPlugin {
       name = "i18n::DrillDown.OpenExecution.Name",
       tooltip = "i18n::DrillDown.OpenExecution.Tooltip",
       image = "ui/images/running.svg",
-      category = "Basic",
+      category = "i18n::DrillDown.Category",
       categoryOrder = "1")
   public void openTransformExecution(HopGuiPipelineTransformContext context) {
     TransformMeta transformMeta = context.getTransformMeta();
@@ -176,7 +176,7 @@ public class DrillDownGuiPlugin {
       name = "i18n::DrillDown.OpenExecution.Name",
       tooltip = "i18n::DrillDown.OpenExecution.Tooltip",
       image = "ui/images/running.svg",
-      category = "Basic",
+      category = "i18n::DrillDown.Category",
       categoryOrder = "1")
   public void openActionExecution(HopGuiWorkflowActionContext context) {
     ActionMeta actionMeta = context.getActionMeta();

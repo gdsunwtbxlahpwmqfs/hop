@@ -42,7 +42,7 @@ import org.apache.hop.pipeline.transform.TransformMeta;
     image = "script.svg",
     name = "Script",
     description = "Executes scripts for JSR-223 Script Engines",
-    categoryDescription = "Scripting",
+    categoryDescription = "i18n::ScriptMeta.categoryDescription",
     keywords = "script,scripting,groovy,python,javascript,ecmascript,ruby",
     documentationUrl = "/pipeline/transforms/script.html")
 public class ScriptMeta extends BaseTransformMeta<Script, ScriptData> implements ITransformMeta {

@@ -54,7 +54,7 @@ public class ActionPipelineGuiPlugin {
       name = "i18n::ActionPipeline.Copy.Name",
       tooltip = "i18n::ActionPipeline.Copy.Description",
       image = "ui/images/copy.svg",
-      category = "Basic",
+      category = "i18n::ActionPipeline.Category",
       categoryOrder = "1")
   public void copyAsActionToClipboard(HopGuiPipelineContext context) {
 

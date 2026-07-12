@@ -1583,7 +1583,7 @@ public class TestingGuiPlugin {
       name = "i18n::TestingGuiPlugin.ContextAction.CopyTestActionToClipboard.Name",
       tooltip = "i18n::TestingGuiPlugin.ContextAction.CopyTestActionToClipboard.Tooltip",
       image = "Test_tube_icon.svg",
-      category = "Basic",
+      category = "i18n::TestingGuiPlugin.ContextAction.Category",
       categoryOrder = "1")
   public void copyRunTestActionToClipboard(HopGuiPipelineContext context) {
     HopGuiPipelineGraph pipelineGraph = context.getPipelineGraph();

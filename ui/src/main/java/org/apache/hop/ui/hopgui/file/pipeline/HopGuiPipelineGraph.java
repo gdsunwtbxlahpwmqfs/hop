@@ -1342,7 +1342,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       name = "i18n::HopGuiPipelineGraph.ViewOutput.GuiAction.Name",
       tooltip = "i18n::HopGuiPipelineGraph.ViewOutput.GuiAction.Tooltip",
       image = "ui/images/data.svg",
-      category = "Preview",
+      category = "i18n::HopGuiPipelineGraph.ContextualAction.Category.Preview.Text",
       categoryOrder = "3")
   public void showTransformOutputData(HopGuiPipelineTransformContext context) {
     TransformMeta dataTransformMeta = context.getTransformMeta();
@@ -2586,7 +2586,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       name = "i18n::HopGuiPipelineGraph.TransformAction.Partitioning.Name",
       tooltip = "i18n::HopGuiPipelineGraph.TransformAction.Partitioning.Tooltip",
       image = "ui/images/partition_schema.svg",
-      category = "Data routing",
+      category = "i18n::HopGuiPipelineGraph.ContextualAction.Category.Routing.Text",
       categoryOrder = "2")
   public void partitioning(HopGuiPipelineTransformContext context) {
     pipelineTransformDelegate.editTransformPartitioning(pipelineMeta, context.getTransformMeta());
@@ -2599,7 +2599,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
       name = "i18n::HopGuiPipelineGraph.TransformAction.ErrorHandling.Name",
       tooltip = "i18n::HopGuiPipelineGraph.TransformAction.ErrorHandling.Tooltip",
       image = "ui/images/error.svg",
-      category = "Data routing",
+      category = "i18n::HopGuiPipelineGraph.ContextualAction.Category.Routing.Text",
       categoryOrder = "2")
   public void errorHandling(HopGuiPipelineTransformContext context) {
     pipelineTransformDelegate.editTransformErrorHandling(pipelineMeta, context.getTransformMeta());

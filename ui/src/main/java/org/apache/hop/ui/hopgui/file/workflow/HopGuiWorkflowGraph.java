@@ -2252,7 +2252,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       name = "i18n::System.Button.Help",
       tooltip = "i18n::System.Tooltip.Help",
       image = "ui/images/help.svg",
-      category = "Basic",
+      category = "i18n::HopGuiWorkflowGraph.ContextualAction.Category.Basic.Text",
       categoryOrder = "1")
   public void openActionHelp(HopGuiWorkflowActionContext context) {
     IPlugin plugin =
@@ -2353,7 +2353,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       name = "i18n::HopGuiWorkflowGraph.ContextualAction.CopyToClipboard.Name",
       tooltip = "i18n::HopGuiWorkflowGraph.ContextualAction.CopyToClipboard.Tooltip",
       image = "ui/images/copy.svg",
-      category = "Basic",
+      category = "i18n::HopGuiWorkflowGraph.ContextualAction.Category.Basic.Text",
       categoryOrder = "1")
   public void copyNotePadToClipboard(HopGuiWorkflowNoteContext context) {
     workflowClipboardDelegate.copySelected(
@@ -4603,7 +4603,7 @@ public class HopGuiWorkflowGraph extends HopGuiAbstractGraph
       name = "i18n::HopGuiWorkflowGraph.ActionAction.ViewExecutionInfo.Name",
       tooltip = "i18n::HopGuiWorkflowGraph.ActionAction.ViewExecutionInfo.Tooltip",
       image = "ui/images/execution.svg",
-      category = "Basic",
+      category = "i18n::HopGuiWorkflowGraph.ContextualAction.Category.Basic.Text",
       categoryOrder = "1")
   @SuppressWarnings("unchecked")
   public void viewActionExecutionInfo(HopGuiWorkflowActionContext context) {

@@ -58,7 +58,7 @@ public class DataProbeGuiPlugin {
       name = "i18n::PipelineProbeGuiAction.AddDataProbe.Label",
       tooltip = "i18n::PipelineProbeGuiAction.AddDataProbe.ToolTip",
       image = "probe.svg",
-      category = "Preview",
+      category = "i18n::PipelineProbeGuiAction.Category",
       categoryOrder = "3")
   public void addDataProbeForTransform(HopGuiPipelineTransformContext context) {
     PipelineMeta pipelineMeta = context.getPipelineMeta();
