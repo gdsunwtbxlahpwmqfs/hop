@@ -372,7 +372,7 @@ public class ExcelInputMeta extends BaseTransformMeta<ExcelInput, ExcelInputData
     lineNumberFilesDestinationDirectory = null;
     lineNumberFilesExtension = "line";
 
-    spreadSheetType = SpreadSheetType.SAX_POI; // default.
+    spreadSheetType = SpreadSheetType.POI; // default. Supports both XLS and XLSX.
   }
 
   @Override
