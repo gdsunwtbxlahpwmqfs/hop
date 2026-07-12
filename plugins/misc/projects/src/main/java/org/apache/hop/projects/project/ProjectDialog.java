@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.hop.core.Const;
@@ -469,7 +470,6 @@ public class ProjectDialog extends Dialog {
           needingProjectRefresh = true;
           if (!loading) {
             updateIVariables();
-            updateMetadataPathFields();
           }
         });
 
@@ -579,36 +579,6 @@ public class ProjectDialog extends Dialog {
           BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Header"),
           BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Message"),
           e);
-    }
-  }
-
-  /**
-   * Resolve {@code ${PROJECT_HOME}} references in the metadata path fields so that absolute paths
-   * are shown after the project home folder is set or changed. This is particularly useful for new
-   * projects where the default values still contain the {@code ${PROJECT_HOME}} variable reference.
-   */
-  private void updateMetadataPathFields() {
-    loading = true;
-    try {
-      if (StringUtils.isNotEmpty(wHome.getText())) {
-        String metadataBaseFolder = wMetadataBaseFolder.getText();
-        if (StringUtils.isNotEmpty(metadataBaseFolder)
-            && metadataBaseFolder.contains(Const.VAR_PROJECT_HOME)) {
-          wMetadataBaseFolder.setText(variables.resolve(metadataBaseFolder));
-        }
-        String unitTestsBasePath = wUnitTestsBasePath.getText();
-        if (StringUtils.isNotEmpty(unitTestsBasePath)
-            && unitTestsBasePath.contains(Const.VAR_PROJECT_HOME)) {
-          wUnitTestsBasePath.setText(variables.resolve(unitTestsBasePath));
-        }
-        String dataSetCsvFolder = wDataSetCsvFolder.getText();
-        if (StringUtils.isNotEmpty(dataSetCsvFolder)
-            && dataSetCsvFolder.contains(Const.VAR_PROJECT_HOME)) {
-          wDataSetCsvFolder.setText(variables.resolve(dataSetCsvFolder));
-        }
-      }
-    } finally {
-      loading = false;
     }
   }
 
@@ -734,6 +704,29 @@ public class ProjectDialog extends Dialog {
         if (!refs.isEmpty()) {
           ProjectsUtil.changeParentProjectReferences(oriProjectName, projectName);
         }
+
+        // Rename the project folder in the file system
+        try {
+          String oldHome = variables.resolve(oriProjectHome);
+          FileObject oldFile = HopVfs.getFileObject(oldHome);
+          if (oldFile.exists() && oldFile.isFolder()) {
+            FileObject parentFolder = oldFile.getParent();
+            if (parentFolder == null) {
+              LogChannel.UI.logError("Cannot rename project folder at root level");
+            } else {
+              String newHome = FilenameUtils.concat(parentFolder.getName().toString(), projectName);
+              FileObject newFile = HopVfs.getFileObject(newHome);
+              if (newFile.exists()) {
+                LogChannel.UI.logError("Project folder '" + newHome + "' already exists");
+              } else {
+                oldFile.moveTo(newFile);
+                wHome.setText(newHome);
+              }
+            }
+          }
+        } catch (Exception e) {
+          LogChannel.UI.logError("Error renaming project folder", e);
+        }
       }
 
       getInfo(project, projectConfig);
@@ -771,10 +764,9 @@ public class ProjectDialog extends Dialog {
       wCompany.setText(Const.NVL(project.getCompany(), ""));
       wDepartment.setText(Const.NVL(project.getDepartment(), ""));
       wVersion.setText(Const.NVL(project.getVersion(), ""));
-      wMetadataBaseFolder.setText(
-          Const.NVL(variables.resolve(project.getMetadataBaseFolder()), ""));
-      wUnitTestsBasePath.setText(Const.NVL(variables.resolve(project.getUnitTestsBasePath()), ""));
-      wDataSetCsvFolder.setText(Const.NVL(variables.resolve(project.getDataSetsCsvFolder()), ""));
+      wMetadataBaseFolder.setText(Const.NVL(project.getMetadataBaseFolder(), ""));
+      wUnitTestsBasePath.setText(Const.NVL(project.getUnitTestsBasePath(), ""));
+      wDataSetCsvFolder.setText(Const.NVL(project.getDataSetsCsvFolder(), ""));
       wEnforceHomeExecution.setSelection(project.isEnforcingExecutionInHome());
       for (int i = 0; i < project.getDescribedVariables().size(); i++) {
         DescribedVariable describedVariable = project.getDescribedVariables().get(i);
@@ -823,9 +815,9 @@ public class ProjectDialog extends Dialog {
     project.setCompany(wCompany.getText());
     project.setDepartment(wDepartment.getText());
     project.setVersion(wVersion.getText());
-    project.setMetadataBaseFolder(variables.resolve(wMetadataBaseFolder.getText()));
-    project.setUnitTestsBasePath(variables.resolve(wUnitTestsBasePath.getText()));
-    project.setDataSetsCsvFolder(variables.resolve(wDataSetCsvFolder.getText()));
+    project.setMetadataBaseFolder(wMetadataBaseFolder.getText());
+    project.setUnitTestsBasePath(wUnitTestsBasePath.getText());
+    project.setDataSetsCsvFolder(wDataSetCsvFolder.getText());
     project.setEnforcingExecutionInHome(wEnforceHomeExecution.getSelection());
     project.getDescribedVariables().clear();
     for (int i = 0; i < wVariables.nrNonEmpty(); i++) {

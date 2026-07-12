@@ -244,7 +244,7 @@ public class HopGui
   private static final String REDO_UNAVAILABLE =
       BaseMessages.getString(PKG, "HopGui.Menu.Redo.NotAvailable");
 
-  public static final String APP_NAME = "AIDataProcess";
+  public static final String APP_NAME = "Qi Hop";
 
   private final String id;
 

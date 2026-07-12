@@ -119,14 +119,14 @@ public class AboutDialog extends Dialog {
 
     Link wLink = new Link(composite, SWT.WRAP | SWT.MULTI);
     wLink.setText(
-        "<a href=\"https://aidataprocess.apache.org\">"
+        "<a href=\"https://hop.apache.org\">"
             + BaseMessages.getString(PKG, "AboutDialog.ApplicationName")
             + "</a>");
     wLink.addListener(
         SWT.Selection,
         e -> {
           try {
-            EnvironmentUtils.getInstance().openUrl("https://aidataprocess.apache.org");
+            EnvironmentUtils.getInstance().openUrl("https://hop.apache.org");
           } catch (Exception ex) {
             new ErrorDialog(shell, "Error", "Error opening URL", ex);
           }

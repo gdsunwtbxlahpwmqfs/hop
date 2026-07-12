@@ -13,10 +13,63 @@ WEBAPP_DIR="${CATALINA_BASE}/webapps"
 LOG_DIR="${CATALINA_BASE}/logs"
 
 FORCE_BUILD=false
-for arg in "$@"; do
-    case "$arg" in
+MANUAL_OS=""
+MANUAL_ARCH=""
+RESTART_ONLY=false
+
+show_help() {
+    cat << HELPEOF
+用法: $(basename "$0") [选项]
+
+选项:
+  --force-build, -fb       强制重新编译 Hop assemblies
+  --os <OS>                手动指定目标平台: linux | mac | windows
+                           (默认自动检测)
+  --arch <ARCH>            手动指定 CPU 架构: x86_64 | aarch64 | arm64
+                           (默认自动检测)
+  --no-llm                 跳过 LiteLLM 代理与向量服务启动
+  --restart, -r            仅重启 Tomcat（跳过部署），用于热更新 JAR 后快速生效
+  --help, -h               显示此帮助信息
+
+示例:
+  $(basename "$0")                                    # 自动检测平台，跳过编译
+  $(basename "$0") --force-build                      # 自动检测平台，强制编译
+  $(basename "$0") --force-build --os linux --arch aarch64  # 交叉编译 Linux ARM64
+  $(basename "$0") --os linux --arch x86_64           # 指定 Linux x86_64 平台
+  $(basename "$0") --restart                          # 重启 Tomcat（JAR 热更新场景）
+HELPEOF
+    exit 0
+}
+
+while [ $# -gt 0 ]; do
+    case "$1" in
         --force-build|-fb)
             FORCE_BUILD=true
+            shift
+            ;;
+        --os)
+            MANUAL_OS="$2"
+            shift 2
+            ;;
+        --arch)
+            MANUAL_ARCH="$2"
+            shift 2
+            ;;
+        --no-llm)
+            export HOP_DOCKER_ENABLED=false
+            shift
+            ;;
+        --restart|-r)
+            RESTART_ONLY=true
+            shift
+            ;;
+        --help|-h)
+            show_help
+            ;;
+        *)
+            echo "ERROR: Unknown option: $1"
+            echo "Run '$(basename "$0") --help' for usage."
+            exit 1
             ;;
     esac
 done
@@ -25,38 +78,54 @@ done
 # OS/Arch Detection & Configuration
 # ============================================================
 detect_os_arch() {
+    # 默认值：自动检测
     OS_NAME=$(uname -s)
     OS_ARCH=$(uname -m)
 
+    # 手动覆盖 OS
+    if [ -n "${MANUAL_OS}" ]; then
+        case "${MANUAL_OS}" in
+            linux)   OS_NAME="Linux" ;;
+            mac|macos|darwin) OS_NAME="Darwin" ;;
+            windows|win) OS_NAME="MINGW64_NT" ;;
+            *)
+                echo "ERROR: Unsupported --os: ${MANUAL_OS} (supported: linux, mac, windows)"
+                exit 1
+                ;;
+        esac
+    fi
+
+    # 手动覆盖 Arch
+    if [ -n "${MANUAL_ARCH}" ]; then
+        OS_ARCH="${MANUAL_ARCH}"
+    fi
+
+    # 根据 OS_FAMILY + ARCH 推导 SWT_ARTIFACT_ID
     case "${OS_NAME}" in
         Linux)
             OS_FAMILY="linux"
-            if [ "${OS_ARCH}" = "aarch64" ]; then
-                SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.aarch64"
-            else
-                SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.x86_64"
-            fi
-            MAVEN_PROFILES="assemblies"
+            case "${OS_ARCH}" in
+                aarch64|arm64) SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.aarch64" ;;
+                *)             SWT_ARTIFACT_ID="org.eclipse.swt.gtk.linux.x86_64" ;;
+            esac
             ;;
         Darwin)
             OS_FAMILY="mac"
-            if [ "${OS_ARCH}" = "arm64" ]; then
-                SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.aarch64"
-            else
-                SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.x86_64"
-            fi
-            MAVEN_PROFILES="assemblies"
+            case "${OS_ARCH}" in
+                aarch64|arm64) SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.aarch64" ;;
+                *)             SWT_ARTIFACT_ID="org.eclipse.swt.cocoa.macosx.x86_64" ;;
+            esac
             ;;
         CYGWIN*|MINGW*|MSYS*)
             OS_FAMILY="windows"
             SWT_ARTIFACT_ID="org.eclipse.swt.win32.win32.x86_64"
-            MAVEN_PROFILES="assemblies"
             ;;
         *)
             echo "ERROR: Unsupported OS: ${OS_NAME}"
             exit 1
             ;;
     esac
+    MAVEN_PROFILES="assemblies"
 }
 
 detect_os_arch
@@ -64,10 +133,46 @@ detect_os_arch
 echo "============================================="
 echo "  Hop Web Local Development Server"
 echo "============================================="
-echo "  OS:      ${OS_NAME}"
-echo "  Arch:    ${OS_ARCH}"
+if [ -n "${MANUAL_OS}" ] || [ -n "${MANUAL_ARCH}" ]; then
+    echo "  OS:      ${OS_FAMILY} (手动指定)"
+    echo "  Arch:    ${OS_ARCH} (手动指定)"
+else
+    echo "  OS:      ${OS_NAME}"
+    echo "  Arch:    ${OS_ARCH}"
+fi
 echo "  SWT:     ${SWT_ARTIFACT_ID}"
 echo "============================================="
+
+# ============================================================
+# 停止 Tomcat 的通用函数
+# ============================================================
+stop_tomcat() {
+    echo "==> Stopping existing Tomcat instance..."
+    if [ -f "${CATALINA_BASE}/work/catalina.pid" ] || pgrep -f "catalina" > /dev/null 2>&1; then
+        "${CATALINA_HOME}/bin/catalina.sh" stop 10 > /dev/null 2>&1 || true
+        if pgrep -f "catalina" > /dev/null 2>&1; then
+            echo "    Force killing remaining Tomcat process..."
+            pkill -9 -f "catalina" || true
+            sleep 2
+        fi
+        echo "    Tomcat stopped"
+    else
+        echo "    No running Tomcat instance found"
+    fi
+}
+
+# ============================================================
+# --restart 快捷路径：跳过部署，仅重启 Tomcat（用于 JAR 热更新）
+# ============================================================
+if [ "${RESTART_ONLY}" = "true" ]; then
+    echo ""
+    echo "==> [Restart Mode] 跳过部署，直接重启 Tomcat..."
+    stop_tomcat
+    # 跳到启动部分（跳过 PHASE 1~3 和部署）
+    goto_start_tomcat=true
+fi
+
+if [ "${goto_start_tomcat:-false}" != "true" ]; then
 
 # ============================================================
 # PHASE 1: Assemblies Package Installation
@@ -220,19 +325,7 @@ done
 
 # Stop running Tomcat instance (if any) so the new projects take effect
 echo ""
-echo "==> Stopping existing Tomcat instance (if running)..."
-if [ -f "${CATALINA_BASE}/work/catalina.pid" ] || pgrep -f "catalina" > /dev/null 2>&1; then
-    "${CATALINA_HOME}/bin/catalina.sh" stop 10 > /dev/null 2>&1 || true
-    # Force kill if still alive
-    if pgrep -f "catalina" > /dev/null 2>&1; then
-        echo "    Force killing remaining Tomcat process..."
-        pkill -9 -f "catalina" || true
-        sleep 2
-    fi
-    echo "    Tomcat stopped"
-else
-    echo "    No running Tomcat instance found"
-fi
+stop_tomcat
 
 echo ""
 echo "==> Copying JDBC drivers..."
@@ -244,9 +337,31 @@ else
     echo "    Warning: jdbc-drivers not found in resources/"
 fi
 
+fi  # end of if [ "${goto_start_tomcat}" != "true" ]
+
 # ============================================================
 # CATALINA_OPTS — JVM & Hop system properties
 # ============================================================
+
+# Hop 环境变量（对齐官方 Docker 约定，可通过外部环境变量覆盖）
+export HOP_AUDIT_FOLDER="${HOP_AUDIT_FOLDER:-${CATALINA_BASE}/audit}"
+export HOP_CONFIG_FOLDER="${HOP_CONFIG_FOLDER:-${CATALINA_BASE}/config}"
+export HOP_TEMP_FOLDER="${HOP_TEMP_FOLDER:-${CATALINA_BASE}/temp}"
+export HOP_LOG_LEVEL="${HOP_LOG_LEVEL:-Basic}"
+export HOP_PASSWORD_ENCODER_PLUGIN="${HOP_PASSWORD_ENCODER_PLUGIN:-Hop}"
+export HOP_PLUGIN_BASE_FOLDERS="${HOP_PLUGIN_BASE_FOLDERS:-${WEBAPP_DIR}/ROOT/WEB-INF/plugins}"
+export HOP_SHARED_JDBC_FOLDERS="${HOP_SHARED_JDBC_FOLDERS:-${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers}"
+export HOP_AES_ENCODER_KEY="${HOP_AES_ENCODER_KEY:-}"
+export HOP_GUI_ZOOM_FACTOR="${HOP_GUI_ZOOM_FACTOR:-1.0}"
+
+# 项目与环境变量：默认为空（对齐 Docker 语义：空=不创建/注册项目）
+# 这些变量用于控制项目注册逻辑，不是 Hop 运行时 JVM 参数
+# Hop 运行时通过 hop-config.json 中注册的 projectHome（${HOP_CONFIG_FOLDER}/projects/xxx）自动推导 PROJECT_HOME
+export HOP_PROJECT_FOLDER="${HOP_PROJECT_FOLDER:-}"
+export HOP_PROJECT_NAME="${HOP_PROJECT_NAME:-}"
+export HOP_PROJECT_CONFIG_FILE_NAME="${HOP_PROJECT_CONFIG_FILE_NAME:-project-config.json}"
+export HOP_ENVIRONMENT_NAME="${HOP_ENVIRONMENT_NAME:-}"
+export HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS="${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS:-}"
 
 CATALINA_OPTS="-Xmx4096m"
 CATALINA_OPTS="${CATALINA_OPTS} -Xms1024m"
@@ -255,12 +370,14 @@ CATALINA_OPTS="${CATALINA_OPTS} -XX:MaxGCPauseMillis=100"
 CATALINA_OPTS="${CATALINA_OPTS} -XX:+AlwaysPreTouch"
 CATALINA_OPTS="${CATALINA_OPTS} -Djdk.attach.allowAttachSelf=true"
 
-CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=${CATALINA_BASE}/audit"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=${CATALINA_BASE}/config"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/plugins"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers"
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_TEMP_FOLDER=${CATALINA_BASE}/temp"
+CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=${HOP_AUDIT_FOLDER}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=${HOP_CONFIG_FOLDER}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_TEMP_FOLDER=${HOP_TEMP_FOLDER}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=${HOP_PLUGIN_BASE_FOLDERS}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${HOP_SHARED_JDBC_FOLDERS}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AES_ENCODER_KEY=${HOP_AES_ENCODER_KEY}"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_GUI_ZOOM_FACTOR=${HOP_GUI_ZOOM_FACTOR}"
 CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 
@@ -270,13 +387,13 @@ if [ "${OS_FAMILY}" = "mac" ]; then
     CATALINA_OPTS="${CATALINA_OPTS} -Dswt.enable.ime=true"
 fi
 
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=Hop"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=${HOP_PASSWORD_ENCODER_PLUGIN}"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_HIDE_DATABASE_PASSWORDS_IN_LOGS=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_DISABLE_PLAIN_TEXT_CREDENTIALS=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_MASK_SENSITIVE_OUTPUT=Y"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_DISABLE_SENSITIVE_DATA_LOGGING=Y"
 
-CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_LEVEL=Basic"
+CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_LEVEL=${HOP_LOG_LEVEL}"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_FILE_MAX_SIZE_MB=500"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_FILE_ROTATION_COUNT=10"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_LOG_BUFFER_LINES=5000"

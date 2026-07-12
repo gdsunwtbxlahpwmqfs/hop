@@ -40,6 +40,7 @@
     <exclusion>ExplorerPerspective-ContextMenu-20200-GitAdd</exclusion>
     <exclusion>ExplorerPerspective-ContextMenu-20300-GitRevert</exclusion>
     <exclusion>ExplorerPerspective-ContextMenu-21000-GitCommit</exclusion>
+    <exclusion>context-menu-project-40011-add-from-vc</exclusion>
 
     <!-- Git branch selector button in the bottom status toolbar -->
     <exclusion>toolbar-item-30000-git</exclusion>

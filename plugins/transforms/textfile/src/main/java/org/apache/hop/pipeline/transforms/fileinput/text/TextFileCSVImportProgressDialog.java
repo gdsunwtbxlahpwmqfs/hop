@@ -156,6 +156,9 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
 
   private String doScan(IProgressMonitor monitor, final boolean failOnParseError)
       throws HopException {
+    log.logBasic("CSV采样开始: samples=" + samples + ", failOnParseError=" + failOnParseError);
+    long startTime = System.currentTimeMillis();
+
     if (samples > 0) {
       monitor.beginTask(
           BaseMessages.getString(PKG, "TextFileCSVImportProgressDialog.Task.ScanningFile"),
@@ -234,11 +237,12 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
 
     StringBuilder lineBuffer = new StringBuilder(256);
     int fileFormatType = meta.getFileFormatTypeNr();
+    log.logBasic("CSV采样: 字段数量=" + nrFields + ", 编码=" + encodingType + ", 文件格式=" + fileFormatType);
 
     // If the file has a header we overwrite the first line
     // However, if it doesn't have a header, take a new line
     //
-
+    log.logBasic("CSV采样: 开始读取第一行...");
     line =
         TextFileLineUtil.getLine(
             log,
@@ -250,6 +254,10 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
             meta.getEscapeCharacter(),
             meta.isBreakInEnclosureAllowed());
     fileLineNumber++;
+    log.logBasic("CSV采样: 第一行读取完成, 行内容长度=" + (line != null ? line.length() : 0));
+    if (line != null && line.length() > 200) {
+      log.logBasic("CSV采样: 第一行前200字符=" + line.substring(0, 200));
+    }
 
     if (meta.hasHeader()) {
       int skipped = 0;
@@ -278,10 +286,20 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
     SimpleDateFormat daf2 = new SimpleDateFormat();
 
     boolean errorFound = false;
+    long loopStartTime = System.currentTimeMillis();
+    log.logBasic("CSV采样: 开始循环处理数据行, 预计采样行数=" + samples);
     while (!errorFound
         && line != null
         && (linenr <= samples || samples == 0)
         && !monitor.isCanceled()) {
+      if (linenr % 100 == 0) {
+        log.logBasic(
+            "CSV采样: 正在处理第 "
+                + linenr
+                + " 行, 耗时="
+                + (System.currentTimeMillis() - loopStartTime)
+                + "ms");
+      }
       monitor.subTask(
           BaseMessages.getString(
               PKG, "TextFileCSVImportProgressDialog.Task.ScanningLine", "" + linenr));
@@ -351,6 +369,8 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
 
       // Grab another line...
       //
+      log.logBasic("CSV采样: 正在读取第 " + linenr + " 行...");
+      long readLineStartTime = System.currentTimeMillis();
       line =
           TextFileLineUtil.getLine(
               log,
@@ -361,7 +381,30 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
               meta.getEnclosure(),
               meta.getEscapeCharacter(),
               meta.isBreakInEnclosureAllowed());
+      long readLineDuration = System.currentTimeMillis() - readLineStartTime;
+      if (line != null) {
+        log.logBasic(
+            "CSV采样: 第 "
+                + linenr
+                + " 行读取完成, 行长度="
+                + line.length()
+                + ", 耗时="
+                + readLineDuration
+                + "ms");
+        if (readLineDuration > 500) {
+          log.logBasic("CSV采样: 警告! 第 " + linenr + " 行读取耗时较长: " + readLineDuration + "ms");
+        }
+      } else {
+        log.logBasic("CSV采样: 第 " + linenr + " 行读取完成, 文件已结束, 耗时=" + readLineDuration + "ms");
+      }
     }
+
+    log.logBasic(
+        "CSV采样: 循环处理完成, 实际处理行数="
+            + (linenr - 1)
+            + ", 循环耗时="
+            + (System.currentTimeMillis() - loopStartTime)
+            + "ms");
 
     monitor.worked(1);
     monitor.setTaskName(
@@ -584,6 +627,10 @@ public class TextFileCSVImportProgressDialog<T extends ITextFileInputField>
 
     monitor.worked(1);
     monitor.done();
+
+    long totalDuration = System.currentTimeMillis() - startTime;
+    log.logBasic(
+        "CSV采样完成: 总耗时=" + totalDuration + "ms, 处理行数=" + (linenr - 1) + ", 字段数=" + nrFields);
 
     return resultsMessage.toString();
   }

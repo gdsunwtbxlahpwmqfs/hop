@@ -19,11 +19,21 @@
   && ./mvnw jar:jar -pl ${MODULE} -am -DskipTests
 
 # 2. 复制 JAR 到 webapp 目录
-cp ${MODULE}/target/${JAR_NAME} assemblies/web/target/webapp/WEB-INF/lib/
+cp ${MODULE}/target/${JAR_NAME} tomcat-run/webapps/ROOT/WEB-INF/lib/
 
 # 3. 清理 Tomcat 缓存并重启
-docker exec hop-web-dev rm -rf /usr/local/tomcat/work/Catalina \
-  && docker compose -f docker-compose.dev.yml restart hop-web
+rm -rf tomcat-run/work/Catalina \
+  && bash start-hop-web.sh --restart
+```
+
+示例（修改 `plugins/misc/projects` 模块）：
+
+```bash
+./mvnw compile -pl plugins/misc/projects -am -DskipTests \
+  && ./mvnw jar:jar -pl plugins/misc/projects -am -DskipTests \
+  && cp plugins/misc/projects/target/hop-misc-projects-2.19.0-SNAPSHOT.jar tomcat-run/webapps/ROOT/WEB-INF/lib/ \
+  && rm -rf tomcat-run/work/Catalina \
+  && bash start-hop-web.sh --restart
 ```
 
 示例（修改 `ui` 模块）：
@@ -31,9 +41,9 @@ docker exec hop-web-dev rm -rf /usr/local/tomcat/work/Catalina \
 ```bash
 ./mvnw compile -pl ui -am -DskipTests \
   && ./mvnw jar:jar -pl ui -am -DskipTests \
-  && cp ui/target/hop-ui-2.19.0-SNAPSHOT.jar assemblies/web/target/webapp/WEB-INF/lib/ \
-  && docker exec hop-web-dev rm -rf /usr/local/tomcat/work/Catalina \
-  && docker compose -f docker-compose.dev.yml restart hop-web
+  && cp ui/target/hop-ui-2.19.0-SNAPSHOT.jar tomcat-run/webapps/ROOT/WEB-INF/lib/ \
+  && rm -rf tomcat-run/work/Catalina \
+  && bash start-hop-web.sh --restart
 ```
 
 ---
@@ -48,10 +58,10 @@ docker exec hop-web-dev rm -rf /usr/local/tomcat/work/Catalina \
 ./mvnw package -pl assemblies/web -am -DskipTests -Dfast-build -q
 
 # 3. 重启开发服务器（自动检测 war 更新并提取）
-./dev-scripts/start-web-dev.sh
+./start-hop-web.sh --force-build
 ```
 
-启动脚本 `start-web-dev.sh` 使用时间戳对比自动检测：
+启动脚本 `start-hop-web.sh` 使用时间戳对比自动检测：
 
 ```bash
 if [ -z "$(ls -A "$WEBAPP_DIR" 2>/dev/null)" ] || [ "assemblies/web/target/hop.war" -nt "$WEBAPP_DIR" ]; then
@@ -60,7 +70,7 @@ if [ -z "$(ls -A "$WEBAPP_DIR" 2>/dev/null)" ] || [ "assemblies/web/target/hop.w
 fi
 ```
 
-服务器若正在运行，重启脚本会先执行 `docker compose down`。
+服务器若正在运行，重启脚本会先执行停止 Tomcat。
 
 ---
 
@@ -82,9 +92,9 @@ export MODULE=plugins/transforms/json && \
 JAR=$(basename $(ls $MODULE/target/hop-*.jar 2>/dev/null | grep -v tests | head -1)) && \
 ./mvnw compile -pl $MODULE -am -DskipTests && \
 ./mvnw jar:jar -pl $MODULE -am -DskipTests && \
-cp $MODULE/target/$JAR assemblies/web/target/webapp/WEB-INF/lib/ && \
-docker exec hop-web-dev rm -rf /usr/local/tomcat/work/Catalina && \
-docker compose -f docker-compose.dev.yml restart hop-web
+cp $MODULE/target/$JAR tomcat-run/webapps/ROOT/WEB-INF/lib/ && \
+rm -rf tomcat-run/work/Catalina && \
+bash start-hop-web.sh --restart
 ```
 
 ---
@@ -120,14 +130,14 @@ Java 源文件 (.java)         ── 在 ${MODULE}/src/main/java/
         ↓ jar:jar / package
     JAR 文件 (.jar)          ── 在 ${MODULE}/target/
         ↓ 复制到 webapp
-  Webapp WEB-INF/lib/       ── 在 assemblies/web/target/webapp/WEB-INF/lib/
+  Webapp WEB-INF/lib/       ── 在 tomcat-run/webapps/ROOT/WEB-INF/lib/
         ↓ Tomcat 类加载
-   Docker 容器中的 RAP 服务
+   Tomcat 容器中的 RAP 服务
 ```
 
 ### 4.2 时间戳增量检测
 
-`start-web-dev.sh` 对比 `hop.war` 与 `webapp` 目录的修改时间：
+`start-hop-web.sh` 对比 `hop.war` 与 `webapp` 目录的修改时间：
 
 - `webapp` 不存在或为空 → 提取
 - `hop.war` 比 `webapp` 更新 → 重新提取（即路径 B 的核心）
@@ -135,7 +145,7 @@ Java 源文件 (.java)         ── 在 ${MODULE}/src/main/java/
 
 ### 4.3 路径 A 为何更快
 
-路径 A 跳过 assembly 打包（WAR 重新组装），直接将编译后的 JAR 注入已提取的 `webapp` 目录。它不依赖启动脚本的自动检测，而是手动复制 + 清理 Tomcat 缓存。
+路径 A 跳过 assembly 打包（WAR 重新组装），直接将编译后的 JAR 注入已提取的 `webapp` 目录。它不依赖启动脚本的自动检测，而是手动复制 + 清理 Tomcat 缓存 + 重启。
 
 ---
 
@@ -178,11 +188,13 @@ display.asyncExec(() -> {
 
 ### 5.4 Tomcat 缓存
 
-`/usr/local/tomcat/work/Catalina/` 目录缓存编译后的 JSP 和类。修改 JAR 后必须清缓存再重启，否则旧类可能仍被加载。
+`tomcat-run/work/Catalina/` 目录缓存编译后的 JSP 和类。修改 JAR 后必须清缓存再重启，否则旧类可能仍被加载。
 
-### 5.5 Docker 卷挂载
+### 5.5 路径差异
 
-`docker-compose.dev.yml` 中 `webapp` 是 volume 挂载。修改宿主机的 `assemblies/web/target/webapp/` 等同于修改容器内文件，但需重启 Tomcat 才能重新加载类。
+当前开发环境使用本地 Tomcat（`tomcat-run/`）而非 Docker，注意路径差异：
+- **旧路径**（Docker）：`assemblies/web/target/webapp/WEB-INF/lib/`
+- **新路径**（本地 Tomcat）：`tomcat-run/webapps/ROOT/WEB-INF/lib/`
 
 ### 5.6 修改未生效排查
 
@@ -191,7 +203,7 @@ display.asyncExec(() -> {
 ls -la ${MODULE}/src/main/java/.../YourFile.java
 ls -la ${MODULE}/target/classes/.../YourFile.class
 ls -la ${MODULE}/target/hop-*.jar
-ls -la assemblies/web/target/webapp/WEB-INF/lib/hop-*.jar
+ls -la tomcat-run/webapps/ROOT/WEB-INF/lib/hop-*.jar
 
 # 2. 四个时间戳必须依次递增
 # 3. 若 JAR 没更新：重新执行 compile + jar:jar
@@ -208,7 +220,7 @@ ls -la assemblies/web/target/webapp/WEB-INF/lib/hop-*.jar
 ls -la ui/src/main/java/org/apache/hop/ui/hopgui/assistant/LlmAssistantDialog.java \
       ui/target/classes/org/apache/hop/ui/hopgui/assistant/LlmAssistantDialog.class \
       ui/target/hop-ui-2.19.0-SNAPSHOT.jar \
-      assemblies/web/target/webapp/WEB-INF/lib/hop-ui-2.19.0-SNAPSHOT.jar
+      tomcat-run/webapps/ROOT/WEB-INF/lib/hop-ui-2.19.0-SNAPSHOT.jar
 ```
 
 四个时间戳应依次递增。
@@ -218,7 +230,7 @@ ls -la ui/src/main/java/org/apache/hop/ui/hopgui/assistant/LlmAssistantDialog.ja
 ## 七、最佳实践
 
 1. **日常迭代用路径 A**（~20 秒），大改动用路径 B（自动化检测）
-2. **保持容器运行**：开发中保持 Docker 容器启动，避免反复重启
+2. **保持服务器运行**：开发中保持 Tomcat 启动，避免反复重启
 3. **并行编译加速**：
    ```
    ./mvnw compile -pl ${MODULE} -am -DskipTests -T 1C
@@ -226,9 +238,9 @@ ls -la ui/src/main/java/org/apache/hop/ui/hopgui/assistant/LlmAssistantDialog.ja
 4. **远程调试端口**：5005 (JDWP)，可在 IDE 中配置 Socket 连接
 5. **查看日志**：
    ```bash
-   tail -f assemblies/web/target/webapp/WEB-INF/logs/*.log
-   docker logs -f hop-web-dev
+   tail -f tomcat-run/logs/catalina.out
    ```
+6. **仅重启 Tomcat**：使用 `--restart` 参数跳过部署，快速生效 JAR 热更新
 
 ---
 
@@ -250,8 +262,8 @@ ls -la ui/src/main/java/org/apache/hop/ui/hopgui/assistant/LlmAssistantDialog.ja
 ### 8.2 服务器启动失败
 
 ```bash
-# 容器日志
-docker logs hop-web-dev
+# 日志
+tail -f tomcat-run/logs/catalina.out
 
 # 端口占用
 lsof -i :8080
@@ -259,12 +271,12 @@ lsof -i :5005
 
 # 重新构建并启动
 ./mvnw clean package -pl assemblies/web -am -DskipTests -Dfast-build
-./dev-scripts/start-web-dev.sh
+./start-hop-web.sh --force-build
 ```
 
 ### 8.3 调试端口连接失败
 
-- 确认容器已启动：`docker ps | grep hop-web`
+- 确认服务器已启动：`pgrep -f catalina`
 - 确认端口开放：`lsof -i :5005`
 - IDE 配置：Host `localhost` / Port `5005` / Transport `Socket`
 

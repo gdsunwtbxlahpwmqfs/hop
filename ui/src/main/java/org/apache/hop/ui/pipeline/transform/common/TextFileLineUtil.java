@@ -66,20 +66,45 @@ public class TextFileLineUtil {
 
     int c = 0;
     line.setLength(0);
+    long charCount = 0;
+    long startTime = System.currentTimeMillis();
+    long lastLogTime = startTime;
+    int maxLineLength = 1000000;
     try {
       switch (formatNr) {
         case FILE_FORMAT_DOS:
           while (c >= 0) {
             c = reader.read();
+            charCount++;
+            if (charCount % 10000 == 0) {
+              long duration = System.currentTimeMillis() - startTime;
+              long sinceLastLog = System.currentTimeMillis() - lastLogTime;
+              if (sinceLastLog > 500 || duration > 1000) {
+                log.logBasic(
+                    "TextFileLineUtil.getLine: DOS格式读取字符数="
+                        + charCount
+                        + ", 耗时="
+                        + duration
+                        + "ms, 当前行长度="
+                        + line.length());
+                lastLogTime = System.currentTimeMillis();
+              }
+            }
+            if (line.length() > maxLineLength) {
+              log.logBasic(
+                  "TextFileLineUtil.getLine: 警告! 行长度超过限制("
+                      + maxLineLength
+                      + "), 当前长度="
+                      + line.length()
+                      + ", 已读取字符="
+                      + charCount);
+            }
             if (allowBreaks) {
               handleBreaksInEnclosure(ed, c);
             }
             if (!ed.inEnclosure && (encodingType.isReturn(c) || encodingType.isLinefeed(c))) {
               c = reader.read(); // skip \n and \r
               if (!encodingType.isReturn(c) && !encodingType.isLinefeed(c)) {
-                // Make sure it's really a linefeed or carriage return.
-                // Raise an error if this is not a DOS formatted file.
-                //
                 throw new HopFileException(
                     BaseMessages.getString(PKG, "TextFileLineUtil.Log.SingleLineFound"));
               }
@@ -93,6 +118,30 @@ public class TextFileLineUtil {
         case FILE_FORMAT_UNIX:
           while (c >= 0) {
             c = reader.read();
+            charCount++;
+            if (charCount % 10000 == 0) {
+              long duration = System.currentTimeMillis() - startTime;
+              long sinceLastLog = System.currentTimeMillis() - lastLogTime;
+              if (sinceLastLog > 500 || duration > 1000) {
+                log.logBasic(
+                    "TextFileLineUtil.getLine: UNIX格式读取字符数="
+                        + charCount
+                        + ", 耗时="
+                        + duration
+                        + "ms, 当前行长度="
+                        + line.length());
+                lastLogTime = System.currentTimeMillis();
+              }
+            }
+            if (line.length() > maxLineLength) {
+              log.logBasic(
+                  "TextFileLineUtil.getLine: 警告! 行长度超过限制("
+                      + maxLineLength
+                      + "), 当前长度="
+                      + line.length()
+                      + ", 已读取字符="
+                      + charCount);
+            }
             if (allowBreaks) {
               handleBreaksInEnclosure(ed, c);
             }
@@ -109,6 +158,30 @@ public class TextFileLineUtil {
           // not for MAC OS 9 but works for Mac OS X. Mac OS 9 can use UNIX-Format
           while (c >= 0) {
             c = reader.read();
+            charCount++;
+            if (charCount % 10000 == 0) {
+              long duration = System.currentTimeMillis() - startTime;
+              long sinceLastLog = System.currentTimeMillis() - lastLogTime;
+              if (sinceLastLog > 500 || duration > 1000) {
+                log.logBasic(
+                    "TextFileLineUtil.getLine: MIXED格式读取字符数="
+                        + charCount
+                        + ", 耗时="
+                        + duration
+                        + "ms, 当前行长度="
+                        + line.length());
+                lastLogTime = System.currentTimeMillis();
+              }
+            }
+            if (line.length() > maxLineLength) {
+              log.logBasic(
+                  "TextFileLineUtil.getLine: 警告! 行长度超过限制("
+                      + maxLineLength
+                      + "), 当前长度="
+                      + line.length()
+                      + ", 已读取字符="
+                      + charCount);
+            }
             if (allowBreaks) {
               handleBreaksInEnclosure(ed, c);
             }

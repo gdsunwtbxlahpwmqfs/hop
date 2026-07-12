@@ -1,8 +1,22 @@
 #!/bin/bash
 # =============================================================
-# Qi Hop Web 离线自动化安装脚本
+# Qi Hop Web 离线/在线自动化安装脚本
 # 功能：一键完成 JDK、Tomcat、Hop Web 的安装与配置
+#       JDK/Tomcat 支持离线拷贝或在线下载（自动识别）
 # 用法：sudo bash install-hop-web.sh
+#
+# 可选环境变量：
+#   INSTALL_MODE   安装模式：auto（默认，离线优先）、offline（仅离线）、online（仅在线）
+#   JDK_VERSION    在线下载的 JDK 主版本（默认 21）
+#   TOMCAT_VERSION 在线下载的 Tomcat 版本（默认 10.1.28）
+#   TOMCAT_PORT    Tomcat HTTP 端口（默认 8080）
+#   DOWNLOAD_CACHE 在线下载缓存目录（默认 /tmp/hop-install-download）
+#
+#   Hop 项目/环境（对齐官方 Docker 约定，默认空=不创建/注册）：
+#   HOP_PROJECT_FOLDER                    项目目录（留空则使用 hop-config.json 中已注册的项目）
+#   HOP_PROJECT_NAME                      项目名称
+#   HOP_ENVIRONMENT_NAME                  环境名称
+#   HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS 环境配置文件路径
 # =============================================================
 
 set -Eeuo pipefail
@@ -25,6 +39,17 @@ INSTALL_BASE="/opt/hop"
 # 运行用户
 HOP_USER="hop"
 HOP_GROUP="hop"
+
+# ============================================================
+# Hop 项目与环境配置（对齐官方 Docker 约定，可通过环境变量覆盖）
+# 默认为空（空=不创建/注册项目，与 Docker 语义一致）
+# Hop 运行时通过 hop-config.json 中注册的 projectHome（${HOP_CONFIG_FOLDER}/projects/xxx）自动推导 PROJECT_HOME
+# ============================================================
+HOP_PROJECT_FOLDER="${HOP_PROJECT_FOLDER:-}"
+HOP_PROJECT_NAME="${HOP_PROJECT_NAME:-}"
+HOP_ENVIRONMENT_NAME="${HOP_ENVIRONMENT_NAME:-}"
+HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS="${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS:-}"
+
 # 脚本所在目录的父目录即为离线包根目录
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PKG_DIR="$(dirname "$SCRIPT_DIR")"
@@ -35,6 +60,35 @@ CATALINA_HOME="${INSTALL_BASE}/tomcat"
 
 # Tomcat HTTP 端口
 TOMCAT_PORT="${TOMCAT_PORT:-8080}"
+
+# ============================================================
+# 安装模式：auto（自动检测，离线优先）、offline（仅离线）、online（仅在线）
+# ============================================================
+INSTALL_MODE="${INSTALL_MODE:-auto}"
+
+# 在线下载版本与 URL
+JDK_VERSION="${JDK_VERSION:-21}"
+TOMCAT_VERSION="${TOMCAT_VERSION:-10.1.28}"
+TOMCAT_DOWNLOAD_URL="https://archive.apache.org/dist/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
+
+# 检测 CPU 架构（用于 JDK 下载）
+detect_arch() {
+    case "$(uname -m)" in
+        x86_64|amd64) echo "x64" ;;
+        aarch64|arm64) echo "aarch64" ;;
+        *)
+            err "不支持的 CPU 架构: $(uname -m)"
+            exit 1
+            ;;
+    esac
+}
+
+JDK_ARCH="$(detect_arch)"
+# Adoptium (Eclipse Temurin) API —— 自动获取最新 GA 版本
+JDK_DOWNLOAD_URL="https://api.adoptium.net/v3/binary/latest/${JDK_VERSION}/ga/linux/${JDK_ARCH}/jdk/hotspot/normal/eclipse"
+
+# 下载缓存目录
+DOWNLOAD_CACHE="${DOWNLOAD_CACHE:-/tmp/hop-install-download}"
 
 # --------------------- 前置检查 ---------------------
 check_prerequisites() {
@@ -49,14 +103,44 @@ check_prerequisites() {
     # 检查离线包文件
     local missing=0
 
-    if ! ls "$PKG_DIR"/jdk/jdk-21*linux*.tar.gz >/dev/null 2>&1; then
-        err "未找到 JDK 21 安装包: $PKG_DIR/jdk/"
-        missing=1
+    # JDK：offline 模式必须存在；online 模式不需要；auto 模式可选
+    local jdk_pkg=""
+    jdk_pkg=$(ls "$PKG_DIR"/jdk/jdk-21*linux*.tar.gz 2>/dev/null | head -1 || true)
+    if [ -n "$jdk_pkg" ]; then
+        log "检测到 JDK 离线包: $(basename "$jdk_pkg")"
+    else
+        case "${INSTALL_MODE}" in
+            offline)
+                err "offline 模式但未找到 JDK 21 安装包: $PKG_DIR/jdk/"
+                missing=1
+                ;;
+            online)
+                info "online 模式：JDK 将从在线下载 (Temurin ${JDK_VERSION} ${JDK_ARCH})"
+                ;;
+            auto)
+                warn "未找到 JDK 离线包，将使用在线下载 (Temurin ${JDK_VERSION} ${JDK_ARCH})"
+                ;;
+        esac
     fi
 
-    if ! ls "$PKG_DIR"/tomcat/apache-tomcat-10*.tar.gz >/dev/null 2>&1; then
-        err "未找到 Tomcat 10 安装包: $PKG_DIR/tomcat/"
-        missing=1
+    # Tomcat：同上
+    local tomcat_pkg=""
+    tomcat_pkg=$(ls "$PKG_DIR"/tomcat/apache-tomcat-10*.tar.gz 2>/dev/null | head -1 || true)
+    if [ -n "$tomcat_pkg" ]; then
+        log "检测到 Tomcat 离线包: $(basename "$tomcat_pkg")"
+    else
+        case "${INSTALL_MODE}" in
+            offline)
+                err "offline 模式但未找到 Tomcat 10 安装包: $PKG_DIR/tomcat/"
+                missing=1
+                ;;
+            online)
+                info "online 模式：Tomcat 将从在线下载 (${TOMCAT_VERSION})"
+                ;;
+            auto)
+                warn "未找到 Tomcat 离线包，将使用在线下载 (${TOMCAT_VERSION})"
+                ;;
+        esac
     fi
 
     if [ ! -f "$PKG_DIR/hop/hop.war" ]; then
@@ -101,8 +185,8 @@ setup_user_and_dirs() {
     fi
 
     # 创建目录结构
-    mkdir -p "${INSTALL_BASE}"/{tomcat,plugins,jdbc-drivers,config,audit,logs,project,data}
-    mkdir -p /tmp/rwt-resources
+    mkdir -p "${INSTALL_BASE}"/{tomcat,plugins,jdbc-drivers,config,audit,logs,project,data,temp,rwt-resources}
+    mkdir -p "${INSTALL_BASE}/rwt-resources/xterm"
 
     log "用户和目录创建完成"
 }
@@ -111,8 +195,30 @@ setup_user_and_dirs() {
 install_jdk() {
     log "安装 JDK 21..."
 
-    local jdk_pkg
-    jdk_pkg=$(ls "$PKG_DIR"/jdk/jdk-21*linux*.tar.gz | head -1)
+    local jdk_pkg=""
+    # 1. 离线包优先（auto/offline 模式）
+    if [ "${INSTALL_MODE}" != "online" ]; then
+        jdk_pkg=$(ls "$PKG_DIR"/jdk/jdk-21*linux*.tar.gz 2>/dev/null | head -1 || true)
+    fi
+
+    # 2. 在线下载（online 模式，或 auto 模式未找到离线包）
+    if [ -z "$jdk_pkg" ]; then
+        if [ "${INSTALL_MODE}" = "offline" ]; then
+            err "offline 模式但未找到 JDK 离线包"
+            exit 1
+        fi
+        info "在线下载 JDK (Temurin ${JDK_VERSION} ${JDK_ARCH})..."
+        mkdir -p "$DOWNLOAD_CACHE"
+        jdk_pkg="${DOWNLOAD_CACHE}/jdk-${JDK_VERSION}-${JDK_ARCH}.tar.gz"
+        # Adoptium API 会 302 重定向到实际二进制文件
+        curl -fSL -o "$jdk_pkg" -L "$JDK_DOWNLOAD_URL" || {
+            err "JDK 下载失败: $JDK_DOWNLOAD_URL"
+            exit 1
+        }
+        log "JDK 下载完成: $(basename "$jdk_pkg")"
+    else
+        info "使用 JDK 离线包: $(basename "$jdk_pkg")"
+    fi
 
     tar -xzf "$jdk_pkg" -C "$INSTALL_BASE"
 
@@ -138,8 +244,29 @@ install_jdk() {
 install_tomcat() {
     log "安装 Tomcat 10..."
 
-    local tomcat_pkg
-    tomcat_pkg=$(ls "$PKG_DIR"/tomcat/apache-tomcat-10*.tar.gz | head -1)
+    local tomcat_pkg=""
+    # 1. 离线包优先（auto/offline 模式）
+    if [ "${INSTALL_MODE}" != "online" ]; then
+        tomcat_pkg=$(ls "$PKG_DIR"/tomcat/apache-tomcat-10*.tar.gz 2>/dev/null | head -1 || true)
+    fi
+
+    # 2. 在线下载（online 模式，或 auto 模式未找到离线包）
+    if [ -z "$tomcat_pkg" ]; then
+        if [ "${INSTALL_MODE}" = "offline" ]; then
+            err "offline 模式但未找到 Tomcat 离线包"
+            exit 1
+        fi
+        info "在线下载 Tomcat (${TOMCAT_VERSION})..."
+        mkdir -p "$DOWNLOAD_CACHE"
+        tomcat_pkg="${DOWNLOAD_CACHE}/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
+        curl -fSL -o "$tomcat_pkg" "$TOMCAT_DOWNLOAD_URL" || {
+            err "Tomcat 下载失败: $TOMCAT_DOWNLOAD_URL"
+            exit 1
+        }
+        log "Tomcat 下载完成: $(basename "$tomcat_pkg")"
+    else
+        info "使用 Tomcat 离线包: $(basename "$tomcat_pkg")"
+    fi
 
     tar -xzf "$tomcat_pkg" -C "$INSTALL_BASE"
 
@@ -239,7 +366,16 @@ deploy_hop_web() {
         cp "$PKG_DIR"/jdbc/*.jar "${INSTALL_BASE}/jdbc-drivers/"
     fi
 
-    # 12. 清理临时文件
+    # 12. 复制 RAP/xterm 资源
+    info "复制 RAP/xterm 资源..."
+    if [ -d "$WEBAPP_DIR/xterm" ]; then
+        cp "$WEBAPP_DIR/xterm/"* "${INSTALL_BASE}/rwt-resources/xterm/" 2>/dev/null || true
+        echo "    已复制 xterm 资源"
+    else
+        warn "webapp 中未找到 xterm 资源"
+    fi
+
+    # 13. 清理临时文件
     rm -rf "$work_dir"
 
     log "Hop Web 应用部署完成"
@@ -256,44 +392,108 @@ configure_setenv() {
 export JAVA_HOME="${JAVA_HOME}"
 export JRE_HOME="${JAVA_HOME}"
 
-# Hop 配置
+# ============================================================
+# Hop 配置变量
+# ============================================================
 export HOP_CONFIG_FOLDER="${INSTALL_BASE}/config"
 export HOP_AUDIT_FOLDER="${INSTALL_BASE}/audit"
-export HOP_LOG_LEVEL="Basic"
-export HOP_PASSWORD_ENCODER_PLUGIN="Hop"
+export HOP_TEMP_FOLDER="${INSTALL_BASE}/temp"
+export HOP_LOG_LEVEL="${HOP_LOG_LEVEL:-Basic}"
+export HOP_PASSWORD_ENCODER_PLUGIN="${HOP_PASSWORD_ENCODER_PLUGIN:-Hop}"
 export HOP_PLUGIN_BASE_FOLDERS="${INSTALL_BASE}/plugins"
 export HOP_SHARED_JDBC_FOLDERS="${INSTALL_BASE}/jdbc-drivers"
-export HOP_GUI_ZOOM_FACTOR="1.0"
-export HOP_AES_ENCODER_KEY=""
-export HOP_PROJECT_CONFIG_FILE_NAME="project-config.json"
-export HOP_ENVIRONMENT_NAME="environment1"
+# AES 加密器密钥（对齐 Docker，默认空）
+export HOP_AES_ENCODER_KEY="${HOP_AES_ENCODER_KEY:-}"
+# Web UI 缩放因子（对齐 Docker，默认 1.0）
+export HOP_GUI_ZOOM_FACTOR="${HOP_GUI_ZOOM_FACTOR:-1.0}"
 
-# CATALINA_OPTS
+# 项目与环境变量（对齐 Docker 语义：空=不创建/注册项目）
+# Hop 运行时通过 hop-config.json 中注册的 projectHome 自动推导 PROJECT_HOME
+export HOP_PROJECT_CONFIG_FILE_NAME="project-config.json"
+if [ -n "\${HOP_PROJECT_FOLDER}" ]; then
+    export HOP_PROJECT_FOLDER="\${HOP_PROJECT_FOLDER}"
+    export HOP_PROJECT_NAME="\${HOP_PROJECT_NAME}"
+fi
+if [ -n "\${HOP_ENVIRONMENT_NAME}" ]; then
+    export HOP_ENVIRONMENT_NAME="\${HOP_ENVIRONMENT_NAME}"
+fi
+if [ -n "\${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS}" ]; then
+    export HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS="\${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS}"
+fi
+
+# ============================================================
+# CATALINA_OPTS — JVM 参数
+# ============================================================
 CATALINA_OPTS=""
-CATALINA_OPTS="\${CATALINA_OPTS} -Xms2g -Xmx2g"
-CATALINA_OPTS="\${CATALINA_OPTS} -XX:+UseG1GC"
-CATALINA_OPTS="\${CATALINA_OPTS} -XX:MaxGCPauseMillis=200"
+CATALINA_OPTS="\${CATALINA_OPTS} -Xms2g -Xmx4g"
+CATALINA_OPTS="\${CATALINA_OPTS} -XX:+UseZGC -XX:+ZGenerational"
+CATALINA_OPTS="\${CATALINA_OPTS} -XX:MaxGCPauseMillis=100"
+CATALINA_OPTS="\${CATALINA_OPTS} -XX:+AlwaysPreTouch"
 CATALINA_OPTS="\${CATALINA_OPTS} -XX:+HeapDumpOnOutOfMemoryError"
 CATALINA_OPTS="\${CATALINA_OPTS} -XX:HeapDumpPath=${INSTALL_BASE}/logs/"
 CATALINA_OPTS="\${CATALINA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-CATALINA_OPTS="\${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=/tmp/rwt-resources"
-CATALINA_OPTS="\${CATALINA_OPTS} -Duser.timezone=UTC -Dfile.encoding=UTF-8"
+CATALINA_OPTS="\${CATALINA_OPTS} -Djdk.attach.allowAttachSelf=true"
+
+# ============================================================
+# CATALINA_OPTS — Hop 系统属性
+# ============================================================
+CATALINA_OPTS="\${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_CONFIG_FOLDER=\${HOP_CONFIG_FOLDER}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_AUDIT_FOLDER=\${HOP_AUDIT_FOLDER}"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_TEMP_FOLDER=\${HOP_TEMP_FOLDER}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_LOG_LEVEL=\${HOP_LOG_LEVEL}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_PASSWORD_ENCODER_PLUGIN=\${HOP_PASSWORD_ENCODER_PLUGIN}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=\${HOP_PLUGIN_BASE_FOLDERS}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=\${HOP_SHARED_JDBC_FOLDERS}"
-CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_GUI_ZOOM_FACTOR=\${HOP_GUI_ZOOM_FACTOR}"
 CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_AES_ENCODER_KEY=\${HOP_AES_ENCODER_KEY}"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_GUI_ZOOM_FACTOR=\${HOP_GUI_ZOOM_FACTOR}"
 
-# Java 模块开放
+# RAP 资源
+CATALINA_OPTS="\${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${INSTALL_BASE}/rwt-resources"
+CATALINA_OPTS="\${CATALINA_OPTS} -Dswt.use.gtk3=false"
+
+# 日志配置
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_LOG_FILE_MAX_SIZE_MB=500"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_LOG_FILE_ROTATION_COUNT=10"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_LOG_BUFFER_LINES=5000"
+
+# 安全配置
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_HIDE_DATABASE_PASSWORDS_IN_LOGS=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_DISABLE_PLAIN_TEXT_CREDENTIALS=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_MASK_SENSITIVE_OUTPUT=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_DISABLE_SENSITIVE_DATA_LOGGING=Y"
+
+# 性能配置
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_ROWSET_DEFAULT_SIZE=10000"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_DEFAULT_SORT_SIZE=500000"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_MEMORY_FREE_THRESHOLD_PERCENT=15"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_AUTO_CLEAN_TEMP_SORT_FILES=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_CLEANUP_TEMP_FILES_ON_EXIT=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_MAX_CONCURRENT_BACKGROUND_TASKS=4"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_USE_VIRTUAL_THREADS=Y"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_METRIC_FLUSH_INTERVAL_MS=30000"
+CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_PREVIEW_BATCH_SIZE=100"
+
+# ============================================================
+# CATALINA_OPTS — Java 模块开放（Java 21 需要）
+# ============================================================
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.xml/jdk.xml.internal=ALL-UNNAMED"
 CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.lang=ALL-UNNAMED"
-CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.net=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.lang.invoke=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.lang.reflect=ALL-UNNAMED"
 CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.io=ALL-UNNAMED"
-CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.util=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.net=ALL-UNNAMED"
 CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.nio=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.util=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED"
 CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/sun.nio.cs=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/sun.security.action=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.base/sun.util.calendar=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED"
+CATALINA_OPTS="\${CATALINA_OPTS} --add-exports=java.base/sun.nio.ch=ALL-UNNAMED"
 
 export CATALINA_OPTS
 export CATALINA_OUT="${INSTALL_BASE}/logs/catalina.out"
@@ -323,6 +523,10 @@ Environment="CATALINA_PID=${CATALINA_HOME}/temp/tomcat.pid"
 Environment="CATALINA_HOME=${CATALINA_HOME}"
 Environment="CATALINA_BASE=${CATALINA_HOME}"
 Environment="CATALINA_OUT=${INSTALL_BASE}/logs/catalina.out"
+${HOP_PROJECT_FOLDER:+Environment="HOP_PROJECT_FOLDER=${HOP_PROJECT_FOLDER}"}
+${HOP_PROJECT_NAME:+Environment="HOP_PROJECT_NAME=${HOP_PROJECT_NAME}"}
+${HOP_ENVIRONMENT_NAME:+Environment="HOP_ENVIRONMENT_NAME=${HOP_ENVIRONMENT_NAME}"}
+${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS:+Environment="HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS=${HOP_ENVIRONMENT_CONFIG_FILE_NAME_PATHS}"}
 
 ExecStart=${CATALINA_HOME}/bin/startup.sh
 ExecStop=${CATALINA_HOME}/bin/shutdown.sh
@@ -348,7 +552,6 @@ set_permissions() {
     log "设置文件权限..."
 
     chown -R "${HOP_USER}:${HOP_GROUP}" "${INSTALL_BASE}"
-    chown -R "${HOP_USER}:${HOP_GROUP}" /tmp/rwt-resources
     chmod 755 "${INSTALL_BASE}"
     chmod +x "${CATALINA_HOME}/bin/"*.sh
 
@@ -397,9 +600,14 @@ start_and_verify() {
 main() {
     echo ""
     log "============================================"
-    log "  Qi Hop Web 离线安装脚本"
-    log "  安装目录: ${INSTALL_BASE}"
+    log "  Qi Hop Web 离线/在线安装脚本"
+    log "  安装目录:   ${INSTALL_BASE}"
+    log "  安装模式:   ${INSTALL_MODE}"
+    log "  JDK 架构:   ${JDK_ARCH}"
     log "  Tomcat端口: ${TOMCAT_PORT}"
+    [ -n "${HOP_PROJECT_FOLDER}" ] && log "  项目目录:   ${HOP_PROJECT_FOLDER}"
+    [ -n "${HOP_PROJECT_NAME}" ] && log "  项目名称:   ${HOP_PROJECT_NAME}"
+    [ -n "${HOP_ENVIRONMENT_NAME}" ] && log "  环境名称:   ${HOP_ENVIRONMENT_NAME}"
     log "============================================"
     echo ""
 

@@ -1212,6 +1212,18 @@ public class ProjectsGuiPlugin {
         config.removeProjectConfig(projectName);
         ProjectsConfigSingleton.saveConfig();
 
+        // Delete the project folder in the file system
+        if (StringUtils.isNotEmpty(projectHome)) {
+          try {
+            FileObject projectFolder = HopVfs.getFileObject(projectHome);
+            if (projectFolder.exists() && projectFolder.isFolder()) {
+              projectFolder.delete();
+            }
+          } catch (Exception e) {
+            LogChannel.UI.logError("Error deleting project folder '" + projectHome + "'", e);
+          }
+        }
+
         if (StringUtils.isEmpty(config.getDefaultProject())) {
           updateProjectToolItem(null);
         } else {
