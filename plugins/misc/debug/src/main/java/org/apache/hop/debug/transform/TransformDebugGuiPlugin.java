@@ -42,7 +42,7 @@ public class TransformDebugGuiPlugin {
       name = "i18n::DebugTransform.ClearCustomLogging.Label",
       tooltip = "i18n::DebugTransform.ClearCustomLogging.ToolTip",
       image = "ui/images/debug.svg",
-      category = "Logging",
+      category = "i18n::DebugTransform.Category.Logging",
       categoryOrder = "7")
   public void clearCustomTransformLogging(HopGuiPipelineTransformContext context) {
     PipelineMeta pipelineMeta = context.getPipelineMeta();
@@ -62,7 +62,7 @@ public class TransformDebugGuiPlugin {
       name = "i18n::DebugTransform.EditCustomLogging.Label",
       tooltip = "i18n::DebugTransform.EditCustomLogging.ToolTip",
       image = "ui/images/debug.svg",
-      category = "Logging",
+      category = "i18n::DebugTransform.Category.Logging",
       categoryOrder = "7")
   public void applyCustomTransformLogging(HopGuiPipelineTransformContext context) {
     HopGui hopGui = HopGui.getInstance();
