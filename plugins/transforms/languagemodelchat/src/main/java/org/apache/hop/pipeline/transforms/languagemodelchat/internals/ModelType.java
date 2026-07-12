@@ -21,23 +21,23 @@ import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.apache.hop.pipeline.transforms.languagemodelchat.internals.ui.i18nUtil.i18n;
 
 public enum ModelType {
-  OPEN_AI("OPEN_AI", i18n("LanguageModelChatDialog.ModelType.OPEN_AI")),
-  ANTHROPIC("ANTHROPIC", i18n("LanguageModelChatDialog.ModelType.ANTHROPIC")),
-  OLLAMA("OLLAMA", i18n("LanguageModelChatDialog.ModelType.OLLAMA")),
-  MISTRAL("MISTRAL", i18n("LanguageModelChatDialog.ModelType.MISTRAL")),
-  HUGGING_FACE("HUGGING_FACE", i18n("LanguageModelChatDialog.ModelType.HUGGING_FACE"));
+  OPEN_AI("OPEN_AI", "LanguageModelChatDialog.ModelType.OPEN_AI"),
+  ANTHROPIC("ANTHROPIC", "LanguageModelChatDialog.ModelType.ANTHROPIC"),
+  OLLAMA("OLLAMA", "LanguageModelChatDialog.ModelType.OLLAMA"),
+  MISTRAL("MISTRAL", "LanguageModelChatDialog.ModelType.MISTRAL"),
+  HUGGING_FACE("HUGGING_FACE", "LanguageModelChatDialog.ModelType.HUGGING_FACE");
 
   private String code;
-  private String description;
+  private String i18nKey;
 
-  ModelType(String code, String description) {
+  ModelType(String code, String i18nKey) {
     this.code = code;
-    this.description = description;
+    this.i18nKey = i18nKey;
   }
 
   public static ModelType typeFromDescription(String description) {
     for (ModelType type : values()) {
-      if (equalsIgnoreCase(type.description, description)) {
+      if (equalsIgnoreCase(type.description(), description)) {
         return type;
       }
     }
@@ -48,7 +48,7 @@ public enum ModelType {
     ModelType[] types = ModelType.values();
     String[] descriptions = new String[types.length];
     for (int i = 0; i < types.length; i++) {
-      descriptions[i] = types[i].description;
+      descriptions[i] = types[i].description();
     }
     return descriptions;
   }
@@ -58,6 +58,6 @@ public enum ModelType {
   }
 
   public String description() {
-    return description;
+    return i18n(i18nKey);
   }
 }

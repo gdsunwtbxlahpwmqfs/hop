@@ -238,9 +238,6 @@ public class ConfigKeyboardShortcutsTab {
           if (keyBackgroundColor != null && !keyBackgroundColor.isDisposed()) {
             keyBackgroundColor.dispose();
           }
-          if (keyForegroundColor != null && !keyForegroundColor.isDisposed()) {
-            keyForegroundColor.dispose();
-          }
         });
 
     wShortcutsTab.setControl(scrolledComposite);

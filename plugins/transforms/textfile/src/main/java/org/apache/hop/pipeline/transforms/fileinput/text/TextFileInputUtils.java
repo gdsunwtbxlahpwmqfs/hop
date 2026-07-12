@@ -616,29 +616,11 @@ public class TextFileInputUtils {
         int pos = 0;
         int length = line.length();
         boolean dencl = false;
-        long loopCount = 0;
-        long startTime = System.currentTimeMillis();
 
         int lenEncl = (enclosure == null ? 0 : enclosure.length());
         int lenEsc = (escapeCharacters == null ? 0 : escapeCharacters.length());
 
         while (pos < length) {
-          loopCount++;
-          if (loopCount % 100000 == 0) {
-            long duration = System.currentTimeMillis() - startTime;
-            if (duration > 1000) {
-              log.logBasic(
-                  "TextFileInputUtils.convertLineToStrings: 循环次数="
-                      + loopCount
-                      + ", pos="
-                      + pos
-                      + ", length="
-                      + length
-                      + ", 耗时="
-                      + duration
-                      + "ms");
-            }
-          }
           int from = pos;
           int next;
 

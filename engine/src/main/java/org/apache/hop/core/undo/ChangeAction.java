@@ -199,6 +199,9 @@ public class ChangeAction {
     if (prev.length != curr.length) {
       return;
     }
+    if (obj == null || obj.length == 0) {
+      return;
+    }
 
     previous_location = new Point[prev.length];
     current_location = new Point[curr.length];

@@ -1167,7 +1167,7 @@ public class HopGuiPipelineGraph extends HopGuiAbstractGraph
                 pipelineMeta.getSelectedNoteLocations(),
                 also);
           }
-          if (selectedTransforms != null && previousTransformLocations != null) {
+          if (!Utils.isEmpty(selectedTransforms) && previousTransformLocations != null) {
             int[] indexes = pipelineMeta.getTransformIndexes(selectedTransforms);
             hopGui.undoDelegate.addUndoPosition(
                 pipelineMeta,
