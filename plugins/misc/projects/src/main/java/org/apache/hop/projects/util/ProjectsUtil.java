@@ -240,14 +240,19 @@ public class ProjectsUtil {
       for (String prj : prjs) {
         if (!prj.equals(projectName)) {
           ProjectConfig prjCfg = config.findProjectConfig(prj);
-          Project thePrj = prjCfg.loadProject(hopGui.getVariables());
+          Project thePrj = null;
+          try {
+            thePrj = prjCfg.loadProject(hopGui.getVariables());
+          } catch (Exception e) {
+            hopGui
+                .getLog()
+                .logError("Unable to load project '" + prj + "' from its configuration", e);
+          }
           if (thePrj != null) {
             if (thePrj.getParentProjectName() != null
                 && thePrj.getParentProjectName().equals(projectName)) {
               parentProjectReferences.add(prj);
             }
-          } else {
-            hopGui.getLog().logError("Unable to load project '" + prj + "' from its configuration");
           }
         }
       }
@@ -271,14 +276,19 @@ public class ProjectsUtil {
       for (String prj : prjs) {
         if (!prj.equals(currentName)) {
           ProjectConfig prjCfg = config.findProjectConfig(prj);
-          Project thePrj = prjCfg.loadProject(hopGui.getVariables());
+          Project thePrj = null;
+          try {
+            thePrj = prjCfg.loadProject(hopGui.getVariables());
+          } catch (Exception e) {
+            hopGui
+                .getLog()
+                .logError("Unable to load project '" + prj + "' from its configuration", e);
+          }
           if (thePrj != null) {
             if (thePrj.getParentProjectName() != null
                 && thePrj.getParentProjectName().equals(currentName)) {
               thePrj.setParentProjectName(newName);
             }
-          } else {
-            hopGui.getLog().logError("Unable to load project '" + prj + "' from its configuration");
           }
         }
       }

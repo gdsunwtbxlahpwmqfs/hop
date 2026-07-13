@@ -574,11 +574,13 @@ public class ProjectDialog extends Dialog {
       getInfo(env, pc);
       env.modifyVariables(variables, pc, Collections.emptyList(), null);
     } catch (HopException e) {
-      new ErrorDialog(
-          shell,
-          BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Header"),
-          BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Message"),
-          e);
+      if (ProjectsGuiPlugin.extractMissingProjectPath(e) == null) {
+        new ErrorDialog(
+            shell,
+            BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Header"),
+            BaseMessages.getString(PKG, "ProjectDialog.ProjectConfigError.Error.Dialog.Message"),
+            e);
+      }
     }
   }
 
@@ -612,15 +614,31 @@ public class ProjectDialog extends Dialog {
       }
 
       // If the home folder doesn't exist and project is new aks if want it created
-      if (!HopVfs.getFileObject(variables.resolve(homeFolder)).exists()
-          && (!this.editMode || projectHomeFolderChanged)) {
+      FileObject homeFile = HopVfs.getFileObject(variables.resolve(homeFolder));
+      if (!homeFile.exists() && (!this.editMode || projectHomeFolderChanged)) {
         MessageBox box = new MessageBox(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
         box.setText(BaseMessages.getString(PKG, "ProjectDialog.CreateHome.Dialog.Header"));
         box.setMessage(
             BaseMessages.getString(PKG, "ProjectDialog.CreateHome.Dialog.Message", homeFolder));
         int anwser = box.open();
         if ((anwser & SWT.YES) != 0) {
-          HopVfs.getFileObject(homeFolder).createFolder();
+          HopVfs.getFileObject(variables.resolve(homeFolder)).createFolder();
+        }
+      } else if (!this.editMode && homeFile.exists() && homeFile.isFolder()) {
+        boolean isEmpty = true;
+        try {
+          isEmpty = homeFile.getChildren().length == 0;
+        } catch (Exception e) {
+          isEmpty = false;
+        }
+        if (!isEmpty) {
+          MessageBox box = new MessageBox(shell, SWT.OK | SWT.ICON_WARNING);
+          box.setText(BaseMessages.getString(PKG, "ProjectDialog.CreateHome.Dialog.Header"));
+          box.setMessage(
+              BaseMessages.getString(
+                  PKG, "ProjectDialog.CreateHome.Dialog.NonEmptyMessage", homeFolder));
+          box.open();
+          return;
         }
       }
 
@@ -705,27 +723,45 @@ public class ProjectDialog extends Dialog {
           ProjectsUtil.changeParentProjectReferences(oriProjectName, projectName);
         }
 
-        // Rename the project folder in the file system
-        try {
-          String oldHome = variables.resolve(oriProjectHome);
-          FileObject oldFile = HopVfs.getFileObject(oldHome);
-          if (oldFile.exists() && oldFile.isFolder()) {
-            FileObject parentFolder = oldFile.getParent();
-            if (parentFolder == null) {
-              LogChannel.UI.logError("Cannot rename project folder at root level");
-            } else {
-              String newHome = FilenameUtils.concat(parentFolder.getName().toString(), projectName);
-              FileObject newFile = HopVfs.getFileObject(newHome);
-              if (newFile.exists()) {
-                LogChannel.UI.logError("Project folder '" + newHome + "' already exists");
+        // Rename the project folder in the file system (only for editing existing projects)
+        // Do not rename during project creation to prevent accidental directory renaming
+        if (this.editMode) {
+          try {
+            String oldHome = variables.resolve(oriProjectHome);
+            FileObject oldFile = HopVfs.getFileObject(oldHome);
+            if (oldFile.exists() && oldFile.isFolder()) {
+              FileObject parentFolder = oldFile.getParent();
+              if (parentFolder == null) {
+                LogChannel.UI.logError("Cannot rename project folder at root level");
               } else {
+                String newHome =
+                    FilenameUtils.concat(parentFolder.getName().toString(), projectName);
+                FileObject newFile = HopVfs.getFileObject(newHome);
+                if (newFile.exists()) {
+                  boolean isEmpty = true;
+                  try {
+                    isEmpty = newFile.getChildren().length == 0;
+                  } catch (Exception e) {
+                    isEmpty = false;
+                  }
+                  if (!isEmpty) {
+                    MessageBox box = new MessageBox(shell, SWT.OK | SWT.ICON_WARNING);
+                    box.setText(
+                        BaseMessages.getString(PKG, "ProjectDialog.RenameHome.Dialog.Header"));
+                    box.setMessage(
+                        BaseMessages.getString(
+                            PKG, "ProjectDialog.RenameHome.Dialog.Message", newHome));
+                    box.open();
+                    return;
+                  }
+                }
                 oldFile.moveTo(newFile);
                 wHome.setText(newHome);
               }
             }
+          } catch (Exception e) {
+            LogChannel.UI.logError("Error renaming project folder", e);
           }
-        } catch (Exception e) {
-          LogChannel.UI.logError("Error renaming project folder", e);
         }
       }
 

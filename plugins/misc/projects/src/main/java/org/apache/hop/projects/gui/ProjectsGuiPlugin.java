@@ -378,6 +378,16 @@ public class ProjectsGuiPlugin {
           ID_TOOLBAR_ITEM_PROJECT,
           BaseMessages.getString(PKG, "HopGui.Toolbar.Project.Select.Tooltip"));
       HopNamespace.setNamespace(HopGui.DEFAULT_HOP_GUI_NAMESPACE);
+
+      HopGui hopGui = HopGui.getInstance();
+      hopGui.getVariables().setVariable("PROJECT_HOME", null);
+
+      ExplorerPerspective.getInstance().refresh();
+
+      if (hopGui.getTerminalPanel() != null) {
+        hopGui.getTerminalPanel().clearAllTerminals();
+      }
+
       return;
     }
     ProjectsConfig config = ProjectsConfigSingleton.getConfig();
@@ -1229,6 +1239,8 @@ public class ProjectsGuiPlugin {
         } else {
           updateProjectToolItem(config.getDefaultProject());
         }
+
+        lastUsedProjects = null;
       } catch (Exception e) {
         new ErrorDialog(
             HopGui.getInstance().getShell(),

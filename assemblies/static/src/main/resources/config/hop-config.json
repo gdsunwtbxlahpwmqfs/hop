@@ -3,442 +3,416 @@
     {
       "name" : "HOP_USE_NATIVE_FILE_DIALOG",
       "value" : "N",
-      "description" : "Set this value to 'Y' if you want to use the system file open/save dialog when browsing files."
+      "description" : "设为 Y 可在浏览文件时使用系统文件打开/保存对话框。"
     },
     {
       "name" : "HOP_ALLOW_UNSUPPORTED",
       "value" : "N",
-      "description" : "Set to 'Y' to bypass the engine-compatibility gate and run pipelines/workflows that contain transforms or actions marked UNSUPPORTED on the selected engine. Run-scoped, not persisted."
+      "description" : "设为 Y 可绕过引擎兼容性检查，运行包含被标记为在选定引擎上不支持的 transform 或 action 的 pipeline/workflow。仅对当前运行生效，不会持久化。"
     },
     {
       "name" : "HOP_MAX_LOG_SIZE_IN_LINES",
-      "value" : "0",
-      "description" : "The maximum number of log lines that are kept internally by Hop. Set to 0 to keep all rows (default)"
+      "value" : "100000",
+      "description" : "Hop 内部保留的日志行的最大数量。设为 0 保留所有行（默认）"
     },
     {
       "name" : "HOP_MAX_LOG_TIMEOUT_IN_MINUTES",
       "value" : "1440",
-      "description" : "The maximum age (in minutes) of a log line while being kept internally by Hop. Set to 0 to keep all rows indefinitely (default)"
+      "description" : "Hop 内部保留的日志行的最大存留时间（分钟）。设为 0 无限期保留所有行（默认）"
     },
     {
       "name" : "HOP_MAX_LOGGING_REGISTRY_SIZE",
       "value" : "10000",
-      "description" : "The maximum number of logging registry entries kept in memory for logging purposes. This is the number of logging objects, a logging object can be a pipeline/workflow/transform/action or a couple of system-level loggers."
+      "description" : "为日志记录目的保留在内存中的日志注册表条目的最大数量。这是日志对象的数量，一个日志对象可以是 pipeline/workflow/transform/action 或几个系统级别的日志器。"
     },
     {
       "name" : "HOP_LOG_TAB_REFRESH_DELAY",
       "value" : "1000",
-      "description" : "The hop log tab refresh delay."
+      "description" : "Hop 日志标签页刷新延迟。"
     },
     {
       "name" : "HOP_LOG_TAB_REFRESH_PERIOD",
       "value" : "1000",
-      "description" : "The hop log tab refresh period."
+      "description" : "Hop 日志标签页刷新周期。"
     },
     {
       "name" : "HOP_BINARY_FIELDS_AVOID_HEX_PREVIEW",
       "value" : "false",
-      "description" : "Display the original content of binary fields during preview, not its hexadecimal value."
+      "description" : "在预览时显示二进制字段的原始内容，而非其十六进制值。"
     },
     {
       "name" : "HOP_TABLE_VIEW_EXTRA_COLUMN_MARGIN",
       "value" : "0",
-      "description" : "If for some reason the table columns are a bit too narrow, you can give it a bit of extra with manually. (in pixels)"
+      "description" : "如果由于某种原因表格列有点太窄，您可以手动给它一点额外的宽度（像素）。"
     },
     {
       "name" : "HOP_QUERY_PREVIEW_TIMEOUT",
       "value" : "20",
-      "description" : "Default JDBC statement query timeout in seconds for database query preview (0 = unset)."
+      "description" : "数据库查询预览的默认 JDBC 语句查询超时时间（秒，0 = 未设置）。"
     },
     {
       "name" : "HOP_LINEAGE_ENABLED",
       "value" : "N",
-      "description" : "Set to Y to enable the lineage hub (async dispatch of lineage events to registered sinks)."
+      "description" : "设为 Y 可启用血缘中心（异步将血缘事件分发到已注册的接收器）。"
     },
     {
       "name" : "HOP_LINEAGE_QUEUE_CAPACITY",
       "value" : "10000",
-      "description" : "Maximum number of lineage events queued in memory before new events are dropped."
+      "description" : "内存中排队的血缘事件最大数量，超过后新事件将被丢弃。"
     },
     {
       "name" : "HOP_LINEAGE_BATCH_MAX",
       "value" : "100",
-      "description" : "Maximum lineage events per batch delivered to sinks."
+      "description" : "每批交付给接收器的最大血缘事件数。"
     },
     {
       "name" : "HOP_LINEAGE_BATCH_LINGER_MS",
       "value" : "250",
-      "description" : "Maximum time in milliseconds to wait for more lineage events before dispatching a partial batch."
-    },
-    {
-      "name" : "HOP_LINEAGE_SINK_IDS",
-      "value" : "",
-      "description" : "Comma-separated lineage sink plugin ids to enable; leave empty to register all discovered sinks."
+      "description" : "在分发部分批次之前等待更多血缘事件的最大时间（毫秒）。"
     },
     {
       "name" : "XML_ALLOW_DOCTYPE_DECL",
       "value" : "N",
-      "description" : "A variable allow or disallow doctype declarations in XML"
+      "description" : "该变量用于允许或禁止 XML 中的 doctype 声明"
     },
     {
       "name" : "HOP_LOG_SIZE_LIMIT",
       "value" : "0",
-      "description" : "The log size limit for all pipelines and workflows that don't have the \"log size limit\" property set in their respective properties."
-    },
-    {
-      "name" : "HOP_SERVER_DETECTION_TIMER",
-      "value" : "",
-      "description" : "The name of the variable that defines the timer used for detecting server nodes"
+      "description" : "所有未在各自属性中设置\"log size limit\"属性的 pipeline 和 workflow 的日志大小限制。"
     },
     {
       "name" : "HOP_EMPTY_STRING_DIFFERS_FROM_NULL",
       "value" : "N",
-      "description" : "NULL vs Empty String. If this setting is set to 'Y', an empty string and null are different. Otherwise they are not"
+      "description" : "NULL 与空字符串。如果设为 Y，空字符串和 null 被视为不同；否则相同"
     },
     {
       "name" : "HOP_LENIENT_STRING_TO_NUMBER_CONVERSION",
       "value" : "N",
-      "description" : "System wide flag to allow lenient string to number conversion for backward compatibility. If this setting is set to 'Y', an string starting with digits will be converted successfully into a number. (example: 192.168.1.1 will be converted into 192 or 192.168 or 192168 depending on the decimal and grouping symbol). The default (N) will be to throw an error if non-numeric symbols are found in the string."
-    },
-    {
-      "name" : "HOP_SYSTEM_HOSTNAME",
-      "value" : "",
-      "description" : "You can use this variable to speed up hostname lookup. Hostname lookup is performed by Hop so that it is capable of logging the server on which a workflow or pipeline is executed."
+      "description" : "全局标志，用于允许为向后兼容而进行宽松的字符串转数字转换。如果设为 Y，以数字开头的字符串将成功转换为数字（例如：192.168.1.1 将根据小数点和分组符号转换为 192、192.168 或 192168）。默认值(N)为在字符串中发现非数字符号时抛出错误。"
     },
     {
       "name" : "HOP_SERVER_OBJECT_TIMEOUT_MINUTES",
       "value" : "1440",
-      "description" : "This project variable will set a time-out after which waiting, completed or stopped pipelines and workflows will be automatically cleaned up. The default value is 1440 (one day)."
+      "description" : "此项目变量设置一个超时时间，超时后等待中、已完成或已停止的 pipeline 和 workflow 将被自动清理。默认值为 1440（一天）。"
     },
     {
       "name" : "HOP_TRANSFORM_PERFORMANCE_SNAPSHOT_LIMIT",
       "value" : "0",
-      "description" : "The maximum number of transform performance snapshots to keep in memory. Set to 0 to keep all snapshots indefinitely (default)"
+      "description" : "内存中保留的 transform 性能快照的最大数量。设为 0 无限期保留所有快照（默认）"
     },
     {
       "name" : "HOP_METRIC_DATA_VOLUME",
       "value" : "N",
-      "description" : "Enable pipeline metric for data volume (bytes in) per transform. When Y or true, each transform tracks estimated bytes read on input."
+      "description" : "启用每个 transform 的数据量（输入字节）pipeline 指标。设为 Y 或 true 时，每个 transform 会跟踪输入端估计读取的字节数。"
     },
     {
       "name" : "HOP_MAX_WORKFLOW_TRACKER_SIZE",
       "value" : "5000",
-      "description" : "The maximum number of workflow trackers childrens to keep track of. Default value is 5000."
+      "description" : "要跟踪的 workflow tracker 子项的最大数量。默认值为 5000。"
     },
     {
       "name" : "HOP_MAX_ACTIONS_LOGGED",
       "value" : "5000",
-      "description" : "The maximum number of action results kept in memory for logging purposes."
-    },
-    {
-      "name" : "HOP_PLUGIN_CLASSES",
-      "value" : "",
-      "description" : "A comma delimited list of classes to scan for plugin annotations"
+      "description" : "为日志记录目的保留在内存中的 action 结果的最大数量。"
     },
     {
       "name" : "HOP_PIPELINE_ROWSET_SIZE",
       "value" : "10000",
-      "description" : "Name of the environment variable that contains the size of the pipeline rowset size. This overwrites values that you set pipeline settings"
+      "description" : "包含 pipeline rowset 大小的环境变量名称。这会覆盖您在 pipeline 设置中设置的值"
     },
     {
       "name" : "HOP_PASSWORD_ENCODER_PLUGIN",
       "value" : "Hop",
-      "description" : "Specifies the password encoder plugin to use by ID (Hop is the default)."
+      "description" : "按 ID 指定要使用的密码编码器插件（默认为 Hop）。"
     },
     {
       "name" : "HOP_ROWSET_GET_TIMEOUT",
       "value" : "50",
-      "description" : "The name of the variable that optionally contains an alternative rowset get timeout (in ms). This only makes a difference for extremely short lived pipelines."
+      "description" : "可选地包含替代 rowset get 超时时间（毫秒）的变量名称。这仅对极短命的 pipeline 有影响。"
     },
     {
       "name" : "HOP_ROWSET_PUT_TIMEOUT",
       "value" : "50",
-      "description" : "The name of the variable that optionally contains an alternative rowset put timeout (in ms). This only makes a difference for extremely short lived pipelines."
+      "description" : "可选地包含替代 rowset put 超时时间（毫秒）的变量名称。这仅对极短命的 pipeline 有影响。"
     },
     {
       "name" : "HOP_BATCHING_ROWSET",
       "value" : "N",
-      "description" : "Set this variable to 'Y' if you want to test a more efficient batching row set."
+      "description" : "设为 Y 可测试更高效的批处理 row set。"
     },
     {
       "name" : "HOP_FILE_OUTPUT_MAX_STREAM_COUNT",
       "value" : "1024",
-      "description" : "This project variable is used by the Text File Output transform. It defines the max number of simultaneously open files within the transform. The transform will close/reopen files as necessary to insure the max is not exceeded"
+      "description" : "此项目变量由 Text File Output transform 使用。它定义了该 transform 内同时打开的文件的最大数量。transform 将根据需要关闭/重新打开文件，以确保不超过最大值"
     },
     {
       "name" : "HOP_FILE_OUTPUT_MAX_STREAM_LIFE",
       "value" : "0",
-      "description" : "This project variable is used by the Text File Output transform. It defines the max number of milliseconds between flushes of files opened by the transform."
+      "description" : "此项目变量由 Text File Output transform 使用。它定义了该 transform 打开的文件之间刷新的最大毫秒数。"
     },
     {
       "name" : "HOP_DISABLE_CONSOLE_LOGGING",
-      "value" : "N",
-      "description" : "Set this variable to 'Y' to disable standard Hop logging to the console. (stdout)"
-    },
-    {
-      "name" : "HOP_DEFAULT_NUMBER_FORMAT",
-      "value" : "",
-      "description" : "The name of the variable containing an alternative default number format"
-    },
-    {
-      "name" : "HOP_DEFAULT_BIGNUMBER_FORMAT",
-      "value" : "",
-      "description" : "The name of the variable containing an alternative default bignumber format"
-    },
-    {
-      "name" : "HOP_DEFAULT_INTEGER_FORMAT",
-      "value" : "",
-      "description" : "The name of the variable containing an alternative default integer format"
-    },
-    {
-      "name" : "HOP_DEFAULT_DATE_FORMAT",
-      "value" : "",
-      "description" : "The name of the variable containing an alternative default date format"
+      "value" : "Y",
+      "description" : "设为 Y 可禁用标准 Hop 控制台日志输出（stdout）。"
     },
     {
       "name" : "HOP_AGGREGATION_MIN_NULL_IS_VALUED",
       "value" : "N",
-      "description" : "Set this variable to 'Y' to set the minimum to NULL if NULL is within an aggregate. Otherwise by default NULL is ignored by the MIN aggregate and MIN is set to the minimum value that is not NULL. See also the variable HOP_AGGREGATION_ALL_NULLS_ARE_ZERO."
+      "description" : "设为 Y 可在聚合中包含 NULL 时将最小值设为 NULL。否则默认情况下 MIN 聚合会忽略 NULL，并将 MIN 设为非 NULL 的最小值。另请参阅变量 HOP_AGGREGATION_ALL_NULLS_ARE_ZERO。"
     },
     {
       "name" : "HOP_AGGREGATION_ALL_NULLS_ARE_ZERO",
       "value" : "N",
-      "description" : "Set this variable to 'Y' to return 0 when all values within an aggregate are NULL. Otherwise by default a NULL is returned when all values are NULL."
-    },
-    {
-      "name" : "HOP_DEFAULT_TIMESTAMP_FORMAT",
-      "value" : "",
-      "description" : "The name of the variable containing an alternative default timestamp format"
+      "description" : "设为 Y 可在聚合中所有值都为 NULL 时返回 0。否则默认情况下所有值为 NULL 时返回 NULL。"
     },
     {
       "name" : "HOP_SPLIT_FIELDS_REMOVE_ENCLOSURE",
       "value" : "N",
-      "description" : "Set this variable to 'N' to preserve enclosure symbol after splitting the string in the Split fields transform. Changing it to true will remove first and last enclosure symbol from the resulting string chunks."
+      "description" : "设为 N 可在 Split fields transform 中分割字符串后保留封装符号。设为 true 将从结果字符串块中删除首尾的封装符号。"
     },
     {
       "name" : "HOP_ALLOW_EMPTY_FIELD_NAMES_AND_TYPES",
       "value" : "N",
-      "description" : "Set this variable to 'Y' to allow your pipeline to pass 'null' fields and/or empty types."
+      "description" : "设为 Y 可允许您的 pipeline 传递 null 字段和/或空类型。"
     },
     {
       "name" : "HOP_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT",
       "value" : "N",
-      "description" : "Set this variable to 'N' to preserve global log variables defined in pipeline / workflow Properties -> Log panel. Changing it to 'Y' will clear it when export pipeline / workflow."
+      "description" : "设为 N 可保留在 pipeline/workflow 属性 -> 日志面板中定义的全局日志变量。设为 Y 将在导出 pipeline/workflow 时清除它们。"
     },
     {
       "name" : "HOP_LOG_MARK_MAPPINGS",
       "value" : "N",
-      "description" : "Set this variable to 'Y' to precede transform/action name in log lines with the complete path to the transform/action. Useful to perfectly identify where a problem happened in our process."
-    },
-    {
-      "name" : "HOP_SERVER_JETTY_ACCEPTORS",
-      "value" : "",
-      "description" : "A variable to configure jetty option: acceptors for Hop server"
-    },
-    {
-      "name" : "HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE",
-      "value" : "",
-      "description" : "A variable to configure jetty option: acceptQueueSize for Hop server"
-    },
-    {
-      "name" : "HOP_SERVER_JETTY_RES_MAX_IDLE_TIME",
-      "value" : "",
-      "description" : "A variable to configure jetty option: lowResourcesMaxIdleTime for Hop server"
-    },
-    {
-      "name" : "HOP_DEFAULT_SERVLET_ENCODING",
-      "value" : "",
-      "description" : "Defines the default encoding for servlets, leave it empty to use Java default encoding"
-    },
-    {
-      "name" : "HOP_SERVER_REFRESH_STATUS",
-      "value" : "",
-      "description" : "A variable to configure refresh for Hop server workflow/pipeline status page"
-    },
-    {
-      "name" : "HOP_MAX_TAB_LENGTH",
-      "value" : "",
-      "description" : "A variable to configure Tab size"
-    },
-    {
-      "name" : "HOP_ZIP_MIN_INFLATE_RATIO",
-      "value" : "",
-      "description" : "A variable to configure the minimum allowed ratio between de- and inflated bytes to detect a zipbomb"
-    },
-    {
-      "name" : "HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT_STRING",
-      "value" : "",
-      "description" : ""
-    },
-    {
-      "name" : "HOP_ZIP_MAX_ENTRY_SIZE",
-      "value" : "",
-      "description" : "A variable to configure the maximum file size of a single zip entry"
-    },
-    {
-      "name" : "HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT_STRING",
-      "value" : "",
-      "description" : ""
-    },
-    {
-      "name" : "HOP_ZIP_MAX_TEXT_SIZE",
-      "value" : "",
-      "description" : "A variable to configure the maximum number of characters of text that are extracted before an exception is thrown during extracting text from documents"
-    },
-    {
-      "name" : "HOP_ZIP_MAX_TEXT_SIZE_DEFAULT_STRING",
-      "value" : "",
-      "description" : ""
-    },
-    {
-      "name" : "HOP_LICENSE_HEADER_FILE",
-      "value" : "",
-      "description" : "This is the name of the variable which when set should contains the path to a file which will be included in the serialization of pipelines and workflows"
+      "description" : "设为 Y 可在日志行中在 transform/action 名称前加上完整的 transform/action 路径。有助于精确识别问题发生在流程中的位置。"
     },
     {
       "name" : "HOP_JSON_INPUT_INCLUDE_NULLS",
       "value" : "Y",
-      "description" : "Name of the variable to set so that Nulls are considered while parsing JSON files. If HOP_JSON_INPUT_INCLUDE_NULLS is \"Y\" then nulls will be included (default behavior) otherwise they will not be included"
+      "description" : "设置此变量以便在解析 JSON 文件时考虑 null 值。如果 HOP_JSON_INPUT_INCLUDE_NULLS 为 \"Y\" 则包含 null 值（默认行为），否则不包含"
     },
     {
       "name" : "HOP_CONTEXT_DIALOG_STRICT_SEARCH",
       "value" : "N",
-      "description" : "This variable influences how the search is done in the context dialog, when set to Y it will do a strict search (Needed for automated UI testing)"
+      "description" : "此变量影响上下文对话框中的搜索方式，设为 Y 时将进行严格搜索（用于自动化 UI 测试）"
     },
     {
       "name" : "HOP_DEFAULT_BUFFER_POLLING_WAITTIME",
       "value" : "20",
-      "description" : "This is the default polling frequency for the transforms input buffer (in ms)"
-    },
-    {
-      "name" : "NEO4J_LOGGING_CONNECTION",
-      "value" : "",
-      "description" : "Set this variable to the name of an existing Neo4j connection to enable execution logging to a Neo4j database."
-    },
-    {
-      "name" : "HOP_S3_VFS_PART_SIZE",
-      "value" : "",
-      "description" : "Default part size for new files on S3, Acceptable are 5MB as a minimum and 5GB as a maximum value. (Default: 5MB)"
+      "description" : "transform 输入缓冲区的默认轮询频率（毫秒）"
     },
     {
       "name" : "HOP_PREVIEW_BATCH_SIZE",
       "value" : "100",
-      "description" : "The default number of rows to fetch in preview mode per transform."
+      "description" : "预览模式下每个 transform 获取的默认行数。"
     },
     {
       "name" : "HOP_AUTO_SAVE_METADATA",
       "value" : "Y",
-      "description" : "Set to 'Y' to automatically save metadata changes without prompting."
+      "description" : "设为 Y 可自动保存元数据更改而不提示。"
     },
     {
       "name" : "HOP_METADATA_CACHE_TTL",
       "value" : "3600",
-      "description" : "Time-to-live in seconds for metadata cache entries before they are refreshed."
+      "description" : "元数据缓存条目的过期时间（秒），过期后将被刷新。"
     },
     {
       "name" : "HOP_CLEANUP_TEMP_FILES_ON_EXIT",
       "value" : "Y",
-      "description" : "Set to 'Y' to clean up temporary files (sort files, etc.) when the JVM shuts down."
+      "description" : "设为 Y 可在 JVM 关闭时清理临时文件（排序文件等）。"
     },
     {
       "name" : "HOP_MAX_CONCURRENT_BACKGROUND_TASKS",
       "value" : "4",
-      "description" : "Maximum number of concurrent background tasks (e.g. metadata serialization, preview queries)."
+      "description" : "并发后台任务的最大数量（例如元数据序列化、预览查询）。"
     },
     {
       "name" : "HOP_USE_VIRTUAL_THREADS",
       "value" : "Y",
-      "description" : "Set to 'Y' to use JDK 21 virtual threads for transform execution. Requires JDK 21+."
+      "description" : "设为 Y 可使用 JDK 21 虚拟线程执行 transform。需要 JDK 21+。"
     },
     {
       "name" : "HOP_ROWSET_DEFAULT_SIZE",
       "value" : "10000",
-      "description" : "Default rowset size when not explicitly set in pipeline properties. Overrides the built-in default."
+      "description" : "未在 pipeline 属性中显式设置时的默认 rowset 大小。覆盖内置默认值。"
     },
     {
       "name" : "HOP_DEFAULT_SORT_SIZE",
       "value" : "500000",
-      "description" : "Default sort size (number of rows) before spilling to disk."
+      "description" : "默认排序大小（行数），超过后会溢出到磁盘。"
     },
     {
       "name" : "HOP_MEMORY_FREE_THRESHOLD_PERCENT",
       "value" : "15",
-      "description" : "Minimum percentage of free heap memory below which pipeline execution will be paused or aborted."
+      "description" : "可用堆内存的最小百分比，低于此值时 pipeline 执行将暂停或中止。"
     },
     {
       "name" : "HOP_AUTO_CLEAN_TEMP_SORT_FILES",
       "value" : "Y",
-      "description" : "Set to 'Y' to automatically delete temporary sort files after a sort operation completes."
+      "description" : "设为 Y 可在排序操作完成后自动删除临时排序文件。"
     },
     {
       "name" : "HOP_METRIC_FLUSH_INTERVAL_MS",
       "value" : "30000",
-      "description" : "Interval in milliseconds at which pipeline metrics are flushed to registered sinks."
+      "description" : "pipeline 指标刷新到已注册接收器的间隔时间（毫秒）。"
     },
     {
       "name" : "HOP_HIDE_DATABASE_PASSWORDS_IN_LOGS",
       "value" : "Y",
-      "description" : "Set to 'Y' to mask database password values in log output."
+      "description" : "设为 Y 可在日志输出中屏蔽数据库密码值。"
     },
     {
       "name" : "HOP_DISABLE_PLAIN_TEXT_CREDENTIALS",
       "value" : "Y",
-      "description" : "Set to 'Y' to disallow storing credentials in plain text; forces use of the password encoder."
+      "description" : "设为 Y 可禁止以明文形式存储凭据；强制使用密码编码器。"
     },
     {
       "name" : "HOP_MASK_SENSITIVE_OUTPUT",
       "value" : "Y",
-      "description" : "Set to 'Y' to mask sensitive information (passwords, tokens) in console and preview output."
+      "description" : "设为 Y 可在控制台和预览输出中屏蔽敏感信息（密码、令牌）。"
     },
     {
       "name" : "HOP_SESSION_TIMEOUT_MINUTES",
       "value" : "60",
-      "description" : "Web session timeout in minutes for Hop Web (RAP) deployments."
+      "description" : "Hop Web (RAP) 部署的 Web 会话超时时间（分钟）。"
     },
     {
       "name" : "HOP_LOG_FILE_MAX_SIZE_MB",
       "value" : "500",
-      "description" : "Maximum log file size in MB before rotation occurs."
+      "description" : "日志文件轮转前的最大大小（MB）。"
     },
     {
       "name" : "HOP_LOG_FILE_ROTATION_COUNT",
       "value" : "10",
-      "description" : "Number of rotated log files to retain."
+      "description" : "要保留的轮转日志文件数量。"
     },
     {
       "name" : "HOP_LOG_BUFFER_LINES",
       "value" : "5000",
-      "description" : "Number of log lines buffered in memory before flushing to the log output."
+      "description" : "刷新到日志输出之前在内存中缓冲的日志行数。"
     },
     {
       "name" : "HOP_DISABLE_SENSITIVE_DATA_LOGGING",
       "value" : "Y",
-      "description" : "Set to 'Y' to prevent sensitive data (row values containing passwords/tokens) from being written to logs."
+      "description" : "设为 Y 可防止敏感数据（包含密码/令牌的行值）写入日志。"
+    },
+    {
+      "name" : "HOP_LINEAGE_SINK_IDS",
+      "value" : "",
+      "description" : "要启用的血缘接收器插件 ID（逗号分隔）；留空则注册所有发现的接收器。"
+    },
+    {
+      "name" : "HOP_SERVER_DETECTION_TIMER",
+      "value" : "",
+      "description" : "定义用于检测服务节点的定时器的变量名称"
+    },
+    {
+      "name" : "HOP_SYSTEM_HOSTNAME",
+      "value" : "",
+      "description" : "可使用此变量加快主机名查找。Hop 执行主机名查找是为了能够记录执行 workflow 或 pipeline 的服务器。"
+    },
+    {
+      "name" : "HOP_PLUGIN_CLASSES",
+      "value" : "",
+      "description" : "用于扫描插件注解的以逗号分隔的类列表"
+    },
+    {
+      "name" : "HOP_DEFAULT_NUMBER_FORMAT",
+      "value" : "",
+      "description" : "包含替代默认数字格式的变量名称"
+    },
+    {
+      "name" : "HOP_DEFAULT_BIGNUMBER_FORMAT",
+      "value" : "",
+      "description" : "包含替代默认大数字格式的变量名称"
+    },
+    {
+      "name" : "HOP_DEFAULT_INTEGER_FORMAT",
+      "value" : "",
+      "description" : "包含替代默认整数格式的变量名称"
+    },
+    {
+      "name" : "HOP_DEFAULT_DATE_FORMAT",
+      "value" : "",
+      "description" : "包含替代默认日期格式的变量名称"
+    },
+    {
+      "name" : "HOP_DEFAULT_TIMESTAMP_FORMAT",
+      "value" : "",
+      "description" : "包含替代默认时间戳格式的变量名称"
+    },
+    {
+      "name" : "HOP_SERVER_JETTY_ACCEPTORS",
+      "value" : "",
+      "description" : "为 Hop server 配置 jetty 选项：acceptors 的变量"
+    },
+    {
+      "name" : "HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE",
+      "value" : "",
+      "description" : "为 Hop server 配置 jetty 选项：acceptQueueSize 的变量"
+    },
+    {
+      "name" : "HOP_SERVER_JETTY_RES_MAX_IDLE_TIME",
+      "value" : "",
+      "description" : "为 Hop server 配置 jetty 选项：lowResourcesMaxIdleTime 的变量"
+    },
+    {
+      "name" : "HOP_DEFAULT_SERVLET_ENCODING",
+      "value" : "",
+      "description" : "定义 servlet 的默认编码，留空则使用 Java 默认编码"
+    },
+    {
+      "name" : "HOP_SERVER_REFRESH_STATUS",
+      "value" : "",
+      "description" : "配置 Hop server workflow/pipeline 状态页面刷新的变量"
+    },
+    {
+      "name" : "HOP_MAX_TAB_LENGTH",
+      "value" : "",
+      "description" : "配置 Tab 大小的变量"
+    },
+    {
+      "name" : "HOP_ZIP_MIN_INFLATE_RATIO",
+      "value" : "",
+      "description" : "配置解压缩前后字节之间最小允许比率以检测 zip 炸弹的变量"
+    },
+    {
+      "name" : "HOP_ZIP_MIN_INFLATE_RATIO_DEFAULT_STRING",
+      "value" : "",
+      "description" : "HOP_ZIP_MIN_INFLATE_RATIO 的默认值（字符串形式）。"
+    },
+    {
+      "name" : "HOP_ZIP_MAX_ENTRY_SIZE",
+      "value" : "",
+      "description" : "配置单个 zip 条目最大文件大小的变量"
+    },
+    {
+      "name" : "HOP_ZIP_MAX_ENTRY_SIZE_DEFAULT_STRING",
+      "value" : "",
+      "description" : "HOP_ZIP_MAX_ENTRY_SIZE 的默认值（字符串形式）。"
+    },
+    {
+      "name" : "HOP_ZIP_MAX_TEXT_SIZE",
+      "value" : "",
+      "description" : "配置从文档中提取文本时在抛出异常之前提取的最大字符数的变量"
+    },
+    {
+      "name" : "HOP_ZIP_MAX_TEXT_SIZE_DEFAULT_STRING",
+      "value" : "",
+      "description" : "HOP_ZIP_MAX_TEXT_SIZE 的默认值（字符串形式）。"
+    },
+    {
+      "name" : "HOP_LICENSE_HEADER_FILE",
+      "value" : "",
+      "description" : "设置后此变量应包含一个文件路径，该文件将被包含在 pipeline 和 workflow 的序列化中"
     }
   ],
-  "googleCloud" : {
-    "serviceAccountKeyFile" : null,
-    "scanFoldersForLastModifDate" : false,
-    "maxAttempts" : "6",
-    "initialRetryDelay" : "1",
-    "retryDelayMultiplier" : "2.0",
-    "maxRetryDelay" : "32",
-    "totalTimeout" : "50",
-    "initialRpcTimeout" : "50",
-    "rpcTimeoutMultiplier" : "1.0",
-    "maxRpcTimeout" : "50",
-    "connectionTimeout" : "20",
-    "readTimeout" : "20",
-    "cacheTtlSeconds" : "5"
-  },
+  "googleCloud" : { },
   "LocaleDefault" : "zh_CN",
-  "dropbox" : {
-    "accessToken" : null
-  },
+  "dropbox" : { },
   "guiProperties" : {
     "FontFixedSize" : "12",
     "MaxUndo" : "100",
-    "DarkMode" : "Y",
+    "DarkMode" : "N",
     "FontNoteSize" : "12",
     "ShowCanvasGrid" : "N",
     "DrawBorderAroundCanvasNames" : "N",
@@ -467,40 +441,31 @@
     "FontDefaultName" : "Verdana, \"Lucida Sans\", Arial, Helvetica, sans-serif",
     "FontDefaultStyle" : "0",
     "CanvasGridSize" : "16",
-    "MetricsPanel.ShowDataVolumeIn" : "N",
+    "MetricsPanel.ShowDataVolumeIn" : "Y",
     "DisableZoomScrolling" : "N",
     "EnableInfiniteCanvasMove" : "N",
     "MetricsPanel.ShowBuffersInput" : "Y",
     "WorkflowDialogStyle" : "RESIZE,MAX,MIN",
-    "MetricsPanel.ShowDataVolumeOut" : "N",
+    "MetricsPanel.ShowDataVolumeOut" : "Y",
     "LineWidth" : "1",
-    "MetricsPanel.ShowRejected" : "Y"
+    "MetricsPanel.ShowRejected" : "Y",
+    "ContextDialogShowCategories" : "Y",
+    "ContextDialogFixedWidth" : "Y"
   },
-  "googleDrive" : {
-    "credentialsFile" : null,
-    "tokensFolder" : null
-  },
+  "googleDrive" : { },
   "projectsConfig" : {
-    "enabled" : true,
+    "enabled" : false,
     "projectMandatory" : false,
     "environmentMandatory" : false,
-    "environmentsForActiveProject" : true,
-    "sortByNameLastUsedProjects" : true,
+    "environmentsForActiveProject" : false,
+    "sortByNameLastUsedProjects" : false,
     "clearingDbCacheWhenSwitching" : true,
-    "defaultProject" : "default",
+    "defaultProject" : null,
     "defaultEnvironment" : null,
-    "standardParentProject" : "default",
-    "standardProjectsFolder" : "${HOP_CONFIG_FOLDER}/projects",
+    "standardParentProject" : null,
+    "standardProjectsFolder" : null,
     "defaultProjectConfigFile" : "project-config.json",
-    "projectConfigurations" : [ {
-      "projectName" : "default",
-      "projectHome" : "${HOP_CONFIG_FOLDER}/projects/default",
-      "configFilename" : "project-config.json"
-    }, {
-      "projectName" : "samples",
-      "projectHome" : "${HOP_CONFIG_FOLDER}/projects/samples",
-      "configFilename" : "project-config.json"
-    } ],
+    "projectConfigurations" : [ ],
     "lifecycleEnvironments" : [ ],
     "projectLifecycles" : [ ]
   },
@@ -508,13 +473,11 @@
     "lazyLoadingDepth" : "0",
     "fileLoadingMaxSize" : "16",
     "fileExplorerVisibleByDefault" : true,
-    "openingHelpFiles" : false
+    "openingHelpFiles" : false,
+    "rootFolder" : null,
+    "rootName" : null
   },
-  "azure" : {
-    "account" : null,
-    "key" : null,
-    "emulatorUrl" : null
-  },
+  "azure" : { },
   "gitConfig" : {
     "enabled" : false,
     "searchingParentFolders" : false,
