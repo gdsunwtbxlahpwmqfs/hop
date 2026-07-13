@@ -38,7 +38,7 @@ public class MetadataContextHandler implements IGuiContextHandler {
   private static final Class<?> PKG = MetadataContextHandler.class;
 
   public static final String CONTEXT_ID = "HopGuiMetadataContext";
-  public static final String CONST_METADATA = "Metadata";
+  public static final String CONST_METADATA = "i18n::ContextDialog.Category.Metadata.Label";
 
   private HopGui hopGui;
   private IHopMetadataProvider metadataProvider;

@@ -247,7 +247,7 @@ public class HopWorkflowFileType<T extends WorkflowMeta> extends HopFileTypeBase
                     e);
               }
             });
-    newAction.setCategory("File");
+    newAction.setCategory("i18n::ContextDialog.Category.File.Label");
     newAction.setCategoryOrder("1");
 
     handlers.add(new GuiContextHandler(ACTION_ID_NEW_WORKFLOW, List.of(newAction)));

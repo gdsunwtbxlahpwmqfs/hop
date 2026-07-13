@@ -108,7 +108,7 @@ public class MarkDownExplorerFileType
                     e);
               }
             });
-    newAction.setCategory("File");
+    newAction.setCategory("i18n::ContextDialog.Category.File.Label");
     newAction.setCategoryOrder("1");
 
     handlers.add(new GuiContextHandler(ACTION_ID_NEW_MARKDOWN, List.of(newAction)));
