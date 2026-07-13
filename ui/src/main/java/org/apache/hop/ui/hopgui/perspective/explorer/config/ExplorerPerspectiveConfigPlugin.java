@@ -41,7 +41,8 @@ import picocli.CommandLine;
     description = "Configuration options for the explorer perspective",
     category = ConfigPlugin.CATEGORY_CONFIG)
 @GuiPlugin(
-    description = "Explorer Perspective" // Tab label in options dialog
+    description =
+        "i18n::ExplorerPerspectiveConfig.GuiPlugin.Description" // Tab label in options dialog
     )
 public class ExplorerPerspectiveConfigPlugin
     implements IConfigOptions, IGuiPluginCompositeWidgetsListener {

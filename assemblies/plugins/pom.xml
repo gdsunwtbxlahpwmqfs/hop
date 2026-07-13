@@ -787,14 +787,15 @@
             <artifactId>hop-tech-opensearch</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-parquet</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
+
+        <!-- <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-tech-salesforce</artifactId>
             <version>${project.version}</version>

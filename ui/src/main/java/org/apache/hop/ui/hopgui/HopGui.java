@@ -144,6 +144,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 @GuiPlugin(name = "i18n::HopGui.GuiPlugin.Name", description = "i18n::HopGui.GuiPlugin.Description")
@@ -1624,20 +1625,12 @@ public class HopGui
           Class.forName("org.eclipse.rap.rwt.client.service.JavaScriptExecutor");
       Object executor =
           client.getClass().getMethod("getService", Class.class).invoke(client, executorClass);
+      // Call the client-side toggle function defined in fullscreen.js.
+      // It tracks fullscreen state via fullscreenchange events (robust against
+      // async timing) and handles iframe / parent-window scenarios.
       executorClass
           .getMethod("execute", String.class)
-          .invoke(
-              executor,
-              "(function() {"
-                  + "var el = document.documentElement;"
-                  + "if (!document.fullscreenElement && !document.webkitFullscreenElement) {"
-                  + "if (el.requestFullscreen) { el.requestFullscreen(); }"
-                  + "else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }"
-                  + "} else {"
-                  + "if (document.exitFullscreen) { document.exitFullscreen(); }"
-                  + "else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }"
-                  + "}"
-                  + "})()");
+          .invoke(executor, "window.hopToggleFullscreen && window.hopToggleFullscreen();");
     } catch (Exception e) {
       LogChannel.UI.logError("Error executing fullscreen toggle", e);
     }
@@ -1725,7 +1718,13 @@ public class HopGui
       separator = true,
       image = "ui/images/clear.svg")
   public void menuToolsDatabaseClearCache() {
-    DbCache.getInstance().clear(null);
+    DbCache dbCache = DbCache.getInstance();
+    int size = dbCache.size();
+    dbCache.clear(null);
+    MessageBox box = new MessageBox(getShell(), SWT.OK | SWT.ICON_INFORMATION);
+    box.setText(BaseMessages.getString(PKG, "HopGui.Menu.Tools.DatabaseClearCache"));
+    box.setMessage(BaseMessages.getString(PKG, "HopGui.Dialog.DatabaseClearCache.Message", size));
+    box.open();
   }
 
   @GuiMenuElement(

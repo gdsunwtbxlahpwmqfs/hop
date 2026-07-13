@@ -18,52 +18,75 @@
 (function() {
   'use strict';
 
-  console.log('[Hop] fullscreen.js loaded');
+  // display-mode:fullscreen is true for BOTH browser-native fullscreen (F11,
+  // macOS green button) AND Fullscreen API fullscreen (requestFullscreen).
+  // document.fullscreenElement is only set for the latter.
+  // JavaScript CANNOT exit browser-native fullscreen — only the user can (Esc/F11).
+  var fullscreenMQ = window.matchMedia('(display-mode: fullscreen)');
 
-  function toggleFullscreen() {
-    console.log('[Hop] toggleFullscreen called');
-    var el = document.documentElement;
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      console.log('[Hop] entering fullscreen');
-      if (el.requestFullscreen) {
-        el.requestFullscreen();
-      } else if (el.webkitRequestFullscreen) {
-        el.webkitRequestFullscreen();
-      }
-    } else {
-      console.log('[Hop] exiting fullscreen');
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    }
+  function isInApiFullscreen() {
+    return !!(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    );
   }
 
-  document.addEventListener('click', function(event) {
-    var target = event.target;
-    var menuItem = target.closest('[role="menuitem"]');
-    if (!menuItem) {
+  function isAnyFullscreen() {
+    return fullscreenMQ.matches || isInApiFullscreen();
+  }
+
+  // Show a transient toast telling the user to press Esc/F11 to exit
+  // browser-native fullscreen (JS cannot do it programmatically).
+  function showNativeFullscreenHint() {
+    // Avoid duplicate toasts
+    if (document.getElementById('hop-fs-hint')) {
       return;
     }
+    var hint = document.createElement('div');
+    hint.id = 'hop-fs-hint';
+    hint.textContent = '请按 Esc 或 F11 退出浏览器全屏';
+    hint.style.cssText =
+      'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'
+      + 'background:rgba(40,40,40,0.92);color:#fff;padding:16px 28px;'
+      + 'border-radius:8px;font-size:15px;z-index:2147483647;'
+      + 'box-shadow:0 4px 20px rgba(0,0,0,0.4);pointer-events:none;'
+      + 'font-family:sans-serif;';
+    document.body.appendChild(hint);
+    setTimeout(function() {
+      if (hint.parentNode) {
+        hint.parentNode.removeChild(hint);
+      }
+    }, 2500);
+  }
 
-    var text = menuItem.textContent ? menuItem.textContent.trim() : '';
-    console.log('[Hop] clicked menuitem: "' + text + '"');
+  window.hopToggleFullscreen = function() {
+    var el = document.documentElement;
 
-    if (text === 'Full screen' || text === '全屏') {
-      console.log('[Hop] Fullscreen menu item clicked');
-      toggleFullscreen();
+    if (!isAnyFullscreen()) {
+      // Not in any fullscreen → enter API fullscreen
+      var req =
+        el.requestFullscreen ||
+        el.webkitRequestFullscreen ||
+        el.mozRequestFullScreen ||
+        el.msRequestFullscreen;
+      if (req) {
+        req.call(el);
+      }
+    } else if (isInApiFullscreen()) {
+      // In API fullscreen → exit it
+      var exit =
+        document.exitFullscreen ||
+        document.webkitExitFullscreen ||
+        document.mozCancelFullScreen ||
+        document.msExitFullscreen;
+      if (exit) {
+        exit.call(document);
+      }
+    } else {
+      // In browser-native fullscreen (F11/macOS) → JS cannot exit, show hint
+      showNativeFullscreenHint();
     }
-  }, true);
-
-  document.addEventListener('keydown', function(event) {
-    if ((event.altKey || event.metaKey) && event.key === 'F11') {
-      event.preventDefault();
-      toggleFullscreen();
-    }
-    if (event.key === 'F11') {
-      event.preventDefault();
-      toggleFullscreen();
-    }
-  }, true);
+  };
 })();
