@@ -55,8 +55,7 @@ public class DocsResource extends BaseResource {
   private static final HtmlRenderer MARKDOWN_RENDERER;
 
   static {
-    java.util.List<Extension> extensions =
-        java.util.List.of(TablesExtension.create());
+    java.util.List<Extension> extensions = java.util.List.of(TablesExtension.create());
     MARKDOWN_PARSER = Parser.builder().extensions(extensions).build();
     MARKDOWN_RENDERER = HtmlRenderer.builder().extensions(extensions).build();
   }
@@ -72,16 +71,19 @@ public class DocsResource extends BaseResource {
   public Response getDocumentHtml(@PathParam("path") String path) {
     DocResult result = resolveDocument(path);
     return switch (result.status) {
-      case MATCHED -> Response.ok(renderHtmlPage(result.title, result.content, result.docUrl))
-          .type(MediaType.TEXT_HTML_TYPE)
-          .build();
-      case UNMATCHED -> Response.ok(renderFallbackPage(result.message, result.fallbackUrl))
-          .type(MediaType.TEXT_HTML_TYPE)
-          .build();
-      case NOT_FOUND, ERROR -> Response.status(Response.Status.NOT_FOUND)
-          .entity(renderErrorPage(result.message))
-          .type(MediaType.TEXT_HTML_TYPE)
-          .build();
+      case MATCHED ->
+          Response.ok(renderHtmlPage(result.title, result.content, result.docUrl))
+              .type(MediaType.TEXT_HTML_TYPE)
+              .build();
+      case UNMATCHED ->
+          Response.ok(renderFallbackPage(result.message, result.fallbackUrl))
+              .type(MediaType.TEXT_HTML_TYPE)
+              .build();
+      case NOT_FOUND, ERROR ->
+          Response.status(Response.Status.NOT_FOUND)
+              .entity(renderErrorPage(result.message))
+              .type(MediaType.TEXT_HTML_TYPE)
+              .build();
     };
   }
 
@@ -103,21 +105,30 @@ public class DocsResource extends BaseResource {
         response.put("documentationUrl", result.docUrl);
         yield Response.ok(response).build();
       }
-      case UNMATCHED -> Response.ok(
-              Map.of(
-                  "status", "unmatched",
-                  "pluginId", result.pluginId != null ? result.pluginId : "",
-                  "documentationUrl", result.docUrl,
-                  "message", result.message,
-                  "fallbackUrl", result.fallbackUrl))
-          .build();
-      case NOT_FOUND -> Response.status(Response.Status.NOT_FOUND)
-          .entity(Map.of("status", "not_found", "documentationUrl", result.docUrl, "message",
-              result.message))
-          .build();
-      case ERROR -> Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity(Map.of("status", "error", "message", result.message))
-          .build();
+      case UNMATCHED ->
+          Response.ok(
+                  Map.of(
+                      "status", "unmatched",
+                      "pluginId", result.pluginId != null ? result.pluginId : "",
+                      "documentationUrl", result.docUrl,
+                      "message", result.message,
+                      "fallbackUrl", result.fallbackUrl))
+              .build();
+      case NOT_FOUND ->
+          Response.status(Response.Status.NOT_FOUND)
+              .entity(
+                  Map.of(
+                      "status",
+                      "not_found",
+                      "documentationUrl",
+                      result.docUrl,
+                      "message",
+                      result.message))
+              .build();
+      case ERROR ->
+          Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+              .entity(Map.of("status", "error", "message", result.message))
+              .build();
     };
   }
 
@@ -293,8 +304,7 @@ public class DocsResource extends BaseResource {
   }
 
   private String renderErrorPage(String message) {
-    String body =
-        "<div class=\"hop-error\"><p>" + escapeHtml(message) + "</p></div>";
+    String body = "<div class=\"hop-error\"><p>" + escapeHtml(message) + "</p></div>";
     return HTML_TEMPLATE
         .replace("{{TITLE}}", "错误")
         .replace("{{CONTENT}}", body)
@@ -373,7 +383,7 @@ public class DocsResource extends BaseResource {
           + "<head>\n"
           + "<meta charset=\"UTF-8\">\n"
           + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-          + "<title>{{TITLE}} - Apache Hop 文档</title>\n"
+          + "<title>{{TITLE}} - Qi Hop 文档</title>\n"
           + "<style>\n"
           + CSS_STYLES
           + "\n</style>\n"
@@ -381,7 +391,7 @@ public class DocsResource extends BaseResource {
           + "<body>\n"
           + "<header class=\"hop-header\">\n"
           + "  <div class=\"hop-header-inner\">\n"
-          + "    <span class=\"hop-logo\">Apache Hop</span>\n"
+          + "    <span class=\"hop-logo\">Qi Hop</span>\n"
           + "    <span class=\"hop-header-sep\">|</span>\n"
           + "    <span class=\"hop-header-title\">{{TITLE}}</span>\n"
           + "  </div>\n"
@@ -390,7 +400,7 @@ public class DocsResource extends BaseResource {
           + "{{CONTENT}}\n"
           + "</main>\n"
           + "<footer class=\"hop-footer\">\n"
-          + "  <span>Apache Hop Documentation</span>\n"
+          + "  <span>Qi Hop Documentation</span>\n"
           + "</footer>\n"
           + "</body>\n"
           + "</html>\n";
