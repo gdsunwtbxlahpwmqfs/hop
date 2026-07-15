@@ -1827,6 +1827,36 @@ public class Const {
   }
 
   /**
+   * Generates a local documentation URL pointing to the Hop REST docs endpoint. Used when running
+   * in Hop Web (RAP) mode to redirect documentation requests to the local Tomcat service instead of
+   * hop.apache.org.
+   *
+   * @param uri the relative documentation path (e.g., "/pipeline/transforms/csvinput.html")
+   * @param baseUrl the base URL of the local Hop REST service (e.g., "http://localhost:8080/hop")
+   * @return the fully qualified local documentation URL
+   */
+  public static String getLocalDocUrl(final String uri, final String baseUrl) {
+    if (uri == null || uri.isBlank() || baseUrl == null || baseUrl.isBlank()) {
+      return uri;
+    }
+    String normalizedUri = uri;
+    if (normalizedUri.startsWith("http")) {
+      String manualPrefix = "https://hop.apache.org/manual/";
+      if (normalizedUri.startsWith(manualPrefix)) {
+        int slash = normalizedUri.indexOf('/', manualPrefix.length());
+        if (slash > 0) {
+          normalizedUri = normalizedUri.substring(slash);
+        }
+      }
+    }
+    if (normalizedUri.startsWith("/")) {
+      normalizedUri = normalizedUri.substring(1);
+    }
+    String base = baseUrl.endsWith("/") ? baseUrl.substring(0, baseUrl.length() - 1) : baseUrl;
+    return base + "/api/v1/docs/" + normalizedUri;
+  }
+
+  /**
    * Retrieves the content of an environment variable
    *
    * @param variable The name of the environment variable

@@ -1,0 +1,52 @@
+{
+  "source_dir": "docs/hop-user-manual/modules/ROOT/pages",
+  "target_dir": "docs/hop-assistant-manual",
+  "assets_source": "docs/hop-user-manual/modules/ROOT/assets/images",
+  "assets_target": "docs/hop-assistant-manual/assets/images",
+  "user_url_file": "user-url.md",
+  "translation_rules": {
+    "technical_terms": [
+      "Pipeline", "Workflow", "Transform", "Action", "Hop Gui",
+      "Apache Hop", "Neo4j", "Kafka", "Spark", "Flink", "Dataflow",
+      "ETL", "metadata", "plugin", "engine", "perspective", "hop",
+      "HPL", "HWF", "CSV", "JSON", "XML", "SQL", "JDBC", "REST",
+      "API", "URL", "HTTP", "HTTPS", "FTP", "SFTP", "SSH", "S3",
+      "Azure", "GCP", "AWS", "Docker", "Kubernetes", "K8s",
+      "Beam", "Spark", "Flink", "Dataflow", "BigQuery", "MongoDB",
+      "Cassandra", "Neo4j", "Redis", "Kafka", "RabbitMQ",
+      "PostgreSQL", "MySQL", "Oracle", "SQL Server", "SQLite",
+      "Snowflake", "Redshift", "Databricks", "Doris", "ClickHouse",
+      "Avro", "Parquet", "ORC", "Protocol Buffers",
+      "JUnit", "Mockito", "Maven", "Gradle", "Git", "SVN",
+      "IDE", "Eclipse", "IntelliJ", "VS Code",
+      "SCD", "CDC", "OLTP", "OLAP", "BI", "DI", "ETL", "ELT",
+      "SPOI", "PDI", "Kettle", "Hop"
+    ],
+    "product_names": [
+      "Apache Hop", "Hop Gui", "Hop Web", "Hop Server", "Hop Run",
+      "Hop Search", "Hop Doc", "Hop Conf", "Hop Encrypt", "Hop Import",
+      "Apache Spark", "Apache Flink", "Google Dataflow", "Apache Beam",
+      "Neo4j", "MongoDB", "Cassandra", "Kafka", "Redis", "RabbitMQ",
+      "PostgreSQL", "MySQL", "Oracle", "SQL Server", "SQLite",
+      "Snowflake", "Redshift", "Databricks", "Doris", "ClickHouse",
+      "MinIO", "S3", "Azure Blob Storage", "Google Cloud Storage",
+      "Docker", "Kubernetes", "Apache Airflow", "Apache NiFi",
+      "Talend", "Informatica", "DataStage", "SSIS"
+    ]
+  },
+  "conversion_rules": {
+    "remove_license_header": true,
+    "remove_asciidoc_directives": true,
+    "convert_headings": true,
+    "convert_links": true,
+    "convert_images": true,
+    "convert_code_blocks": true,
+    "translate_content": true
+  },
+  "missing_file_template": {
+    "title_placeholder": "{component}",
+    "contact_message": "此文档暂未提供，请联系管理员获取帮助。",
+    "issue_url": "https://github.com/apache/hop/issues",
+    "email": "dev@hop.apache.org"
+  }
+}

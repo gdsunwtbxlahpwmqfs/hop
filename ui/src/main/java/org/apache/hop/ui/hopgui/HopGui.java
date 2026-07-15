@@ -2405,7 +2405,13 @@ public class HopGui
         activePerspective.getClass().getAnnotation(HopPerspectivePlugin.class);
     if (plugin != null) {
       try {
-        EnvironmentUtils.getInstance().openUrl(getDocUrl(plugin.documentationUrl()));
+        String url = getDocUrl(plugin.documentationUrl());
+        if (EnvironmentUtils.getInstance().isWeb()) {
+          String localBaseUrl =
+              System.getProperty("HOP_REST_BASE_URL", "http://localhost:8080/hop");
+          url = Const.getLocalDocUrl(plugin.documentationUrl(), localBaseUrl);
+        }
+        EnvironmentUtils.getInstance().openUrl(url);
       } catch (Exception e) {
         new ErrorDialog(shell, "Error", "Error opening URL", e);
       }

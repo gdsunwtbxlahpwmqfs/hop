@@ -121,3 +121,34 @@ Supports any Maven module via `${MODULE}` variable (core, ui, rap, rest, plugins
 - Do not commit Monaco editor files under `rap/src/main/resources/`.
 - Do not use star imports.
 - Do not skip the ASF license header on any source file.
+
+## REST Documentation Service
+
+The `rest` module includes a docs endpoint that serves local markdown files for plugin help URLs, mapping `documentationUrl` annotations from plugin source to MD files in `docs/hop-assistant-manual/`.
+
+**Endpoints** (under `/api/v1/docs/`):
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/v1/docs/{path}` | Returns matched markdown content, `{"status":"unmatched"}` for unmatched, 404 if not found |
+| GET | `/api/v1/docs/mappings` | Full URL mapping array (400 entries) |
+| GET | `/api/v1/docs/stats` | Mapping statistics (total, matched, unmatched) |
+| GET | `/api/v1/docs/reload` | Reload mapping from filesystem |
+
+**Key files:**
+- `docs/hop-assistant-manual/url-mapping.json` — master lookup table (244 matched / 156 unmatched)
+- `rest/src/main/java/org/apache/hop/rest/v1/resources/docs/UrlMappingService.java` — singleton service
+- `rest/src/main/java/org/apache/hop/rest/v1/resources/docs/DocsResource.java` — JAX-RS resource
+- `core/.../Const.java:getLocalDocUrl()` — builds local URL from hop.apache.org path
+- `ui/.../HelpUtils.java:resolveHelpUrl()` — redirects F1 to local service in web mode
+
+**Regenerating the mapping:**
+```bash
+cd docs/hop-assistant-manual
+python3 ../../scripts/build-url-mapping.py
+cp url-mapping.json ../../rest/src/main/resources/org/apache/hop/rest/docs/
+```
+
+**Testing:**
+```bash
+./mvnw test -pl rest -Dtest=UrlMappingServiceTest
+```

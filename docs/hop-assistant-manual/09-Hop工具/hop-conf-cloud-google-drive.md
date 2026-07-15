@@ -1,0 +1,7 @@
+```
+      -gdc, --google-drive-credentials-file=<credentialsFile>
+                            Configure the path to a Google Drive credentials JSON
+                              file
+      -gdt, --google-drive-tokens-folder=<tokensFolder>
+                            Configure the path to a Google Drive tokens folder
+```

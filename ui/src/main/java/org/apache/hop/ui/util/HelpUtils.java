@@ -18,6 +18,7 @@
 package org.apache.hop.ui.util;
 
 import static org.apache.hop.core.Const.getDocUrl;
+import static org.apache.hop.core.Const.getLocalDocUrl;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -95,7 +96,8 @@ public class HelpUtils {
     if (isPluginDocumented(plugin)) {
       try {
         String originalUrl = getDocUrl(plugin.getDocumentationUrl());
-        String trackedUrl = appendUtmParameters(originalUrl);
+        String helpUrl = resolveHelpUrl(originalUrl, plugin.getDocumentationUrl());
+        String trackedUrl = appendUtmParameters(helpUrl);
         if (ExplorerPerspectiveConfigSingleton.getConfig().isOpeningHelpFiles()) {
           openHelpInTab(trackedUrl);
         } else {
@@ -122,6 +124,18 @@ public class HelpUtils {
       mb.setText(BaseMessages.getString(PKG, "System.Dialog.Error.Title"));
       mb.open();
     }
+  }
+
+  /**
+   * Resolves the help URL. In Hop Web (RAP) mode, redirects to the local REST docs endpoint.
+   * Otherwise, returns the original external URL.
+   */
+  private static String resolveHelpUrl(String originalUrl, String docUri) {
+    if (EnvironmentUtils.getInstance().isWeb()) {
+      String localBaseUrl = System.getProperty("HOP_REST_BASE_URL", "http://localhost:8080");
+      return getLocalDocUrl(docUri, localBaseUrl);
+    }
+    return originalUrl;
   }
 
   /**

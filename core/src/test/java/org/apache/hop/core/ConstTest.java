@@ -4134,4 +4134,25 @@ class ConstTest {
     assertFalse(Const.toBoolean("0"));
     assertFalse(Const.toBoolean("1"));
   }
+
+  @Test
+  void testGetLocalDocUrl() {
+    assertEquals(
+        "http://localhost:8080/hop/api/v1/docs/pipeline/transforms/csvinput.html",
+        Const.getLocalDocUrl("/pipeline/transforms/csvinput.html", "http://localhost:8080/hop"));
+    assertEquals(
+        "http://localhost:8080/hop/api/v1/docs/pipeline/transforms/csvinput.html",
+        Const.getLocalDocUrl("pipeline/transforms/csvinput.html", "http://localhost:8080/hop"));
+    assertEquals(
+        "http://myhost:9090/api/v1/docs/database/databases/postgresql.html",
+        Const.getLocalDocUrl("/database/databases/postgresql.html", "http://myhost:9090"));
+  }
+
+  @Test
+  void testGetLocalDocUrlNullInputs() {
+    assertNull(Const.getLocalDocUrl(null, "http://localhost:8080/hop"));
+    assertNull(Const.getLocalDocUrl("/pipeline/transforms/csv.html", null));
+    assertNull(Const.getLocalDocUrl("", "http://localhost:8080/hop"));
+    assertNull(Const.getLocalDocUrl("/pipeline/transforms/csv.html", ""));
+  }
 }

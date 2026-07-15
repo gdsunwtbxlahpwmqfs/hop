@@ -16,6 +16,7 @@ FORCE_BUILD=false
 MANUAL_OS=""
 MANUAL_ARCH=""
 RESTART_ONLY=false
+SYNC_DOCS=false
 
 show_help() {
     cat << HELPEOF
@@ -29,6 +30,7 @@ show_help() {
                            (默认自动检测)
   --no-llm                 跳过 LiteLLM 代理与向量服务启动
   --restart, -r            仅重启 Tomcat（跳过部署），用于热更新 JAR 后快速生效
+  --sync-docs              仅同步文档资源（url-mapping.json + md 文件），然后重启
   --help, -h               显示此帮助信息
 
 示例:
@@ -37,6 +39,7 @@ show_help() {
   $(basename "$0") --force-build --os linux --arch aarch64  # 交叉编译 Linux ARM64
   $(basename "$0") --os linux --arch x86_64           # 指定 Linux x86_64 平台
   $(basename "$0") --restart                          # 重启 Tomcat（JAR 热更新场景）
+  $(basename "$0") --sync-docs                        # 仅同步文档资源后重启（文档更新场景）
 HELPEOF
     exit 0
 }
@@ -61,6 +64,10 @@ while [ $# -gt 0 ]; do
             ;;
         --restart|-r)
             RESTART_ONLY=true
+            shift
+            ;;
+        --sync-docs)
+            SYNC_DOCS=true
             shift
             ;;
         --help|-h)
@@ -169,6 +176,40 @@ if [ "${RESTART_ONLY}" = "true" ]; then
     echo "==> [Restart Mode] 跳过部署，直接重启 Tomcat..."
     stop_tomcat
     # 跳到启动部分（跳过 PHASE 1~3 和部署）
+    goto_start_tomcat=true
+fi
+
+# ============================================================
+# --sync-docs 快捷路径：仅同步文档资源，然后重启 Tomcat
+# ============================================================
+if [ "${SYNC_DOCS}" = "true" ]; then
+    echo ""
+    echo "==> [Sync-Docs Mode] 同步文档资源到已部署的 WAR..."
+
+    DEPLOYED_MAPPING="${WEBAPP_DIR}/ROOT/WEB-INF/classes/org/apache/hop/rest/docs/url-mapping.json"
+    SOURCE_MAPPING="${HOP_HOME}/docs/hop-assistant-manual/url-mapping.json"
+
+    if [ ! -d "${WEBAPP_DIR}/ROOT" ]; then
+        echo "ERROR: WAR 未部署，请先运行 $(basename "$0")（不带 --sync-docs）"
+        exit 1
+    fi
+
+    stop_tomcat
+
+    echo "    更新 url-mapping.json..."
+    if [ -f "${SOURCE_MAPPING}" ]; then
+        mkdir -p "$(dirname "${DEPLOYED_MAPPING}")"
+        cp "${SOURCE_MAPPING}" "${DEPLOYED_MAPPING}"
+        echo "    ✓ url-mapping.json 已更新"
+    else
+        echo "    Warning: ${SOURCE_MAPPING} 不存在"
+    fi
+
+    echo ""
+    echo "    文档 MD 文件无需复制（通过 CWD 直接访问 ${HOP_HOME}/docs/hop-assistant-manual/）"
+
+    echo ""
+    echo "==> 文档同步完成，正在重启 Tomcat..."
     goto_start_tomcat=true
 fi
 
@@ -337,6 +378,20 @@ else
     echo "    Warning: jdbc-drivers not found in resources/"
 fi
 
+echo ""
+echo "==> Syncing documentation resources..."
+DEPLOYED_MAPPING="${WEBAPP_DIR}/ROOT/WEB-INF/classes/org/apache/hop/rest/docs/url-mapping.json"
+SOURCE_MAPPING="${HOP_HOME}/docs/hop-assistant-manual/url-mapping.json"
+if [ -f "${SOURCE_MAPPING}" ]; then
+    mkdir -p "$(dirname "${DEPLOYED_MAPPING}")"
+    cp "${SOURCE_MAPPING}" "${DEPLOYED_MAPPING}"
+    echo "    ✓ url-mapping.json synced to deployed WAR"
+else
+    echo "    Warning: url-mapping.json not found at ${SOURCE_MAPPING}"
+fi
+# Docs MD files are accessed via CWD (HOP_HOME), no copy needed
+echo "    Docs accessible at: ${HOP_HOME}/docs/hop-assistant-manual/"
+
 fi  # end of if [ "${goto_start_tomcat}" != "true" ]
 
 # ============================================================
@@ -378,6 +433,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -DHOP_PLUGIN_BASE_FOLDERS=${HOP_PLUGIN_BASE_FOLD
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_SHARED_JDBC_FOLDERS=${HOP_SHARED_JDBC_FOLDERS}"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_AES_ENCODER_KEY=${HOP_AES_ENCODER_KEY}"
 CATALINA_OPTS="${CATALINA_OPTS} -DHOP_GUI_ZOOM_FACTOR=${HOP_GUI_ZOOM_FACTOR}"
+CATALINA_OPTS="${CATALINA_OPTS} -Dhop.docs.base=${HOP_HOME}/docs/hop-assistant-manual"
 CATALINA_OPTS="${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${CATALINA_BASE}/rwt-resources"
 CATALINA_OPTS="${CATALINA_OPTS} -Dswt.use.gtk3=false"
 
@@ -465,7 +521,8 @@ fi
 echo ""
 echo "==> Starting Hop Web Server..."
 echo "    Web UI:  http://localhost:8080/ui"
-echo "    REST:    http://localhost:8080/hop/"
+echo "    REST:    http://localhost:8080/api/v1/"
+echo "    Docs:    http://localhost:8080/api/v1/docs/stats"
 echo "    Logs:    ${LOG_DIR}/catalina.out"
 echo ""
 

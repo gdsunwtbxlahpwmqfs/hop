@@ -26,10 +26,11 @@
     </parent>
 
     <artifactId>hop-rest</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Hop REST</name>
 
     <properties>
+        <commonmark.version>0.27.1</commonmark.version>
         <jakarta.version>4.0.0</jakarta.version>
         <jersey.version>3.1.11</jersey.version>
     </properties>
@@ -129,18 +130,31 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- Package markdown docs into the JAR classpath so they are available in Tomcat -->
+            <resource>
+                <targetPath>org/apache/hop/rest/docs/manual</targetPath>
+                <directory>${project.basedir}/../docs/hop-assistant-manual</directory>
+                <includes>
+                    <include>**/*.md</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

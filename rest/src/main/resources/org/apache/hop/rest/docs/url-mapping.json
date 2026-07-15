@@ -1,0 +1,3612 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-14T23:53:52.711248",
+  "stats": {
+    "total": 400,
+    "matched": 400,
+    "unmatched": 0,
+    "matchRate": "100.0%"
+  },
+  "mappings": [
+    {
+      "annotationType": "Action",
+      "pluginId": "ABORT",
+      "pluginName": "i18n::ActionAbort.Name",
+      "documentationUrl": "/workflow/actions/abort.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/abort.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "ADD_RESULT_FILENAMES",
+      "pluginName": "i18n::ActionAddResultFilenames.Name",
+      "documentationUrl": "/workflow/actions/addresultfilenames.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/addresultfilenames.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "AS400Command",
+      "pluginName": "i18n::ActionAs400Command.Name",
+      "documentationUrl": "/workflow/actions/as400command.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/as400command.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "CASSANDRA_EXEC_CQL",
+      "pluginName": "Cassandra Execute CQL",
+      "documentationUrl": "/workflow/actions/cassandra-exec-cql.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/cassandra-exec-cql.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "CHECK_DB_CONNECTIONS",
+      "pluginName": "i18n::ActionCheckDbConnections.Name",
+      "documentationUrl": "/workflow/actions/checkdbconnection.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/checkdbconnection.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "CHECK_FILES_LOCKED",
+      "pluginName": "i18n::ActionCheckFilesLocked.Name",
+      "documentationUrl": "/workflow/actions/checkfilelocked.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/checkfilelocked.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "COLUMNS_EXIST",
+      "pluginName": "i18n::ActionColumnsExist.Name",
+      "documentationUrl": "/workflow/actions/columnsexist.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/columnsexist.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "COPY_FILES",
+      "pluginName": "i18n::ActionCopyFiles.Name",
+      "documentationUrl": "/workflow/actions/copyfiles.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/copyfiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "COPY_MOVE_RESULT_FILENAMES",
+      "pluginName": "i18n::ActionCopyMoveResultFilenames.Name",
+      "documentationUrl": "/workflow/actions/processresultfilenames.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/processresultfilenames.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "CREATE_FILE",
+      "pluginName": "i18n::ActionCreateFile.Name",
+      "documentationUrl": "/workflow/actions/createfile.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/createfile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "CREATE_FOLDER",
+      "pluginName": "i18n::ActionCreateFolder.Name",
+      "documentationUrl": "/workflow/actions/createfolder.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/createfolder.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DELAY",
+      "pluginName": "i18n::ActionDelay.Name",
+      "documentationUrl": "/workflow/actions/waitfor.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/工作流控制类/waitfor.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DELETE_FILE",
+      "pluginName": "i18n::ActionDeleteFile.Name",
+      "documentationUrl": "/workflow/actions/deletefile.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/deletefile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DELETE_FILES",
+      "pluginName": "i18n::ActionDeleteFiles.Name",
+      "documentationUrl": "/workflow/actions/deletefiles.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/deletefiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DELETE_FOLDERS",
+      "pluginName": "i18n::ActionDeleteFolders.Name",
+      "documentationUrl": "/workflow/actions/deletefolders.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/deletefolders.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DELETE_RESULT_FILENAMES",
+      "pluginName": "i18n::ActionDeleteResultFilenames.Name",
+      "documentationUrl": "/workflow/actions/deleteresultfilenames.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/deleteresultfilenames.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DOCUMENTATION",
+      "pluginName": "i18n::ActionDoc.Name",
+      "documentationUrl": "/workflow/actions/documentation.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/documentation.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DOS_UNIX_CONVERTER",
+      "pluginName": "i18n::ActionDosToUnix.Name",
+      "documentationUrl": "/workflow/actions/dostounix.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/dostounix.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DTD_VALIDATOR",
+      "pluginName": "i18n::DTD_VALIDATOR.Name",
+      "documentationUrl": "/workflow/actions/dtdvalidator.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/dtdvalidator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "DUMMY",
+      "pluginName": "i18n::ActionDummy.Name",
+      "documentationUrl": "/workflow/actions/dummy.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/dummy.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "EVAL",
+      "pluginName": "i18n::ActionEval.Name",
+      "documentationUrl": "/workflow/actions/eval.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/数据库操作类/eval.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "EVAL_FILES_METRICS",
+      "pluginName": "i18n::ActionEvalFilesMetrics.Name",
+      "documentationUrl": "/workflow/actions/evalfilesmetrics.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/evalfilesmetrics.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "EVAL_TABLE_CONTENT",
+      "pluginName": "i18n::ActionEvalTableContent.Name",
+      "documentationUrl": "/workflow/actions/evaluatetablecontent.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/evaluatetablecontent.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "EndRepeat",
+      "pluginName": "i18n::EndRepeat.Name",
+      "documentationUrl": "/workflow/actions/repeat-end.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/repeat-end.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FILES_EXIST",
+      "pluginName": "i18n::ActionFilesExist.Name",
+      "documentationUrl": "/workflow/actions/filesexist.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/filesexist.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FILE_COMPARE",
+      "pluginName": "i18n::ActionFileCompare.Name",
+      "documentationUrl": "/workflow/actions/filecompare.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/filecompare.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FILE_EXISTS",
+      "pluginName": "i18n::ActionFileExists.Name",
+      "documentationUrl": "/workflow/actions/fileexists.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/文件与编码操作类/fileexists.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FOLDERS_COMPARE",
+      "pluginName": "i18n::ActionFoldersCompare.Name",
+      "documentationUrl": "/workflow/actions/comparefolders.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/comparefolders.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FOLDER_IS_EMPTY",
+      "pluginName": "i18n::ActionFolderIsEmpty.Name",
+      "documentationUrl": "/workflow/actions/folderisempty.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/folderisempty.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FTP",
+      "pluginName": "i18n::ActionFTP.Name",
+      "documentationUrl": "/workflow/actions/ftp.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/ftp.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FTP_DELETE",
+      "pluginName": "i18n::ActionFTPDelete.Name",
+      "documentationUrl": "/workflow/actions/ftpdelete.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/ftpdelete.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "FTP_PUT",
+      "pluginName": "i18n::ActionFTPPut.Name",
+      "documentationUrl": "/workflow/actions/ftpput.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/ftpput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "GET_POP",
+      "pluginName": "i18n::ActionGetPOP.Name",
+      "documentationUrl": "/workflow/actions/getpop.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/getpop.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "HTTP",
+      "pluginName": "i18n::ActionHTTP.Name",
+      "documentationUrl": "/workflow/actions/http.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/http.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "JOIN",
+      "pluginName": "i18n::ActionJoin.Name",
+      "documentationUrl": "/workflow/actions/join.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/join.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MAIL",
+      "pluginName": "i18n::ActionMail.Name",
+      "documentationUrl": "/workflow/actions/mail.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/mail.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MAIL_VALIDATOR",
+      "pluginName": "i18n::ActionMailValidator.Name",
+      "documentationUrl": "/workflow/actions/mailvalidator.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/mailvalidator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MOVE_FILES",
+      "pluginName": "i18n::ActionMoveFiles.Name",
+      "documentationUrl": "/workflow/actions/movefiles.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/文件操作类/movefiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MQL",
+      "pluginName": "i18n::ActionMQL.Name",
+      "documentationUrl": "/workflow/actions/mql.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/mql.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MSSQL_BULK_LOAD",
+      "pluginName": "i18n::ActionMssqlBulkLoad.Name",
+      "documentationUrl": "/workflow/actions/mssqlbulkload.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/mssqlbulkload.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MYSQL_BULK_FILE",
+      "pluginName": "i18n::ActionMysqlBulkFile.Name",
+      "documentationUrl": "/workflow/actions/mysqlbulkfile.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/mysqlbulkfile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "MYSQL_BULK_LOAD",
+      "pluginName": "i18n::ActionMysqlBulkLoad.Name",
+      "documentationUrl": "/workflow/actions/mysqlbulkload.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/mysqlbulkload.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "NEO4J_CHECK_CONNECTIONS",
+      "pluginName": "Check Neo4j Connections",
+      "documentationUrl": "/workflow/actions/neo4j-checkconnections.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/neo4j-checkconnections.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "NEO4J_CONSTRAINT",
+      "pluginName": "Neo4j Constraint",
+      "documentationUrl": "/workflow/actions/neo4j-constraint.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/Neo4j操作类/neo4j-constraint.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "NEO4J_CYPHER_SCRIPT",
+      "pluginName": "Neo4j Cypher Script",
+      "documentationUrl": "/workflow/actions/neo4j-cypherscript.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/Neo4j操作类/neo4j-cypherscript.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "NEO4J_INDEX",
+      "pluginName": "Neo4j Index",
+      "documentationUrl": "/workflow/actions/neo4j-index.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/Neo4j操作类/neo4j-index.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "PGP_DECRYPT_FILES",
+      "pluginName": "i18n::ActionPGPDecryptFiles.Name",
+      "documentationUrl": "/workflow/actions/pgpdecryptfiles.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/pgpdecryptfiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "PGP_ENCRYPT_FILES",
+      "pluginName": "i18n::ActionPGPEncryptFiles.Name",
+      "documentationUrl": "/workflow/actions/pgpencryptfiles.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/pgpencryptfiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "PGP_VERIFY_FILES",
+      "pluginName": "i18n::ActionPGPVerify.Name",
+      "documentationUrl": "/workflow/actions/pgpverify.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/pgpverify.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "PING",
+      "pluginName": "i18n::ActionPing.Name",
+      "documentationUrl": "/workflow/actions/ping.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/ping.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "PIPELINE",
+      "pluginName": "i18n::ActionPipeline.Name",
+      "documentationUrl": "/workflow/actions/pipeline.html",
+      "status": "matched",
+      "mdRelativePath": "02-核心概念/pipeline.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "Repeat",
+      "pluginName": "i18n::Repeat.Name",
+      "documentationUrl": "/workflow/actions/repeat.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/工作流控制类/repeat.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "RunPipelineTests",
+      "pluginName": "i18n::RunPipelineTests.Name",
+      "documentationUrl": "/workflow/actions/runpipelinetests.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/runpipelinetests.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SEND_NAGIOS_PASSIVE_CHECK",
+      "pluginName": "i18n::ActionSendNagiosPassiveCheck.Name",
+      "documentationUrl": "/workflow/actions/sendnagiospassivecheck.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/sendnagiospassivecheck.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SET_VARIABLES",
+      "pluginName": "i18n::ActionSetVariables.Name",
+      "documentationUrl": "/workflow/actions/setvariables.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/脚本与评估类/setvariables.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SFTP",
+      "pluginName": "i18n::ActionSFTP.Name",
+      "documentationUrl": "/workflow/actions/sftp.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/sftp.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SFTPPUT",
+      "pluginName": "i18n::ActionSFTPPut.Name",
+      "documentationUrl": "/workflow/actions/sftpput.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/sftpput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SHELL",
+      "pluginName": "i18n::ActionShell.Name",
+      "documentationUrl": "/workflow/actions/shell.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/脚本与评估类/shell.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SIMPLE_EVAL",
+      "pluginName": "i18n::ActionSimpleEval.Name",
+      "documentationUrl": "/workflow/actions/simpleeval.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/脚本与评估类/simpleeval.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SNMP_TRAP",
+      "pluginName": "i18n::ActionSNMPTrap.Name",
+      "documentationUrl": "/workflow/actions/snmptrap.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/消息与监控类/snmptrap.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SQL",
+      "pluginName": "i18n::ActionSQL.Name",
+      "documentationUrl": "/workflow/actions/sql.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/数据库操作类/sql.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SUCCESS",
+      "pluginName": "i18n::ActionSuccess.Name",
+      "documentationUrl": "/workflow/actions/success.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/工作流控制类/success.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "SnowflakeWarehouseManager",
+      "pluginName": "Action.Name",
+      "documentationUrl": "/workflow/actions/snowflake-whm.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/snowflake-whm.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "TABLE_EXISTS",
+      "pluginName": "i18n::ActionTableExists.Name",
+      "documentationUrl": "/workflow/actions/tableexists.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/tableexists.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "TELNET",
+      "pluginName": "i18n::ActionTelnet.Name",
+      "documentationUrl": "/workflow/actions/telnet.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/telnet.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "TRUNCATE_TABLES",
+      "pluginName": "i18n::ActionTruncateTables.Name",
+      "documentationUrl": "/workflow/actions/truncatetables.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/truncatetables.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "UNZIP",
+      "pluginName": "i18n::ActionUnZip.Name",
+      "documentationUrl": "/workflow/actions/unzip.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/unzip.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WAIT_FOR_FILE",
+      "pluginName": "i18n::ActionWaitForFile.Name",
+      "documentationUrl": "/workflow/actions/waitforfile.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/waitforfile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WAIT_FOR_SQL",
+      "pluginName": "i18n::ActionWaitForSQL.Name",
+      "documentationUrl": "/workflow/actions/waitforsql.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/waitforsql.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WEBSERVICE_AVAILABLE",
+      "pluginName": "i18n::ActionWebServiceAvailable.Name",
+      "documentationUrl": "/workflow/actions/webserviceavailable.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/网络与服务类/webserviceavailable.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WORKFLOW",
+      "pluginName": "i18n::ActionWorkflow.Name",
+      "documentationUrl": "/workflow/actions/workflow.html",
+      "status": "matched",
+      "mdRelativePath": "02-核心概念/workflow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WRITE_TO_FILE",
+      "pluginName": "i18n::ActionWriteToFile.Name",
+      "documentationUrl": "/workflow/actions/writetofile.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/其他动作/writetofile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "WRITE_TO_LOG",
+      "pluginName": "i18n::ActionWriteToLog.Name",
+      "documentationUrl": "/workflow/actions/writetolog.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/消息与监控类/writetolog.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "XML_WELL_FORMED",
+      "pluginName": "i18n::XML_WELL_FORMED.Name",
+      "documentationUrl": "/workflow/actions/xmlwellformed.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/XML与验证类/xmlwellformed.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "XSD_VALIDATOR",
+      "pluginName": "i18n::XSD_VALIDATOR.Name",
+      "documentationUrl": "/workflow/actions/xsdvalidator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/xsdvalidator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "XSLT",
+      "pluginName": "i18n::XSLT.Name",
+      "documentationUrl": "/workflow/actions/xslt.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/XML与验证类/xslt.md",
+      "note": null
+    },
+    {
+      "annotationType": "Action",
+      "pluginId": "ZIP_FILE",
+      "pluginName": "i18n::ActionZipFile.Name",
+      "documentationUrl": "/workflow/actions/zipfile.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/zipfile.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "AS/400",
+      "pluginName": "AS/400",
+      "documentationUrl": "/database/databases/as400.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/as400.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "CACHE",
+      "pluginName": "InterSystems Cache",
+      "documentationUrl": "/database/databases/cache.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/cache.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "CLICKHOUSE",
+      "pluginName": "ClickHouse",
+      "documentationUrl": "/database/databases/clickhouse.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/clickhouse.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "CLOUDERA-IMPALA",
+      "pluginName": "Cloudera Impala",
+      "documentationUrl": "/database/databases/cloudera-impala",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/cloudera-impala.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "COCKROACHDB",
+      "pluginName": "CockroachDB",
+      "documentationUrl": "/database/databases/postgresql.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/postgresql.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "CRATEDB",
+      "pluginName": "CrateDB",
+      "documentationUrl": "/database/databases/cratedb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/cratedb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "DATABRICKS",
+      "pluginName": "Databricks",
+      "documentationUrl": "/database/databases/databricks.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/databricks.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "DB2",
+      "pluginName": "DB2",
+      "documentationUrl": "/database/databases/db2.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/db2.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "DERBY",
+      "pluginName": "Apache Derby",
+      "documentationUrl": "/database/databases/derby.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/derby.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "DORIS",
+      "pluginName": "Apache Doris",
+      "documentationUrl": "/database/databases/doris.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/doris.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "DuckDB",
+      "pluginName": "DuckDB",
+      "documentationUrl": "/database/databases/duckdb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/duckdb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "EXASOL4",
+      "pluginName": "Exasol",
+      "documentationUrl": "/database/databases/exasol.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/exasol.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "FIREBIRD",
+      "pluginName": "Firebird SQL",
+      "documentationUrl": "/database/databases/firebird.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/firebird.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "GENERIC",
+      "pluginName": "Generic database",
+      "documentationUrl": "/database/databases.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/databases.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "GOOGLEBIGQUERY",
+      "pluginName": "Google BigQuery",
+      "documentationUrl": "/database/databases/googlebigquery.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/googlebigquery.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "GREENPLUM",
+      "pluginName": "Greenplum",
+      "documentationUrl": "/database/databases/greenplum.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/greenplum.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "H2",
+      "pluginName": "H2",
+      "documentationUrl": "/database/databases/h2.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/h2.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "HIVE",
+      "pluginName": "Apache Hive",
+      "documentationUrl": "/database/databases/apache-hive.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/apache-hive.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "HYPERSONIC",
+      "pluginName": "Hypersonic",
+      "documentationUrl": "/database/databases/hypersonic.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/hypersonic.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "INFOBRIGHT",
+      "pluginName": "Infobright",
+      "documentationUrl": "/database/databases/infobright.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/infobright.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "INFORMIX",
+      "pluginName": "Informix",
+      "documentationUrl": "/database/databases/informix.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/informix.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "INGRES",
+      "pluginName": "Ingres",
+      "documentationUrl": "/database/databases/ingres.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/ingres.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "INTERBASE",
+      "pluginName": "Borland Interbase",
+      "documentationUrl": "/database/databases/interbase.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/interbase.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "IRIS",
+      "pluginName": "InterSystems Iris",
+      "documentationUrl": "/database/databases/iris.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/iris.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "KINGBASEES",
+      "pluginName": "KingbaseES",
+      "documentationUrl": "/database/databases/kingbasees.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/kingbasees.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MARIADB",
+      "pluginName": "MariaDB",
+      "documentationUrl": "/database/databases/mariadb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/mariadb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MONETDB",
+      "pluginName": "MonetDB",
+      "documentationUrl": "/database/databases/monetdb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/monetdb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MSACCESS",
+      "pluginName": "Microsoft Access database",
+      "documentationUrl": "/database/databases/access.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/access.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MSSQL",
+      "pluginName": "MS SQL Server",
+      "documentationUrl": "/database/databases/mssql.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/mssql.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MSSQLNATIVE",
+      "pluginName": "MS SQL Server (Native)",
+      "documentationUrl": "/database/databases/mssqlnative.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/mssqlnative.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "MYSQL",
+      "pluginName": "MySQL",
+      "documentationUrl": "/database/databases/mysql.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/mysql.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "NETEZZA",
+      "pluginName": "Netezza",
+      "documentationUrl": "/database/databases/netezza.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/netezza.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "NONE",
+      "pluginName": "No connection type",
+      "documentationUrl": "/database/databases.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/databases.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "ORACLE",
+      "pluginName": "Oracle",
+      "documentationUrl": "/database/databases/oracle.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/oracle.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "ORACLERDB",
+      "pluginName": "Oracle RDB",
+      "documentationUrl": "/database/databases/oraclerdb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/oraclerdb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "POSTGRESQL",
+      "pluginName": "PostgreSQL",
+      "documentationUrl": "/database/databases/postgresql.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/postgresql.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "REDSHIFT",
+      "pluginName": "Redshift",
+      "documentationUrl": "/database/databases/redshift.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/redshift.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SAPDB",
+      "pluginName": "MaxDB (SAP DB)",
+      "documentationUrl": "/database/databases/sapdb.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/sapdb.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SINGLESTORE",
+      "pluginName": "SingleStore (MemSQL)",
+      "documentationUrl": "/database/databases/singlestore.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/singlestore.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SNOWFLAKE",
+      "pluginName": "Snowflake",
+      "documentationUrl": "/database/databases/snowflake.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/snowflake.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SQLBASE",
+      "pluginName": "Gupta SQL Base",
+      "documentationUrl": "/database/databases/sqlbase.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/sqlbase.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SQLITE",
+      "pluginName": "SQLite",
+      "documentationUrl": "/database/databases/sqlite.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/sqlite.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SYBASE",
+      "pluginName": "Sybase",
+      "documentationUrl": "/database/databases/sybase.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/sybase.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "SYBASEIQ",
+      "pluginName": "Sybase IQ",
+      "documentationUrl": "/database/databases/sybaseiq.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/sybaseiq.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "TERADATA",
+      "pluginName": "Teradata",
+      "documentationUrl": "/database/databases/teradata.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/teradata.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "UNIVERSE",
+      "pluginName": "IBM UniVerse database",
+      "documentationUrl": "/database/databases/universe.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/universe.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "VECTORWISE",
+      "pluginName": "Ingres VectorWise",
+      "documentationUrl": "/database/databases/vectorwise.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/vectorwise.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "VERTICA",
+      "pluginName": "Vertica",
+      "documentationUrl": "/database/databases/vertica.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/vertica.md",
+      "note": null
+    },
+    {
+      "annotationType": "DatabaseMetaPlugin",
+      "pluginId": "VERTICA5",
+      "pluginName": "Vertica 5",
+      "documentationUrl": "/database/databases/vertica.html",
+      "status": "matched",
+      "mdRelativePath": "05-数据库插件/vertica.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "AzureConnectionDefinition",
+      "pluginName": "i18n::AzureMetadataType.Name",
+      "documentationUrl": "/metadata-types/azure-authentication.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/azure-authentication.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "GoogleStorageConnectionDefinition",
+      "pluginName": "i18n::GoogleStorageMetadataType.Name",
+      "documentationUrl": "/metadata-types/google-storage-authentication.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/google-storage-authentication.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "MailServerConnection",
+      "pluginName": "i18n::MailServerConnection.name",
+      "documentationUrl": "/metadata-types/mail-server-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/mail-server-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "MinioConnectionDefinition",
+      "pluginName": "i18n::MinioMeta.Name",
+      "documentationUrl": "/metadata-types/minio-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/minio-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "S3ConnectionDefinition",
+      "pluginName": "i18n::S3Meta.name",
+      "documentationUrl": "/metadata-types/s3-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/minio-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "WebDavConnectionDefinition",
+      "pluginName": "i18n::WebDavConnection.Name",
+      "documentationUrl": "/metadata-types/webdav-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/webdav-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "async-web-service",
+      "pluginName": "i18n::AsyncWebService.name",
+      "documentationUrl": "/metadata-types/async-web-service.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/async-web-service.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "cassandra-connection",
+      "pluginName": "i18n::CassandraConnection.name",
+      "documentationUrl": "/metadata-types/cassandra/cassandra-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/cassandra-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "data-stream",
+      "pluginName": "i18n::DataStream.name",
+      "documentationUrl": "/metadata-types/data-stream.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/data-stream.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "dataset",
+      "pluginName": "i18n::DataSet.name",
+      "documentationUrl": "/metadata-types/data-set.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/data-set.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "execution-data-profile",
+      "pluginName": "i18n::ExecutionDataProfile.name",
+      "documentationUrl": "/metadata-types/execution-data-profile.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/execution-data-profile.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "execution-info-location",
+      "pluginName": "i18n::ExecutionInfoLocation.name",
+      "documentationUrl": "/metadata-types/execution-information-location.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/execution-information-location.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "file-definition",
+      "pluginName": "i18n::BeamFileDefinition.name",
+      "documentationUrl": "/metadata-types/beam-file-definition.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/beam-file-definition.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "mongodb-connection",
+      "pluginName": "i18n::MongoDbConnection.name",
+      "documentationUrl": "/metadata-types/mongodb-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/mongodb-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "neo4j-connection",
+      "pluginName": "i18n::NeoConnection.name",
+      "documentationUrl": "/metadata-types/neo4j/neo4j-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/neo4j-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "neo4j-graph-model",
+      "pluginName": "i18n::GraphModel.name",
+      "documentationUrl": "/metadata-types/neo4j/neo4j-graphmodel.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/neo4j-graphmodel.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "partition",
+      "pluginName": "i18n::PartitionSchema.name",
+      "documentationUrl": "/metadata-types/partition-schema.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/partition-schema.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "pipeline-log",
+      "pluginName": "i18n::PipelineLog.name",
+      "documentationUrl": "/metadata-types/pipeline-log.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/pipeline-log.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "pipeline-probe",
+      "pluginName": "i18n::PipelineProbe.name",
+      "documentationUrl": "/metadata-types/pipeline-probe.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/pipeline-probe.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "pipeline-run-configuration",
+      "pluginName": "i18n::PipelineRunConfiguration.name",
+      "documentationUrl": "/metadata-types/pipeline-run-config.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/pipeline-run-config.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "rdbms",
+      "pluginName": "i18n::DatabaseMeta.name",
+      "documentationUrl": "/metadata-types/rdbms-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/rdbms-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "restconnection",
+      "pluginName": "i18n::RestConnection.name",
+      "documentationUrl": "/metadata-types/rest-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/rest-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "salesforceconnection",
+      "pluginName": "i18n::SalesforceConnection.name",
+      "documentationUrl": "/metadata-types/salesforce-connection.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/salesforce-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "schema-definition",
+      "pluginName": "i18n::SchemaDefinition.Name",
+      "documentationUrl": "/metadata-types/static-schema-definition.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/static-schema-definition.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "server",
+      "pluginName": "i18n::HopServer.name",
+      "documentationUrl": "/metadata-types/hop-server.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/hop-server.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "splunk",
+      "pluginName": "i18n::SplunkConnection.name",
+      "documentationUrl": "/metadata-types/splunk-connection.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/splunk-connection.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "unit-test",
+      "pluginName": "i18n::PipelineUnitTest.name",
+      "documentationUrl": "/metadata-types/pipeline-unit-test.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/pipeline-unit-test.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "variable-resolver",
+      "pluginName": "i18n::VariableResolver.name",
+      "documentationUrl": "/metadata-types/variable-resolver/",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/variable-resolver-index.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "web-service",
+      "pluginName": "i18n::WebService.name",
+      "documentationUrl": "/metadata-types/web-service.html",
+      "status": "matched",
+      "mdRelativePath": "09-Hop工具/web-service.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "workflow-log",
+      "pluginName": "i18n::WorkflowLog.name",
+      "documentationUrl": "/metadata-types/workflow-log.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/workflow-log.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopMetadata",
+      "pluginId": "workflow-run-configuration",
+      "pluginName": "i18n::WorkflowRunConfiguration.name",
+      "documentationUrl": "/metadata-types/workflow-run-config.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/workflow-run-config.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "100-HopExplorerPerspective",
+      "pluginName": "i18n::ExplorerPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-file-explorer.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-file-explorer.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "150-HopExecutionPerspective",
+      "pluginName": "i18n::ExecutionPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-execution-information.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-execution-information.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "160-HopConfigurationPerspective",
+      "pluginName": "i18n::ConfigurationPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-configuration.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-configuration.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "200-HopMetadataPerspective",
+      "pluginName": "i18n::MetadataPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-metadata.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-metadata.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "310-GitCommitPerspective",
+      "pluginName": "i18n::GitCommitPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-git-commit.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/hop-gui-git.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "311-GitPerspective",
+      "pluginName": "i18n::GitPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-git.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/hop-gui-git.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "400-HopSearchPerspective",
+      "pluginName": "i18n::HopSearchPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-search.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-search.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "500-HopPluginExplorerPerspective",
+      "pluginName": "i18n::PluginExplorerPerspective.Name",
+      "documentationUrl": "/hop-gui/perspective-plugin.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-plugin.md",
+      "note": null
+    },
+    {
+      "annotationType": "HopPerspectivePlugin",
+      "pluginId": "HopNeo4jPerspective",
+      "pluginName": "Neo4j",
+      "documentationUrl": "/hop-gui/perspective-neo4j.html",
+      "status": "matched",
+      "mdRelativePath": "10-HopGUI/perspective-neo4j.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Abort",
+      "pluginName": "i18n::Abort.Name",
+      "documentationUrl": "/pipeline/transforms/abort.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/abort.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AccessOutput",
+      "pluginName": "i18n::AccessOutput.Name",
+      "documentationUrl": "/pipeline/transforms/accessoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/accessoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AddXML",
+      "pluginName": "i18n::AddXML.name",
+      "documentationUrl": "/pipeline/transforms/addxml.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/addxml.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AdvancedXMLOutput",
+      "pluginName": "i18n::AdvancedXMLOutput.name",
+      "documentationUrl": "/pipeline/transforms/xmloutputadvanced.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/xmloutputadvanced.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AnalyticQuery",
+      "pluginName": "i18n::AnalyticQuery.Name",
+      "documentationUrl": "/pipeline/transforms/analyticquery.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/analyticquery.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Append",
+      "pluginName": "i18n::Append.Name",
+      "documentationUrl": "/pipeline/transforms/append.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/append.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AvroDecode",
+      "pluginName": "Avro Decode",
+      "documentationUrl": "/pipeline/transforms/avro-decode.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/Avro数据格式类/avro-decode.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AvroEncode",
+      "pluginName": "Avro Encode",
+      "documentationUrl": "/pipeline/transforms/avro-encode.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/Avro数据格式类/avro-encode.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AvroFileInput",
+      "pluginName": "Avro File Input",
+      "documentationUrl": "/pipeline/transforms/avro-file-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/avro-file-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AvroOutput",
+      "pluginName": "i18n::AvroOutputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/avro-file-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/Avro数据格式类/avro-file-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AwsSqSreader",
+      "pluginName": "i18n::SQSReaderTransform.Name",
+      "documentationUrl": "/pipeline/transforms/aws-sqs-reader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/aws-sqs-reader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AzureListener",
+      "pluginName": "i18n::AzureListenerMeta.name",
+      "documentationUrl": "/pipeline/transforms/azure-event-hubs-listener.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/azure-event-hubs-listener.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "AzureWriter",
+      "pluginName": "i18n::AzureWriterMeta.name",
+      "documentationUrl": "/pipeline/transforms/azure-event-hubs-writer.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/azure-event-hubs-writer.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamBQInput",
+      "pluginName": "i18n::BeamBQInputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beambigqueryinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beambigqueryinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamBQOutput",
+      "pluginName": "i18n::BeamBQOutputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beambigqueryoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beambigqueryoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamBigtableInput",
+      "pluginName": "i18n::BeamBigtableInput.Name",
+      "documentationUrl": "/pipeline/transforms/beambigtableinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beambigtableinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamBigtableOutput",
+      "pluginName": "i18n::BeamBigtableOutput.Name",
+      "documentationUrl": "/pipeline/transforms/beambigtableoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beambigtableoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamHiveCatalogInput",
+      "pluginName": "i18n::BeamHiveCatalogInputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamhivecataloginput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamhivecataloginput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamInput",
+      "pluginName": "i18n::BeamInputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamfileinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamfileinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamKafkaConsume",
+      "pluginName": "i18n::BeamConsumeDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamkafkaconsume.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamkafkaconsume.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamKafkaProduce",
+      "pluginName": "i18n::BeamProduceDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamkafkaproduce.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamkafkaproduce.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamKinesisConsume",
+      "pluginName": "i18n::BeamKinesisConsumeMeta.name",
+      "documentationUrl": "/pipeline/transforms/beamkinesisconsume.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamkinesisconsume.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamKinesisProduce",
+      "pluginName": "i18n::BeamKinesisProduceMeta.name",
+      "documentationUrl": "/pipeline/transforms/beamkinesisproduce.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamkinesisproduce.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamOutput",
+      "pluginName": "i18n::BeamOutputDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamfileoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamfileoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamPublish",
+      "pluginName": "i18n::BeamPublishDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamgcppublisher.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamgcppublisher.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamSubscribe",
+      "pluginName": "i18n::BeamSubscribeDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamgcpsubscriber.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamgcpsubscriber.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamTimestamp",
+      "pluginName": "i18n::BeamTimestampDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamtimestamp.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamtimestamp.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BeamWindow",
+      "pluginName": "i18n::BeamWindowDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/beamwindow.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/beamwindow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BlockUntilTransformsFinish",
+      "pluginName": "i18n::BlockUntilTransformsFinish.Name",
+      "documentationUrl": "/pipeline/transforms/blockuntiltransformsfinish.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/blockuntiltransformsfinish.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "BlockingTransform",
+      "pluginName": "i18n::BlockingTransform.Name",
+      "documentationUrl": "/pipeline/transforms/blockingtransform.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/blockingtransform.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CSVInput",
+      "pluginName": "i18n::CsvInput.Name",
+      "documentationUrl": "/pipeline/transforms/csvinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/csvinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Calculator",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.Calculator",
+      "documentationUrl": "/pipeline/transforms/calculator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/计算与字段操作类/calculator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CassandraInput",
+      "pluginName": "Cassandra input",
+      "documentationUrl": "/pipeline/transforms/cassandra-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/cassandra-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CassandraOutput",
+      "pluginName": "Cassandra output",
+      "documentationUrl": "/pipeline/transforms/cassandra-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/cassandra-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ChangeFileEncoding",
+      "pluginName": "i18n::ChangeFileEncoding.Name",
+      "documentationUrl": "/pipeline/transforms/changefileencoding.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/changefileencoding.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CheckSum",
+      "pluginName": "i18n::CheckSum.Name",
+      "documentationUrl": "/pipeline/transforms/addchecksum.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/计算与字段操作类/addchecksum.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CloneRow",
+      "pluginName": "i18n::CloneRow.Name",
+      "documentationUrl": "/pipeline/transforms/clonerow.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/clonerow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ClosureGenerator",
+      "pluginName": "i18n::ClosureGenerator.Name",
+      "documentationUrl": "/pipeline/transforms/closure.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/closure.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Coalesce",
+      "pluginName": "i18n::Coalesce.Name",
+      "documentationUrl": "/pipeline/transforms/coalesce.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/coalesce.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ColumnExists",
+      "pluginName": "i18n::ColumnExists.Name",
+      "documentationUrl": "/pipeline/transforms/columnexists.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/columnexists.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CombinationLookup",
+      "pluginName": "i18n::CombinationLookup.Name",
+      "documentationUrl": "/pipeline/transforms/combinationlookup.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/combinationlookup.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ConcatFields",
+      "pluginName": "i18n::ConcatFields.Name",
+      "documentationUrl": "/pipeline/transforms/concatfields.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/字符串与文本处理类/concatfields.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Constant",
+      "pluginName": "i18n::AddConstants.Name",
+      "documentationUrl": "/pipeline/transforms/addconstant.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/计算与字段操作类/addconstant.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CrateDBBulkLoader",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.CrateDBBulkLoaderMessage",
+      "documentationUrl": "/pipeline/transforms/cratedb-bulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/cratedb-bulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CreditCardValidator",
+      "pluginName": "i18n::CreditCardValidator.Name",
+      "documentationUrl": "/pipeline/transforms/creditcardvalidator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据验证与质量类/creditcardvalidator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CubeInput",
+      "pluginName": "i18n::CubeInput.Name",
+      "documentationUrl": "/pipeline/transforms/serialize-de-from-file.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/serialize-de-from-file.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "CubeOutput",
+      "pluginName": "i18n::CubeOutput.Name",
+      "documentationUrl": "/pipeline/transforms/serialize-to-file.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/serialize-to-file.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DBJoin",
+      "pluginName": "i18n::DatabaseJoin.Name",
+      "documentationUrl": "/pipeline/transforms/databasejoin.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/databasejoin.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DBLookup",
+      "pluginName": "i18n::DatabaseLookup.Name",
+      "documentationUrl": "/pipeline/transforms/databaselookup.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/databaselookup.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DBProc",
+      "pluginName": "i18n::CallDBProcedure.Name",
+      "documentationUrl": "/pipeline/transforms/calldbproc.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/calldbproc.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DDL",
+      "pluginName": "i18n::Ddl.Name",
+      "documentationUrl": "/pipeline/transforms/ddl.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/ddl.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DataGrid",
+      "pluginName": "i18n::DataGrid.Name",
+      "documentationUrl": "/pipeline/transforms/datagrid.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/datagrid.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DataSetInput",
+      "pluginName": "Data Set Input",
+      "documentationUrl": "/pipeline/transforms/datasetinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/datasetinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DataStreamInput",
+      "pluginName": "i18n::DataStreamInputMeta.Name",
+      "documentationUrl": "/pipeline/transforms/data-stream-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/data-stream-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DataStreamOutput",
+      "pluginName": "i18n::DataStreamOutputMeta.Name",
+      "documentationUrl": "/pipeline/transforms/data-stream-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/data-stream-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DbImpactInput",
+      "pluginName": "i18n::DbImpactInputMeta.Name",
+      "documentationUrl": "/pipeline/transforms/dbimpactinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/dbimpactinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Delay",
+      "pluginName": "i18n::Delay.Name",
+      "documentationUrl": "/pipeline/transforms/delay.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/delay.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Delete",
+      "pluginName": "i18n::Delete.Name",
+      "documentationUrl": "/pipeline/transforms/delete.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/delete.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Denormaliser",
+      "pluginName": "i18n::Denormaliser.Name",
+      "documentationUrl": "/pipeline/transforms/rowdenormaliser.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/rowdenormaliser.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DetectEmptyStream",
+      "pluginName": "i18n::DetectEmptyStream.Name",
+      "documentationUrl": "/pipeline/transforms/detectemptystream.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/detectemptystream.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DetectLanguage",
+      "pluginName": "i18n::DetectLanguage.Name",
+      "documentationUrl": "/pipeline/transforms/detectlanguage.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/detectlanguage.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DetectLastRow",
+      "pluginName": "i18n::DetectLastRow.Name",
+      "documentationUrl": "/pipeline/transforms/identifylastrow.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/identifylastrow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DimensionLookup",
+      "pluginName": "i18n::DimensionUpdate.Name",
+      "documentationUrl": "/pipeline/transforms/dimensionlookup.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/dimensionlookup.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DorisBulkLoader",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.DorisBulkLoader",
+      "documentationUrl": "/pipeline/transforms/dorisbulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/dorisbulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Dummy",
+      "pluginName": "i18n:org.apache.hop.pipeline.transform:BaseTransform.TypeLongDesc.Dummy",
+      "documentationUrl": "/pipeline/transforms/dummy.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/dummy.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "DynamicSqlRow",
+      "pluginName": "i18n::DynamicSQLRow.Name",
+      "documentationUrl": "/pipeline/transforms/dynamicsqlrow.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/dynamicsqlrow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "EnhancedJsonOutput",
+      "pluginName": "i18n::EnhancedJsonOutput.name",
+      "documentationUrl": "/pipeline/transforms/enhancedjsonoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/enhancedjsonoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExcelInput",
+      "pluginName": "i18n::ExcelInput.Name",
+      "documentationUrl": "/pipeline/transforms/excelinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/excelinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExecInfo",
+      "pluginName": "i18n::ExecInfo.Name",
+      "documentationUrl": "/pipeline/transforms/execinfo.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/execinfo.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExecProcess",
+      "pluginName": "i18n::ExecProcess.Name",
+      "documentationUrl": "/pipeline/transforms/execprocess.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/execprocess.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExecSql",
+      "pluginName": "i18n::ExecSql.Name",
+      "documentationUrl": "/pipeline/transforms/execsql.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/execsql.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExecSqlRow",
+      "pluginName": "i18n::ExecSqlRow.Name",
+      "documentationUrl": "/pipeline/transforms/execsqlrow.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/execsqlrow.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ExecuteTests",
+      "pluginName": "Execute Unit Tests",
+      "documentationUrl": "/pipeline/transforms/exectests.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/exectests.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Fake",
+      "pluginName": "i18n::Fake.Name",
+      "documentationUrl": "/pipeline/transforms/fake.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/fake.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FieldSplitter",
+      "pluginName": "i18n::SplitFields.Name",
+      "documentationUrl": "/pipeline/transforms/splitfields.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/字符串与文本处理类/splitfields.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FieldsChangeSequence",
+      "pluginName": "i18n::FieldsChangeSequence.Name",
+      "documentationUrl": "/pipeline/transforms/addfieldschangesequence.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/addfieldschangesequence.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FileExists",
+      "pluginName": "i18n::FileExists.Name",
+      "documentationUrl": "/pipeline/transforms/fileexists.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/文件与编码操作类/fileexists.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FileLocked",
+      "pluginName": "i18n::FileLocked.Name",
+      "documentationUrl": "/pipeline/transforms/checkfilelocked.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/checkfilelocked.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FileMetadataPlugin",
+      "pluginName": "i18n::FileMetadata.Name",
+      "documentationUrl": "/pipeline/transforms/filemetadata.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/filemetadata.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FilesFromResult",
+      "pluginName": "i18n::FilesFromResult.Name",
+      "documentationUrl": "/pipeline/transforms/filesfromresult.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/filesfromresult.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FilesToResult",
+      "pluginName": "i18n::FilesToResult.Name",
+      "documentationUrl": "/pipeline/transforms/filestoresult.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/filestoresult.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FilterRows",
+      "pluginName": "i18n::FilterRows.Name",
+      "documentationUrl": "/pipeline/transforms/filterrows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/filterrows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Flattener,Flatterner",
+      "pluginName": "i18n::RowFlattener.Name",
+      "documentationUrl": "/pipeline/transforms/rowflattener.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/rowflattener.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Formula",
+      "pluginName": "i18n::Formula.name",
+      "documentationUrl": "/pipeline/transforms/formula.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/formula.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "FuzzyMatch",
+      "pluginName": "i18n::FuzzyMatch.Name",
+      "documentationUrl": "/pipeline/transforms/fuzzymatch.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/查找与连接类/fuzzymatch.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetFileNames",
+      "pluginName": "i18n::GetFileNames.Name",
+      "documentationUrl": "/pipeline/transforms/getfilenames.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/getfilenames.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetFilesRowsCount",
+      "pluginName": "i18n::GetFilesRowsCount.Name",
+      "documentationUrl": "/pipeline/transforms/getfilesrowcount.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/getfilesrowcount.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetLoggingInfo",
+      "pluginName": "i18n::GetLoggingInfoDialog.DialogTitle",
+      "documentationUrl": "/pipeline/transforms/neo4j-getloginfo.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-getloginfo.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetServerStatus",
+      "pluginName": "i18n::GetServerStatus.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/serverstatus.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/serverstatus.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetSubFolders",
+      "pluginName": "i18n::GetSubFolders.Name",
+      "documentationUrl": "/pipeline/transforms/getsubfolders.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/getsubfolders.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetTableNames",
+      "pluginName": "i18n::GetTableNames.Name",
+      "documentationUrl": "/pipeline/transforms/gettablenames.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/gettablenames.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GetVariable",
+      "pluginName": "i18n::GetVariable.Name",
+      "documentationUrl": "/pipeline/transforms/getvariable.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/getvariable.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GoogleAnalytics",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.GoogleAnalytics",
+      "documentationUrl": "/pipeline/transforms/google-analytics.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/google-analytics.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GoogleSheetsInput",
+      "pluginName": "i18n::GoogleSheetsInput.transform.Name",
+      "documentationUrl": "/pipeline/transforms/google-sheets-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/google-sheets-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GoogleSheetsOutput",
+      "pluginName": "i18n::GoogleSheetsOutput.transform.Name",
+      "documentationUrl": "/pipeline/transforms/google-sheets-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/google-sheets-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "GroupBy",
+      "pluginName": "i18n::GroupBy.Name",
+      "documentationUrl": "/pipeline/transforms/groupby.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/统计与分组类/groupby.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Html2Text",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.Html2Text",
+      "documentationUrl": "/pipeline/transforms/html2text.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/html2text.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Http",
+      "pluginName": "i18n::HTTP.Name",
+      "documentationUrl": "/pipeline/transforms/http.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/http.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "HttpPost",
+      "pluginName": "i18n::HTTPPOST.Name",
+      "documentationUrl": "/pipeline/transforms/httppost.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/httppost.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "IfNull",
+      "pluginName": "i18n::IfNull.Name",
+      "documentationUrl": "/pipeline/transforms/ifnull.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/ifnull.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Injector",
+      "pluginName": "i18n:org.apache.hop.pipeline.transform:BaseTransform.TypeLongDesc.Injector",
+      "documentationUrl": "/pipeline/transforms/injector.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/injector.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "InsertUpdate",
+      "pluginName": "i18n::InsertUpdate.Name",
+      "documentationUrl": "/pipeline/transforms/insertupdate.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/insertupdate.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Janino",
+      "pluginName": "i18n::Janino.Name",
+      "documentationUrl": "/pipeline/transforms/userdefinedjavaexpression.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/userdefinedjavaexpression.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "JavaFilter",
+      "pluginName": "i18n::JavaFilter.Name",
+      "documentationUrl": "/pipeline/transforms/javafilter.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/javafilter.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "JdbcMetadata",
+      "pluginName": "i18n::JdbcMetadata.Name",
+      "documentationUrl": "/pipeline/transforms/jdbcmetadata.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/jdbcmetadata.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "JoinRows",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.JoinRows",
+      "documentationUrl": "/pipeline/transforms/joinrows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/查找与连接类/joinrows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "JsonOutput",
+      "pluginName": "i18n::JsonOutput.name",
+      "documentationUrl": "/pipeline/transforms/jsonoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/jsonoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "KafkaConsumer",
+      "pluginName": "i18n::KafkaConsumer.TypeLongDesc",
+      "documentationUrl": "/pipeline/transforms/kafkaconsumer.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/kafkaconsumer.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "KafkaProducerOutput",
+      "pluginName": "i18n::KafkaProducer.TypeLongDesc",
+      "documentationUrl": "/pipeline/transforms/kafkaproducer.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/kafkaproducer.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "LDAPInput",
+      "pluginName": "i18n::LdapInput.Name",
+      "documentationUrl": "/pipeline/transforms/ldapinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/ldapinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "LDAPOutput",
+      "pluginName": "i18n::LdapOutput.Name",
+      "documentationUrl": "/pipeline/transforms/ldapoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/ldapoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "LanguageModelChat",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.LanguageModelChat",
+      "documentationUrl": "/pipeline/transforms/languagemodelchat.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/languagemodelchat.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "LoadFileInput",
+      "pluginName": "i18n::LoadFileInput.Name",
+      "documentationUrl": "/pipeline/transforms/loadfileinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/loadfileinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Mail",
+      "pluginName": "i18n::Mail.Name",
+      "documentationUrl": "/pipeline/transforms/mail.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/网络与通信类/mail.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MailInput",
+      "pluginName": "i18n::MailInput.Name",
+      "documentationUrl": "/pipeline/transforms/emailinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/emailinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MappingInput",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.MappingInput",
+      "documentationUrl": "/pipeline/transforms/mapping-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/映射与子管道类/mapping-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MappingOutput",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.MappingOuptut",
+      "documentationUrl": "/pipeline/transforms/mapping-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/映射与子管道类/mapping-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MemoryGroupBy",
+      "pluginName": "i18n::MemoryGroupBy.Name",
+      "documentationUrl": "/pipeline/transforms/memgroupby.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/memgroupby.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MergeJoin",
+      "pluginName": "i18n::MergeJoin.Name",
+      "documentationUrl": "/pipeline/transforms/mergejoin.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/mergejoin.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MergeRows",
+      "pluginName": "i18n::MergeRows.Name",
+      "documentationUrl": "/pipeline/transforms/mergerows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/mergerows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MetaInject",
+      "pluginName": "i18n::MetaInject.Name",
+      "documentationUrl": "/pipeline/transforms/metainject.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/metainject.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MetadataInput",
+      "pluginName": "i18n::MetadataInput.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/metadata-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/metadata-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MonetDBBulkLoader",
+      "pluginName": "i18n::MonetDBBulkLoaderDialog.TypeLongDesc.MonetDBBulkLoader",
+      "documentationUrl": "/pipeline/transforms/monetdbbulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/monetdbbulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MongoDbDelete",
+      "pluginName": "i18n::MongoDbDelete.Name",
+      "documentationUrl": "/pipeline/transforms/mongodbdelete.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/mongodbdelete.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MongoDbInput",
+      "pluginName": "i18n::MongoDbInput.Name",
+      "documentationUrl": "/pipeline/transforms/mongodbinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/mongodbinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MongoDbOutput",
+      "pluginName": "i18n::MongoDbOutput.Name",
+      "documentationUrl": "/pipeline/transforms/mongodboutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/mongodboutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MultiwayMergeJoin",
+      "pluginName": "i18n::MultiwayMergeJoin.Name",
+      "documentationUrl": "/pipeline/transforms/multimerge.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/multimerge.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "MySqlBulkLoader",
+      "pluginName": "i18n::MySqlBulkLoader.Name",
+      "documentationUrl": "/pipeline/transforms/mysqlbulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/mysqlbulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4JOutput",
+      "pluginName": "i18n::Neo4JOutput.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/neo4j-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/Neo4j图数据库类/neo4j-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jCypherBuilder",
+      "pluginName": "i18n::CypherBuilderMeta.name",
+      "documentationUrl": "/pipeline/transforms/neo4j-cypher-builder.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-cypher.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jCypherOutput",
+      "pluginName": "i18n::Cypher.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/neo4j-cypher.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-cypher.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jGraphOutput",
+      "pluginName": "i18n::GraphOutput.Name",
+      "documentationUrl": "/pipeline/transforms/neo4j-graphoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-graphoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jImport",
+      "pluginName": "i18n::ImporterMeta.name",
+      "documentationUrl": "/pipeline/transforms/neo4j-import.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-import.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jLoad",
+      "pluginName": "i18n::GenerateCsvMeta.name",
+      "documentationUrl": "/pipeline/transforms/neo4j-gencsv.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-gencsv.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Neo4jSplitGraph",
+      "pluginName": "i18n::SplitGraphMeta.name",
+      "documentationUrl": "/plugins/transforms/split-graph.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/neo4j-split-graph.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Normaliser",
+      "pluginName": "i18n::Normaliser.Name",
+      "documentationUrl": "/pipeline/transforms/rownormaliser.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/rownormaliser.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "NullIf",
+      "pluginName": "i18n::NullIf.Name",
+      "documentationUrl": "/pipeline/transforms/nullif.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/nullif.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "NumberRange",
+      "pluginName": "i18n::NumberRange.Name",
+      "documentationUrl": "/pipeline/transforms/numberrange.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/numberrange.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "OraBulkLoader",
+      "pluginName": "i18n::OraBulkLoader.Name",
+      "documentationUrl": "/pipeline/transforms/orabulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/orabulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PGBulkLoader",
+      "pluginName": "i18n::PGBulkLoader.Name",
+      "documentationUrl": "/pipeline/transforms/postgresbulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/postgresbulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PGPDecryptStream",
+      "pluginName": "i18n::PGPDecryptStream.Name",
+      "documentationUrl": "/pipeline/transforms/pgpdecryptstream.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/pgpdecryptstream.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PGPEncryptStream",
+      "pluginName": "i18n::PGPEncryptStream.Name",
+      "documentationUrl": "/pipeline/transforms/pgpencryptstream.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/pgpencryptstream.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ParquetFileInput",
+      "pluginName": "i18n::ParquetInput.Name",
+      "documentationUrl": "/pipeline/transforms/parquet-file-input.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/parquet-file-input.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ParquetFileOutput",
+      "pluginName": "i18n::ParquetOutput.Name",
+      "documentationUrl": "/pipeline/transforms/parquet-file-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/parquet-file-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PipelineDataProbe",
+      "pluginName": "i18n::PipelineDataProbe.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/pipeline-data-probe.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/pipeline-data-probe.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PipelineExecutor",
+      "pluginName": "i18n::PipelineExecutor.Name",
+      "documentationUrl": "/pipeline/transforms/pipeline-executor.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/pipeline-executor.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PipelineLogging",
+      "pluginName": "i18n::PipelineLogging.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/pipeline-logging.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/pipeline-logging.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ProcessFiles",
+      "pluginName": "i18n::ProcessFiles.Name",
+      "documentationUrl": "/pipeline/transforms/processfiles.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/processfiles.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PropertyInput",
+      "pluginName": "i18n::PropertyInput.Name",
+      "documentationUrl": "/pipeline/transforms/propertyinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/propertyinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "PropertyOutput",
+      "pluginName": "i18n::PropertyOutput.Name",
+      "documentationUrl": "/pipeline/transforms/propertyoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/propertyoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RandomValue",
+      "pluginName": "i18n::RandomValue.Name",
+      "documentationUrl": "/pipeline/transforms/generaterandomvalue.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/generaterandomvalue.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RecordsFromStream",
+      "pluginName": "i18n::RecordsFromStream.Name",
+      "documentationUrl": "/pipeline/transforms/getrecordsfromstream.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/getrecordsfromstream.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RedshiftBulkLoader",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.RedshiftBulkLoaderMessage",
+      "documentationUrl": "/pipeline/transforms/redshift-bulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/redshift-bulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RegexEval",
+      "pluginName": "i18n::RegexEval.Name",
+      "documentationUrl": "/pipeline/transforms/regexeval.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/regexeval.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RepeatFields",
+      "pluginName": "i18n::RepeatFields.Name",
+      "documentationUrl": "/pipeline/transforms/repeatfields.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/repeatfields.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ReplaceString",
+      "pluginName": "i18n::ReplaceString.Name",
+      "documentationUrl": "/pipeline/transforms/replacestring.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/字符串与文本处理类/replacestring.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ReservoirSampling",
+      "pluginName": "i18n::ReservoirSampling.Name",
+      "documentationUrl": "/pipeline/transforms/reservoirsampling.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/reservoirsampling.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Rest",
+      "pluginName": "i18n::Rest.Name",
+      "documentationUrl": "/pipeline/transforms/rest.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/网络与服务类/rest.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RowGenerator",
+      "pluginName": "i18n::GenerateRows.Name",
+      "documentationUrl": "/pipeline/transforms/rowgenerator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/rowgenerator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RowsFromResult",
+      "pluginName": "i18n::RowsFromResult.Name",
+      "documentationUrl": "/pipeline/transforms/getrowsfromresult.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/getrowsfromresult.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RowsToResult",
+      "pluginName": "i18n::RowsToResult.Name",
+      "documentationUrl": "/pipeline/transforms/copyrowstoresult.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/copyrowstoresult.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RuleAccumulator",
+      "pluginName": "i18n::RulesAccumulator.Name",
+      "documentationUrl": "/pipeline/transforms/rulesaccumulator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/rulesaccumulator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "RuleExecutor",
+      "pluginName": "i18n::RulesExecutor.Name",
+      "documentationUrl": "/pipeline/transforms/rulesexecutor.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/rulesexecutor.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SASInput",
+      "pluginName": "i18n::SasInput.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/sasinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/sasinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SQLFileOutput",
+      "pluginName": "i18n::SQLFileOutput.Name",
+      "documentationUrl": "/pipeline/transforms/sqlfileoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/sqlfileoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SSH",
+      "pluginName": "i18n::SSH.Name",
+      "documentationUrl": "/pipeline/transforms/runssh.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/runssh.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SSTableOutput",
+      "pluginName": "SSTable output",
+      "documentationUrl": "/pipeline/transforms/sstable-output.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/sstable-output.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SalesforceDelete",
+      "pluginName": "i18n::SalesforceDelete.TypeLongDesc.SalesforceDelete",
+      "documentationUrl": "/pipeline/transforms/salesforcedelete.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/salesforcedelete.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SalesforceInput",
+      "pluginName": "i18n::SalesforceInput.TypeLongDesc.SalesforceInput",
+      "documentationUrl": "/pipeline/transforms/salesforceinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/salesforceinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SalesforceInsert",
+      "pluginName": "i18n::SalesforceInsert.TypeLongDesc.SalesforceInsert",
+      "documentationUrl": "/pipeline/transforms/salesforceinsert.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/salesforceinsert.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SalesforceUpdate",
+      "pluginName": "i18n::SalesforceUpdate.TypeLongDesc.SalesforceUpdate",
+      "documentationUrl": "/pipeline/transforms/salesforceupdate.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/salesforceupdate.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SalesforceUpsert",
+      "pluginName": "i18n::SalesforceUpsert.TypeLongDesc.SalesforceUpsert",
+      "documentationUrl": "/pipeline/transforms/salesforceupsert.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/salesforceupsert.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SampleRows",
+      "pluginName": "i18n::SampleRows.Name",
+      "documentationUrl": "/pipeline/transforms/samplerows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/samplerows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SchemaMapping",
+      "pluginName": "i18n::SchemaMapping.Name",
+      "documentationUrl": "/pipeline/transforms/schemamapping.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/schemamapping.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ScriptValueMod",
+      "pluginName": "i18n::ScriptValuesMod.Name",
+      "documentationUrl": "/pipeline/transforms/javascript.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/脚本与评估类/javascript.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SelectValues",
+      "pluginName": "i18n:org.apache.hop.pipeline.transforms.selectvalues:SelectValues.Name",
+      "documentationUrl": "/pipeline/transforms/selectvalues.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/selectvalues.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Sequence",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.AddSequence",
+      "documentationUrl": "/pipeline/transforms/addsequence.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/计算与字段操作类/addsequence.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SetValueConstant",
+      "pluginName": "i18n::SetValueConstant.Name",
+      "documentationUrl": "/pipeline/transforms/setvalueconstant.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/setvalueconstant.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SetValueField",
+      "pluginName": "i18n::SetValueField.Name",
+      "documentationUrl": "/pipeline/transforms/setvaluefield.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/setvaluefield.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SetVariable",
+      "pluginName": "i18n::SetVariable.Name",
+      "documentationUrl": "/pipeline/transforms/setvariable.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/setvariable.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SimpleMapping",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.SimpleMapping",
+      "documentationUrl": "/pipeline/transforms/simple-mapping.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/simple-mapping.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SnowflakeBulkLoader",
+      "pluginName": "i18n::SnowflakeBulkLoader.Name",
+      "documentationUrl": "/pipeline/transforms/snowflakebulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/snowflakebulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SnowflakeId",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.AddSnowflakeId",
+      "documentationUrl": "/pipeline/transforms/snowflakeid.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/snowflakeid.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SnsNotify",
+      "pluginName": "i18n::SNSNotify.Name",
+      "documentationUrl": "/pipeline/transforms/aws-sns-notify.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/aws-sns-notify.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SortRows",
+      "pluginName": "i18n::SortRows.Name",
+      "documentationUrl": "/pipeline/transforms/sort.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/sort.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SortedMerge",
+      "pluginName": "i18n::SortedMerge.Name",
+      "documentationUrl": "/pipeline/transforms/sortedmerge.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/sortedmerge.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SplitFieldToRows3",
+      "pluginName": "i18n::SplitFieldToRows.Name",
+      "documentationUrl": "/pipeline/transforms/splitfieldtorows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/splitfieldtorows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SplunkInput",
+      "pluginName": "Splunk Input",
+      "documentationUrl": "/pipeline/transforms/splunkinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/splunkinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StandardizePhoneNumber",
+      "pluginName": "i18n::StandardizePhoneNumber.Name",
+      "documentationUrl": "/pipeline/transforms/standardizephonenumber.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/standardizephonenumber.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StanfordSimpleNlp",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.StanfordSimpleNlp",
+      "documentationUrl": "/pipeline/transforms/stanfordnlp.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/stanfordnlp.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StreamLookup",
+      "pluginName": "i18n::StreamLookup.Name",
+      "documentationUrl": "/pipeline/transforms/streamlookup.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/查找与连接类/streamlookup.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StreamSchema",
+      "pluginName": "i18n::StreamSchemaTransform.Name",
+      "documentationUrl": "/pipeline/transforms/streamschemamerge.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/streamschemamerge.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StringCut",
+      "pluginName": "i18n::StringCut.Name",
+      "documentationUrl": "/pipeline/transforms/stringcut.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/stringcut.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "StringOperations",
+      "pluginName": "i18n::StringOperations.Name",
+      "documentationUrl": "/pipeline/transforms/stringoperations.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/stringoperations.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SuperScript",
+      "pluginName": "Script",
+      "documentationUrl": "/pipeline/transforms/script.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/脚本与编程类/script.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SwitchCase",
+      "pluginName": "i18n::SwitchCase.Name",
+      "documentationUrl": "/pipeline/transforms/switchcase.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/流程控制类/switchcase.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SynchronizeAfterMerge",
+      "pluginName": "i18n::SynchronizeAfterMerge.Name",
+      "documentationUrl": "/pipeline/transforms/synchronizeaftermerge.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/synchronizeaftermerge.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "SystemInfo",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.SystemInfo",
+      "documentationUrl": "/pipeline/transforms/getsystemdata.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/getsystemdata.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TableCompare",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.TableCompare",
+      "documentationUrl": "/pipeline/transforms/tablecompare.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/tablecompare.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TableExists",
+      "pluginName": "i18n::TableExists.Name",
+      "documentationUrl": "/pipeline/transforms/tableexists.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/tableexists.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TableInput",
+      "pluginName": "i18n::TableInput.Name",
+      "documentationUrl": "/pipeline/transforms/tableinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/tableinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TableOutput",
+      "pluginName": "i18n::TableOutput.Name",
+      "documentationUrl": "/pipeline/transforms/tableoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/tableoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TeraFast",
+      "pluginName": "i18n::TeraFast.Name",
+      "documentationUrl": "/pipeline/transforms/terafast.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/terafast.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TextFileInput2",
+      "pluginName": "i18n::TextFileInput.Name",
+      "documentationUrl": "/pipeline/transforms/textfileinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/textfileinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TextFileOutput",
+      "pluginName": "i18n::TextFileOutput.Name",
+      "documentationUrl": "/pipeline/transforms/textfileoutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/textfileoutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Tika",
+      "pluginName": "i18n::Tika.Name",
+      "documentationUrl": "/pipeline/transforms/apache-tika.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/apache-tika.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TokenReplacementPlugin",
+      "pluginName": "i18n::TokenReplacement.Name",
+      "documentationUrl": "/pipeline/transforms/tokenreplacement.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/tokenreplacement.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TransformMetaStructure",
+      "pluginName": "i18n::TransformMetaStructure.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/metastructure.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/metastructure.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TypeExitEdi2XmlTransform",
+      "pluginName": "i18n::Edi2Xml.Name",
+      "documentationUrl": "/pipeline/transforms/edi2xml.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/edi2xml.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "TypeExitExcelWriterTransform",
+      "pluginName": "i18n::TypeExitExcelWriterTransform.Name",
+      "documentationUrl": "/pipeline/transforms/excelwriter.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/excelwriter.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Unique",
+      "pluginName": "i18n::UniqueRows.Name",
+      "documentationUrl": "/pipeline/transforms/uniquerows.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/uniquerows.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "UniqueRowsByHashSet",
+      "pluginName": "i18n::UniqueRowsByHashSet.Name",
+      "documentationUrl": "/pipeline/transforms/uniquerowsbyhashset.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/uniquerowsbyhashset.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Update",
+      "pluginName": "i18n::Update.Name",
+      "documentationUrl": "/pipeline/transforms/update.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/数据库操作类/update.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "UserDefinedJavaClass",
+      "pluginName": "i18n::UserDefinedJavaClass.Name",
+      "documentationUrl": "/pipeline/transforms/userdefinedjavaclass.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/userdefinedjavaclass.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "Validator",
+      "pluginName": "i18n::ValidatorDialog.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/validator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/validator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ValueMapper",
+      "pluginName": "i18n::ValueMapper.Name",
+      "documentationUrl": "/pipeline/transforms/valuemapper.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/valuemapper.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "VerticaBulkLoader",
+      "pluginName": "i18n::BaseTransform.TypeLongDesc.VerticaBulkLoaderMessage",
+      "documentationUrl": "/pipeline/transforms/verticabulkloader.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/verticabulkloader.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "WebServiceAvailable",
+      "pluginName": "i18n::WebServiceAvailable.Name",
+      "documentationUrl": "/pipeline/transforms/checkwebserviceavailable.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/checkwebserviceavailable.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "WebServiceLookup",
+      "pluginName": "i18n::WebServiceLookup.Name",
+      "documentationUrl": "/pipeline/transforms/webservices.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/webservices.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "WorkflowExecutor",
+      "pluginName": "i18n::WorkflowExecutor.Name",
+      "documentationUrl": "/pipeline/transforms/workflow-executor.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/workflow-executor.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "WorkflowLogging",
+      "pluginName": "i18n::WorkflowLogging.Transform.Name",
+      "documentationUrl": "/pipeline/transforms/workflow-logging.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/workflow-logging.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "WriteToLog",
+      "pluginName": "i18n::WriteToLog.Name",
+      "documentationUrl": "/pipeline/transforms/writetolog.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/消息与监控类/writetolog.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "XMLInputStream",
+      "pluginName": "i18n::XMLInputStream.name",
+      "documentationUrl": "/pipeline/transforms/xmlinputstream.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/xmlinputstream.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "XMLJoin",
+      "pluginName": "i18n::XmlJoin.name",
+      "documentationUrl": "/pipeline/transforms/xmljoin.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/xmljoin.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "XMLOutput",
+      "pluginName": "i18n::XMLOutput.name",
+      "documentationUrl": "/pipeline/transforms/xmloutput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输出类/xmloutput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "XSDValidator",
+      "pluginName": "i18n::XSDValidator.name",
+      "documentationUrl": "/pipeline/transforms/xsdvalidator.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/xsdvalidator.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "XSLT",
+      "pluginName": "i18n::XSLT.name",
+      "documentationUrl": "/pipeline/transforms/xslt.html",
+      "status": "matched",
+      "mdRelativePath": "04-动作插件/XML与验证类/xslt.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "YamlInput",
+      "pluginName": "i18n::YamlInput.Name",
+      "documentationUrl": "/pipeline/transforms/yamlinput.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/输入类/yamlinput.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "ZipFile",
+      "pluginName": "i18n::ZipFile.Name",
+      "documentationUrl": "/pipeline/transforms/zipfile.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/zipfile.md",
+      "note": null
+    },
+    {
+      "annotationType": "Transform",
+      "pluginId": "getXMLData",
+      "pluginName": "i18n::GetXMLData.name",
+      "documentationUrl": "/pipeline/transforms/getdatafromxml.html",
+      "status": "matched",
+      "mdRelativePath": "03-转换插件/其他转换/getdatafromxml.md",
+      "note": null
+    },
+    {
+      "annotationType": "VariableResolverPlugin",
+      "pluginId": "AzureKeyVault",
+      "pluginName": "Azure Key Vault Variable Resolver",
+      "documentationUrl": "/metadata-types/variable-resolver/azure-key-vault-variable-resolver.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/azure-key-vault-variable-resolver.md",
+      "note": null
+    },
+    {
+      "annotationType": "VariableResolverPlugin",
+      "pluginId": "Variable-Resolver-GoogleSecretManager",
+      "pluginName": "Google Secret Manager Variable Resolver",
+      "documentationUrl": "/metadata-types/variable-resolver/google-secret-manager-variable-resolver.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/google-secret-manager-variable-resolver.md",
+      "note": null
+    },
+    {
+      "annotationType": "VariableResolverPlugin",
+      "pluginId": "Variable-Resolver-Pipeline",
+      "pluginName": "Pipeline Variable Resolver",
+      "documentationUrl": "/metadata-types/variable-resolver/pipeline-variable-resolver.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/pipeline-variable-resolver.md",
+      "note": null
+    },
+    {
+      "annotationType": "VariableResolverPlugin",
+      "pluginId": "Vault-Variable-Resolver",
+      "pluginName": "Hashicorp Vault Variable Resolver",
+      "documentationUrl": "/metadata-types/variable-resolver/hashicorp-vault-variable-resolver.html",
+      "status": "matched",
+      "mdRelativePath": "06-元数据类型/hashicorp-vault-variable-resolver.md",
+      "note": null
+    }
+  ]
+}

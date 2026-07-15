@@ -1,0 +1,83 @@
+# ![REST Client transform Icon, role="image-doc-icon"](../../assets/images/transforms/icons/rest.svg) REST Client
+
+| Hop Engine | ![Supported, 24](../../assets/images/check_mark.svg) |
+|---|---|
+| Spark | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
+| Flink | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
+| Dataflow | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
+
+## Options
+
+### General Tab
+
+The General tab is where you enter basic connection information for accessing a resource.
+
+| Option | Description |
+|---|---|
+| Transform name | Name of this transform as it appears in the pipeline workspace |
+| REST Connection | The (optional) [REST connection](metadata-types/rest-connection.md) to use for the base URL and authentication/authorization header name and value. |
+| URL | Indicates the path to a resource |
+| Accept URL from field | Designates the path to a resource is defined from a field |
+| URL field name | Indicates the field from which the path to a resource is defined |
+| HTTP method | Indicates how the transform interacts with a resource---options are either GET, PUT, DELETE, POST, HEAD, or OPTIONS |
+| Get Method from field | Designates the GET method is defined from a field |
+| Method fieldname | Indicates the field from which the GET method is defined |
+| Body field | Contains the request body for POST, PUT, and DELETE methods. Body field only accepts a previous field, not a hard coded value. |
+| Application type | Designates what type of application a resource is---options are either TEXT PLAIN, XML, JSON, OCTET STREAM, XHTML, FORM URLENCODED, ATOM XML, SVG XML, or TEXT XML |
+| Connection timeout | Indicates the timeout until a connection is established (milliseconds) |
+| Read timeout | Indicates the timeout for waiting for reading data (milliseconds) |
+| Result fieldname | Designates the name of the result output field |
+| HTTP status code fieldname | Designates the name of the HTTP status code field |
+| Response time (milliseconds) fieldname | Designates the name of the response time field |
+
+### Authentication Tab
+
+If necessary, enter authentication details for a resource in the Authentication tab.
+
+> **💡 提示:** Hop allows using NULL parameters/variables for both the HTTP Login and HTTP Password.
+
+| Option | Description |
+|---|---|
+| HTTP Login | Indicates the username required to access a resource |
+| HTTP Password | Indicates the password associated with the provided HTTP Login username |
+| Preemptive | Option to send the authentication credentials before a server gives an unauthorized response. Currently always true, due to [bug #4196](https://github.com/apache/hop/issues/4196). |
+| Proxy Host | Indicates the name of a proxy host |
+| Proxy Port | Indicates the port number of a proxy host |
+
+### SSL Tab
+
+The SSL tab is where you provide authentication details for accessing a resource that requires SSL certificate authentication.
+
+| Option | Description |
+|---|---|
+| Truststore file | Indicates the location of a truststore file |
+| Truststore password | Indicates the password associated with the provided truststore file |
+
+### Headers Tab
+
+The Headers tab enables you to define the content of any HTTP headers using an existing field. Populate the list of fields by clicking the Get fields button.
+
+> **💡 提示:** To figure out what Headers are required, you can use Postman and remove as many headers as possible for the Request to still work. You should not need to use the Headers with value “<calculated when request is sent>” in Postman. You do not need to manually add an Authorization header if you used the Authentication tab.
+
+| Option | Description |
+|---|---|
+| Field | The field from incoming Hop stream that contains the header information. Add the header value field name to the Field column. |
+| Name | The name of the outgoing Hop field from this transform. Add the header key field name to the Name column. |
+
+### Parameters Tab
+
+The Parameters tab enables you to define parameter values for POST, GET, PUT, and DELETE requests.
+
+| Option | Description |
+|---|---|
+| Parameter | The field from incoming Hop stream that contains the parameter information |
+| Parameter | The name of the outgoing Hop field from this transform |
+
+### Matrix Parameters tab
+
+Use the Matrix Parameters tab to define matrix parameter values for POST, PUT, DELETE, and PATCH requests.
+
+| Option | Description |
+|---|---|
+| Parameter | The field from the incoming Hop stream that contains the matrix parameter information |
+| Parameter | The name of the outgoing Hop field from this transform |

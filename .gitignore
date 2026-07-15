@@ -19,6 +19,7 @@ routes.yml
 .vscode
 *.swp
 .env
+**/*.pyc
 
 rebel.xml
 rebel-remote.xml
