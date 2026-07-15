@@ -50,6 +50,7 @@ public class GuiToolbarItem extends BaseGuiElements implements Comparable<GuiToo
   private int extraWidth;
   private boolean alignRight;
   private boolean readOnly;
+  private int width;
 
   public GuiToolbarItem() {}
 
@@ -84,6 +85,7 @@ public class GuiToolbarItem extends BaseGuiElements implements Comparable<GuiToo
     this.alignRight = toolbarElement.alignRight();
     this.readOnly = toolbarElement.readOnly();
     this.defaultText = toolbarElement.defaultText();
+    this.width = toolbarElement.width();
   }
 
   public String getLabel() {

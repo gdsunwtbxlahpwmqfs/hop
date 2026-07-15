@@ -1749,7 +1749,7 @@ public class HopGui
 
   protected void addMainToolbar() {
     IToolbarContainer mainToolbarContainer =
-        ToolbarFacade.createToolbarContainer(shell, SWT.WRAP | SWT.RIGHT | SWT.HORIZONTAL);
+        ToolbarFacade.createToolbarContainer(shell, SWT.WRAP | SWT.LEFT | SWT.HORIZONTAL);
     mainToolbar = mainToolbarContainer.getControl();
     FormData fdToolBar = new FormData();
     fdToolBar.left = new FormAttachment(0, 0);
@@ -1761,6 +1761,11 @@ public class HopGui
     mainToolbarWidgets = new GuiToolbarWidgets();
     mainToolbarWidgets.registerGuiPluginObject(this);
     mainToolbarWidgets.createToolbarWidgets(mainToolbarContainer, ID_MAIN_TOOLBAR);
+
+    // Set logo width to match sidebar width for visual alignment with search box
+    int sidebarWidth = (int) (40 * PropsUi.getNativeZoomFactor());
+    mainToolbarWidgets.setToolbarItemWidth(ID_MAIN_TOOLBAR_MENU, sidebarWidth);
+
     mainToolbar.pack();
   }
 

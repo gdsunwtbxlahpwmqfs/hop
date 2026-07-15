@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="512pt" width="512pt" version="1.1">
-    <defs>
-        <radialGradient id="amber" cx="50%" cy="38%" r="72%">
-            <stop offset="0%" stop-color="#F9CB76"/>
-            <stop offset="58%" stop-color="#F0AD44"/>
-            <stop offset="100%" stop-color="#E2952F"/>
-        </radialGradient>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-            <feOffset dx="2" dy="2" result="offsetblur"/>
-            <feComponentTransfer>
-                <feFuncA type="linear" slope="0.3"/>
-            </feComponentTransfer>
-            <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
-    </defs>
-    <rect x="0" y="0" width="512" height="512" fill="#0F172A"/>
-    <g filter="url(#shadow)">
-        <!-- Q ring (governance boundary) -->
-        <circle cx="256" cy="256" r="150" fill="none" stroke="url(#amber)" stroke-width="32"/>
-        <!-- Q tail (data flow) -->
-        <path d="M 362 362 L 430 430" fill="none" stroke="url(#amber)" stroke-width="32" stroke-linecap="round"/>
-        <!-- i stem -->
-        <line x1="256" y1="235" x2="256" y2="315" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
-        <!-- i dot (data node) -->
-        <circle cx="256" cy="198" r="20" fill="#FFFFFF"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+  <!-- White rounded rectangle background -->
+  <rect x="0" y="0" width="768" height="512" rx="100" ry="100" fill="#FFFFFF"/>
+  <!-- Magnifying glass - wide rounded rectangle lens (amber) -->
+  <rect x="60" y="60" width="648" height="300" rx="70" ry="70"
+        fill="none" stroke="#F0AD44" stroke-width="28"/>
+  <!-- Handle - short tail at bottom right (amber) -->
+  <line x1="660" y1="345" x2="715" y2="400"
+        stroke="#F0AD44" stroke-width="28" stroke-linecap="round"/>
+  <!-- i stem - straight -->
+  <line x1="384" y1="185" x2="384" y2="290"
+        stroke="#000000" stroke-width="24" stroke-linecap="round"/>
+  <!-- i dot - slightly drooping head -->
+  <ellipse cx="384" cy="148" rx="22" ry="20" fill="#000000"
+           transform="rotate(-15, 384, 148)"/>
 </svg>

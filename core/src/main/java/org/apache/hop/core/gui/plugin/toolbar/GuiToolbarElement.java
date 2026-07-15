@@ -147,4 +147,12 @@ public @interface GuiToolbarElement {
    * @return The default text value
    */
   String defaultText() default "";
+
+  /**
+   * Custom width for this toolbar element in pixels. When greater than 0, overrides the default
+   * icon size. Useful for making specific buttons wider (e.g. logo matching sidebar width).
+   *
+   * @return The custom width in pixels, or 0 for default icon size
+   */
+  int width() default 0;
 }

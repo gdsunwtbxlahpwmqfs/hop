@@ -426,7 +426,9 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
     textLabel.setVisible(false);
 
     composite.pack();
-    composite.setLayoutData(new RowData(composite.getSize().x, composite.getSize().y));
+    int customWidth = toolbarItem.getWidth();
+    int compositeWidth = customWidth > 0 ? customWidth : composite.getSize().x;
+    composite.setLayoutData(new RowData(compositeWidth, composite.getSize().y));
 
     widgetsMap.put(toolbarItem.getId(), composite);
     textLabelMap.put(toolbarItem.getId(), textLabel);
@@ -544,6 +546,9 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
     setImages(item, toolbarItem.getClassLoader(), imageLocation);
     if (StringUtils.isNotEmpty(toolbarItem.getToolTip())) {
       item.setToolTipText(toolbarItem.getToolTip());
+    }
+    if (toolbarItem.getWidth() > 0) {
+      item.setWidth(toolbarItem.getWidth());
     }
     Listener listener = getListener(toolbarItem);
     item.addListener(SWT.Selection, listener);
@@ -836,6 +841,29 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
 
   public ToolItem findToolItem(String id) {
     return toolItemMap.get(id);
+  }
+
+  /**
+   * Set a custom width on a toolbar item. Works for both desktop (ToolItem) and web (RAP
+   * Composite).
+   *
+   * @param id the toolbar item id (from {@code @GuiToolbarElement})
+   * @param width the custom width in pixels
+   */
+  public void setToolbarItemWidth(String id, int width) {
+    if (width <= 0) {
+      return;
+    }
+    ToolItem toolItem = toolItemMap.get(id);
+    if (toolItem != null && !toolItem.isDisposed()) {
+      toolItem.setWidth(width);
+      return;
+    }
+    Control control = widgetsMap.get(id);
+    if (control instanceof Composite composite && !composite.isDisposed()) {
+      composite.setLayoutData(new RowData(width, composite.getSize().y));
+      composite.layout(true, true);
+    }
   }
 
   /**

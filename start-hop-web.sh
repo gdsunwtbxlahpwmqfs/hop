@@ -206,7 +206,8 @@ if [ "${SYNC_DOCS}" = "true" ]; then
     fi
 
     echo ""
-    echo "    文档 MD 文件无需复制（通过 CWD 直接访问 ${HOP_HOME}/docs/hop-assistant-manual/）"
+    echo "    注意：文档 MD 文件和图片已打包到 hop-rest JAR 的 classpath 中，"
+    echo "    如需更新文档内容，请使用 --force-build 重新编译，或修改后手动替换 hop-rest JAR"
 
     echo ""
     echo "==> 文档同步完成，正在重启 Tomcat..."
@@ -389,8 +390,9 @@ if [ -f "${SOURCE_MAPPING}" ]; then
 else
     echo "    Warning: url-mapping.json not found at ${SOURCE_MAPPING}"
 fi
-# Docs MD files are accessed via CWD (HOP_HOME), no copy needed
-echo "    Docs accessible at: ${HOP_HOME}/docs/hop-assistant-manual/"
+# Docs MD files and assets are packaged in hop-rest JAR classpath
+# Filesystem fallback to ${HOP_HOME}/docs/hop-assistant-manual/ is still supported
+echo "    Docs packaged in hop-rest JAR (classpath), fallback: ${HOP_HOME}/docs/hop-assistant-manual/"
 
 fi  # end of if [ "${goto_start_tomcat}" != "true" ]
 

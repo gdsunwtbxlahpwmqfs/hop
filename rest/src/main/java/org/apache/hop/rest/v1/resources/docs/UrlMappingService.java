@@ -42,6 +42,8 @@ public class UrlMappingService {
 
   private volatile List<UrlMapping> mappings = Collections.emptyList();
   private volatile Map<String, UrlMapping> urlIndex = new ConcurrentHashMap<>();
+  private volatile Map<String, UrlMapping> mdPathIndex = new ConcurrentHashMap<>();
+  private volatile Map<String, UrlMapping> fileNameIndex = new ConcurrentHashMap<>();
   private volatile boolean loaded = false;
 
   public static UrlMappingService getInstance() {
@@ -66,11 +68,19 @@ public class UrlMappingService {
       UrlMappingRoot root = mapper.readValue(is, new TypeReference<UrlMappingRoot>() {});
       this.mappings = root.getMappings() != null ? root.getMappings() : Collections.emptyList();
       this.urlIndex = new ConcurrentHashMap<>();
+      this.mdPathIndex = new ConcurrentHashMap<>();
+      this.fileNameIndex = new ConcurrentHashMap<>();
       for (UrlMapping m : this.mappings) {
         if (m.getDocumentationUrl() != null) {
           urlIndex.put(m.getDocumentationUrl(), m);
         }
+        if (m.getMdRelativePath() != null) {
+          mdPathIndex.put(m.getMdRelativePath(), m);
+          String fileName = java.nio.file.Path.of(m.getMdRelativePath()).getFileName().toString();
+          fileNameIndex.put(fileName, m);
+        }
       }
+      scanAllMdFiles();
       loaded = true;
       Map<String, Object> stats = root.getStats();
       LOG.info(
@@ -126,6 +136,34 @@ public class UrlMappingService {
     return mappings;
   }
 
+  /**
+   * Looks up a documentation URL by markdown relative path.
+   *
+   * @param mdRelativePath the markdown file relative path (e.g., "03-转换插件/流程控制类/abort.md")
+   * @return the mapping entry, or null if not found
+   */
+  public UrlMapping lookupByMdPath(String mdRelativePath) {
+    load();
+    if (mdRelativePath == null || mdRelativePath.isBlank()) {
+      return null;
+    }
+    return mdPathIndex.get(mdRelativePath);
+  }
+
+  /**
+   * Looks up a documentation URL by markdown file name.
+   *
+   * @param fileName the markdown file name (e.g., "abort.md")
+   * @return the mapping entry, or null if not found
+   */
+  public UrlMapping lookupByFileName(String fileName) {
+    load();
+    if (fileName == null || fileName.isBlank()) {
+      return null;
+    }
+    return fileNameIndex.get(fileName);
+  }
+
   /** Returns mapping statistics. */
   public Map<String, Object> getStats() {
     load();
@@ -149,7 +187,63 @@ public class UrlMappingService {
   public synchronized void clear() {
     this.mappings = Collections.emptyList();
     this.urlIndex = new ConcurrentHashMap<>();
+    this.mdPathIndex = new ConcurrentHashMap<>();
+    this.fileNameIndex = new ConcurrentHashMap<>();
     this.loaded = false;
+  }
+
+  private void scanAllMdFiles() {
+    try {
+      String docsBase = System.getProperty("hop.docs.base", "docs/hop-assistant-manual");
+      java.nio.file.Path fsPath = java.nio.file.Path.of(docsBase);
+      if (java.nio.file.Files.exists(fsPath)) {
+        java.nio.file.Files.walk(fsPath)
+            .filter(java.nio.file.Files::isRegularFile)
+            .filter(p -> p.toString().endsWith(".md"))
+            .filter(p -> !p.toString().endsWith("README.md"))
+            .forEach(
+                p -> {
+                  String relativePath = fsPath.relativize(p).toString();
+                  addMdFileToIndex(relativePath);
+                });
+        LOG.info("Scanned {} MD files from filesystem", mdPathIndex.size());
+      }
+    } catch (Exception e) {
+      LOG.warn("Failed to scan MD files", e);
+    }
+  }
+
+  private void addMdFileToIndex(String relativePath) {
+    if (!mdPathIndex.containsKey(relativePath)) {
+      UrlMapping mapping = new UrlMapping();
+      mapping.setMdRelativePath(relativePath);
+      mapping.setStatus("matched");
+      mapping.setAnnotationType("Manual");
+      mapping.setPluginId(
+          "manual-"
+              + java.nio.file.Path.of(relativePath).getFileName().toString().replace(".md", ""));
+      mapping.setDocumentationUrl(generateUrlFromMdPath(relativePath));
+      mdPathIndex.put(relativePath, mapping);
+      fileNameIndex.put(java.nio.file.Path.of(relativePath).getFileName().toString(), mapping);
+    }
+  }
+
+  private String generateUrlFromMdPath(String mdPath) {
+    if (mdPath == null) {
+      return null;
+    }
+    String url = mdPath.replace(".md", ".html");
+    url =
+        url.replace("03-转换插件/", "pipeline/transforms/")
+            .replace("04-动作插件/", "workflow/actions/")
+            .replace("05-数据库插件/", "database/databases/")
+            .replace("06-元数据类型/", "metadata-types/")
+            .replace("10-HopGUI/", "hop-gui/");
+    url = url.replaceAll("\\d+-", "");
+    if (!url.startsWith("/")) {
+      url = "/" + url;
+    }
+    return url;
   }
 
   /** Reloads the mapping table. */

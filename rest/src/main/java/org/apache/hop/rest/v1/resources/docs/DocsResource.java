@@ -74,7 +74,9 @@ public class DocsResource extends BaseResource {
     DocResult result = resolveDocument(path);
     return switch (result.status) {
       case MATCHED ->
-          Response.ok(renderHtmlPage(result.title, result.content, result.docUrl))
+          Response.ok(
+                  renderHtmlPage(
+                      result.title, result.content, result.docUrl, result.mdRelativePath))
               .type(MediaType.TEXT_HTML_TYPE)
               .build();
       case UNMATCHED ->
@@ -260,22 +262,35 @@ public class DocsResource extends BaseResource {
     try {
       UrlMapping mapping = mappingService.lookup(r.docUrl);
 
+      String mdRelativePath;
       if (mapping == null) {
-        r.status = DocStatus.NOT_FOUND;
-        r.message = BaseMessages.getString(PKG, "DocsResource.Error.DocumentNotFound");
-        return r;
+        String fileName =
+            java.nio.file.Path.of(r.docUrl).getFileName().toString().replace(".html", ".md");
+        UrlMapping fileMapping = mappingService.lookupByFileName(fileName);
+        if (fileMapping != null) {
+          mdRelativePath = fileMapping.getMdRelativePath();
+        } else {
+          mdRelativePath = resolveMdPathFromUrl(r.docUrl);
+        }
+        if (mdRelativePath == null) {
+          r.status = DocStatus.NOT_FOUND;
+          r.message = BaseMessages.getString(PKG, "DocsResource.Error.DocumentNotFound");
+          return r;
+        }
+        r.pluginId = "unknown";
+      } else {
+        r.pluginId = mapping.getPluginId();
+
+        if ("unmatched".equals(mapping.getStatus())) {
+          r.status = DocStatus.UNMATCHED;
+          r.message = BaseMessages.getString(PKG, "DocsResource.Error.Unmatched");
+          r.fallbackUrl = "https://hop.apache.org/manual/next" + r.docUrl;
+          return r;
+        }
+
+        mdRelativePath = mapping.getMdRelativePath();
       }
 
-      r.pluginId = mapping.getPluginId();
-
-      if ("unmatched".equals(mapping.getStatus())) {
-        r.status = DocStatus.UNMATCHED;
-        r.message = BaseMessages.getString(PKG, "DocsResource.Error.Unmatched");
-        r.fallbackUrl = "https://hop.apache.org/manual/next" + r.docUrl;
-        return r;
-      }
-
-      String mdRelativePath = mapping.getMdRelativePath();
       if (mdRelativePath == null || mdRelativePath.isBlank()) {
         r.status = DocStatus.ERROR;
         r.message = BaseMessages.getString(PKG, "DocsResource.Error.EmptyPath");
@@ -323,9 +338,11 @@ public class DocsResource extends BaseResource {
   // HTML rendering helpers
   // ---------------------------------------------------------------------------
 
-  private String renderHtmlPage(String title, String markdownContent, String docUrl) {
-    String rewritten = rewriteImageUrls(markdownContent);
-    String htmlBody = MARKDOWN_RENDERER.render(MARKDOWN_PARSER.parse(rewritten));
+  private String renderHtmlPage(
+      String title, String markdownContent, String docUrl, String mdRelativePath) {
+    String rewrittenLinks = rewriteMarkdownLinks(markdownContent, mdRelativePath);
+    String rewrittenImages = rewriteImageUrls(rewrittenLinks);
+    String htmlBody = MARKDOWN_RENDERER.render(MARKDOWN_PARSER.parse(rewrittenImages));
     return HTML_TEMPLATE
         .replace("{{TITLE}}", escapeHtml(title))
         .replace("{{CONTENT}}", htmlBody)
@@ -341,8 +358,80 @@ public class DocsResource extends BaseResource {
    */
   static String rewriteImageUrls(String markdown) {
     return markdown.replaceAll(
-        "(\\!\\[)([^\\]]*)(\\]\\()(?!http[s]?:\\/\\/)([^)]*\\.(?:svg|png|jpg|jpeg|gif))\\)",
+        "(\\!\\[)([^\\]]*)(\\]\\()(?!http[s]?:\\/\\/)(?:.*?assets\\/)?([^)]*\\.(?:svg|png|jpg|jpeg|gif))\\)",
         "$1$2$3/api/v1/docs/assets/$4)");
+  }
+
+  /**
+   * Rewrites relative markdown links in markdown content to absolute paths pointing to the docs
+   * endpoint. Converts patterns like [text](../06-元数据类型/neo4j-location-type.md) to
+   * [text](/api/v1/docs/metadata-types/neo4j-location-type.html).
+   */
+  private String rewriteMarkdownLinks(String markdown, String currentMdPath) {
+    java.util.regex.Pattern pattern =
+        java.util.regex.Pattern.compile("\\[([^\\]]+)\\]\\((?!http[s]?:\\/\\/)([^)]+\\.md)\\)");
+    java.util.regex.Matcher matcher = pattern.matcher(markdown);
+    StringBuffer sb = new StringBuffer();
+    while (matcher.find()) {
+      String linkText = matcher.group(1);
+      String linkPath = matcher.group(2);
+      String resolvedPath = resolveRelativePath(currentMdPath, linkPath);
+      UrlMapping mapping = mappingService.lookupByMdPath(resolvedPath);
+      if (mapping != null) {
+        matcher.appendReplacement(sb, "[" + linkText + "](" + mapping.getDocumentationUrl() + ")");
+      } else {
+        String generatedUrl = generateUrlFromMdPath(resolvedPath);
+        if (generatedUrl != null) {
+          matcher.appendReplacement(sb, "[" + linkText + "](" + generatedUrl + ")");
+        }
+      }
+    }
+    matcher.appendTail(sb);
+    return sb.toString();
+  }
+
+  private String generateUrlFromMdPath(String mdPath) {
+    if (mdPath == null) {
+      return null;
+    }
+    String url = mdPath.replace(".md", ".html");
+    url =
+        url.replace("03-转换插件/", "pipeline/transforms/")
+            .replace("04-动作插件/", "workflow/actions/")
+            .replace("05-数据库插件/", "database/databases/")
+            .replace("06-元数据类型/", "metadata-types/")
+            .replace("10-HopGUI/", "hop-gui/");
+    url = url.replaceAll("\\d+-", "");
+    if (!url.startsWith("/")) {
+      url = "/" + url;
+    }
+    return url;
+  }
+
+  private String resolveMdPathFromUrl(String docUrl) {
+    if (docUrl == null) {
+      return null;
+    }
+    String path = docUrl.replace(".html", ".md");
+    path =
+        path.replace("/pipeline/transforms/", "03-转换插件/")
+            .replace("/workflow/actions/", "04-动作插件/")
+            .replace("/database/databases/", "05-数据库插件/")
+            .replace("/metadata-types/", "06-元数据类型/")
+            .replace("/hop-gui/", "10-HopGUI/");
+    if (path.startsWith("/")) {
+      path = path.substring(1);
+    }
+    return path;
+  }
+
+  private String resolveRelativePath(String basePath, String relativePath) {
+    if (basePath == null || relativePath == null) {
+      return relativePath;
+    }
+    java.nio.file.Path base = java.nio.file.Path.of(basePath).getParent();
+    java.nio.file.Path resolved = base.resolve(relativePath).normalize();
+    return resolved.toString();
   }
 
   private String renderFallbackPage(String message, String fallbackUrl) {
