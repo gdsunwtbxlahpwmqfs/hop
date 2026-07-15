@@ -10,11 +10,11 @@ Salesforce 连接元数据类型允许你一次性定义连接设置，并在 Qi
 
 ## 相关 plugin
 
-- [Salesforce Input](pipeline/transforms/salesforceinput.md)
-- [Salesforce Insert](pipeline/transforms/salesforceinsert.md)
-- [Salesforce Update](pipeline/transforms/salesforceupdate.md)
-- [Salesforce Upsert](pipeline/transforms/salesforceupsert.md)
-- [Salesforce Delete](pipeline/transforms/salesforcedelete.md)
+- [Salesforce Input](../03-转换插件/输入类/salesforceinput.md)
+- [Salesforce Insert](../03-转换插件/其他转换/salesforceinsert.md)
+- [Salesforce Update](../03-转换插件/其他转换/salesforceupdate.md)
+- [Salesforce Upsert](../03-转换插件/其他转换/salesforceupsert.md)
+- [Salesforce Delete](../03-转换插件/其他转换/salesforcedelete.md)
 
 ## 认证类型
 

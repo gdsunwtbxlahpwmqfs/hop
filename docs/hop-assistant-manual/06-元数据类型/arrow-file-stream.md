@@ -25,7 +25,7 @@
 
 ## 相关内容
 
-- [`hop arrow` 命令](hop-tools/hop-arrow-command.md)
+- [`hop arrow` 命令](../09-Hop工具/hop-arrow-command.md)
 
 ## Python
 
@@ -69,7 +69,7 @@ with open("from_python.arrow", "wb") as f:
 print("✅ Wrote from_python.arrow in Arrow IPC Streaming Format")
 ```
 
-然后可以使用 [Data Stream Input](pipeline/transforms/data-stream-input.md) transform 和 [Apache Arrow 文件流](metadata-types/data-stream/arrow-file-stream.md)数据流类型来读取此文件。
+然后可以使用 [Data Stream Input](../03-转换插件/其他转换/data-stream-input.md) transform 和 [Apache Arrow 文件流](arrow-file-stream.md)数据流类型来读取此文件。
 
 ### 读取流文件
 
@@ -103,4 +103,4 @@ with pa.memory_map(file_path, 'r') as source:
     #print(df.to_csv())
 ```
 
-你可以使用 [Data Stream Output](pipeline/transforms/data-stream-output.md) transform 和 [Apache Arrow 文件流](metadata-types/data-stream/arrow-file-stream.md)数据流类型来生成 `.arrow` 流文件。
+你可以使用 [Data Stream Output](../03-转换插件/其他转换/data-stream-output.md) transform 和 [Apache Arrow 文件流](arrow-file-stream.md)数据流类型来生成 `.arrow` 流文件。

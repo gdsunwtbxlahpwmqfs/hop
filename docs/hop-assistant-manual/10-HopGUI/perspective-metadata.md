@@ -6,7 +6,7 @@
 
 ## 描述
 
-Metadata perspective 是你管理 Hop 项目中可用的各种 [metadata 类型](metadata-types/index.md) 的地方。
+Metadata perspective 是你管理 Hop 项目中可用的各种 [metadata 类型](../index.md) 的地方。
 
 ## 用法
 

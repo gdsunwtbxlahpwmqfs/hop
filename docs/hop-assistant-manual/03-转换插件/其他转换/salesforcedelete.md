@@ -12,10 +12,10 @@
 
 您还可以使用以下其他 transform 来修改您的 Salesforce 数据库：
 
-- [Salesforce Input](pipeline/transforms/salesforceinput.md)：直接从 Salesforce 数据库读取记录。
-- [Salesforce Insert](pipeline/transforms/salesforceinsert.md)：直接向 Salesforce 数据库插入记录。
-- [Salesforce Update](pipeline/transforms/salesforceupdate.md)：直接更新 Salesforce 数据库中的记录。
-- [Salesforce Upsert](pipeline/transforms/salesforceupsert.md)：更新现有记录并插入新记录到 Salesforce 数据库。
+- [Salesforce Input](../输入类/salesforceinput.md)：直接从 Salesforce 数据库读取记录。
+- [Salesforce Insert](salesforceinsert.md)：直接向 Salesforce 数据库插入记录。
+- [Salesforce Update](salesforceupdate.md)：直接更新 Salesforce 数据库中的记录。
+- [Salesforce Upsert](salesforceupsert.md)：更新现有记录并插入新记录到 Salesforce 数据库。
 
 ## 常规
 
@@ -26,13 +26,13 @@
 
 ### 连接
 
-Salesforce transform 可以使用预定义的 [Salesforce Connection](metadata-types/salesforce-connection.md)，或直接使用内联连接设置。
+Salesforce transform 可以使用预定义的 [Salesforce Connection](salesforce-connection.md)，或直接使用内联连接设置。
 当使用 Salesforce Connection 时，将使用在 metadata 中定义的连接设置（URL、用户名、密码、OAuth 令牌）。
 当不使用 Salesforce Connection 时，需要在 transform 中直接指定连接详情。
 
 | 选项 | 描述 |
 |---|---|
-| Salesforce Connection | （可选）要使用的 [Salesforce Connection](metadata-types/salesforce-connection.md)。选择后，将使用来自 metadata 的连接设置，内联连接字段将被禁用。 |
+| Salesforce Connection | （可选）要使用的 [Salesforce Connection](salesforce-connection.md)。选择后，将使用来自 metadata 的连接设置，内联连接字段将被禁用。 |
 | Salesforce Webservice URL a | 指定 Salesforce Webservice 的 URL。 |
 | Username | 指定用于 Salesforce 认证的用户名 |
 | Password | 指定用于 Salesforce 认证的密码。 |

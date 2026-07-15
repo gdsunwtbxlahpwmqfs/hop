@@ -6,8 +6,8 @@
 
 此运行配置需要的配置很少，但有两个前提条件：
 
-. 一个正在运行的 [Hop Server](hop-server/index.md)
-. 项目中一个指向您正在运行的 Hop Server 的 [Hop Server metadata 定义](metadata-types/hop-server.md)
+. 一个正在运行的 [Hop Server](../index.md)
+. 项目中一个指向您正在运行的 Hop Server 的 [Hop Server metadata 定义](../09-Hop工具/hop-server.md)
 
 ### 选项
 

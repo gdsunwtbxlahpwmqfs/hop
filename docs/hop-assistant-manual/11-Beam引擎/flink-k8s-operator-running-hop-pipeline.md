@@ -2,14 +2,14 @@
 
 ## 前提条件
 
-请查看 [Beam 入门](pipeline/beam/getting-started-with-beam.md)指南，以了解 Hop 中 Beam 集成的基本概念。
+请查看 [Beam 入门](getting-started-with-beam.md)指南，以了解 Hop 中 Beam 集成的基本概念。
 以下是我们在下面示例中使用 Flink Kubernetes Operator 所需的文件：
 
 - Hop fat jar：为您要使用的 Hop 版本生成一次（使用 Hop GUI 的 `Tools` 菜单或使用 `hop-conf.sh -fj`）。
 - Hop metadata 导出：包含您项目 metadata 的 JSON 文件（使用 Hop GUI 的 `Tools` 菜单或使用 `hop-conf.sh -xm`）。
 - Hop pipeline：包含 pipeline metadata 的 .hpl 文件（XML）。
 
-*注意*：Hop 能够直接向 [s3://](vfs/aws-s3-vfs.md) 存储桶（或 [gs://](hop-gui/../vfs/google-cloud-storage-vfs.md) 或 [azure://](vfs/azure-blob-storage-vfs.md)）读/写文件。
+*注意*：Hop 能够直接向 [s3://](../14-虚拟文件系统/aws-s3-vfs.md) 存储桶（或 [gs://](../14-虚拟文件系统/google-cloud-storage-vfs.md) 或 [azure://](../14-虚拟文件系统/azure-blob-storage-vfs.md)）读/写文件。
 
 ## Flink Kubernetes Operator
 

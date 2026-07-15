@@ -2,11 +2,11 @@
 
 ## 前提条件
 
-检查[前提条件](pipeline/beam/running-the-beam-samples.md#prerequisites.md)以确保您有正确的 Java 版本、已构建 Qi Hop fat jar 并已将项目 metadata 导出为 JSON 文件。
+检查[前提条件](running-the-beam-samples.md#prerequisites.md)以确保您有正确的 Java 版本、已构建 Qi Hop fat jar 并已将项目 metadata 导出为 JSON 文件。
 
 ## 获取 Spark
 
-查看 Beam 入门页面上的[支持版本](pipeline/beam/getting-started-with-beam.md#supportedversions.md)，找到您的 Hop 版本支持的最新 Spark 版本。
+查看 Beam 入门页面上的[支持版本](getting-started-with-beam.md#supportedversions.md)，找到您的 Hop 版本支持的最新 Spark 版本。
 
 例如，对于 Hop 2.7，目前支持的最新版本是 3.4.x。
 

@@ -7,7 +7,7 @@
 描述 Pipeline 如何以及使用哪个引擎执行。
 
 Pipeline 可以在各种运行时引擎上执行。
-查看 [Pipeline 运行配置](pipeline/pipeline-run-configurations/pipeline-run-configurations.md)了解更多详情。
+查看 [Pipeline 运行配置](../07-管道/pipeline-run-configurations.md)了解更多详情。
 
 ## 相关 plugin
 
@@ -19,8 +19,8 @@ Pipeline 可以在各种运行时引擎上执行。
 |---|---|
 | Name | 此 Pipeline 运行配置的名称 |
 | Description | 此 Pipeline 运行配置的描述 |
-| Execution information location | 与此 Pipeline 运行配置一起使用的 [metadata-types/execution-information-location.adoc](metadata-types/execution-information-location.md)。 |
-| Execution data profile | 与此 Pipeline 运行配置一起使用的 [metadata-types/execution-data-profile.adoc](metadata-types/execution-data-profile.md)。 |
+| Execution information location | 与此 Pipeline 运行配置一起使用的 [metadata-types/execution-information-location.adoc](execution-information-location.md)。 |
+| Execution data profile | 与此 Pipeline 运行配置一起使用的 [metadata-types/execution-data-profile.adoc](execution-data-profile.md)。 |
 | Engine Type |  |
 
 ## 示例

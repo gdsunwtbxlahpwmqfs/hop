@@ -8,41 +8,41 @@
 
 Hop 开箱即支持数十种关系型数据库。如果你的特定数据库没有内置支持，你可能仍然可以使用 Generic 数据库连接进行连接。
 
-查看 [数据库](database/databases.md)列表了解更多详情。
+查看 [数据库](../05-数据库插件/databases.md)列表了解更多详情。
 
 ## 相关 plugin
 
 Action：
 
-- [Check DB Connections](workflow/actions/checkdbconnection.md)
-- [Columns exist in table](workflow/actions/columnsexist.md)
-- [MS SQL Bulk Loader](workflow/actions/mssqlbulkload.md)
-- [MySQL Bulk File](workflow/actions/mysqlbulkfile.md)
-- [MySQL Bulk Loader](workflow/actions/mysqlbulkload.md)
-- [SQL](workflow/actions/sql.md)
-- [Table Exists](workflow/actions/tableexists.md)
-- [Truncate Tables](workflow/actions/truncatetables.md)
-- [Wait for SQL](workflow/actions/waitforsql.md)
+- [Check DB Connections](../04-动作插件/其他动作/checkdbconnection.md)
+- [Columns exist in table](../04-动作插件/其他动作/columnsexist.md)
+- [MS SQL Bulk Loader](../04-动作插件/其他动作/mssqlbulkload.md)
+- [MySQL Bulk File](../04-动作插件/其他动作/mysqlbulkfile.md)
+- [MySQL Bulk Loader](../04-动作插件/其他动作/mysqlbulkload.md)
+- [SQL](../04-动作插件/数据库操作类/sql.md)
+- [Table Exists](../03-转换插件/数据库操作类/tableexists.md)
+- [Truncate Tables](../04-动作插件/其他动作/truncatetables.md)
+- [Wait for SQL](../04-动作插件/其他动作/waitforsql.md)
 
 Transform：
 
-- [Call DB Procedure](pipeline/transforms/calldbproc.md)
-- [Column Exists](pipeline/transforms/columnexists.md)
-- [Combination Lookup/Update](pipeline/transforms/combinationlookup.md)
-- [Database Join](pipeline/transforms/databasejoin.md)
-- [Database Lookup](pipeline/transforms/databaselookup.md)
-- [Dynamic SQL Row](pipeline/transforms/dynamicsqlrow.md)
-- [Execute SQL Row](pipeline/transforms/execsqlrow.md)
-- [Insert/Update](pipeline/transforms/insertupdate.md)
-- [Oracle Bulk Loader](pipeline/transforms/orabulkloader.md)
-- [PostgreSQL Bulk Loader](pipeline/transforms/postgresbulkloader.md)
-- [Synchronize After Merge](pipeline/transforms/synchronizeaftermerge.md)
-- [Table Compare](pipeline/transforms/tablecompare.md)
-- [Table Exists](pipeline/transforms/tableexists.md)
-- [Table Input](pipeline/transforms/tableinput.md)
-- [Table Output](pipeline/transforms/tableoutput.md)
-- [Teradata Bulk Loader](pipeline/transforms/terafast.md)
-- [Update](pipeline/transforms/update.md)
+- [Call DB Procedure](../03-转换插件/其他转换/calldbproc.md)
+- [Column Exists](../03-转换插件/数据库操作类/columnexists.md)
+- [Combination Lookup/Update](../03-转换插件/数据库操作类/combinationlookup.md)
+- [Database Join](../03-转换插件/数据库操作类/databasejoin.md)
+- [Database Lookup](../03-转换插件/数据库操作类/databaselookup.md)
+- [Dynamic SQL Row](../03-转换插件/其他转换/dynamicsqlrow.md)
+- [Execute SQL Row](../03-转换插件/其他转换/execsqlrow.md)
+- [Insert/Update](../03-转换插件/其他转换/insertupdate.md)
+- [Oracle Bulk Loader](../03-转换插件/其他转换/orabulkloader.md)
+- [PostgreSQL Bulk Loader](../03-转换插件/其他转换/postgresbulkloader.md)
+- [Synchronize After Merge](../03-转换插件/其他转换/synchronizeaftermerge.md)
+- [Table Compare](../03-转换插件/其他转换/tablecompare.md)
+- [Table Exists](../03-转换插件/数据库操作类/tableexists.md)
+- [Table Input](../03-转换插件/输入类/tableinput.md)
+- [Table Output](../03-转换插件/输出类/tableoutput.md)
+- [Teradata Bulk Loader](../03-转换插件/其他转换/terafast.md)
+- [Update](../03-转换插件/数据库操作类/update.md)
 
 ## 选项
 

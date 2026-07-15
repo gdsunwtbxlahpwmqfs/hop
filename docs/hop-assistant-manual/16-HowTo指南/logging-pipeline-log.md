@@ -24,7 +24,7 @@ Pipeline Log 可以按以下示例进行配置：
 - Enabled：（已勾选）。
 - Pipeline executed to capture logging：选择或创建用于处理此 Pipeline Log 日志信息的 pipeline `({openvar}PROJECT_HOME{closevar}/hop/logging/pipelines-logging.hpl)`。
 
-接下来，选择或创建用于记录活动日志的 pipeline。我们稍后会创建一个 pipeline，需要注意的是您可以使用 Qi Hop pipeline 的所有功能来处理日志数据。唯一的前提是此 pipeline 中的第一个 transform 需要以 [pipeline logging transform](pipeline/transforms/pipeline-logging.md) 开始。
+接下来，选择或创建用于记录活动日志的 pipeline。我们稍后会创建一个 pipeline，需要注意的是您可以使用 Qi Hop pipeline 的所有功能来处理日志数据。唯一的前提是此 pipeline 中的第一个 transform 需要以 [pipeline logging transform](../03-转换插件/其他转换/pipeline-logging.md) 开始。
 
 - Execute at the start of the pipeline?：（已勾选）。
 - Execute at the end of the pipeline?：（已勾选）。
@@ -40,7 +40,7 @@ Pipeline Log 可以按以下示例进行配置：
 
 要创建 pipeline，您可以转到视图区域或点击 New Pipeline Log 对话框中的 New 按钮。然后选择 pipeline 的文件夹和名称。
 
-新 pipeline 会自动创建一个 Pipeline Logging transform 并连接到 [Dummy transform](pipeline/transforms/dummy.md)（Save logging here）。
+新 pipeline 会自动创建一个 Pipeline Logging transform 并连接到 [Dummy transform](../04-动作插件/其他动作/dummy.md)（Save logging here）。
 
 ![pipeline log, width="45%"](../assets/images/how-to-guides/logging-pipeline-log/pipeline-log.jpg)
 
@@ -53,7 +53,7 @@ Pipeline Log 可以按以下示例进行配置：
 
 ## 步骤 3：添加和配置 Table output transform
 
-[Table Output](pipeline/transforms/tableoutput.md) transform 允许您将数据加载到数据库表中。Table Output 等同于 DML 操作符 INSERT。此 transform 提供了目标表的配置选项以及许多维护和/或性能相关的选项，如 Commit Size 和 Use batch update for inserts。
+[Table Output](../03-转换插件/输出类/tableoutput.md) transform 允许您将数据加载到数据库表中。Table Output 等同于 DML 操作符 INSERT。此 transform 提供了目标表的配置选项以及许多维护和/或性能相关的选项，如 Commit Size 和 Use batch update for inserts。
 
 > **💡 提示:** 在此示例中，我们将使用关系型数据库连接来记录日志，但您也可以使用输出文件。如果您决定使用数据库连接，请检查安装和可用性作为前提条件。
 
@@ -103,4 +103,4 @@ Pipeline 执行的数据将记录在 pipelines-logging 表中。
 
 您现在知道了如何使用 pipeline log metadata 类型来利用 Qi Hop 提供的一切功能来处理您的 pipeline 日志信息。
 
-请查看 [workflow log](how-to-guides/logging-workflow-log.md) 的相关页面，了解如何设置类似的流程来处理 workflow 日志。
+请查看 [workflow log](logging-workflow-log.md) 的相关页面，了解如何设置类似的流程来处理 workflow 日志。

@@ -1,6 +1,6 @@
 # 避免死锁
 
-在 Qi Hop 中，某些 pipeline 设计可能会遇到死锁（也称为阻塞、停顿或挂起）。死锁的一个常见原因是在处理大型数据集的 pipeline 中使用 [Stream Lookup](pipeline/transforms/streamlookup.md) transform。本指南解释了如何识别、理解和解决涉及 [Stream Lookup](pipeline/transforms/streamlookup.md) 的死锁问题。
+在 Qi Hop 中，某些 pipeline 设计可能会遇到死锁（也称为阻塞、停顿或挂起）。死锁的一个常见原因是在处理大型数据集的 pipeline 中使用 [Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) transform。本指南解释了如何识别、理解和解决涉及 [Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) 的死锁问题。
 
 ## 理解 Pipeline 死锁
 
@@ -12,17 +12,17 @@
 
 ## Stream Lookup Transform 如何导致死锁
 
-在处理大量行的 pipeline 中，[Stream Lookup](pipeline/transforms/streamlookup.md) transform 经常导致死锁。以下是一个说明死锁如何发生的场景：
+在处理大量行的 pipeline 中，[Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) transform 经常导致死锁。以下是一个说明死锁如何发生的场景：
 
 ![使用 Stream lookup 的 pipeline 中的死锁 - 示例 pipeline, width="100%"](../assets/images/how-to-guides/deadlocks-stream-lookup/deadlock-sample-stream-lookup-pipeline.png)
 
-1. **Pipeline 配置**：该 pipeline 包含一个 `Generate Rows` transform，将数据分成两路，一路直接流向 [Stream Lookup](pipeline/transforms/streamlookup.md) transform，另一路通过中间 transform（如 `Group By`）。
+1. **Pipeline 配置**：该 pipeline 包含一个 `Generate Rows` transform，将数据分成两路，一路直接流向 [Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) transform，另一路通过中间 transform（如 `Group By`）。
 2. **Rowset 限制**：假设本地 Pipeline 运行配置的 Rowset 大小设置为 10,000 行，这意味着每个 hop 最多可以在 transform 之间临时存储 10,000 行。
 3. **溢出**：如果 pipeline 生成 10,001 行，rowset 缓冲区将达到其 10,000 行的容量，导致 pipeline 暂停，直到下游 transform 处理一些行。
 
 ![使用 Stream lookup 的 pipeline 中的死锁 - rowset 大小, width="100%"](../assets/images/how-to-guides/deadlocks-stream-lookup/deadlock-sample-stream-lookup-rowset-size.png)
 
-当 [Stream Lookup](pipeline/transforms/streamlookup.md) 等待来自两路流的数据但遇到其中一路的缓冲区已满时，两路流都无法继续，导致整个 pipeline 死锁。
+当 [Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) 等待来自两路流的数据但遇到其中一路的缓冲区已满时，两路流都无法继续，导致整个 pipeline 死锁。
 
 ## 避免死锁的解决方案
 
@@ -39,7 +39,7 @@
 
 ![使用 Stream lookup 的 pipeline 中的死锁 - 分离输入流, width="100%"](../assets/images/how-to-guides/deadlocks-stream-lookup/deadlock-stream-lookup-separate-input-streams.png)
 
-更有效的解决方案是将输入数据流分成两个独立的副本，允许每路流独立操作。这避免了单路流中 transform 瓶颈导致的死锁，并允许 [Stream Lookup](pipeline/transforms/streamlookup.md) 顺畅运行。
+更有效的解决方案是将输入数据流分成两个独立的副本，允许每路流独立操作。这避免了单路流中 transform 瓶颈导致的死锁，并允许 [Stream Lookup](../03-转换插件/查找与连接类/streamlookup.md) 顺畅运行。
 
 ### 3. 将 pipeline 拆分为更小的单元
 
@@ -58,11 +58,11 @@
 
 ### Merge Join Transform 如何导致死锁
 
-死锁也可能发生在 [Merge Join](pipeline/transforms/mergejoin.md) transform 中，特别是在处理大型数据集或在本地运行 pipeline 时。以下是一个示例场景，展示了 *Merge Join* transform 可能如何导致死锁：
+死锁也可能发生在 [Merge Join](../03-转换插件/其他转换/mergejoin.md) transform 中，特别是在处理大型数据集或在本地运行 pipeline 时。以下是一个示例场景，展示了 *Merge Join* transform 可能如何导致死锁：
 
 ![使用 Merge Join 的 pipeline 中的死锁 - 示例 pipeline, width="100%"](../assets/images/how-to-guides/deadlocks-merge-join/deadlock-sample-merge-join-pipeline.png)
 
-1. **Pipeline 配置**：该 pipeline 生成行，分成两路流，然后在 [Merge Join](pipeline/transforms/mergejoin.md) transform 处合并。一路流直接流向 *Merge Join*，另一路流经过 *Add Constants* transform 然后经过 *Sort Rows* transform。
+1. **Pipeline 配置**：该 pipeline 生成行，分成两路流，然后在 [Merge Join](../03-转换插件/其他转换/mergejoin.md) transform 处合并。一路流直接流向 *Merge Join*，另一路流经过 *Add Constants* transform 然后经过 *Sort Rows* transform。
 2. **Rowset 限制**：假设本地 Pipeline 运行配置的 Rowset 大小设置为 10,000 行。如果此 pipeline 生成 20,003 行，两路流可能会超过总共 20,000 行的组合缓冲区容量（每个 hop 10,000 行），导致 pipeline 停顿。
 3. **死锁触发**：随着 rowset 填满，*Merge Join* 可能会等待来自两个已排序流的行。但是，如果一路流的缓冲区已满，两路流都无法继续，从而导致死锁。
 
@@ -88,7 +88,7 @@
 
 ===== 3. 使用 Blocking Transform
 
-对于需要顺序处理的 pipeline，[Blocking](pipeline/transforms/blockingtransform.md) transform 可以帮助管理流控制。配置它以在一路流中处理所有行，然后再将它们释放到下一个 transform。
+对于需要顺序处理的 pipeline，[Blocking](../03-转换插件/流程控制类/blockingtransform.md) transform 可以帮助管理流控制。配置它以在一路流中处理所有行，然后再将它们释放到下一个 transform。
 
 ![使用 Merge Join 的 pipeline 中的死锁 - blocking transform, width="100%"](../assets/images/how-to-guides/deadlocks-merge-join/deadlock-merge-join-blocking-transform.png)
 

@@ -10,8 +10,8 @@ Beam 文件定义描述了 Beam Pipeline 中的文件布局，并指定了在 Be
 
 Transform：
 
-- [Beam Input](pipeline/transforms/beamfileinput.md)
-- [Beam Output](pipeline/transforms/beamfileoutput.md)
+- [Beam Input](../03-转换插件/其他转换/beamfileinput.md)
+- [Beam Output](../03-转换插件/其他转换/beamfileoutput.md)
 
 ## 选项
 

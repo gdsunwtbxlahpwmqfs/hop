@@ -17,7 +17,7 @@ Hop 中使用的主要特性：
 
 ## Hop 如何使用 Arrow：
 
-- [Apache Arrow Random Access File 数据流类型](metadata-types/data-stream/arrow-random-access-file.md)
-- [Apache Arrow File Stream 数据流类型](metadata-types/data-stream/arrow-file-stream.md)
-- [Apache Arrow Flight 数据流类型](metadata-types/data-stream/arrow-flight.md)
-- [Hop Arrow Flight 服务器](hop-tools/hop-arrow-command.md)
+- [Apache Arrow Random Access File 数据流类型](../06-元数据类型/arrow-random-access-file.md)
+- [Apache Arrow File Stream 数据流类型](../06-元数据类型/arrow-file-stream.md)
+- [Apache Arrow Flight 数据流类型](../06-元数据类型/arrow-flight.md)
+- [Hop Arrow Flight 服务器](../09-Hop工具/hop-arrow-command.md)

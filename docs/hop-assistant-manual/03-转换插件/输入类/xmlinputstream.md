@@ -10,7 +10,7 @@
 
 此 Transform 非常适合快速处理大型和复杂的数据结构。
 
-与使用内存处理并可能需要清除部分文件的 [Get Data from XML](pipeline/transforms/getdatafromxml.md) transform 不同，XML Input Stream (StAX) transform 将处理逻辑移入 Pipeline 中。
+与使用内存处理并可能需要清除部分文件的 [Get Data from XML](../其他转换/getdatafromxml.md) transform 不同，XML Input Stream (StAX) transform 将处理逻辑移入 Pipeline 中。
 
 该 Transform 本身提供原始 XML 数据流以及附加的处理信息。
 

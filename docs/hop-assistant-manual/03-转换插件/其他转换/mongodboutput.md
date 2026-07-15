@@ -21,7 +21,7 @@ Output options 选项卡提供了向 MongoDB collection 插入数据的控制选
 
 | 选项 | 描述 |
 |---|---|
-| MongoDB Connection | 用于此 MongoDB Output Transform 的 [MongoDB connection](metadata-types/mongodb-connection.md)。 |
+| MongoDB Connection | 用于此 MongoDB Output Transform 的 [MongoDB connection](../../06-元数据类型/mongodb-connection.md)。 |
 | Collection | 指定输出的目标 collection。 |
 | Batch insert size | 指定批量插入操作的批次大小。 |
 | Truncate collection | 选择以在插入新数据之前删除目标 collection 中的现有数据。 |

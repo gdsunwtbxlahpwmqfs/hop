@@ -12,4 +12,4 @@ Neo4j perspective 提供了一个视图，允许你从 Neo4j 数据库查询 Hop
 
 在 perspective 对话框的下半部分，显示日志文本、错误路径和一些有用的 cypher 查询。
 
-> **💡 提示:** 虽然功能完备，但我们建议你使用 [Neo4j](metadata-types/neo4j/neo4j-location-type.md) [execution information location](metadata-types/execution-information-location.md) plugin。
+> **💡 提示:** 虽然功能完备，但我们建议你使用 [Neo4j](../06-元数据类型/neo4j-location-type.md) [execution information location](../06-元数据类型/execution-information-location.md) plugin。

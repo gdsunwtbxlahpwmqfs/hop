@@ -24,7 +24,7 @@ Input options 选项卡允许您指定要从中检索信息的连接和集合。
 | Option | Definition |
 |---|---|
 | MongoDB connection |  |
-| 用于此 MongoDB Input transform 的 [MongoDB connection](metadata-types/mongodb-connection.md)。 |  |
+| 用于此 MongoDB Input transform 的 [MongoDB connection](../../06-元数据类型/mongodb-connection.md)。 |  |
 | Collection |  |
 | 要从中检索数据的集合名称。 |  |
 

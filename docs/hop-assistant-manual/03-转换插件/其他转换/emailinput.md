@@ -15,7 +15,7 @@
 | Option | Description |
 |---|---|
 | Transform name | Transform 的名称。 |
-| Mail Connection | 如果在此选择了邮件服务器连接，则忽略此选项卡的其余部分。服务器配置将从 [Mail Server Connection](metadata-types/mail-server-connection.md) 元数据项中获取。 |
+| Mail Connection | 如果在此选择了邮件服务器连接，则忽略此选项卡的其余部分。服务器配置将从 [Mail Server Connection](../../06-元数据类型/mail-server-connection.md) 元数据项中获取。 |
 | Source host | 邮件服务器主机 |
 | Use SSL? | 如果你的服务器需要 SSL 连接，请勾选此选项 |
 | Use XOAUTH2 | 如果勾选，将使用 XOAuth2 向服务器进行身份验证。 |

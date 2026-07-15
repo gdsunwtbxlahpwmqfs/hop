@@ -30,7 +30,7 @@
 
 | Option | Description |
 |---|---|
-| Mail Connection | 如果在此处选择了邮件服务器连接，则忽略此标签页的其余部分。服务器配置将从 [Mail Server Connection](metadata-types/mail-server-connection.md) metadata 项中获取。 |
+| Mail Connection | 如果在此处选择了邮件服务器连接，则忽略此标签页的其余部分。服务器配置将从 [Mail Server Connection](../../06-元数据类型/mail-server-connection.md) metadata 项中获取。 |
 | SMTP server | SMTP 服务器的 URL、主机名或 IP 地址。 |
 | Port | SMTP 服务的端口号。 |
 | Use authentication | 如果勾选，您可以在接下来的几个字段中输入 SMTP 用户名和密码。 |
@@ -58,7 +58,7 @@
 | Sensitivity | 用于设置"Sensitivity"头信息为 Normal、Personal、Private 或 Confidential。 |
 | Subject | 邮件的主题行。 |
 | Comment | 邮件正文。 |
-| Include message (eml) in output | 选择此标志可将生成的 IMF 代码（[Internet Message Format - RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322)）存储到流字段中。然后您可以使用 [Text file output](pipeline/transforms/textfileoutput.md) transform 通过此字段创建 EML 文件。 |
+| Include message (eml) in output | 选择此标志可将生成的 IMF 代码（[Internet Message Format - RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322)）存储到流字段中。然后您可以使用 [Text file output](../../03-转换插件/输出类/textfileoutput.md) transform 通过此字段创建 EML 文件。 |
 | Message (eml) output filename | 如果启用了上述标志，请指定包含生成的 IMF 代码的字段名称。 |
 
 ### 附件文件

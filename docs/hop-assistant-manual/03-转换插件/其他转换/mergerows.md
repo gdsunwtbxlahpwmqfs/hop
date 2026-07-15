@@ -31,7 +31,7 @@
 
 如果标志为 **new** 或 **changed**，则合并后的输出行基于比较行。
 
-您还可以将合并并标记的行发送到 Pipeline 中的后续 Transform，例如 [Switch-Case](pipeline/transforms/switchcase.md) 或 [Synchronize after merge](pipeline/transforms/synchronizeaftermerge.md)。
+您还可以将合并并标记的行发送到 Pipeline 中的后续 Transform，例如 [Switch-Case](../流程控制类/switchcase.md) 或 [Synchronize after merge](synchronizeaftermerge.md)。
 在后续 Transform 中，您可以使用 **Merge rows (diff)** 生成的标志字段来控制目标表的更新/插入/删除操作。
 
 ## 选项

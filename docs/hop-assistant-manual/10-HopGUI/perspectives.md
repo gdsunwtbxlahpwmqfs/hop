@@ -7,18 +7,18 @@ Hop 内置了多个 perspective。
 
 以下是可用的 perspective：
 
-- ![width="24px"](../assets/images/icons/data_orch.svg) [Data Orchestration](hop-gui/perspective-data-orchestration.md)
+- ![width="24px"](../assets/images/icons/data_orch.svg) [Data Orchestration](perspective-data-orchestration.md)
 
-- ![width="24px"](../assets/images/icons/execution.svg) [Execution Information](hop-gui/perspective-execution-information.md)
+- ![width="24px"](../assets/images/icons/execution.svg) [Execution Information](perspective-execution-information.md)
 
-- ![width="24px"](../assets/images/icons/gear.svg) [Configuration](hop-gui/perspective-configuration.md)
+- ![width="24px"](../assets/images/icons/gear.svg) [Configuration](perspective-configuration.md)
 
-- ![width="24px"](../assets/images/icons/metadata.svg) [Metadata](hop-gui/perspective-metadata.md)
+- ![width="24px"](../assets/images/icons/metadata.svg) [Metadata](perspective-metadata.md)
 
-- ![width="24px"](../assets/images/icons/folder.svg) [File explorer](hop-gui/perspective-file-explorer.md)
+- ![width="24px"](../assets/images/icons/folder.svg) [File explorer](perspective-file-explorer.md)
 
-- ![width="24px"](../assets/images/icons/search.svg) [Search](hop-gui/perspective-search.md)
+- ![width="24px"](../assets/images/icons/search.svg) [Search](perspective-search.md)
 
-- ![width="24px"](../assets/images/icons/plugin.svg) [Plugins explorer](hop-gui/perspective-plugin.md)
+- ![width="24px"](../assets/images/icons/plugin.svg) [Plugins explorer](perspective-plugin.md)
 
-- ![width="24px"](../assets/images/icons/neo4j_logo.svg) [Neo4j](hop-gui/perspective-neo4j.md)
+- ![width="24px"](../assets/images/icons/neo4j_logo.svg) [Neo4j](perspective-neo4j.md)

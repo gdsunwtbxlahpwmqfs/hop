@@ -21,4 +21,4 @@
 | Get lookup fields | 自动插入查找端（B）所有可用字段的名称。 |
 
 有关使用 Stream Lookup transform 时防止死锁的指导，请参阅此操作指南：
-**[避免死锁](how-to-guides/avoiding-deadlocks.md)**
+**[避免死锁](../../16-HowTo指南/avoiding-deadlocks.md)**

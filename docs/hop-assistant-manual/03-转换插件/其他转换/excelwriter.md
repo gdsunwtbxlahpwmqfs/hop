@@ -71,15 +71,15 @@
 
 *字段部分*
 
-字段部分用于指定必须写入 Excel 文件的字段。你可以选择使用 [Schema Definition](metadata-types/static-schema-definition.md) 或手动定义所需字段的布局。
+字段部分用于指定必须写入 Excel 文件的字段。你可以选择使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 或手动定义所需字段的布局。
 
-如果你决定使用 [Schema Definition](metadata-types/static-schema-definition.md) 来定义字段布局，请使用 [Schema Mapping](pipeline/transforms/schemamapping.md) Transform 根据所选的 [Schema Definition](metadata-types/static-schema-definition.md) 调整传入流
+如果你决定使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 来定义字段布局，请使用 [Schema Mapping](schemamapping.md) Transform 根据所选的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 调整传入流
 
-`ignore manual fields` 忽略在 Transform 字段布局中手动定义的任何字段，仅使用 [Schema Definition](metadata-types/static-schema-definition.md) 中指定的布局。
+`ignore manual fields` 忽略在 Transform 字段布局中手动定义的任何字段，仅使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 中指定的布局。
 
 | Option | Description |
 |---|---|
-| Schema Definition | 我们要引用的 [Schema Definition](metadata-types/static-schema-definition.md) 的名称。 |
+| Schema Definition | 我们要引用的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 的名称。 |
 | Name | 要写入的字段 |
 | Type | 数据类型 |
 | Format | 工作表中要使用的 Excel 格式。 |

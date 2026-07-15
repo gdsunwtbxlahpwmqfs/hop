@@ -8,7 +8,7 @@ Hop GUI 是 Hop 数据开发者创建、测试、运行和管理 Workflow 及 Pi
 除了开发和生命周期管理功能外，Hop GUI 还包含用于管理项目和环境的工具和透视图，用于搜索和管理 metadata，用于管理和版本控制大量文件，以及用于在 Neo4j 图中浏览日志。
 
 > **💡 提示:** Hop GUI 的设计是与平台无关的。
-[Hop Web](../hop-gui/hop-web.md) 是 Hop GUI 的一个版本，可以在浏览器和移动设备上运行。
+[Hop Web](../10-HopGUI/hop-web.md) 是 Hop GUI 的一个版本，可以在浏览器和移动设备上运行。
 
 以下命令可针对你的操作系统启动 Hop GUI。
 
@@ -81,7 +81,7 @@ Projects:
 
 ====
 
-请查看 [Hop 工具 -> Hop Conf](../hop-tools/hop-conf/hop-conf.md) 文档以获取更多信息。
+请查看 [Hop 工具 -> Hop Conf](../09-Hop工具/hop-conf.md) 文档以获取更多信息。
 
 ## Hop Encrypt
 
@@ -130,12 +130,12 @@ Encrypted 2be98afc86aa79f9dbb18bd63c99dbdde
 
 ====
 
-请查看 [Hop 工具 -> Hop Encrypt](../hop-tools/hop-encrypt.md) 文档以获取更多信息。
+请查看 [Hop 工具 -> Hop Encrypt](../09-Hop工具/hop-encrypt.md) 文档以获取更多信息。
 
 ## Hop Run
 
 Hop Run 是一个命令行工具，用于运行 Workflow 和 Pipeline，可以选择（列出或）指定项目、环境、属性和运行配置。
-下面示例在 samples 项目（`-j`）中，使用[本地原生 Pipeline 运行配置](pipeline/pipeline-run-configurations/native-local-pipeline-engine.md)（`-r`）运行 `switch-case-basic.hpl` Pipeline。
+下面示例在 samples 项目（`-j`）中，使用[本地原生 Pipeline 运行配置](../07-管道/native-local-pipeline-engine.md)（`-r`）运行 `switch-case-basic.hpl` Pipeline。
 
 &nbsp;
 
@@ -205,7 +205,7 @@ Linux, macOS::
 
 ====
 
-[Hop 工具 -> Hop Run](:../hop-run/index.md)
+[Hop 工具 -> Hop Run](../index.md)
 
 ## Hop Search
 
@@ -265,7 +265,7 @@ file://<YOUR_PATH>/hop/config/projects/samples/beam/pipelines/switch-case.hpl : 
 
 ====
 
-请查看 [Hop 工具 -> Hop Search](../hop-tools/hop-search.md) 文档以获取更多信息。
+请查看 [Hop 工具 -> Hop Search](../09-Hop工具/hop-search.md) 文档以获取更多信息。
 
 ## Hop Server
 
@@ -325,7 +325,7 @@ Linux, macOS::
 
 ====
 
-了解更多关于 [Hop Server](:../hop-server/index.md) 的信息
+了解更多关于 [Hop Server](../index.md) 的信息
 
 ## Hop Import
 

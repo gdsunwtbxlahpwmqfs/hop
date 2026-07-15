@@ -16,13 +16,13 @@ Qi Hop 大量使用 VFS。
 
 | 文件系统 | 描述 | URI 格式 |
 |---|---|---|
-| [AWS S3](vfs/aws-s3-vfs.md) | 提供对 Amazon S3 Bucket 的访问 | `s3://` |
-| [Azure Blob Storage](vfs/azure-blob-storage-vfs.md) | 提供对 Azure Blob Storage 的访问 | `azure://` (别名: `azfs://`) |
-| [Dropbox](vfs/dropbox-vfs.md) | 提供对 Dropbox 的访问 | `dropbox://` |
-| [Google Cloud Storage](vfs/google-cloud-storage-vfs.md) | 提供对 Google Cloud Storage bucket 的访问 | `gs://` |
-| [Google Drive](vfs/google-drive-vfs.md) | 提供对 Google Drive 文件夹的访问 | `googledrive://` |
-| [Minio connection](metadata-types/minio-connection.md) | 通过命名的 Minio 连接（metadata）提供对 S3 兼容端点的访问 | `<connectionName>://` |
-| [WebDAV Connection](metadata-types/webdav-connection.md) | 通过静态方案或命名连接（metadata）提供对 WebDAV 服务器的访问 | `webdav4://`, `webdav4s://`, 或 `<connectionName>://` |
+| [AWS S3](aws-s3-vfs.md) | 提供对 Amazon S3 Bucket 的访问 | `s3://` |
+| [Azure Blob Storage](azure-blob-storage-vfs.md) | 提供对 Azure Blob Storage 的访问 | `azure://` (别名: `azfs://`) |
+| [Dropbox](dropbox-vfs.md) | 提供对 Dropbox 的访问 | `dropbox://` |
+| [Google Cloud Storage](google-cloud-storage-vfs.md) | 提供对 Google Cloud Storage bucket 的访问 | `gs://` |
+| [Google Drive](google-drive-vfs.md) | 提供对 Google Drive 文件夹的访问 | `googledrive://` |
+| [Minio connection](../06-元数据类型/minio-connection.md) | 通过命名的 Minio 连接（metadata）提供对 S3 兼容端点的访问 | `<connectionName>://` |
+| [WebDAV Connection](../06-元数据类型/webdav-connection.md) | 通过静态方案或命名连接（metadata）提供对 WebDAV 服务器的访问 | `webdav4://`, `webdav4s://`, 或 `<connectionName>://` |
 
 ## Apache VFS 文件系统类型
 

@@ -7,7 +7,7 @@
 | Dataflow | ![Supported, 24](../../assets/images/check_mark.svg) |
 
 将其想象为编程中的可重用函数——您将一些数据传入函数，它返回数据。
-在 Simple Mapping transform 中，您可以指定一个 [Mapping Input](pipeline/transforms/mapping-input.md) transform 来传递数据，以及一个 [Mapping Output](pipeline/transforms/mapping-output.md) transform 来从中检索数据行，还可以指定要传递给映射的参数。
+在 Simple Mapping transform 中，您可以指定一个 [Mapping Input](../映射与子管道类/mapping-input.md) transform 来传递数据，以及一个 [Mapping Output](../映射与子管道类/mapping-output.md) transform 来从中检索数据行，还可以指定要传递给映射的参数。
 
 如果您发现自己在多个不同的 Pipeline 中重复相同的逻辑，请使用此 transform。
 
@@ -20,9 +20,9 @@
 此 Pipeline 独立执行，被视为一个独立实体。
 它始终使用标准的本地 Hop Pipeline 运行配置执行，因为这是目前唯一能够向 transform 流式传输数据进出的配置。
 - Parameters 选项卡：指定要传递给映射 Pipeline 的参数
-- Input 选项卡：指定要传递给映射中 [Mapping Input](pipeline/transforms/mapping-input.md) transform 的字段。
+- Input 选项卡：指定要传递给映射中 [Mapping Input](../映射与子管道类/mapping-input.md) transform 的字段。
 您可以映射（因此得名）字段名称。
-- Output 选项卡：指定如何重命名从 [Mapping Output](pipeline/transforms/mapping-output.md) transform 检索的输出字段。
+- Output 选项卡：指定如何重命名从 [Mapping Output](../映射与子管道类/mapping-output.md) transform 检索的输出字段。
 
 ## 示例
 

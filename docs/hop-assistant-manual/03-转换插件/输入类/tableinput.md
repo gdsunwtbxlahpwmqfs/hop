@@ -148,8 +148,8 @@ You can inject metadata into the following fields of the Table Input transform:
 
 The *Preview* button opens a dialog where you set how many rows to fetch and a **query timeout** in seconds (JDBC `Statement#setQueryTimeout`).
 
-- The timeout applies **only while the pipeline is running in preview mode** from the Hop GUI (not during a normal pipeline run from a run configuration or [Hop Run](hop-run/index.md)).
-- You can set a default for the timeout field with the [`HOP_QUERY_PREVIEW_TIMEOUT`](variables.md#_available_global_variables.md) application variable (`0` = no default from the variable). When the variable is `0` or unset, the dialog still suggests `5` seconds for the initial value.
+- The timeout applies **only while the pipeline is running in preview mode** from the Hop GUI (not during a normal pipeline run from a run configuration or [Hop Run](../../index.md)).
+- You can set a default for the timeout field with the [`HOP_QUERY_PREVIEW_TIMEOUT`](../../12-变量与项目管理/variables.md#_available_global_variables.md) application variable (`0` = no default from the variable). When the variable is `0` or unset, the dialog still suggests `5` seconds for the initial value.
 
 ## Options
 

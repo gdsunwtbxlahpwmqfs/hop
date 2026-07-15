@@ -8,7 +8,7 @@
 
 ## 相关 plugin
 
-- [Splunk Input](pipeline/transforms/splunkinput.md)
+- [Splunk Input](../03-转换插件/输入类/splunkinput.md)
 
 ## 选项
 

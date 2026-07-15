@@ -1,8 +1,8 @@
 # 工具栏
 
-您在[创建 Pipeline](pipeline/create-pipeline.md) 中学习了如何创建 pipeline。您将在 pipeline 画布上执行许多操作，但 pipeline 编辑器的主工具栏还提供了许多额外功能。
+您在[创建 Pipeline](create-pipeline.md) 中学习了如何创建 pipeline。您将在 pipeline 画布上执行许多操作，但 pipeline 编辑器的主工具栏还提供了许多额外功能。
 
-还有两个重要的工具栏用于[单元测试](pipeline/pipeline-unit-testing.md)和[项目与环境](projects/index.md)。请查看相应页面以了解有关管理项目和环境以及如何为 pipeline 编写单元测试的更多信息。
+还有两个重要的工具栏用于[单元测试](pipeline-unit-testing.md)和[项目与环境](../index.md)。请查看相应页面以了解有关管理项目和环境以及如何为 pipeline 编写单元测试的更多信息。
 
 让我们来浏览顶部工具栏：
 

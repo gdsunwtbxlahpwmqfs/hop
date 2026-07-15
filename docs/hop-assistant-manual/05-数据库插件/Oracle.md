@@ -12,7 +12,7 @@
 
 > **💡 提示:** 从 Oracle Database 11g Release 1 (11.1) 开始，数据类型 `Date` 将默认映射为 `Timestamp`。
 设置 JDBC 属性 `oracle.jdbc.mapDateToTimestamp=false` 以避免数据类型 `Date` 被转换为数据类型 `Timestamp`。
-请查看关系型数据库连接文档中的 [Options](database/databases.md#_options.md) 获取更多信息。
+请查看关系型数据库连接文档中的 [Options](databases.md#_options.md) 获取更多信息。
 
 ## 创建连接
 

@@ -14,14 +14,14 @@
 
 ## 可用实现
 
-- [Apache Arrow 随机访问文件](metadata-types/data-stream/arrow-random-access-file.md)
-- [Apache Arrow 文件流](metadata-types/data-stream/arrow-file-stream.md)
-- [Apache Arrow Flight](metadata-types/data-stream/arrow-flight.md)
+- [Apache Arrow 随机访问文件](arrow-random-access-file.md)
+- [Apache Arrow 文件流](arrow-file-stream.md)
+- [Apache Arrow Flight](arrow-flight.md)
 
 另请参阅：
 
-- [`hop arrow` 命令](hop-tools/hop-arrow-command.md)
-- [Apache Arrow 技术页面](technology/arrow/apache-arrow.md)
+- [`hop arrow` 命令](../09-Hop工具/hop-arrow-command.md)
+- [Apache Arrow 技术页面](../19-技术集成/apache-arrow.md)
 
 ## 用法
 

@@ -4,7 +4,7 @@
 
 Hop 有一种通过 servlet 暴露数据的简单方式。
 
-有关配置 Hop Server 的更多信息，请查看 [Hop Server 文档](hop-server/index.md)
+有关配置 Hop Server 的更多信息，请查看 [Hop Server 文档](../index.md)
 ## Web Service Metadata
 
 ### 截图

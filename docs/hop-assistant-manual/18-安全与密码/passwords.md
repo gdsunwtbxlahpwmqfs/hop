@@ -44,7 +44,7 @@ cluster: OBF:1v8w1uh21z7k1ym71z7i1ugo1v9q,default
 
 ## 使用 Hop Encrypt 进行密码加密（混淆）
 
-查看 [Hop Encrypt](hop-tools/hop-encrypt.md) 了解有关如何在 Hop 或 Hop Server 中混淆或加密密码的更多信息。
+查看 [Hop Encrypt](../09-Hop工具/hop-encrypt.md) 了解有关如何在 Hop 或 Hop Server 中混淆或加密密码的更多信息。
 
 ## 密码 plugin
 
@@ -52,4 +52,4 @@ Hop 中的密码处理可以作为 plugin 实现。
 
 以下是可用的 plugin 实现：
 
-- [AES 双向密码编码器](password/passwords/aespasswords.md)
+- [AES 双向密码编码器](aespasswords.md)

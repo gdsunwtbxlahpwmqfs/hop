@@ -16,7 +16,7 @@ Transform name：指定 Pipeline 中此 MongoDB Delete Transform 的唯一名称
 
 | 字段 | 描述 |
 |---|---|
-| MongoDB connection | 用于 MongoDB Delete Transform 的 [MongoDB connection](metadata-types/mongodb-connection.md)。 |
+| MongoDB connection | 用于 MongoDB Delete Transform 的 [MongoDB connection](../../06-元数据类型/mongodb-connection.md)。 |
 | Collection | 要从中删除数据的 collection 名称。 |
 | Number of retries for write operations | 写操作的重试次数 |
 | Delay (in seconds) between retry attempts | 重试之间的延迟（秒） |

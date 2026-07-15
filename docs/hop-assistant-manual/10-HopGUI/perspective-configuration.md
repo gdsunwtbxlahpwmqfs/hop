@@ -75,19 +75,19 @@ Plugins 标签页包含由 Qi Hop 中各种 plugin 提供的配置选项。
 
 默认情况下提供以下 plugin：
 
-- [Azure Blob Storage](vfs/azure-blob-storage-vfs.md#_configuration.md) VFS 配置选项。
-- [Dropbox](vfs/dropbox-vfs.md#_configuration.md) VFS 配置选项。
+- [Azure Blob Storage](../14-虚拟文件系统/azure-blob-storage-vfs.md#_configuration.md) VFS 配置选项。
+- [Dropbox](../14-虚拟文件系统/dropbox-vfs.md#_configuration.md) VFS 配置选项。
 - **Explorer perspective**：文件浏览器 perspective 的配置选项：
   ** 非延迟加载的初始深度：控制打开文件夹时立即加载多少层文件夹级别。
   ** 最大文件加载大小：设置打开文件时将加载的最大文件大小（以 MB 为单位）。
   ** 默认显示文件浏览器面板：启用后，打开 explorer perspective 时默认显示文件浏览器面板（项目树）。禁用后，面板初始隐藏。
-- [Google Cloud](technology/google/index.md) 配置选项（服务账号 JSON 密钥文件）。
-- [Google Drive](vfs/google-drive-vfs.md#_configuration.md) VFS 配置选项。
-- [Project](projects/index.md) 配置选项
+- [Google Cloud](../index.md) 配置选项（服务账号 JSON 密钥文件）。
+- [Google Drive](../14-虚拟文件系统/google-drive-vfs.md#_configuration.md) VFS 配置选项。
+- [Project](../index.md) 配置选项
 - Welcome Dialog：指定 Hop GUI 启动时是显示还是隐藏欢迎对话框。
 
 ### System Variables
 
 System Variables 标签页包含 Hop GUI 中可用的系统变量。
 
-查看 [Variables 文档](variables.md) 以获取有关可用变量及其默认值的更多信息。
+查看 [Variables 文档](../12-变量与项目管理/variables.md) 以获取有关可用变量及其默认值的更多信息。

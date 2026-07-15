@@ -40,7 +40,7 @@ Transform 中的数据分布如下表所示。
 ![Partitioning Buffers,width="45%"](../assets/images/hop-gui/pipeline/partitionining-buffers.png)
 
 这就是数据分区成为有用概念的地方，因为它为聚合应用了特定的基于规则的导向，将来自同一州的行导向同一个 transform 副本，使行不会被任意分配。
-在下面的示例中，一个名为 State 的 [分区 schema](metadata-types/partition-schema.md) 被应用到 count by state transform，并且对 State 字段应用了 Remainder of division 分区规则。
+在下面的示例中，一个名为 State 的 [分区 schema](../06-元数据类型/partition-schema.md) 被应用到 count by state transform，并且对 State 字段应用了 Remainder of division 分区规则。
 现在，count by state 聚合 transform 产生了一致正确的结果，因为行是按照分区 schema 和规则进行拆分的，如预览数据所示。
 
 ![Partition Schema,width="45%"](../assets/images/hop-gui/pipeline/partitionining-partition-schema.png)

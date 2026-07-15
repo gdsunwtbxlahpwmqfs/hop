@@ -10,8 +10,8 @@
 
 ## 相关 plugin
 
-- [MongoDB Input](pipeline/transforms/mongodbinput.md)
-- [MongoDB Output](pipeline/transforms/mongodboutput.md)
+- [MongoDB Input](../03-转换插件/输入类/mongodbinput.md)
+- [MongoDB Output](../03-转换插件/其他转换/mongodboutput.md)
 
 ## 选项
 

@@ -16,6 +16,6 @@ Hop 官方 Java 版本为 21。请查看 [Java 文档](https://java.com/en/downl
 ## 安装
 
 将 Hop 解压到你选择的文件夹。
-在该文件夹中，你可以通过相应的脚本运行各种 Hop [工具](hop-tools/index.md)。
+在该文件夹中，你可以通过相应的脚本运行各种 Hop [工具](../index.md)。
 
 现在你已经安装了 Hop，让我们来看看你可以使用的所有 Hop 工具。

@@ -19,13 +19,13 @@ You can customize the name or leave it as the default.
 
 ### Connection
 
-The Salesforce transform can use a pre-defined [Salesforce Connection](metadata-types/salesforce-connection.md) or use inline connection settings directly.
+The Salesforce transform can use a pre-defined [Salesforce Connection](../其他转换/salesforce-connection.md) or use inline connection settings directly.
 When using a Salesforce Connection, the connection settings (URL, username, password, OAuth tokens) defined in the metadata will be used.
 When used without a Salesforce Connection, the connection details need to be specified directly in the transform.
 
 | Option | Description |
 |---|---|
-| Salesforce Connection | The (optional) [Salesforce Connection](metadata-types/salesforce-connection.md) to use. When selected, the connection settings from the metadata will be used and the inline connection fields will be disabled. |
+| Salesforce Connection | The (optional) [Salesforce Connection](../其他转换/salesforce-connection.md) to use. When selected, the connection settings from the metadata will be used and the inline connection fields will be disabled. |
 | Salesforce Webservice URL a | Specify the URL to the Salesforce Webservice. |
 | Username | Specify the username for authenticating to Salesforce |
 | Password | Specify the password for authenticating to Salesforce. |

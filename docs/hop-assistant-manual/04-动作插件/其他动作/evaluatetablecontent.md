@@ -20,7 +20,7 @@
 | 属性 | 描述 |
 |---|---|
 | Action 名称 | 此 workflow action 使用的名称 |
-| 连接 | 要使用的[关系型数据库连接](metadata-types/rdbms-connection.md) |
+| 连接 | 要使用的[关系型数据库连接](../../06-元数据类型/rdbms-connection.md) |
 | 目标 schema | 数据库 schema 名称 |
 | 目标表名 | 数据库表名 |
 | 行数成功条件 |  |

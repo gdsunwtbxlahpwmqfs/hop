@@ -17,14 +17,14 @@ Hop 支持 Cassandra 4（自 2.2.0 版本起），提供以下内容：
 
 ### Metadata 类型
 
-- [Cassandra 连接](metadata-types/cassandra/cassandra-connection.md)：创建到您的 Cassandra 数据库集群的连接。
+- [Cassandra 连接](../06-元数据类型/cassandra-connection.md)：创建到您的 Cassandra 数据库集群的连接。
 
 ### Workflow Action
 
-- [Cassandra 执行 CQL](workflow/actions/cassandra-exec-cql.md)：执行 Cassandra [CQL](https://cassandra.apache.org/doc/latest/cql/)
+- [Cassandra 执行 CQL](../04-动作插件/其他动作/cassandra-exec-cql.md)：执行 Cassandra [CQL](https://cassandra.apache.org/doc/latest/cql/)
 
 ### Pipeline Transform
 
-- [Cassandra Input](pipeline/transforms/cassandra-input.md)：通过 CQL 查询从 Cassandra 集群读取数据。
-- [Cassandra Output](pipeline/transforms/cassandra-output.md)：将数据写入 Cassandra 集群中的表。
-- [SSTable Output](pipeline/transforms/sstable-output.md)：将数据作为 Cassandra SSTable 写入文件系统目录。
+- [Cassandra Input](../03-转换插件/输入类/cassandra-input.md)：通过 CQL 查询从 Cassandra 集群读取数据。
+- [Cassandra Output](../03-转换插件/其他转换/cassandra-output.md)：将数据写入 Cassandra 集群中的表。
+- [SSTable Output](../03-转换插件/其他转换/sstable-output.md)：将数据作为 Cassandra SSTable 写入文件系统目录。

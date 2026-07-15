@@ -6,7 +6,7 @@
 | Flink | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
 | Dataflow | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
 
-此 transform 接受一行（且仅一行）数据来设置变量的值。为此 transform 隔离单行数据很重要，一种简单的方法是使用 [Blocking transform](pipeline/transforms/blockingtransform.md)
+此 transform 接受一行（且仅一行）数据来设置变量的值。为此 transform 隔离单行数据很重要，一种简单的方法是使用 [Blocking transform](../流程控制类/blockingtransform.md)
 
 变量在 Hop 中没有类型（转换为字符串）。例如，如果使用公式，它可能没有类型，因此必要时请确保转换为字符串（可以使用 TEXT 函数）。
 

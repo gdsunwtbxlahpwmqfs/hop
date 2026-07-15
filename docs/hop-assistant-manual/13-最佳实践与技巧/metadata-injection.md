@@ -1,6 +1,6 @@
 ### Metadata Injection
 
-如果您需要多次创建"几乎"相同的 pipeline，请考虑使用 [Metadata Injection](pipeline/transforms/metainject.md) 来创建可重用的模板 pipeline。
+如果您需要多次创建"几乎"相同的 pipeline，请考虑使用 [Metadata Injection](../03-转换插件/其他转换/metainject.md) 来创建可重用的模板 pipeline。
 
 - 避免手动填充对话框
 - 当您需要动态 ETL 时

@@ -6,13 +6,13 @@
 | Flink | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
 | Dataflow | ![Maybe Supported, 24](../../assets/images/question_mark.svg) |
 
-当您决定引用 [Schema Definition](metadata-types/static-schema-definition.md) 来映射文件的输出布局时，Schema Mapping 是一个有用的映射 transform，可以放在 [Text File Output](pipeline/transforms/textfileoutput.md) 或 [Excel Writer](pipeline/transforms/excelwriter.md) 等 transform 之前。通过在这些 transform 之前放置 Schema Mapping，传入的流将根据预期的输出布局定义进行预设。
+当您决定引用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 来映射文件的输出布局时，Schema Mapping 是一个有用的映射 transform，可以放在 [Text File Output](../输出类/textfileoutput.md) 或 [Excel Writer](excelwriter.md) 等 transform 之前。通过在这些 transform 之前放置 Schema Mapping，传入的流将根据预期的输出布局定义进行预设。
 
 ## 选项
 
 | 选项 | 描述 |
 |---|---|
-| Schema Definition | 我们要映射到传入流的 [Schema Definition](metadata-types/static-schema-definition.md) 名称。 |
+| Schema Definition | 我们要映射到传入流的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 名称。 |
 | Schema Fields | 映射到流字段的 schema 字段集合。 |
 | Stream Fields name | 映射到 schema 字段的流字段集合。 |
 

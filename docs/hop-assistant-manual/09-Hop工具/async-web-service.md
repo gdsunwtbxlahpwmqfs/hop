@@ -3,11 +3,11 @@
 ## 描述
 
 此 Web 服务变体用于执行长时间运行的 workflow。
-与通过 [Web Service](hop-server/web-service.md) 调用从 pipeline 获取即时结果不同，调用后唯一返回的是正在执行的 workflow 的唯一 ID。
+与通过 [Web Service](web-service.md) 调用从 pipeline 获取即时结果不同，调用后唯一返回的是正在执行的 workflow 的唯一 ID。
 使用该唯一 ID，你可以查询 workflow 的状态。
 你可以指定额外的变量，以便在查询异步运行的 workflow 状态时返回。
 
-有关如何配置异步 Web 服务的更多信息，请查看 [Asynchronous Web Service](metadata-types/async-web-service.md) metadata 类型。
+有关如何配置异步 Web 服务的更多信息，请查看 [Asynchronous Web Service](async-web-service.md) metadata 类型。
 
 以下是生命周期：
 
@@ -55,9 +55,9 @@ curl --user cluster:cluster \
 ```
 
 正在执行的异步 Web 服务的 ID 与正在执行的 workflow 的"容器 ID"相同。这意味着你也可以使用 `hop/getWorkflowStatus` 服务查询 workflow 本身。该服务的输出可以是 HTML（默认）、XML（参数 `&xml=Y`）或 JSON（参数 `&json=Y`）。
-Web 服务还将包含 workflow 的日志通道 ID，以便你可以将其与你选择的[执行信息位置](metadata-types/execution-information-location.md)中列出的执行 ID 进行匹配。
+Web 服务还将包含 workflow 的日志通道 ID，以便你可以将其与你选择的[执行信息位置](../06-元数据类型/execution-information-location.md)中列出的执行 ID 进行匹配。
 
-另请参见：[Get Workflow Status](hop-server/rest-api.md#_getworkflowstatus.md)。
+另请参见：[Get Workflow Status](rest-api.md#_getworkflowstatus.md)。
 
 ## 选项
 

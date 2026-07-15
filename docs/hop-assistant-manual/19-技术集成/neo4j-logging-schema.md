@@ -2,7 +2,7 @@
 
 Qi Hop 可以将执行信息写入 Neo4j，这样您就可以以图的形式检查 pipeline 和 workflow metadata、执行结果、日志文本和血缘。
 
-通过将 `NEO4J_LOGGING_CONNECTION` 变量设置为 [Neo4j 连接](metadata-types/neo4j/neo4j-connection.md)的名称来启用 Neo4j 日志图。
+通过将 `NEO4J_LOGGING_CONNECTION` 变量设置为 [Neo4j 连接](../06-元数据类型/neo4j-connection.md)的名称来启用 Neo4j 日志图。
 将变量设置为 `-` 可显式禁用 Neo4j 日志。
 
 ## Pipeline 日志
@@ -90,11 +90,11 @@ Qi Hop 还记录已执行工作的日志通道层次结构。
 
 ## 查询已记录的执行
 
-[Neo4j 获取日志信息](pipeline/transforms/neo4j-getloginfo.md) transform 从 `Execution` 节点读取数据，以查找之前的 pipeline 和 workflow 执行日期。
+[Neo4j 获取日志信息](../03-转换插件/其他转换/neo4j-getloginfo.md) transform 从 `Execution` 节点读取数据，以查找之前的 pipeline 和 workflow 执行日期。
 它可以通过匹配执行的 `name`、`type`、`status`、`errors` 和 `executionStart` 属性来返回之前执行或之前成功执行的日期。
 
 ## Neo4j 执行信息位置
 
-当 Neo4j 被配置为[执行信息位置](metadata-types/execution-information-location.md)时，Hop 会存储更丰富的执行图。
+当 Neo4j 被配置为[执行信息位置](../06-元数据类型/execution-information-location.md)时，Hop 会存储更丰富的执行图。
 该图使用通过 `EXECUTES` 链接的 `Execution` 节点，以及 `ExecutionMetric`、`ExecutionData`、`ExecutionDataSetMeta`、`ExecutionDataSet` 和 `ExecutionDataSetRow` 等辅助标签。
 这些节点通过 `HAS_METRIC`、`HAS_DATA`、`HAS_METADATA`、`HAS_DATASET` 和 `HAS_ROW` 等关系连接。

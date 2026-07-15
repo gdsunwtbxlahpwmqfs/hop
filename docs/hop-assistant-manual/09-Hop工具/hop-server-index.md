@@ -1,6 +1,6 @@
 # Hop Server
 
-Hop Server 是一个轻量级服务器，用于通过 [Remote pipeline](pipeline/pipeline-run-configurations/native-remote-pipeline-engine.md) 或 [Remote workflow](workflow/workflow-run-configurations/native-remote-workflow-engine.md) 运行配置来运行 workflow 和 pipeline。
+Hop Server 是一个轻量级服务器，用于通过 [Remote pipeline](../07-管道/native-remote-pipeline-engine.md) 或 [Remote workflow](../08-工作流/native-remote-workflow-engine.md) 运行配置来运行 workflow 和 pipeline。
 
 ## 启动和停止 Hop Server
 
@@ -261,7 +261,7 @@ Linux, macOS::
 
 ### SSL 配置
 
-为了保护 Hop Server 与其客户端（[Hop Run](hop-run/index.md)、[Hop GUI](hop-gui/index.md)、浏览器、[Hop Server 命令行查询](hop-server/index.md#_query_a_server_from_the_command_line.md)、...）之间的通信，可以在常规 Web 流量的超文本传输协议（HTTP）之上使用安全套接字层（SSL）连接来加密数据。
+为了保护 Hop Server 与其客户端（[Hop Run](../index.md)、[Hop GUI](../index.md)、浏览器、[Hop Server 命令行查询](../index.md#_query_a_server_from_the_command_line.md)、...）之间的通信，可以在常规 Web 流量的超文本传输协议（HTTP）之上使用安全套接字层（SSL）连接来加密数据。
 两者的结合称为 HTTPS。
 要使用此 `https://` 协议运行 Hop 服务器，你可以在 `hop-server-config/hop-server` 路径中添加 `sslConfig` 部分。
 
@@ -546,7 +546,7 @@ sh hop-server.sh -ws test-workflow -id e24b4549-edf0-4d77-987e-f103b630b4cc -u c
 在超越简单本地开发者设置的任何环境中，显然应该更改默认值。
 
 > **💡 提示:** 启动时，下面显示的 pipeline 和 workflow 列表将为空。
-通过 [Hop Remote pipeline engine](pipeline/pipeline-run-configurations/native-remote-pipeline-engine.md) 运行配置或通过 [REST api](hop-server/web-service.md) 运行 workflow 或 pipeline。
+通过 [Hop Remote pipeline engine](../07-管道/native-remote-pipeline-engine.md) 运行配置或通过 [REST api](web-service.md) 运行 workflow 或 pipeline。
 当 pipeline 或 workflow 在服务器上执行时，你可以从终端或日志文件（例如从启动命令管道输出）跟踪日志输出。
 
 ![Hop Server Status,width="65%"](../assets/images/hop-server/hop-server-status.png)
@@ -564,4 +564,4 @@ workflow 和 pipeline 的顶部栏几乎相同（从左到右）。
 
 ## Hop Server Web 服务
 
-Hop Server 也可以通过多个 Web 服务直接访问，并结合 [Web Service](hop-server/web-service.md) 和 [Asynchronous Web Service](hop-server/async-web-service.md) metadata 类型使用。
+Hop Server 也可以通过多个 Web 服务直接访问，并结合 [Web Service](web-service.md) 和 [Asynchronous Web Service](async-web-service.md) metadata 类型使用。

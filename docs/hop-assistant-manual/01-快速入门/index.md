@@ -7,11 +7,11 @@
 
 以下是我们将涵盖的内容：
 
-- [什么是 Hop?](getting-started/hop-what-is-hop.md)
-- [核心概念](getting-started/hop-concepts.md)
-- [下载和安装](getting-started/hop-download-install.md)
-- [工具](getting-started/hop-tools.md)
-- [Hop GUI 概览](getting-started/hop-gui.md)
-- [Pipeline](getting-started/hop-gui-pipelines.md)
-- [Workflow](getting-started/hop-gui-workflows.md)
-- [后续步骤](getting-started/hop-next-steps.md)
+- [什么是 Hop?](hop-what-is-hop.md)
+- [核心概念](hop-concepts.md)
+- [下载和安装](hop-download-install.md)
+- [工具](hop-tools.md)
+- [Hop GUI 概览](hop-gui.md)
+- [Pipeline](hop-gui-pipelines.md)
+- [Workflow](hop-gui-workflows.md)
+- [后续步骤](hop-next-steps.md)

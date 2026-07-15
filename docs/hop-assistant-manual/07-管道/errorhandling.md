@@ -1,6 +1,6 @@
 # Pipeline 错误处理
 
-当某个 transform 发生严重故障时，pipeline 会收到通知并停止所有活动操作。在大多数情况下这是合理的，pipeline 故障通常在父 workflow 中处理（查看 [创建 workflow](/workflow/create-workflow.md) 页面了解 workflow 中的错误 hop）。
+当某个 transform 发生严重故障时，pipeline 会收到通知并停止所有活动操作。在大多数情况下这是合理的，pipeline 故障通常在父 workflow 中处理（查看 [创建 workflow](../08-工作流/create-workflow.md) 页面了解 workflow 中的错误 hop）。
 但在某些情况下，您可能希望优雅地处理错误而不停止整个 pipeline。
 
 在这些情况下，当您不希望 pipeline 在发生错误时失败，Hop pipeline 支持在 transform 和 hop 上进行错误处理。

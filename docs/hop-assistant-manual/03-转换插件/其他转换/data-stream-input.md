@@ -2,7 +2,7 @@
 
 ## 概述
 
-**Data Stream Input** Transform 从配置的 [Data Stream](metadata-types/data-stream/data-stream.md) 中读取行到 Hop Pipeline 中。
+**Data Stream Input** Transform 从配置的 [Data Stream](../../06-元数据类型/data-stream.md) 中读取行到 Hop Pipeline 中。
 
 它支持所有可用的 Data Stream 实现（Arrow File Stream、Arrow Random Access File 和 Arrow Flight）。
 

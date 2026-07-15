@@ -11,7 +11,7 @@ Copy Rows To Result Transform 可以与 Get Rows from Result Transform 配合使
 
 该 Transform 可以被 Get Rows from Result Transform 以及一些允许处理内部结果行集的 Workflow action 使用。
 
-> **📝 注意:** 该 Transform 主要由于历史原因而保留。Hop 中有更新更好的方式来创建循环，请查看 [最佳实践](best-practices/index.md) 获取更多信息。
+> **📝 注意:** 该 Transform 主要由于历史原因而保留。Hop 中有更新更好的方式来创建循环，请查看 [最佳实践](../../index.md) 获取更多信息。
 
 ## 选项
 

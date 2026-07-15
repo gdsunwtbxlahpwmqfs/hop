@@ -28,7 +28,7 @@
 |---|---|
 | Transform name | 此 Transform 在 Pipeline 中的名称 |
 | Neo4j connection | 要将图形写入的 Neo4j 连接 |
-| Graph model | 要使用的 [Neo4j graph model](metadata-types/neo4j/neo4j-graphmodel.md) |
+| Graph model | 要使用的 [Neo4j graph model](../../06-元数据类型/neo4j-graphmodel.md) |
 | Batch size (rows) | 向 Neo4j 写入数据时使用的批次大小 |
 | Create indexes? | 在运行此 Transform 之前创建 Neo4j 索引 |
 | Return graph data? | 返回 Neo4j 返回的图形数据 |

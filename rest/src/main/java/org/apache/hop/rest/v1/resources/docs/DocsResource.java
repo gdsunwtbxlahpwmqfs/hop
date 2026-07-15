@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.logging.Logger;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.rest.v1.resources.BaseResource;
 import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
@@ -45,6 +46,7 @@ import org.commonmark.renderer.html.HtmlRenderer;
 @jakarta.ws.rs.Path("/docs")
 public class DocsResource extends BaseResource {
 
+  private static final Class<?> PKG = DocsResource.class;
   private static final Logger LOG = Logger.getLogger(DocsResource.class.getName());
   private static final String DOCS_BASE =
       System.getProperty("hop.docs.base", "docs/hop-assistant-manual");
@@ -178,6 +180,49 @@ public class DocsResource extends BaseResource {
   }
 
   // ---------------------------------------------------------------------------
+  // Static assets endpoint
+  // ---------------------------------------------------------------------------
+
+  /** Serves static assets (images) from the docs directory. */
+  @GET
+  @jakarta.ws.rs.Path("/assets/{path:.+}")
+  public Response getAsset(@PathParam("path") String path) {
+    // 1) Try classpath (works in packaged WAR / Tomcat)
+    String classpathPath = "/org/apache/hop/rest/docs/manual/assets/" + path;
+    try (InputStream is = getClass().getResourceAsStream(classpathPath)) {
+      if (is != null) {
+        byte[] data = is.readAllBytes();
+        String contentType = guessContentType(path);
+        return Response.ok(data).type(contentType).build();
+      }
+    } catch (IOException e) {
+      // fall through to filesystem
+    }
+
+    // 2) Fallback: filesystem (dev mode)
+    Path filePath = Path.of(DOCS_BASE, "assets", path);
+    if (Files.exists(filePath)) {
+      try {
+        byte[] data = Files.readAllBytes(filePath);
+        String contentType = guessContentType(path);
+        return Response.ok(data).type(contentType).build();
+      } catch (IOException e) {
+        return getServerError("Error reading asset: " + path, e);
+      }
+    }
+
+    return Response.status(Response.Status.NOT_FOUND).build();
+  }
+
+  private static String guessContentType(String path) {
+    if (path.endsWith(".svg")) return "image/svg+xml";
+    if (path.endsWith(".png")) return "image/png";
+    if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+    if (path.endsWith(".gif")) return "image/gif";
+    return "application/octet-stream";
+  }
+
+  // ---------------------------------------------------------------------------
   // Internal logic
   // ---------------------------------------------------------------------------
 
@@ -217,7 +262,7 @@ public class DocsResource extends BaseResource {
 
       if (mapping == null) {
         r.status = DocStatus.NOT_FOUND;
-        r.message = "此文档路径未在映射表中注册";
+        r.message = BaseMessages.getString(PKG, "DocsResource.Error.DocumentNotFound");
         return r;
       }
 
@@ -225,7 +270,7 @@ public class DocsResource extends BaseResource {
 
       if ("unmatched".equals(mapping.getStatus())) {
         r.status = DocStatus.UNMATCHED;
-        r.message = "此插件暂无本地文档，已标记为待创建";
+        r.message = BaseMessages.getString(PKG, "DocsResource.Error.Unmatched");
         r.fallbackUrl = "https://hop.apache.org/manual/next" + r.docUrl;
         return r;
       }
@@ -233,7 +278,7 @@ public class DocsResource extends BaseResource {
       String mdRelativePath = mapping.getMdRelativePath();
       if (mdRelativePath == null || mdRelativePath.isBlank()) {
         r.status = DocStatus.ERROR;
-        r.message = "映射条目的 MD 路径为空";
+        r.message = BaseMessages.getString(PKG, "DocsResource.Error.EmptyPath");
         return r;
       }
       r.mdRelativePath = mdRelativePath;
@@ -250,7 +295,8 @@ public class DocsResource extends BaseResource {
           if (!Files.exists(mdFile)) {
             LOG.warning("MD file not found: " + mdRelativePath);
             r.status = DocStatus.ERROR;
-            r.message = "MD 文件不存在: " + mdRelativePath;
+            r.message =
+                BaseMessages.getString(PKG, "DocsResource.Error.FileNotFound", mdRelativePath);
             return r;
           }
           content = Files.readString(mdFile, StandardCharsets.UTF_8);
@@ -268,7 +314,7 @@ public class DocsResource extends BaseResource {
     } catch (IOException e) {
       LOG.severe("Error reading documentation file: " + e.getMessage());
       r.status = DocStatus.ERROR;
-      r.message = "读取文档文件失败: " + e.getMessage();
+      r.message = BaseMessages.getString(PKG, "DocsResource.Error.ReadFailed", e.getMessage());
       return r;
     }
   }
@@ -278,11 +324,25 @@ public class DocsResource extends BaseResource {
   // ---------------------------------------------------------------------------
 
   private String renderHtmlPage(String title, String markdownContent, String docUrl) {
-    String htmlBody = MARKDOWN_RENDERER.render(MARKDOWN_PARSER.parse(markdownContent));
+    String rewritten = rewriteImageUrls(markdownContent);
+    String htmlBody = MARKDOWN_RENDERER.render(MARKDOWN_PARSER.parse(rewritten));
     return HTML_TEMPLATE
         .replace("{{TITLE}}", escapeHtml(title))
         .replace("{{CONTENT}}", htmlBody)
-        .replace("{{DOC_URL}}", escapeHtml(docUrl));
+        .replace("{{DOC_URL}}", escapeHtml(docUrl))
+        .replace("{{TITLE_SUFFIX}}", BaseMessages.getString(PKG, "DocsResource.TitleSuffix"))
+        .replace("{{FOOTER}}", BaseMessages.getString(PKG, "DocsResource.Footer"));
+  }
+
+  /**
+   * Rewrites relative image paths in markdown content to absolute paths pointing to the docs assets
+   * endpoint. Converts patterns like ../../assets/images/foo.svg to
+   * /api/v1/docs/assets/images/foo.svg.
+   */
+  static String rewriteImageUrls(String markdown) {
+    return markdown.replaceAll(
+        "(\\!\\[)([^\\]]*)(\\]\\()(?!http[s]?:\\/\\/)([^)]*\\.(?:svg|png|jpg|jpeg|gif))\\)",
+        "$1$2$3/api/v1/docs/assets/$4)");
   }
 
   private String renderFallbackPage(String message, String fallbackUrl) {
@@ -294,21 +354,25 @@ public class DocsResource extends BaseResource {
             + "<p><a href=\""
             + escapeHtml(fallbackUrl)
             + "\" target=\"_blank\">"
-            + "查看在线文档"
+            + BaseMessages.getString(PKG, "DocsResource.Fallback.LinkText")
             + " &#8599;</a></p>"
             + "</div>";
     return HTML_TEMPLATE
-        .replace("{{TITLE}}", "文档未找到")
+        .replace("{{TITLE}}", BaseMessages.getString(PKG, "DocsResource.Fallback.Title"))
         .replace("{{CONTENT}}", body)
-        .replace("{{DOC_URL}}", "");
+        .replace("{{DOC_URL}}", "")
+        .replace("{{TITLE_SUFFIX}}", BaseMessages.getString(PKG, "DocsResource.TitleSuffix"))
+        .replace("{{FOOTER}}", BaseMessages.getString(PKG, "DocsResource.Footer"));
   }
 
   private String renderErrorPage(String message) {
     String body = "<div class=\"hop-error\"><p>" + escapeHtml(message) + "</p></div>";
     return HTML_TEMPLATE
-        .replace("{{TITLE}}", "错误")
+        .replace("{{TITLE}}", BaseMessages.getString(PKG, "DocsResource.Error.Title"))
         .replace("{{CONTENT}}", body)
-        .replace("{{DOC_URL}}", "");
+        .replace("{{DOC_URL}}", "")
+        .replace("{{TITLE_SUFFIX}}", BaseMessages.getString(PKG, "DocsResource.TitleSuffix"))
+        .replace("{{FOOTER}}", BaseMessages.getString(PKG, "DocsResource.Footer"));
   }
 
   private static String escapeHtml(String text) {
@@ -383,7 +447,7 @@ public class DocsResource extends BaseResource {
           + "<head>\n"
           + "<meta charset=\"UTF-8\">\n"
           + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-          + "<title>{{TITLE}} - Qi Hop 文档</title>\n"
+          + "<title>{{TITLE}} - {{TITLE_SUFFIX}}</title>\n"
           + "<style>\n"
           + CSS_STYLES
           + "\n</style>\n"
@@ -400,7 +464,7 @@ public class DocsResource extends BaseResource {
           + "{{CONTENT}}\n"
           + "</main>\n"
           + "<footer class=\"hop-footer\">\n"
-          + "  <span>Qi Hop Documentation</span>\n"
+          + "  <span>{{FOOTER}}</span>\n"
           + "</footer>\n"
           + "</body>\n"
           + "</html>\n";

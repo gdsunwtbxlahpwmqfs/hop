@@ -18,10 +18,10 @@
 
 另请参阅：
 
-- 从 workflow 中执行子 workflow 的 [Workflow action](workflow/actions/workflow.md)。
-- 从 workflow 中执行 pipeline 的 [Pipeline action](workflow/actions/pipeline.md)。
-- 从 pipeline 中执行子 pipeline 的 [Pipeline Executor transform](pipeline/transforms/pipeline-executor.md)。
-- [Loops in Qi Hop](how-to-guides/loops-in-apache-hop.md) 操作指南。
+- 从 workflow 中执行子 workflow 的 [Workflow action](../../04-动作插件/工作流控制类/workflow.md)。
+- 从 workflow 中执行 pipeline 的 [Pipeline action](../../04-动作插件/工作流控制类/pipeline.md)。
+- 从 pipeline 中执行子 pipeline 的 [Pipeline Executor transform](pipeline-executor.md)。
+- [Loops in Qi Hop](../../16-HowTo指南/loops-in-apache-hop.md) 操作指南。
 
 示例（samples 项目）
 

@@ -50,9 +50,9 @@
 
 ### 字段选项卡
 
-字段选项卡用于指定必须从 Excel 文件中读取的字段。您可以选择使用 [Schema Definition](metadata-types/static-schema-definition.md) 或手动定义所需字段的布局。
+字段选项卡用于指定必须从 Excel 文件中读取的字段。您可以选择使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 或手动定义所需字段的布局。
 
-`ignore manual fields` 选项会忽略在 transform 字段布局中手动定义的所有字段，仅使用 [Schema Definition](metadata-types/static-schema-definition.md) 中指定的布局。
+`ignore manual fields` 选项会忽略在 transform 字段布局中手动定义的所有字段，仅使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 中指定的布局。
 
 如果工作表包含标题行，可使用 `Get fields from header` 自动填充可用字段。
 
@@ -62,7 +62,7 @@ Type 列用于对给定字段执行类型转换。
 
 | 选项 | 描述 |
 |---|---|
-| Schema Definition | 要引用的 [Schema Definition](metadata-types/static-schema-definition.md) 名称。 |
+| Schema Definition | 要引用的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 名称。 |
 | Name | 字段的名称。 |
 | Type | 字段的数据类型；String、Date 或 Number。 |
 | Length | 长度选项取决于字段类型。 |

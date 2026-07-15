@@ -32,7 +32,7 @@
 ## 示例
 
 ### 输入数据
-输入数据必须按分组键排序（本示例中的 **RecordID**），如有需要请使用 [Sort rows](pipeline/transforms/sort.md) transform：
+输入数据必须按分组键排序（本示例中的 **RecordID**），如有需要请使用 [Sort rows](../流程控制类/sort.md) transform：
 
 | RecordID | key | value |
 |---|---|---|

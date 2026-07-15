@@ -10,7 +10,7 @@ Direct runner 的默认设置应该默认可用，您只需要指定 fat jar 位
 
 ![Apache Beam Direct 运行配置, width="55%"](../assets/images/beam/beam-direct-run-config.png)
 
-与 [Flink](pipeline/beam/beam-samples-flink.md) 和 [Spark](pipeline/beam/beam-samples-spark.md) runner 不同，direct runner 可以直接从 Hop GUI 启动。
+与 [Flink](beam-samples-flink.md) 和 [Spark](beam-samples-spark.md) runner 不同，direct runner 可以直接从 Hop GUI 启动。
 
 `beam/pipelines/generate-synthetic-data.hpl` 的输出（减少了行数）如下所示。
 

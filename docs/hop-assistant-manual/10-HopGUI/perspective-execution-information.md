@@ -8,7 +8,7 @@ Execution Information perspective 提供了先前执行的 workflow 和 pipeline
 
 ## 信息收集
 
-此 perspective 中显示的执行信息不会自动收集。你需要在你选择的 [Pipeline run configuration](metadata-types/pipeline-run-config.md) 或 [Workflow run configuration](metadata-types/workflow-run-config.md) 中指定要将执行信息发送到哪个[位置](metadata-types/execution-information-location.md)。
+此 perspective 中显示的执行信息不会自动收集。你需要在你选择的 [Pipeline run configuration](../06-元数据类型/pipeline-run-config.md) 或 [Workflow run configuration](../06-元数据类型/workflow-run-config.md) 中指定要将执行信息发送到哪个[位置](../06-元数据类型/execution-information-location.md)。
 
 ## 导航
 
@@ -28,7 +28,7 @@ Execution Information perspective 提供了先前执行的 workflow 和 pipeline
 
 ### 左侧面板
 
-此 perspective 的左侧面板包含一个树形结构，其中包含所有已定义的 [Execution Information Location](metadata-types/execution-information-location.md) metadata 元素。在这些位置的名称下方，你会看到有信息的 pipeline 和 workflow 的图标、名称和注册日期。
+此 perspective 的左侧面板包含一个树形结构，其中包含所有已定义的 [Execution Information Location](../06-元数据类型/execution-information-location.md) metadata 元素。在这些位置的名称下方，你会看到有信息的 pipeline 和 workflow 的图标、名称和注册日期。
 例如：
 
 ![An example left panel](../assets/images/execution-information-perspective-left-panel-example.png)
@@ -62,7 +62,7 @@ Execution Information perspective 提供了先前执行的 workflow 和 pipeline
 | Log |  |
 | 这里你可以找到 pipeline 或 workflow 的日志文本。日志文本在选中标签页时延迟加载。日志的第一部分显示到 configuration perspective 中 `Maximum execution logging text size` 选项指定的限制为止，该限制以字符数为单位。 |  |
 | Data |  |
-| 在 pipeline 或 workflow 执行期间，Hop 可以捕获各种数据。捕获哪些数据取决于正在进行的工作类型以及捕获方式的配置。例如，捕获的数据量取决于你为 pipeline 设置的 [Execution Data Profile](metadata-types/execution-data-profile.md)，或者 action 执行后是否有有趣的信息。 |  |
+| 在 pipeline 或 workflow 执行期间，Hop 可以捕获各种数据。捕获哪些数据取决于正在进行的工作类型以及捕获方式的配置。例如，捕获的数据量取决于你为 pipeline 设置的 [Execution Data Profile](../06-元数据类型/execution-data-profile.md)，或者 action 执行后是否有有趣的信息。 |  |
 
 ### 选择图标
 
@@ -83,7 +83,7 @@ Execution Information perspective 提供了先前执行的 workflow 和 pipeline
 | Variables after execution |  |
 | action 执行后有趣的变量（及其值）列表。 |  |
 
-以下是你可以使用 [Execution Data Profile](metadata-types/execution-data-profile.md) 在 workflow transform 中捕获的一些数据集：
+以下是你可以使用 [Execution Data Profile](../06-元数据类型/execution-data-profile.md) 在 workflow transform 中捕获的一些数据集：
 
 | 数据集 | 描述 |
 |---|---|
@@ -102,7 +102,7 @@ Execution Information perspective 提供了先前执行的 workflow 和 pipeline
 
 ![drill down in the execution information perspective](../assets/images/execution-information-perspective-drill-down-toolbar-icon.png)
 
-如果 transform 在多个副本中执行了 pipeline 或 workflow，你可以选择要跟随哪个执行。对于在 [repeat](workflow/actions/repeat.md) action 或 [Start](workflow/actions/start.md) 循环中执行多次的 workflow 或 pipeline 也是如此。结果将是底层执行将在 perspective 的新标签页中打开。
+如果 transform 在多个副本中执行了 pipeline 或 workflow，你可以选择要跟随哪个执行。对于在 [repeat](../04-动作插件/工作流控制类/repeat.md) action 或 [Start](../04-动作插件/工作流控制类/start.md) 循环中执行多次的 workflow 或 pipeline 也是如此。结果将是底层执行将在 perspective 的新标签页中打开。
 
 ### 导航到父级
 

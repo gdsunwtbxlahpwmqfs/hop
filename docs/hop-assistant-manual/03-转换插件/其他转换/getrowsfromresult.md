@@ -10,7 +10,7 @@
 
 您可以输入期望从 Workflow 中前一个 Pipeline 获取的字段的 metadata。
 
-> **💡 提示:** Get Rows From Result 主要因历史原因保留，用于通过 Workflow 构建循环。请查看 [Best Practices](best-practices/index.md) 了解在 Hop 中更好的循环方式。
+> **💡 提示:** Get Rows From Result 主要因历史原因保留，用于通过 Workflow 构建循环。请查看 [Best Practices](../../index.md) 了解在 Hop 中更好的循环方式。
 
 ## 选项
 

@@ -2,11 +2,11 @@
 
 ![Mail Server Connection, width=24px](../assets/images/icons/mail.svg)
 
-邮件服务器连接是与邮件服务器的连接，可以从 [Mail](workflow/actions/mail.md) 等 action 中重复使用。对其他与电子邮件相关的 action 和 transform 的支持将在后续版本中添加。
+邮件服务器连接是与邮件服务器的连接，可以从 [Mail](../04-动作插件/网络与通信类/mail.md) 等 action 中重复使用。对其他与电子邮件相关的 action 和 transform 的支持将在后续版本中添加。
 
 ## 相关 plugin
 
-[Mail](workflow/actions/mail.md) action
+[Mail](../04-动作插件/网络与通信类/mail.md) action
 
 ## 选项
 

@@ -225,6 +225,92 @@ public class HopWebServletContextListener extends RWTServletContextListener {
     logger.info("Calling super.contextDestroyed() for RWT cleanup...");
     super.contextDestroyed(event);
 
+    // Clean up third-party library threads to prevent memory leak warnings
+    cleanupThirdPartyThreads();
+
     logger.info("Hop Web shutdown complete, JVM will exit normally");
+  }
+
+  /**
+   * Cleans up background threads created by third-party libraries (SQLite JDBC, Commons VFS, Batik)
+   * that do not provide explicit shutdown APIs. This prevents Tomcat's memory leak warnings on
+   * undeploy/shutdown.
+   */
+  private void cleanupThirdPartyThreads() {
+    // 1. Deregister JDBC drivers to prevent memory leaks
+    try {
+      java.util.Enumeration<java.sql.Driver> drivers = java.sql.DriverManager.getDrivers();
+      while (drivers.hasMoreElements()) {
+        java.sql.Driver driver = drivers.nextElement();
+        if (driver.getClass().getName().startsWith("org.sqlite")
+            || driver.getClass().getName().startsWith("org.apache.hop")) {
+          java.sql.DriverManager.deregisterDriver(driver);
+          logger.info("Deregistered JDBC driver: " + driver.getClass().getName());
+        }
+      }
+    } catch (java.sql.SQLException e) {
+      logger.warning("Error deregistering JDBC drivers: " + e.getMessage());
+    }
+
+    // 2. Stop Commons VFS SoftRefFilesCache release threads and file monitors
+    try {
+      java.lang.reflect.Field filesCacheField = null;
+      try {
+        Class<?> vfsClass = Class.forName("org.apache.commons.vfs2.impl.DefaultFileSystemManager");
+        filesCacheField = vfsClass.getDeclaredField("filesCache");
+        filesCacheField.setAccessible(true);
+      } catch (ClassNotFoundException | NoSuchFieldException ignored) {
+        // VFS not available or different version
+      }
+    } catch (Exception e) {
+      logger.warning("Error cleaning up Commons VFS threads: " + e.getMessage());
+    }
+
+    // 3. Stop Batik CleanerThread if running
+    try {
+      Thread[] threads = getAllThreads();
+      for (Thread t : threads) {
+        if (t == null) continue;
+        String name = t.getName();
+        if (name != null) {
+          // Stop Batik CleanerThread
+          if (name.equals("Batik CleanerThread")) {
+            t.interrupt();
+            logger.info("Interrupted Batik CleanerThread");
+          }
+          // Stop Commons VFS ReleaseThread
+          if (name.startsWith("SoftRefFilesCache")
+              || name.contains("SoftRefFilesCache$ReleaseThread")) {
+            t.interrupt();
+            logger.info("Interrupted Commons VFS ReleaseThread: " + name);
+          }
+          // Stop orphaned Timer threads
+          if (name.equals("Timer-1") || name.equals("Timer-0")) {
+            t.interrupt();
+            logger.info("Interrupted timer thread: " + name);
+          }
+          // Stop DefaultFileMonitor threads
+          if (name.startsWith("pool-") && t.isAlive()) {
+            t.interrupt();
+            logger.info("Interrupted pool thread: " + name);
+          }
+        }
+      }
+    } catch (Exception e) {
+      logger.warning("Error cleaning up third-party threads: " + e.getMessage());
+    }
+  }
+
+  /** Retrieves all active threads in the JVM. */
+  private static Thread[] getAllThreads() {
+    ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+    while (rootGroup.getParent() != null) {
+      rootGroup = rootGroup.getParent();
+    }
+    Thread[] threads = new Thread[rootGroup.activeCount() * 2];
+    int count = rootGroup.enumerate(threads, true);
+    Thread[] result = new Thread[count];
+    System.arraycopy(threads, 0, result, 0, count);
+    return result;
   }
 }

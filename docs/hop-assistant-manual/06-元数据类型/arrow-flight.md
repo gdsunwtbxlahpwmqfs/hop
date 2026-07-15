@@ -24,11 +24,11 @@
 
 - **流名称**就是 Data Stream 元数据元素的名称。
 - Schema 验证是严格的：客户端必须使用与 **Static Schema** 字段中定义的完全相同的 schema 来发送数据。
-- 必须使用 `hop arrow` [命令](hop-tools/hop-arrow-command.md)单独启动 Flight 服务器。
+- 必须使用 `hop arrow` [命令](../09-Hop工具/hop-arrow-command.md)单独启动 Flight 服务器。
 
 ## 相关内容
 
-- [`hop arrow` 命令](hop-tools/hop-arrow-command.md)
+- [`hop arrow` 命令](../09-Hop工具/hop-arrow-command.md)
 
 ## Python 读取示例
 

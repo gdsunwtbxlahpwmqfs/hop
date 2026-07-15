@@ -16,4 +16,4 @@
 | Key Field | 用于 join key 的字段，仅支持等值连接（key first transform = key second transform） |
 
 有关使用 Merge Join Transform 时避免死锁的指导，请参阅此操作指南：
-**[避免死锁](how-to-guides/avoiding-deadlocks.md)**
+**[避免死锁](../../16-HowTo指南/avoiding-deadlocks.md)**

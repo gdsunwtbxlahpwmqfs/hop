@@ -40,7 +40,7 @@ Workflow Log 可以按以下示例进行配置：
 
 要创建 pipeline，您可以转到视图区域或点击 New Workflow Log 对话框中的 New 按钮。然后选择 pipeline 的文件夹和名称。
 
-新 pipeline 会自动创建一个 [Workflow Logging](pipeline/transforms/workflow-logging.md) transform 并连接到 [Dummy](pipeline/transforms/dummy.md) transform（Save logging here）。
+新 pipeline 会自动创建一个 [Workflow Logging](../03-转换插件/其他转换/workflow-logging.md) transform 并连接到 [Dummy](../04-动作插件/其他动作/dummy.md) transform（Save logging here）。
 
 ![workflow logging pipeline, width="45%"](../assets/images/how-to-guides/logging-workflow-log/workflow-logging.jpg)
 
@@ -109,4 +109,4 @@ Workflow 执行的数据将记录在 workflows-logging 表中。
 
 您现在知道了如何使用 workflow log metadata 类型来利用 Qi Hop 提供的一切功能来处理您的 workflow 日志信息。
 
-请查看 [pipeline log](how-to-guides/logging-pipeline-log.md) 的相关页面，了解如何设置类似的流程来处理 pipeline 日志。
+请查看 [pipeline log](logging-pipeline-log.md) 的相关页面，了解如何设置类似的流程来处理 pipeline 日志。

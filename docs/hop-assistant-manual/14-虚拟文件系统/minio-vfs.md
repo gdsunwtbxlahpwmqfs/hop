@@ -11,7 +11,7 @@
 ### Hop GUI
 
 你可以在
-[配置视图](hop-gui/perspective-configuration.md) 中的 plugin 标签页下的 "MinIO VFS" 中找到 MinIO VFS 驱动的配置。
+[配置视图](../10-HopGUI/perspective-configuration.md) 中的 plugin 标签页下的 "MinIO VFS" 中找到 MinIO VFS 驱动的配置。
 你将找到以下配置选项：
 
 | 选项 | 描述 | 变量 |

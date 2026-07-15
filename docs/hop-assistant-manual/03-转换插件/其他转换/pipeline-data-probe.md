@@ -10,7 +10,7 @@
 
 Pipeline Data Probe Transform 除了 Transform 名称外不需要任何配置。
 
-此 Transform 从 [Pipeline Probe](metadata-types/pipeline-probe.md) metadata 类型接收数据，并产生以下输出：
+此 Transform 从 [Pipeline Probe](../../06-元数据类型/pipeline-probe.md) metadata 类型接收数据，并产生以下输出：
 
 | sourcePipelineName | 将数据传递到此 Pipeline Data Probe Transform 的 Pipeline 名称。 |
 |---|---|

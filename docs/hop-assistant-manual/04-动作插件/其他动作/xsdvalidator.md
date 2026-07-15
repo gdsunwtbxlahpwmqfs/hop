@@ -11,7 +11,7 @@ XSD 是链接：[XML Schema](http://en.wikipedia.org/wiki/XML_Schema_(W3C)) Defi
 - 您要验证布局的 XML
 - 描述 XML 文件应是什么样子的 XSD（Schema）文件。
 
-另请参见 [XSD Validator pipeline transform](pipeline/transforms/xsdvalidator.md)。
+另请参见 [XSD Validator pipeline transform](xsdvalidator.md)。
 
 ## 选项
 

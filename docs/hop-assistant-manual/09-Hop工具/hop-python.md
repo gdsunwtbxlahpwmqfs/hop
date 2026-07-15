@@ -6,7 +6,7 @@
 
 ## 目标
 
-目标是将 Python 脚本引入构建 Hop metadata 的艺术中，允许实现远超[元数据注入](pipeline/metadata-injection.md)等技术的动态场景。
+目标是将 Python 脚本引入构建 Hop metadata 的艺术中，允许实现远超[元数据注入](../13-最佳实践与技巧/metadata-injection.md)等技术的动态场景。
 
 ## 运行网关
 
@@ -409,9 +409,9 @@ if result.getNrErrors() != 0:
 
 ### 从数据流中读取行
 
-如果你有一个生成数据的 pipeline，并且想在 Python 中从中读取数据，你可以使用数据流进行进程间通信（IPC）。在此示例中，我们使用 [Apache Arrow file stream](metadata-types/data-stream/arrow-file-stream.md) data stream 类型将数据从 Hop 传递到 Python。
+如果你有一个生成数据的 pipeline，并且想在 Python 中从中读取数据，你可以使用数据流进行进程间通信（IPC）。在此示例中，我们使用 [Apache Arrow file stream](../06-元数据类型/arrow-file-stream.md) data stream 类型将数据从 Hop 传递到 Python。
 
-> **📝 注意:** 你会在脚本中注意到我们等待 pipeline 完成。可以从流文件中读取数据批次，只是不能如示例中所述读取整个文件。另一种选择是使用 [Apache Arrow Flight](metadata-types/data-stream/arrow-file-stream.md) data stream 类型。
+> **📝 注意:** 你会在脚本中注意到我们等待 pipeline 完成。可以从流文件中读取数据批次，只是不能如示例中所述读取整个文件。另一种选择是使用 [Apache Arrow Flight](../06-元数据类型/arrow-file-stream.md) data stream 类型。
 
 .The example
 

@@ -10,7 +10,7 @@
 
 *Preview* 按钮打开与 Table Input 相同的预览设置对话框（行限制和查询超时，以秒为单位）。JDBC 语句超时**仅在 Hop GUI 的预览模式下**应用。
 
-您可以通过 [`HOP_QUERY_PREVIEW_TIMEOUT`](variables.md#_available_global_variables.md) 应用变量设置超时字段的默认值。有关相同的行为详情，请参阅 [Table Input: Preview](pipeline/transforms/tableinput.md#_preview.md)。
+您可以通过 [`HOP_QUERY_PREVIEW_TIMEOUT`](../../12-变量与项目管理/variables.md#_available_global_variables.md) 应用变量设置超时字段的默认值。有关相同的行为详情，请参阅 [Table Input: Preview](tableinput.md#_preview.md)。
 
 ## 选项
 

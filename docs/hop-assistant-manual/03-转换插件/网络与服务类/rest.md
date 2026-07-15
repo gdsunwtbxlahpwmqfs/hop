@@ -15,7 +15,7 @@ The General tab is where you enter basic connection information for accessing a 
 | Option | Description |
 |---|---|
 | Transform name | Name of this transform as it appears in the pipeline workspace |
-| REST Connection | The (optional) [REST connection](metadata-types/rest-connection.md) to use for the base URL and authentication/authorization header name and value. |
+| REST Connection | The (optional) [REST connection](../../06-元数据类型/rest-connection.md) to use for the base URL and authentication/authorization header name and value. |
 | URL | Indicates the path to a resource |
 | Accept URL from field | Designates the path to a resource is defined from a field |
 | URL field name | Indicates the field from which the path to a resource is defined |

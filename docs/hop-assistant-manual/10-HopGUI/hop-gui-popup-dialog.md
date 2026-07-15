@@ -28,26 +28,26 @@ Hop Gui 弹出对话框是一个上下文对话框，允许你对 metadata、wor
 > **💡 提示:** 通过点击左上角的 !['plus' icon](../assets/images/icons/add.svg)，通过 File -> New 或按 `CTRL-N` 来创建新项目。
 
 - File
-** [Pipeline](pipeline/create-pipeline.md)
-** [Workflow](workflow/create-workflow.md)
+** [Pipeline](../07-管道/create-pipeline.md)
+** [Workflow](../08-工作流/create-workflow.md)
 - Metadata
-** [Beam File Definition](metadata-types/beam-file-definition.md)
-** [Cassandra Connection](metadata-types/cassandra/cassandra-connection.md)
-** [Data Set](metadata-types/data-set.md)
-** [Hop Server](metadata-types/hop-server.md)
-** [MongoDB Connection](metadata-types/mongodb-connection.md)
-** [Neo4j Connection](metadata-types/neo4j/neo4j-connection.md)
-** [Neo4j Graph Model](metadata-types/neo4j/neo4j-graphmodel.md)
-** [Partition Schema](metadata-types/partition-schema.md)
-** [Pipeline Log](metadata-types/pipeline-log.md)
-** [Pipeline Probe](metadata-types/pipeline-probe.md)
-** [Pipeline Run Configuration](metadata-types/pipeline-run-config.md)
-** [Pipeline Unit Test](metadata-types/pipeline-unit-test.md)
-** [Relational Database Connection](metadata-types/rdbms-connection.md)
-** [Splunk Connection](metadata-types/splunk-connection.md)
-** [Web Service](hop-server/web-service.md)
-** [Workflow Log](metadata-types/workflow-log.md)
-** [Workflow Run Configuration](metadata-types/workflow-run-config.md)
+** [Beam File Definition](../06-元数据类型/beam-file-definition.md)
+** [Cassandra Connection](../06-元数据类型/cassandra-connection.md)
+** [Data Set](../06-元数据类型/data-set.md)
+** [Hop Server](../09-Hop工具/hop-server.md)
+** [MongoDB Connection](../06-元数据类型/mongodb-connection.md)
+** [Neo4j Connection](../06-元数据类型/neo4j-connection.md)
+** [Neo4j Graph Model](../06-元数据类型/neo4j-graphmodel.md)
+** [Partition Schema](../06-元数据类型/partition-schema.md)
+** [Pipeline Log](../06-元数据类型/pipeline-log.md)
+** [Pipeline Probe](../06-元数据类型/pipeline-probe.md)
+** [Pipeline Run Configuration](../06-元数据类型/pipeline-run-config.md)
+** [Pipeline Unit Test](../06-元数据类型/pipeline-unit-test.md)
+** [Relational Database Connection](../06-元数据类型/rdbms-connection.md)
+** [Splunk Connection](../06-元数据类型/splunk-connection.md)
+** [Web Service](../09-Hop工具/web-service.md)
+** [Workflow Log](../06-元数据类型/workflow-log.md)
+** [Workflow Run Configuration](../06-元数据类型/workflow-run-config.md)
 
 ![Hop Gui Popup Dialog - Create Items, width="65%"](../assets/images/hop-gui/popup-create-item.png)
 
@@ -58,11 +58,11 @@ Hop Gui 弹出对话框是一个上下文对话框，允许你对 metadata、wor
 - **edit workflow**：编辑此 workflow 的属性：描述、参数等。
 - **create a note**：向此 workflow 添加注释
 - **paste from the clipboard**：从剪贴板粘贴 action、注释或整个 workflow
-- **copy as workflow action**：将此 workflow 作为 workflow action 复制到剪贴板，以便你可以将其作为预配置的 [workflow](workflow/actions/workflow.md) action 粘贴到另一个 workflow 中
+- **copy as workflow action**：将此 workflow 作为 workflow action 复制到剪贴板，以便你可以将其作为预配置的 [workflow](../04-动作插件/工作流控制类/workflow.md) action 粘贴到另一个 workflow 中
 
 所有其他类别包含你可以添加到 workflow 中的 action。
 
-查看 [完整列表](workflow/actions.md) 以获取可用 action 选项的详细信息。
+查看 [完整列表](../08-工作流/actions.md) 以获取可用 action 选项的详细信息。
 
 ![Hop Gui Popup Dialog - Workflow Options, width="65%"](../assets/images/hop-gui/popup-workflow.png)
 
@@ -97,7 +97,7 @@ Hop Gui 弹出对话框是一个上下文对话框，允许你对 metadata、wor
 - **edit pipeline**：编辑此 pipeline 的属性：描述、参数等。
 - **create**：向此 pipeline 添加注释
 - **paste from the clipboard**：从剪贴板粘贴 transform、注释或整个 pipeline
-- **copy as pipeline action**：将此 pipeline 作为 workflow action 复制到剪贴板，以便你可以将其作为预配置的 [pipeline](workflow/actions/pipeline.md) action 粘贴到 workflow 中
+- **copy as pipeline action**：将此 pipeline 作为 workflow action 复制到剪贴板，以便你可以将其作为预配置的 [pipeline](../04-动作插件/工作流控制类/pipeline.md) action 粘贴到 workflow 中
 
 ![Hop Gui Popup Dialog - Pipeline Options, width="65%"](../assets/images/hop-gui/popup-pipeline.png)
 
@@ -115,26 +115,26 @@ Hop Gui 弹出对话框是一个上下文对话框，允许你对 metadata、wor
 ** **Edit description**：打开此 transform 的描述对话框
 ** **Delete**：从 pipeline 中删除此 transform。如果此 transform 已连接到其他 transform，则不会创建新的 hop。
 - Data Routing
-** [**Specify copies**](pipeline/specify-copies.md)：设置执行期间要使用的 transform 副本数量
+** [**Specify copies**](../07-管道/specify-copies.md)：设置执行期间要使用的 transform 副本数量
 ** **Copy/distribute rows**：使 transform 在执行期间复制/分发数据行。该选项是上下文相关的：如果 transform 正在复制行，则只会显示分发选项，反之亦然。
-** **Set [partitioning](pipeline/partitioning.md)**：指定数据行需要如何分组到分区中，以便在相似行需要到达同一 transform 副本时实现并行执行。
+** **Set [partitioning](../07-管道/partitioning.md)**：指定数据行需要如何分组到分区中，以便在相似行需要到达同一 transform 副本时实现并行执行。
 ** **Error handling**：为此 transform 配置错误处理（适用于支持的 transform）
-** **Add web service**：将此 transform 的输出用作 [Hop Server](hop-server/index.md) 的 [web service](hop-server/web-service.md)。
+** **Add web service**：将此 transform 的输出用作 [Hop Server](../index.md) 的 [web service](../09-Hop工具/web-service.md)。
 - Preview
 ** **View output**：在运行中或已完成的 pipeline 中查看此 transform 的输出。
-** **Preview & debug output**：执行 pipeline，检查此 transform 的数据行，并在满足断点条件时选择性地暂停（参见 [Run, Preview and Debug a Pipeline](pipeline/run-preview-debug-pipeline.md)）
+** **Preview & debug output**：执行 pipeline，检查此 transform 的数据行，并在满足断点条件时选择性地暂停（参见 [Run, Preview and Debug a Pipeline](../07-管道/run-preview-debug-pipeline.md)）
 ** **Sniff output**：在运行的 pipeline 中查看所选 transform 的 50 行输出
-** **Add data probe**：将此 transform 的输出数据行流式传输到 [pipeline probe](metadata-types/pipeline-probe.md) 中定义的 pipeline。
+** **Add data probe**：将此 transform 的输出数据行流式传输到 [pipeline probe](../06-元数据类型/pipeline-probe.md) 中定义的 pipeline。
 - Logging
 ** **Edit Custom Logging**：为当前 transform 设置自定义日志级别
 ** **Clear Custom Logging**：将此 transform 的日志级别重置为 `Basic`
 - Unit Testing
-** **Unit testing**：使用此 transform 的输出字段和布局创建一个空的 [data set](metadata-types/data-set.md)
+** **Unit testing**：使用此 transform 的输出字段和布局创建一个空的 [data set](../06-元数据类型/data-set.md)
 ** **Write rows to data set**：运行当前 pipeline 并将当前 transform 的输出写入 data set。
 
 ![Hop Gui Popup Dialog - Workflow Transform Options, width="65%"](../assets/images/hop-gui/popup-transform.png)
 
-> **💡 提示:** Unit Testing 中显示的选项只是可用选项的一部分。查看 [unit testing](pipeline/pipeline-unit-testing.md) 文档以获取所有单元测试选项的详细说明。
+> **💡 提示:** Unit Testing 中显示的选项只是可用选项的一部分。查看 [unit testing](../07-管道/pipeline-unit-testing.md) 文档以获取所有单元测试选项的详细说明。
 
 > **💡 提示:** 点击 transform 图标可打开弹出对话框。点击 transform 名称可直接打开 transform 属性。这是点击图标并从弹出对话框中选择 `Edit` 的快捷方式。
 

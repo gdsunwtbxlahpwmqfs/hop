@@ -45,4 +45,4 @@ CREATE TABLE ddlTest
 
 ## Hop 元数据
 
-如果你想重用字段级别的元数据，可以考虑使用 [Metadata Input](pipeline/transforms/metadata-input.md) Transform。例如，你可以访问 [Beam File Definition](metadata-types/beam-file-definition.md) 或 [Static Schema Definition](metadata-types/static-schema-definition.md) 元素的 JSON。然后你可以使用 [JSON Input](pipeline/transforms/jsoninput.md) Transform 解析元数据并提取所需的 4 个字段。
+如果你想重用字段级别的元数据，可以考虑使用 [Metadata Input](metadata-input.md) Transform。例如，你可以访问 [Beam File Definition](../../06-元数据类型/beam-file-definition.md) 或 [Static Schema Definition](../../06-元数据类型/static-schema-definition.md) 元素的 JSON。然后你可以使用 [JSON Input](../输入类/jsoninput.md) Transform 解析元数据并提取所需的 4 个字段。

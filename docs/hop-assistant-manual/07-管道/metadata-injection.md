@@ -24,7 +24,7 @@ _模板 pipeline_ 是一个空 pipeline，包含 pipeline 流程所需的所有 
 
 ![Metadata Injection - template pipeline, width="70%"](../assets/images/hop-gui/metadata-injection-template-pipeline.svg)
 
-_注入 pipeline_ 是一个标准的 pipeline，通过 [ETL Metadata Injection](./transforms/metainject.md) transform 收集和准备运行模板 pipeline 所需的所有 metadata。
+_注入 pipeline_ 是一个标准的 pipeline，通过 [ETL Metadata Injection](../03-转换插件/其他转换/metainject.md) transform 收集和准备运行模板 pipeline 所需的所有 metadata。
 
 Metadata Injection transform 读取模板 pipeline，并允许您将注入 pipeline 中的字段映射到模板 pipeline 中 transform 的目标字段。
 
@@ -34,16 +34,16 @@ Metadata Injection transform 读取模板 pipeline，并允许您将注入 pipel
 
 - **read customer metadata** 解析示例文件并读取其文件布局。检测到的文件布局的各个项被注入到模板 pipeline 中 `read customer data` 的字段中。
 - **static filename, format** 从数据网格提供文件名和文件格式。
-- **rename fields** 提供将被注入到模板 pipeline 中 `cast dates` [Select Values](./transforms/selectvalues.md) transform 的字段原始名称和新名称。
-- **zips per state** 提供配置模板 pipeline 中 `nb zip codes per state` [Memory Group By](./transforms/memgroupby.md) transform 所需的所有信息。
+- **rename fields** 提供将被注入到模板 pipeline 中 `cast dates` [Select Values](../03-转换插件/流程控制类/selectvalues.md) transform 的字段原始名称和新名称。
+- **zips per state** 提供配置模板 pipeline 中 `nb zip codes per state` [Memory Group By](../03-转换插件/其他转换/memgroupby.md) transform 所需的所有信息。
 
-除了上面解释的注入之外，`sort state` [Sort Rows](./transforms/sort.md) transform 等也通过已经提供给 metadata injection transform 的信息（metadata）来配置。此外，metadata injection 可以配置为向模板 pipeline 提供静态（硬编码）值。
+除了上面解释的注入之外，`sort state` [Sort Rows](../03-转换插件/流程控制类/sort.md) transform 等也通过已经提供给 metadata injection transform 的信息（metadata）来配置。此外，metadata injection 可以配置为向模板 pipeline 提供静态（硬编码）值。
 
-> **💡 提示:** [ETL Metadata Injection](./transforms/metainject.md) transform 覆盖了 pipeline 的默认行为：并非所有输入流都需要具有相同的布局。从不同布局的不同流向 metadata injection transform 提供输入是完全没问题的。
+> **💡 提示:** [ETL Metadata Injection](../03-转换插件/其他转换/metainject.md) transform 覆盖了 pipeline 的默认行为：并非所有输入流都需要具有相同的布局。从不同布局的不同流向 metadata injection transform 提供输入是完全没问题的。
 
 ## Metadata Injection 调试和故障排除
 
-[ETL Metadata Injection](./transforms/metainject.md) transform 默认生成并执行一个带有注入 metadata 的已生成 pipeline。
+[ETL Metadata Injection](../03-转换插件/其他转换/metainject.md) transform 默认生成并执行一个带有注入 metadata 的已生成 pipeline。
 
 当您调试或排除使用 metadata injection 的 pipeline 故障时，这可能是过多层级的抽象。
 

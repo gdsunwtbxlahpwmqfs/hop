@@ -14,17 +14,17 @@ Join 是一种将 pipeline 中两个或多个不同数据流合并的方式。Jo
 
 | Transform | 适用场景 |
 |---|---|
-| [**Join Rows (Cartesian Product)**](pipeline/transforms/joinrows.md) |  |
+| [**Join Rows (Cartesian Product)**](../03-转换插件/查找与连接类/joinrows.md) |  |
 | 当您想将一个流中的_所有_数据与另一个流中的_所有_数据进行组合时 |  |
-| [**Merge Join**](pipeline/transforms/mergejoin.md) |  |
+| [**Merge Join**](../03-转换插件/其他转换/mergejoin.md) |  |
 | 您想基于两个流中的匹配键合并来自两个不同流的数据，并希望继续使用两个流中（选定部分的）合并数据。 |  |
-| [**Merge Rows (diff)**](pipeline/transforms/mergerows.md) |  |
+| [**Merge Rows (diff)**](../03-转换插件/其他转换/mergerows.md) |  |
 | 您有两组布局相同的数据。您想比较两个数据集，并识别其中一个集合中哪些行相对于另一个数据集是新增的、相同的、更改的或删除的。 |  |
-| [**Multiway merge join**](pipeline/transforms/multimerge.md) |  |
+| [**Multiway merge join**](../03-转换插件/其他转换/multimerge.md) |  |
 | 合并来自多个（通常超过两个）流的数据，类似于 merge join。此 transform 提供了一种快捷方式，无需将多个 merge join 串联在一起。 |  |
-| [**XML Join**](pipeline/transforms/xmljoin.md) |  |
+| [**XML Join**](../03-转换插件/其他转换/xmljoin.md) |  |
 | 您需要从各种数据源构建包含多个嵌套元素的 XML 文件。此 transform 是非典型的，因为您执行 join 是为了构建输出，而不是像其他 join transform 那样合并传入数据以供进一步处理。 |  |
-| [**Database join**](pipeline/transforms/databasejoin.md) |  |
+| [**Database join**](../03-转换插件/数据库操作类/databasejoin.md) |  |
 | Database join 为每一行执行一个（参数化的）SQL 查询。虽然此 transform 给予了无与伦比的灵活性，但它为每一行执行数据库查询，因此是潜在的性能瓶颈。 |  |
 
 ## Lookup
@@ -35,33 +35,33 @@ Lookup 是一种让您用来自外部源的附加字段来丰富 pipeline 流的
 
 `Lookup` 类别中有一些 transform 被认为在 lookup 上下文中是不言自明的，不会在此详述。这些 transform 包括：
 
-- [Call DB Procedure](pipeline/transforms/calldbproc.md)
-- [Check if file is locked](pipeline/transforms/checkfilelocked.md)
-- [Column exists](pipeline/transforms/columnexists.md)
-- [Dynamic SQL row](pipeline/transforms/dynamicsqlrow.md)
-- [File exists](pipeline/transforms/fileexists.md)
-- [Fuzzy match](pipeline/transforms/fuzzymatch.md)
-- [Get server status](pipeline/transforms/serverstatus.md)
-- [HTTP client](pipeline/transforms/http.md)
-- [HTTP post](pipeline/transforms/httppost.md)
-- [REST client](pipeline/transforms/rest.md)
-- [Table exists](pipeline/transforms/tableexists.md)
-- [Web services lookup](pipeline/transforms/webservices.md)
+- [Call DB Procedure](../03-转换插件/其他转换/calldbproc.md)
+- [Check if file is locked](../04-动作插件/其他动作/checkfilelocked.md)
+- [Column exists](../03-转换插件/数据库操作类/columnexists.md)
+- [Dynamic SQL row](../03-转换插件/其他转换/dynamicsqlrow.md)
+- [File exists](../03-转换插件/文件与编码操作类/fileexists.md)
+- [Fuzzy match](../03-转换插件/查找与连接类/fuzzymatch.md)
+- [Get server status](../03-转换插件/其他转换/serverstatus.md)
+- [HTTP client](../04-动作插件/网络与通信类/http.md)
+- [HTTP post](../04-动作插件/网络与通信类/httppost.md)
+- [REST client](../03-转换插件/网络与服务类/rest.md)
+- [Table exists](../03-转换插件/数据库操作类/tableexists.md)
+- [Web services lookup](../03-转换插件/其他转换/webservices.md)
 
 | Transform | 适用场景 |
 |---|---|
-| [**Combination lookup/update**](pipeline/transforms/combinationlookup.md) |  |
+| [**Combination lookup/update**](../03-转换插件/数据库操作类/combinationlookup.md) |  |
 | 在 lookup 上下文中，此 transform 从 [type 1 缓慢变化维度](https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_1:_overwrite) 获取数据。 |  |
-| [**Dimension lookup/update**](pipeline/transforms/dimensionlookup.md) |  |
+| [**Dimension lookup/update**](../03-转换插件/数据库操作类/dimensionlookup.md) |  |
 | 在 lookup 上下文中，此 transform 允许您在 [type 2 缓慢变化维度](https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_2:_add_new_row) 中执行 lookup。 |  |
-| [**Database lookup**](pipeline/transforms/databaselookup.md) |  |
+| [**Database lookup**](../03-转换插件/数据库操作类/databaselookup.md) |  |
 | 您需要基于 pipeline 流中的字段从单个数据库表中检索附加信息。 |  |
-| [**Stream lookup**](pipeline/transforms/streamlookup.md) |  |
+| [**Stream lookup**](../03-转换插件/查找与连接类/streamlookup.md) |  |
 | 当您需要在相当有限的数据集上执行大量 lookup 时使用 Stream lookup。 |  |
 
 ## Lookup 缓存
 
-[Combination lookup/update](pipeline/transforms/combinationlookup.md)、[Dimension lookup/update](pipeline/transforms/dimensionlookup.md) 和 [Database lookup](pipeline/transforms/databaselookup.md) 允许您缓存数据。缓存的数据存储在内存中以加速 lookup 过程。
+[Combination lookup/update](../03-转换插件/数据库操作类/combinationlookup.md)、[Dimension lookup/update](../03-转换插件/数据库操作类/dimensionlookup.md) 和 [Database lookup](../03-转换插件/数据库操作类/databaselookup.md) 允许您缓存数据。缓存的数据存储在内存中以加速 lookup 过程。
 
 对话框选项略有不同，但这些 transform 提供的缓存选项包括：
 

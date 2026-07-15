@@ -2,7 +2,7 @@
 
 ## 概述
 
-**Data Stream Output** Transform 将行从 Hop Pipeline 写入配置的 [Data Stream](/metadata-types/data-stream/data-stream.md)。
+**Data Stream Output** Transform 将行从 Hop Pipeline 写入配置的 [Data Stream](../../06-元数据类型/data-stream.md)。
 
 它支持所有可用的 Data Stream 实现（Arrow File Stream、Arrow Random Access File 和 Arrow Flight）。
 

@@ -28,7 +28,7 @@
 在我们的客户示例中，源系统 A 可能包含个人数据，如姓名、名字、出生日期等。
 另一个源系统 B 可能包含客户的状态。
 最后，源系统 C 包含一个指示财务状态的标志。
-每个来源的数据在不同的时间点发生变化。在缓慢变化维度中（参见：[Dimension Lookup/Update](pipeline/transforms/dimensionlookup.md)），我们希望看到不同来源中发生的变化。
+每个来源的数据在不同的时间点发生变化。在缓慢变化维度中（参见：[Dimension Lookup/Update](../数据库操作类/dimensionlookup.md)），我们希望看到不同来源中发生的变化。
 我们还希望在数据到达时处理来自各来源的数据。
 
 | source | customer_id | timestamp | lastname | firstname | birthdate | status | indicator |
@@ -45,7 +45,7 @@
 | B | 1 | 2025/01/01 13:00:00 | Mouse | Mickey | 1928/11/18 | active | null |
 | C | 1 | 2025/01/01 14:00:00 | Mouse | Mickey | 1928/11/18 | active | positive |
 
-然后可以使用 [Dimension Lookup/Update](pipeline/transforms/dimensionlookup.md) transform 将这 3 行数据创建为详细且正确的时间线。
+然后可以使用 [Dimension Lookup/Update](../数据库操作类/dimensionlookup.md) transform 将这 3 行数据创建为详细且正确的时间线。
 
 > **💡 提示:** 添加目标缓慢变化维度中的最后一条记录以修改现有记录。
 

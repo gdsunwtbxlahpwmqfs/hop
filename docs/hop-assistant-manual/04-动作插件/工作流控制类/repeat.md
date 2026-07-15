@@ -8,7 +8,7 @@
 - workflow 中的某个变量被设置或被设置为特定值
 - 在指定的重复 workflow 中执行了 End Repeat action
 
-除了 workflow 和 pipeline executor transform 外，Repeat 和 [End Repeat](workflow/actions/repeat-end.md) action 让您可以从 workflow 构建循环。它需要一个 workflow 或 pipeline 以及一个运行配置才能使用。该 action 将继续执行指定的 workflow 或 pipeline，直到满足条件：变量被设置、变量被设置为特定可选值，或者在子 workflow 中触发了 End Repeat action。
+除了 workflow 和 pipeline executor transform 外，Repeat 和 [End Repeat](../其他动作/repeat-end.md) action 让您可以从 workflow 构建循环。它需要一个 workflow 或 pipeline 以及一个运行配置才能使用。该 action 将继续执行指定的 workflow 或 pipeline，直到满足条件：变量被设置、变量被设置为特定可选值，或者在子 workflow 中触发了 End Repeat action。
 
 > **💡 提示:** 如果使用变量名作为要重复的文件，请确保设置了带有文件扩展名的默认参数，以便 Hop 知道它是 pipeline 文件还是 workflow 文件。
 

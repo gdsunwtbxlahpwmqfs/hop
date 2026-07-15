@@ -60,7 +60,7 @@ docker run -it --rm \
 ```
 ## 在 Hop Web 中使用 Hop CLI 工具
 
-Hop Web 包含默认的 [Hop 工具](hop-tools/index.md)，如 [hop-conf](hop-tools/hop-conf/hop-conf.md)、[hop-run](hop-run/index.md) 等。
+Hop Web 包含默认的 [Hop 工具](../index.md)，如 [hop-conf](../09-Hop工具/hop-conf.md)、[hop-run](../index.md) 等。
 
 这些工具位于运行中的 Hop Web 容器的 `/usr/local/tomcat/webapps/ROOT` 目录中。
 

@@ -267,7 +267,7 @@ az keyvault secret set \
 
 ### 启用调试日志
 
-要查看变量解析器的详细日志，请在你的 [Pipeline 运行配置](metadata-types/pipeline-run-config.md)或 [Workflow 运行配置](metadata-types/workflow-run-config.md)中提高日志级别。
+要查看变量解析器的详细日志，请在你的 [Pipeline 运行配置](pipeline-run-config.md)或 [Workflow 运行配置](workflow-run-config.md)中提高日志级别。
 
 ## 限制
 
@@ -282,10 +282,10 @@ az keyvault secret set \
 - [快速入门：使用 Azure Portal 创建 Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal)
 - [Azure Key Vault 认证](https://learn.microsoft.com/en-us/azure/key-vault/general/authentication)
 - [创建 Azure AD 服务主体](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
-- [变量解析器概述](metadata-types/variable-resolver/index.md)
+- [变量解析器概述](../index.md)
 
 ## 相关元数据类型
 
-- [HashiCorp Vault 变量解析器](metadata-types/variable-resolver/hashicorp-vault-variable-resolver.md)
-- [Google Secret Manager 变量解析器](metadata-types/variable-resolver/google-secret-manager-variable-resolver.md)
-- [Pipeline 变量解析器](metadata-types/variable-resolver/pipeline-variable-resolver.md)
+- [HashiCorp Vault 变量解析器](hashicorp-vault-variable-resolver.md)
+- [Google Secret Manager 变量解析器](google-secret-manager-variable-resolver.md)
+- [Pipeline 变量解析器](pipeline-variable-resolver.md)

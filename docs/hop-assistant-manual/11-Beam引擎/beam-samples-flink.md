@@ -2,7 +2,7 @@
 
 ## 获取 Flink
 
-查看 Beam 入门页面上的[支持版本](pipeline/beam/getting-started-with-beam.md#supportedversions.md)，找到您的 Hop 版本支持的最新 Flink 版本。
+查看 Beam 入门页面上的[支持版本](getting-started-with-beam.md#supportedversions.md)，找到您的 Hop 版本支持的最新 Flink 版本。
 
 例如，对于 Hop 1.2，目前支持的最新版本是 1.13。请确保下载与最近的 JDK 8 兼容的 Scala 版本对应的 Flink。对于 Flink 1.3.6，这是 Scala 2.11。
 
@@ -32,7 +32,7 @@ Starting taskexecutor daemon on host <HOSTNAME>.
 
 ## Flink 运行配置设置
 
-在 Hop GUI 的 Samples 项目 metadata 视图中，编辑 `Flink` pipeline 运行配置，确保 `Fat jar file location`（最后一个选项）指向您之前在[前提条件](pipeline/beam/running-the-beam-samples.md#prerequisites.md)中创建的 Hop fat jar。
+在 Hop GUI 的 Samples 项目 metadata 视图中，编辑 `Flink` pipeline 运行配置，确保 `Fat jar file location`（最后一个选项）指向您之前在[前提条件](running-the-beam-samples.md#prerequisites.md)中创建的 Hop fat jar。
 
 ![Apache Beam - Flink 运行配置, width="70%"](../assets/images/beam/beam-flink-run-config.png)
 
@@ -52,7 +52,7 @@ Starting taskexecutor daemon on host <HOSTNAME>.
 
 在实际环境中，您将通过 `flink run` 从 Flink master 运行您的 Flink pipeline。
 
-将您的 Flink master 设置为 `[auto]` 并再次导出您的 Hop metadata（参见[前提条件](pipeline/beam/running-the-beam-samples.md#prerequisites.md)）。
+将您的 Flink master 设置为 `[auto]` 并再次导出您的 Hop metadata（参见[前提条件](running-the-beam-samples.md#prerequisites.md)）。
 
 ![Apache Beam - Flink 运行配置 - master, width="40%"](../assets/images/beam/beam-flink-run-config-host.png)
 

@@ -18,4 +18,4 @@
 ## 限制
 
 目前该 Transform 仍处于实验阶段。
-它尚不能检测和转换字段类型，所有数据以单个字符串返回，以 `;` 字符分隔。使用 [split fields](pipeline/transforms/splitfields.md) Transform 将数据拆分为字段。
+它尚不能检测和转换字段类型，所有数据以单个字符串返回，以 `;` 字符分隔。使用 [split fields](../字符串与文本处理类/splitfields.md) Transform 将数据拆分为字段。

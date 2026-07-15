@@ -11,4 +11,4 @@ Search perspective 允许你搜索 Hop 项目中的所有 metadata。
 结果表显示类型、名称、文件名、位置、匹配文本和描述。
 使用 perspective 底部的 'Open' 按钮可直接跳转到所选的 metadata 对象（例如在 pipeline 中打开一个 transform）。
 
-> **💡 提示:** [hop-search](hop-tools/hop-search.md) 工具通过命令行而非 GUI 提供与 Search Perspective 相同的功能。
+> **💡 提示:** [hop-search](../09-Hop工具/hop-search.md) 工具通过命令行而非 GUI 提供与 Search Perspective 相同的功能。

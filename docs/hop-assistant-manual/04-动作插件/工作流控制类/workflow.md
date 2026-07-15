@@ -16,9 +16,9 @@
 
 另请参见：
 
-- 从 workflow 执行 pipeline 的 [Pipeline action](workflow/actions/pipeline.md)。
-- 从 pipeline 执行 workflow 的 [Workflow Executor transform](pipeline/transforms/workflow-executor.md)。
-- 从 pipeline 执行子 pipeline 的 [Pipeline Executor transform](pipeline/transforms/pipeline-executor.md)。
+- 从 workflow 执行 pipeline 的 [Pipeline action](pipeline.md)。
+- 从 pipeline 执行 workflow 的 [Workflow Executor transform](../../03-转换插件/其他转换/workflow-executor.md)。
+- 从 pipeline 执行子 pipeline 的 [Pipeline Executor transform](../../03-转换插件/其他转换/pipeline-executor.md)。
 
 ## 选项
 
@@ -28,7 +28,7 @@
 |---|---|
 | Action name | Action 的名称。 |
 | Workflow Filename a | 指定要执行的 workflow 的 XML 文件名。点击浏览本地文件。 |
-| Run configuration a | 用于此 workflow action 的 [workflow 运行配置](metadata-types/workflow-run-config.md)。 |
+| Run configuration a | 用于此 workflow action 的 [workflow 运行配置](../../06-元数据类型/workflow-run-config.md)。 |
 
 ### Options 选项卡
 
@@ -60,7 +60,7 @@
 | Specify logfile? | 启用以为此 workflow 的执行指定单独的日志文件 |
 | Name of logfile | 日志文件的目录和基础名称；例如 `C:\logs` |
 | Extension of logfile | 文件名扩展；例如 log 或 txt |
-| Loglevel | 指定执行 workflow 的日志级别。有关更多详细信息，请参见[日志记录](logging/logging-basics.md)。 |
+| Loglevel | 指定执行 workflow 的日志级别。有关更多详细信息，请参见[日志记录](../../15-日志/logging-basics.md)。 |
 | Append logfile? | 启用以追加到日志文件而非创建新文件 |
 | Create parent folder | 如果日志文件的父文件夹不存在则创建 |
 | Include date in logfile? | 将系统日期以 YYYYMMDD 格式添加到文件名中（例如 20051231）。 |

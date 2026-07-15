@@ -15,7 +15,7 @@
 | File name field |  |
 | Transform 输入中将包含要分析数据库影响的文件名的字段名称。 |  |
 
-> **💡 提示:** 你可以使用 [Get File Names](pipeline/transforms/getfilenames.md) Transform 作为输入。要搜索你的项目 Pipeline，请指定文件夹 `{openvar}PROJECT_HOME{closevar}` 并使用通配符 `.*\.hpl$`。
+> **💡 提示:** 你可以使用 [Get File Names](../输入类/getfilenames.md) Transform 作为输入。要搜索你的项目 Pipeline，请指定文件夹 `{openvar}PROJECT_HOME{closevar}` 并使用通配符 `.*\.hpl$`。
 
 ## 输出字段
 

@@ -16,4 +16,4 @@
 
 ## 更多信息
 
-有关异步 Web Service 和使用示例的更多详情，请查看 [hop-server/async-web-service.adoc](hop-server/async-web-service.md) 页面和 [hop-server/index.adoc](hop-server/index.md) 文档。
+有关异步 Web Service 和使用示例的更多详情，请查看 [hop-server/async-web-service.adoc](../09-Hop工具/async-web-service.md) 页面和 [hop-server/index.adoc](../index.md) 文档。

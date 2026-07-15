@@ -9,8 +9,8 @@ Hop 通过多个 plugin 支持 Avro。
 
 ## Pipeline Transform
 
-- [Avro Decode](pipeline/transforms/avro-decode.md)：允许您从 Avro Record 数据类型中提取 Hop 值。
-- [Avro Encode](pipeline/transforms/avro-encode.md)：允许您从 Avro Record 数据类型中提取 Hop 值。
+- [Avro Decode](../03-转换插件/Avro数据格式类/avro-decode.md)：允许您从 Avro Record 数据类型中提取 Hop 值。
+- [Avro Encode](../03-转换插件/Avro数据格式类/avro-encode.md)：允许您从 Avro Record 数据类型中提取 Hop 值。
 
 ## Kafka Producer transform
 

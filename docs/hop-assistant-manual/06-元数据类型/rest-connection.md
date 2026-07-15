@@ -2,13 +2,13 @@
 
 ![](../assets/images/icons/rest.svg)
 
-REST 连接是与 REST API 的连接，可以从 [REST client](pipeline/transforms/rest.md) 等 transform 中重复使用。
+REST 连接是与 REST API 的连接，可以从 [REST client](../03-转换插件/网络与服务类/rest.md) 等 transform 中重复使用。
 
 REST 连接是一个通用元数据项。使用 REST 连接的 transform 或 action 可以在需要时覆盖其属性。
 
 ## 相关 plugin
 
-[REST client](pipeline/transforms/rest.md)
+[REST client](../03-转换插件/网络与服务类/rest.md)
 
 ## 选项
 

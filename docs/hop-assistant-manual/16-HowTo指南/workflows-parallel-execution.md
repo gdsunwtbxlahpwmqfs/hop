@@ -1,6 +1,6 @@
 # Qi Hop workflow 中的并行执行
 
-新 Qi Hop 用户最先学到的[概念](installation-configuration.md)之一是 pipeline 以并行方式执行，而 workflow 以顺序方式执行。
+新 Qi Hop 用户最先学到的[概念](../01-快速入门/installation-configuration.md)之一是 pipeline 以并行方式执行，而 workflow 以顺序方式执行。
 
 然而，在某些情况下，您会想要覆盖这些默认设置，顺序执行 pipeline 并行执行 workflow。我们将更详细地了解后一个用例，并展示如何在 workflow 中并行运行 action。
 

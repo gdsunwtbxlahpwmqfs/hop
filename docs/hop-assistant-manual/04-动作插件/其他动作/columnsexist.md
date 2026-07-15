@@ -9,7 +9,7 @@
 | 选项 | 描述 |
 |---|---|
 | Action 名称 | workflow action 的名称。 |
-| 连接 | 要使用的[关系型数据库连接](metadata-types/rdbms-connection.md) |
+| 连接 | 要使用的[关系型数据库连接](../../06-元数据类型/rdbms-connection.md) |
 | Schema 名称 | 要使用的表的 schema |
 | 表名 | 要使用的表的名称 |
 | 列 | 要验证的列名列表（一个或多个） |

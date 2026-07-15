@@ -577,7 +577,7 @@ Linux, macOS::
 
 ## 云存储配置
 
-Hop Conf 可用于通过 [VFS](vfs.md) 配置你的 AWS、Azure 和 Google Cloud（Cloud Storage 和 Drive）账户与 Hop 的连接
+Hop Conf 可用于通过 [VFS](../14-虚拟文件系统/vfs.md) 配置你的 AWS、Azure 和 Google Cloud（Cloud Storage 和 Drive）账户与 Hop 的连接
 
 ### Amazon Web Services S3
 

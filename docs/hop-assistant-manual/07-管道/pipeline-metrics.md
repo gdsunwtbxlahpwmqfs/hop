@@ -2,14 +2,14 @@
 
 Hop Gui 在 pipeline 执行期间和执行后显示大量有用的指标。
 
-> **💡 提示:** 此表中的指标可以通过标准 pipeline 捕获和处理（例如写入数据库表或 Apache Kafka 主题），使用 [Pipeline Log](metadata-types/pipeline-log.md)
+> **💡 提示:** 此表中的指标可以通过标准 pipeline 捕获和处理（例如写入数据库表或 Apache Kafka 主题），使用 [Pipeline Log](../06-元数据类型/pipeline-log.md)
 
 > **⚠️ 警告:** 此表中可用的指标取决于您的 Pipeline 运行配置。
-[本地 pipeline engine](pipeline/pipeline-run-configurations/native-local-pipeline-engine.md) 始终实时显示这些指标。
+[本地 pipeline engine](native-local-pipeline-engine.md) 始终实时显示这些指标。
 
 | 指标 | 说明 |
 |---|---|
-| Copy | 这些指标适用的 transform 副本。详见[指定副本](pipeline/specify-copies.md) |
+| Copy | 这些指标适用的 transform 副本。详见[指定副本](specify-copies.md) |
 | Input | 从输入源（如文件、关系型或 NoSql 数据库等）读取的行数 |
 | Read | 来自前一个 transform 的行数 |
 | Written | 离开此 transform 向下一个 transform 的行数 |

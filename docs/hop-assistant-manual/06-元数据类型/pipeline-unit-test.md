@@ -12,7 +12,7 @@ Pipeline 中的特定 transform 可以被绕过或移除以进行测试，提供
 
 此外，单元测试可以批量执行。
 
-查看 [Pipeline 单元测试](/pipeline/pipeline-unit-testing.md)了解更多详情。
+查看 [Pipeline 单元测试](../07-管道/pipeline-unit-testing.md)了解更多详情。
 
 ## 相关 plugin
 

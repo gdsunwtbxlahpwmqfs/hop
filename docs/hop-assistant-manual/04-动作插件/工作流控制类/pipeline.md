@@ -12,9 +12,9 @@
 
 另请参见：
 
-- 从 workflow 执行子 workflow 的 [Workflow action](workflow/actions/workflow.md)。
-- 从 pipeline 执行 workflow 的 [Workflow Executor transform](pipeline/transforms/workflow-executor.md)。
-- 从 pipeline 执行子 pipeline 的 [Pipeline Executor transform](pipeline/transforms/pipeline-executor.md)。
+- 从 workflow 执行子 workflow 的 [Workflow action](workflow.md)。
+- 从 pipeline 执行 workflow 的 [Workflow Executor transform](../../03-转换插件/其他转换/workflow-executor.md)。
+- 从 pipeline 执行子 pipeline 的 [Pipeline Executor transform](../../03-转换插件/其他转换/pipeline-executor.md)。
 
 ## 选项
 
@@ -24,7 +24,7 @@
 |---|---|
 | Action name | Action 的名称。 |
 | Pipeline | 通过输入路径或点击 Browse 来指定您的 pipeline。 |
-| Run Configuration | pipeline 可以在不同类型的 [pipeline 配置](metadata-types/pipeline-run-config.md)下运行。 |
+| Run Configuration | pipeline 可以在不同类型的 [pipeline 配置](../../06-元数据类型/pipeline-run-config.md)下运行。 |
 
 ### Options 选项卡
 

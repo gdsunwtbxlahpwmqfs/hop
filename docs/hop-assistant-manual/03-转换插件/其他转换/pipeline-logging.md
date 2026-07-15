@@ -8,7 +8,7 @@
 
 ## 相关 Plugin
 
-- [Pipeline Log](metadata-types/pipeline-log.md)
+- [Pipeline Log](../../06-元数据类型/pipeline-log.md)
 
 ## 选项
 

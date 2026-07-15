@@ -54,7 +54,7 @@ Hop 对此并不知情。
 现在或在您想要向 pipeline 添加更多 transform 时重复此步骤。
 将 transform 添加到 pipeline 后，您可以拖动来重新定位它。
 
-查看可添加到 pipeline 的 [transform 列表](pipeline/transforms.md) 获取更多详细信息。
+查看可添加到 pipeline 的 [transform 列表](transforms.md) 获取更多详细信息。
 
 ![Hop - Add Transform,75%,align="left"](../assets/images/getting-started/getting-started-add-transform.png)
 

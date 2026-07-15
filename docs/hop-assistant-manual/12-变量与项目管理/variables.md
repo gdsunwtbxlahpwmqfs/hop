@@ -86,13 +86,13 @@ $[<hexadecimal value>]
 
 ## 变量解析器
 
-变量解析器是一个 [metadata 元素](metadata-types/index.md)，允许我们通过解析器 plugin 查找值。
+变量解析器是一个 [metadata 元素](../index.md)，允许我们通过解析器 plugin 查找值。
 使用这些 metadata 元素解析变量的格式如下：
 
 ```
 #{name:key:element}
 ```
-有关其工作原理的更多信息，请访问[变量解析器页面](metadata-types/variable-resolver/index.md)。
+有关其工作原理的更多信息，请访问[变量解析器页面](../index.md)。
 
 ## 解析概述
 
@@ -106,12 +106,12 @@ $[<hexadecimal value>]
 
 - 在 hop-config.json 中（当适用于整个安装时）
 - 在环境配置文件中（当涉及特定生命周期环境时）
-- 在[项目](projects/projects-environments.md)中
-- 在[pipeline 运行配置](pipeline/pipeline-run-configurations/pipeline-run-configurations.md)中
+- 在[项目](projects-environments.md)中
+- 在[pipeline 运行配置](../07-管道/pipeline-run-configurations.md)中
 - 作为 pipeline 或 workflow 的默认参数值
-- 使用 pipeline 中的 [Set Variables](pipeline/transforms/setvariable.md) Transform
-- 使用 workflow 中的 [Set Variables](workflow/actions/setvariables.md) Action
-- 使用 [Hop run](hop-run/index.md) 执行时
+- 使用 pipeline 中的 [Set Variables](../03-转换插件/其他转换/setvariable.md) Transform
+- 使用 workflow 中的 [Set Variables](../04-动作插件/脚本与评估类/setvariables.md) Action
+- 使用 [Hop run](../index.md) 执行时
 
 ## 局部性
 
@@ -168,33 +168,33 @@ sh hop-conf.sh -s MY_SYSTEM_PROPERTY=SomeValue
 
 ### 环境变量
 
-你也可以在[项目生命周期环境](projects/index.md)中指定变量。
+你也可以在[项目生命周期环境](../index.md)中指定变量。
 
 这有助于你配置特定于环境的文件夹和其他内容，让你在代码（你的项目）和配置（你的环境）之间保持清晰的分离。
 
-你可以在[环境设置对话框](projects/projects-environments.md#_create_an_environment.md)中设置这些变量，或使用命令行：
+你可以在[环境设置对话框](projects-environments.md#_create_an_environment.md)中设置这些变量，或使用命令行：
 
 sh hop-conf.sh -e MyEnvironment -em -ev VARIABLE1=value1
 
 ### 运行配置
 
-你可以在[pipeline 运行配置](pipeline/pipeline-run-configurations/pipeline-run-configurations.md)和[workflow 运行配置](workflow/workflow-run-configurations/workflow-run-configurations.md)中指定变量，使 pipeline 或 workflow 以引擎无关的方式运行。
+你可以在[pipeline 运行配置](../07-管道/pipeline-run-configurations.md)和[workflow 运行配置](../08-工作流/workflow-run-configurations.md)中指定变量，使 pipeline 或 workflow 以引擎无关的方式运行。
 
 例如，你可以让同一个 pipeline 在 Hadoop 上使用 Spark 运行并使用 `hdfs://` 指定输入目录，在 Google DataFlow 上使用 `gs://` 运行。
 
 ### Workflow
 
-你可以在 workflow 中通过 [Set Variables](workflow/actions/setvariables.md)、[JavaScript](workflow/actions/eval.md) Action 或使用参数来定义变量。
+你可以在 workflow 中通过 [Set Variables](../04-动作插件/脚本与评估类/setvariables.md)、[JavaScript](../04-动作插件/数据库操作类/eval.md) Action 或使用参数来定义变量。
 
 ### Pipeline
 
-你可以在 pipeline 中通过 [Set Variables](pipeline/transforms/setvariable.md)、[JavaScript](pipeline/transforms/javascript.md) Transform 或通过定义参数来定义变量。
+你可以在 pipeline 中通过 [Set Variables](../03-转换插件/其他转换/setvariable.md)、[JavaScript](../04-动作插件/脚本与评估类/javascript.md) Transform 或通过定义参数来定义变量。
 
-*重要* 如 [Set Variables](pipeline/transforms/setvariable.md) 文档页面所述，你不能在同一个 pipeline 中设置和使用变量，因为 pipeline 中的所有 Transform 都是并行运行的。
+*重要* 如 [Set Variables](../03-转换插件/其他转换/setvariable.md) 文档页面所述，你不能在同一个 pipeline 中设置和使用变量，因为 pipeline 中的所有 Transform 都是并行运行的。
 
 ## 可用的全局变量
 
-以下变量通过[配置视图](hop-gui/perspective-configuration.md)在 Hop 中可用。如果你在配置视图的 [General](hop-gui/perspective-configuration.md#_general.md) 标签页中启用了菜单工具栏，这些变量也可以通过 `Tools -> Edit config variables` 访问。
+以下变量通过[配置视图](../10-HopGUI/perspective-configuration.md)在 Hop 中可用。如果你在配置视图的 [General](../10-HopGUI/perspective-configuration.md#_general.md) 标签页中启用了菜单工具栏，这些变量也可以通过 `Tools -> Edit config variables` 访问。
 
 | 变量名 | 默认值 | 描述 |
 |---|---|---|
@@ -233,7 +233,7 @@ sh hop-conf.sh -e MyEnvironment -em -ev VARIABLE1=value1
 | HOP_PLUGIN_CLASSES |  | 以逗号分隔的类列表，用于扫描 plugin 注解 |
 | HOP_ROWSET_GET_TIMEOUT | 50 | 可选的包含替代行集获取超时（以毫秒为单位）的变量名。 |
 | HOP_ROWSET_PUT_TIMEOUT | 50 | 可选的包含替代行集放入超时（以毫秒为单位）的变量名。 |
-| HOP_S3_VFS_PART_SIZE | 5MB | 向 S3 多部分上传新文件的默认分片大小（由 [AWS S3](vfs/aws-s3-vfs.md) VFS plugin 添加和使用） |
+| HOP_S3_VFS_PART_SIZE | 5MB | 向 S3 多部分上传新文件的默认分片大小（由 [AWS S3](../14-虚拟文件系统/aws-s3-vfs.md) VFS plugin 添加和使用） |
 | HOP_SERVER_DETECTION_TIMER | - | 定义用于检测服务器节点的定时器的变量名 |
 | HOP_SERVER_JETTY_ACCEPTORS |  | 用于配置 Hop Server 的 Jetty 选项的变量：acceptors |
 | HOP_SERVER_JETTY_ACCEPT_QUEUE_SIZE |  | 用于配置 Hop Server 的 Jetty 选项的变量：acceptQueueSize |

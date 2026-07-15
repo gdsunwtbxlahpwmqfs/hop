@@ -6,10 +6,10 @@
 
 Hop 目前支持的技术包括：
 
-- [Apache Arrow](technology/arrow/apache-arrow.md)
-- [Azure](technology/azure/index.md)
-- [Apache Cassandra](technology/cassandra/index.md)
-- [Google](technology/google/index.md)
-- [Memgraph](technology/memgraph/index.md)
-- [Neo4j](technology/neo4j/index.md)
-** [使用 Neo4j 数据](technology/neo4j/working-with-neo4j-data.md)
+- [Apache Arrow](apache-arrow.md)
+- [Azure](../index.md)
+- [Apache Cassandra](../index.md)
+- [Google](../index.md)
+- [Memgraph](../index.md)
+- [Neo4j](../index.md)
+** [使用 Neo4j 数据](working-with-neo4j-data.md)

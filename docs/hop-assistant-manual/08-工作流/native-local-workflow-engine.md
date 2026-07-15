@@ -4,7 +4,7 @@
 
 本地运行配置在您的本地环境中运行 workflow。
 
-此页面描述了本地 workflow engine 特有的选项。这些选项扩展了通用的 [workflow 运行配置选项](workflow/workflow-run-configurations/workflow-run-configurations.md)。
+此页面描述了本地 workflow engine 特有的选项。这些选项扩展了通用的 [workflow 运行配置选项](workflow-run-configurations.md)。
 
 ### 选项
 

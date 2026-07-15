@@ -4,7 +4,7 @@
 
 `Write to log` action 将特定字符串写入 Hop 日志系统。
 
-此 action 类似于 [Write To Log](pipeline/transforms/writetolog.md) transform。
+此 action 类似于 [Write To Log](writetolog.md) transform。
 
 典型用例是将变量值和额外的自定义日志信息写入 Hop 日志系统。
 
@@ -23,6 +23,6 @@
 | 选项 | 描述 |
 |---|---|
 | Action name | Workflow action 的名称。 |
-| Log level | 要使用的日志级别。有关更多详细信息，请参见[日志记录](logging/logging-basics.md)。 |
+| Log level | 要使用的日志级别。有关更多详细信息，请参见[日志记录](../../15-日志/logging-basics.md)。 |
 | Log subject | 日志行中使用的主题 |
 | Log message | 要写入日志的日志消息 |

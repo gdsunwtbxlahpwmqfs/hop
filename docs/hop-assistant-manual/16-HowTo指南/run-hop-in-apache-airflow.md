@@ -301,4 +301,4 @@ mounts=[Mount(source='<YOUR_PROJECT_PATH>/', target='/project', type='bind'),
 
 我们介绍了使用 DockerOperator 在 Apache Airflow 中运行 Qi Hop pipeline（或 workflow）的基础知识。
 
-还有其他选项：您可以使用 Airflow 的 [BashOperator](https://airflow.apache.org/docs/apache-airflow/stable/howto/operator/bash) 直接使用 [hop-run](hop-run/index.md)，或使用 [HTTP operator](https://airflow.apache.org/docs/apache-airflow-providers-http/stable/operators) 在远程 hop server 上运行 pipeline 或 workflow。
+还有其他选项：您可以使用 Airflow 的 [BashOperator](https://airflow.apache.org/docs/apache-airflow/stable/howto/operator/bash) 直接使用 [hop-run](../index.md)，或使用 [HTTP operator](https://airflow.apache.org/docs/apache-airflow-providers-http/stable/operators) 在远程 hop server 上运行 pipeline 或 workflow。

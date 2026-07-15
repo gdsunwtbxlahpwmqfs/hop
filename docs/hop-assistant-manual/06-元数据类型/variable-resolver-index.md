@@ -11,9 +11,9 @@
 
 > **❗ 重要:** 解析变量时的错误不会导致 Pipeline 或 Workflow 层面的失败。
 
-> **📝 注意:** 由于可用性原因，错误不会立即在用户界面中显示。否则将无法输入任何表达式。请查看 [Hop GUI](hop-gui/index.md) 执行窗格中的日志以查看解析器返回的任何错误。
+> **📝 注意:** 由于可用性原因，错误不会立即在用户界面中显示。否则将无法输入任何表达式。请查看 [Hop GUI](../index.md) 执行窗格中的日志以查看解析器返回的任何错误。
 
-> **💡 提示:** 如果你发现在表视图（表格网格）中输入变量表达式太慢，请在 [configuration perspective](hop-gui/perspective-configuration.md) 中取消选中在工具提示中解析变量的选项。
+> **💡 提示:** 如果你发现在表视图（表格网格）中输入变量表达式太慢，请在 [configuration perspective](../10-HopGUI/perspective-configuration.md) 中取消选中在工具提示中解析变量的选项。
 
 ## 嵌套解析
 
@@ -32,7 +32,7 @@
 
 以下是可用的变量解析器 plugin：
 
-- [Azure Key Vault 变量解析器](metadata-types/variable-resolver/azure-key-vault-variable-resolver.md)
-- [Google Secret Manager 变量解析器](metadata-types/variable-resolver/google-secret-manager-variable-resolver.md)
-- [Hashicorp Vault 变量解析器](metadata-types/variable-resolver/hashicorp-vault-variable-resolver.md)
-- [Pipeline 变量解析器](metadata-types/variable-resolver/pipeline-variable-resolver.md)
+- [Azure Key Vault 变量解析器](azure-key-vault-variable-resolver.md)
+- [Google Secret Manager 变量解析器](google-secret-manager-variable-resolver.md)
+- [Hashicorp Vault 变量解析器](hashicorp-vault-variable-resolver.md)
+- [Pipeline 变量解析器](pipeline-variable-resolver.md)

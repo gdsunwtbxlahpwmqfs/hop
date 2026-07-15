@@ -12,12 +12,12 @@
 
 Transform：
 
-- [Text File Input](pipeline/transforms/textfileinput.md)
-- [Text File Output](pipeline/transforms/textfileoutput.md)
-- [CSV Input](pipeline/transforms/csvinput.md)
-- [Excel Input](pipeline/transforms/excelinput.md)
-- [Excel Writer](pipeline/transforms/excelwriter.md)
-- [Schema Mapping](pipeline/transforms/schemamapping.md)
+- [Text File Input](../03-转换插件/输入类/textfileinput.md)
+- [Text File Output](../03-转换插件/输出类/textfileoutput.md)
+- [CSV Input](../03-转换插件/输入类/csvinput.md)
+- [Excel Input](../03-转换插件/输入类/excelinput.md)
+- [Excel Writer](../03-转换插件/其他转换/excelwriter.md)
+- [Schema Mapping](../03-转换插件/其他转换/schemamapping.md)
 
 ## 选项
 

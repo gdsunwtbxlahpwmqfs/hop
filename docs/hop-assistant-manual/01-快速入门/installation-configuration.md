@@ -57,9 +57,9 @@ Qi Hop 的基本安装再简单不过了：
 - 解压
 - 切换到新解压的 `hop` 目录
 - 运行：
-** `hop-gui.bat`（Windows）或 `hop-gui.sh`（Linux、MacOS）：运行 [Hop GUI](hop-gui/index.md)
-** `hop-run.bat`（Windows）或 `hop-run.sh`（Linux、MacOS）：从命令行[运行 Workflow 或 Pipeline](/hop-run/index.md)。
-** `hop-server.bat`（Windows）或 `hop-server.sh`（Linux、MacOS）：启动 [Hop Server](/hop-server/index.md) 实例。
+** `hop-gui.bat`（Windows）或 `hop-gui.sh`（Linux、MacOS）：运行 [Hop GUI](../index.md)
+** `hop-run.bat`（Windows）或 `hop-run.sh`（Linux、MacOS）：从命令行[运行 Workflow 或 Pipeline](../index.md)。
+** `hop-server.bat`（Windows）或 `hop-server.sh`（Linux、MacOS）：启动 [Hop Server](../index.md) 实例。
 
 ## 设置（系统）环境变量
 
@@ -183,4 +183,4 @@ Hop 内置支持数十种数据库和大量其他技术。
 
 Hop 内置支持大量可能需要各自（安装和）配置的技术。
 
-请查看 [技术](technology/technology.md)页面，了解你需要配置的平台以获取更多信息。
+请查看 [技术](../19-技术集成/technology.md)页面，了解你需要配置的平台以获取更多信息。

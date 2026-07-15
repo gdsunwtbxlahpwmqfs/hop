@@ -7,10 +7,10 @@
 ## 选项
 
 ### File 选项卡
-与 JSON Input 概念相同：从文件/文件夹、URL 或前一个 Transform 的字段获取数据（`Source is from a previous transform`）。详见 [JSON Input – File tab](pipeline/transforms/jsoninput.md#_file_tab.md)。
+与 JSON Input 概念相同：从文件/文件夹、URL 或前一个 Transform 的字段获取数据（`Source is from a previous transform`）。详见 [JSON Input – File tab](../输入类/jsoninput.md#_file_tab.md)。
 
 ### Content 选项卡
-除了常规文件和行限制选项（见 [JSON Input – Content tab](pipeline/transforms/jsoninput.md#_content_tab.md)）外，Content 选项卡还增加了：
+除了常规文件和行限制选项（见 [JSON Input – Content tab](../输入类/jsoninput.md#_content_tab.md)）外，Content 选项卡还增加了：
 
 | Option | Description |
 |---|---|

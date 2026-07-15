@@ -132,15 +132,15 @@ Filters 选项卡允许您指定要在文本文件中跳过的行。
 
 ### Fields 选项卡
 
-Fields 选项卡允许您指定从文本文件读取的字段的名称和格式信息。您可以选择使用 [Schema Definition](metadata-types/static-schema-definition.md) 或手动定义所需字段的布局。
+Fields 选项卡允许您指定从文本文件读取的字段的名称和格式信息。您可以选择使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 或手动定义所需字段的布局。
 
-`ignore manual fields` 会忽略在 Transform 字段布局中手动定义的所有字段，仅使用 [Schema Definition](metadata-types/static-schema-definition.md) 中指定的布局。
+`ignore manual fields` 会忽略在 Transform 字段布局中手动定义的所有字段，仅使用 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 中指定的布局。
 
 可用选项包括：
 
 | Option | Description |
 |---|---|
-| Schema Definition | 要引用的 [Schema Definition](metadata-types/static-schema-definition.md) 名称。 |
+| Schema Definition | 要引用的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 名称。 |
 | Name | 要包含在输出中的字段名称。 |
 | Type | 字段的数据类型。可以是 String、Date 或 Number |
 | Format | 有关格式符号的完整描述，请参见 Number Formats。 |

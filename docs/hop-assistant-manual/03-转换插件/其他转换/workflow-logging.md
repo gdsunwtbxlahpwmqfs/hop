@@ -8,7 +8,7 @@
 
 ## 相关插件
 
-- [Workflow Log](metadata-types/workflow-log.md)
+- [Workflow Log](../../06-元数据类型/workflow-log.md)
 
 ## 选项
 

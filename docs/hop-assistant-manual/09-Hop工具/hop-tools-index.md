@@ -4,15 +4,15 @@
 
 本页面概述了平台中可用的工具。
 
-- [Hop](hop-tools/hop.md)
-- [Hop Conf](hop-tools/hop-conf/hop-conf.md)
-- [Hop Encrypt](hop-tools/hop-encrypt.md)
-- [Hop Gui](hop-tools/hop-gui.md)
-- [Hop Run](hop-run/index.md)
-- [Hop Search](hop-tools/hop-search.md)
-- [Hop Import](hop-tools/hop-import.md)
-- [Hop 文档](hop-tools/hop-doc.md)
-- [Hop Python (PyHop)](hop-tools/hop-python/hop-python.md)
-- [Hop Arrow (Flight 服务器)](hop-tools/hop-arrow-command.md)
+- [Hop](../02-核心概念/hop.md)
+- [Hop Conf](hop-conf.md)
+- [Hop Encrypt](hop-encrypt.md)
+- [Hop Gui](../01-快速入门/hop-gui.md)
+- [Hop Run](../index.md)
+- [Hop Search](hop-search.md)
+- [Hop Import](hop-import.md)
+- [Hop 文档](hop-doc.md)
+- [Hop Python (PyHop)](hop-python.md)
+- [Hop Arrow (Flight 服务器)](hop-arrow-command.md)
 
-- [Hop Server](hop-server/index.md)
+- [Hop Server](../index.md)

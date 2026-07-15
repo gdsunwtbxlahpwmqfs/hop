@@ -1,6 +1,6 @@
 # Workflow
 
-在[核心概念](getting-started/hop-concepts.md)中，我们介绍了 Workflow、Action 和 hop。
+在[核心概念](hop-concepts.md)中，我们介绍了 Workflow、Action 和 hop。
 让我们回顾一下：
 
 - _Workflow_ 默认是一个顺序执行的过程，有一个起点和一个或多个终点。
@@ -43,9 +43,9 @@
 就像在 Pipeline 中一样，使用此对话框中的搜索框查找你需要的 Action。
 点击或使用方向键并按回车键，即可将 Action 添加到 Workflow 中。
 
-现在，向你的 Workflow 添加一个 [Pipeline](workflow/actions/pipeline.md) Action。
+现在，向你的 Workflow 添加一个 [Pipeline](../04-动作插件/工作流控制类/pipeline.md) Action。
 
-> **💡 提示:** 查看 [Action 完整列表](workflow/actions.md)。
+> **💡 提示:** 查看 [Action 完整列表](../08-工作流/actions.md)。
 Hop 0.70 中有超过 50 个 Action 可用，但你很快就会熟悉最常用的那些。
 
 ### 创建 hop

@@ -1,7 +1,7 @@
 # 使用 Git
 
 版本控制是任何严肃的数据编排项目的重要组成部分。
-Hop 致力于通过 [File Explorer perspective](hop-gui/perspective-file-explorer.md) 中集成的 git 选项，让你尽可能轻松地管理 workflow 和 pipeline 的版本。
+Hop 致力于通过 [File Explorer perspective](perspective-file-explorer.md) 中集成的 git 选项，让你尽可能轻松地管理 workflow 和 pipeline 的版本。
 
 ## File Explorer 工具栏
 

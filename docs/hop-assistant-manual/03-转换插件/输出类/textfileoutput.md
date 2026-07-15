@@ -59,7 +59,7 @@ Fields 选项卡用于定义正在导出字段的属性。
 
 | Option | Description |
 |---|---|
-| Schema Definition | 要引用的 [Schema Definition](metadata-types/static-schema-definition.md) 名称。 |
+| Schema Definition | 要引用的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 名称。 |
 | Name | 字段的名称。 |
 | Type | 字段的数据类型。可以是 String、Date 或 Number。 |
 | Format | 选择要应用于字段值的格式。仅适用于数字和日期。 |

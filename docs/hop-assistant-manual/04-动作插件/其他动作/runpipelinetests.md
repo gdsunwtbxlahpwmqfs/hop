@@ -2,7 +2,7 @@
 
 ## 描述
 
-`Run pipeline unit tests` action 运行一系列选定的 [pipeline 单元测试](pipeline/pipeline-unit-testing.md)。
+`Run pipeline unit tests` action 运行一系列选定的 [pipeline 单元测试](../../07-管道/pipeline-unit-testing.md)。
 
 如果所有测试运行无误，则 action 成功。
 

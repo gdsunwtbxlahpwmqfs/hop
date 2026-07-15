@@ -12,7 +12,7 @@
 
 原始字段会保留在每个新行中，以帮助调试或错误处理。
 
-如有需要，可以通过 [Select Values](pipeline/transforms/selectvalues.md) transform 将其移除。
+如有需要，可以通过 [Select Values](../流程控制类/selectvalues.md) transform 将其移除。
 
 原始字段必须是字符串字段。
 

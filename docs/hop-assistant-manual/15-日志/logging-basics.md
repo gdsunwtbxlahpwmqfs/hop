@@ -58,7 +58,7 @@ Hop GUI 的日志文件保存在 `audit/` 文件夹（或由 `HOP_AUDIT_FOLDER` 
 
 Write to log Action 将特定字符串写入 Hop 日志系统。
 
-查看 [Write To Log](../workflow/actions/writetolog.md) 页面了解更多详情。
+查看 [Write To Log](../04-动作插件/消息与监控类/writetolog.md) 页面了解更多详情。
 
 ### Metadata 类型
 
@@ -66,13 +66,13 @@ Write to log Action 将特定字符串写入 Hop 日志系统。
 
 Pipeline Log 允许用另一个 pipeline 记录 pipeline 的活动。
 
-查看 [pipeline log](../metadata-types/pipeline-log.md) 和 [日志反射](../logging/logging-reflection.md) 页面了解更多详情。
+查看 [pipeline log](../06-元数据类型/pipeline-log.md) 和 [日志反射](logging-reflection.md) 页面了解更多详情。
 
 #### Workflow Log
 
 允许用 pipeline 记录 workflow 的活动。
 
-查看 [workflow log](../metadata-types/workflow-log.md) 和 [日志反射](../logging/logging-reflection.md) 页面了解更多详情。
+查看 [workflow log](../06-元数据类型/workflow-log.md) 和 [日志反射](logging-reflection.md) 页面了解更多详情。
 
 ### 视图
 
@@ -80,7 +80,7 @@ Pipeline Log 允许用另一个 pipeline 记录 pipeline 的活动。
 
 Hop 可以将 workflow 和 pipeline 的执行日志写入 Neo4j 数据库。
 
-查看 [Neo4j Perspective](../hop-gui/perspective-neo4j.md) 页面了解更多详情。
+查看 [Neo4j Perspective](../10-HopGUI/perspective-neo4j.md) 页面了解更多详情。
 
 ### Transform
 
@@ -88,4 +88,4 @@ Hop 可以将 workflow 和 pipeline 的执行日志写入 Neo4j 数据库。
 
 此 Transform 将信息写入 Hop 日志系统。
 
-查看 [Write To Log](../pipeline/transforms/writetolog.md) 页面了解更多详情。
+查看 [Write To Log](../04-动作插件/消息与监控类/writetolog.md) 页面了解更多详情。

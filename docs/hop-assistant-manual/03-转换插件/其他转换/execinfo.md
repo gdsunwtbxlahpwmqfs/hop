@@ -14,7 +14,7 @@
 | Transform name |  |
 | Transform 的名称；该名称在单个 Pipeline 中必须唯一 |  |
 | Execution Information Location |  |
-| 选择你要使用的 [位置](metadata-types/execution-information-location.md)。 |  |
+| 选择你要使用的 [位置](../../06-元数据类型/execution-information-location.md)。 |  |
 | Operation type |  |
 | 选择你要执行的操作。 |  |
 | Execution ID field |  |

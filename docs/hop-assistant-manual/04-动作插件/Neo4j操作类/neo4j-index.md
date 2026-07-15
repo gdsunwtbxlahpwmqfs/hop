@@ -4,7 +4,7 @@
 
 `Neo4j index` action 可用于在 Neo4j 图中的节点或关系属性上创建或删除索引。
 
-有关 Neo4j 约束的类似操作，请查看 [Neo4j constraint](workflow/actions/neo4j-constraint.md) action。
+有关 Neo4j 约束的类似操作，请查看 [Neo4j constraint](neo4j-constraint.md) action。
 
 ## 选项
 

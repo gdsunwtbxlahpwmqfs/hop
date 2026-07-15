@@ -8,7 +8,7 @@
 
 Workflow 日志将正在运行的 Workflow 的日志信息流式传输到一个 Pipeline。
 
-接收 Pipeline 的唯一要求是它以 [Workflow Logging](pipeline/transforms/workflow-logging.md) transform 开始。除此之外，日志 Pipeline 就是"另一个普通 Pipeline"。
+接收 Pipeline 的唯一要求是它以 [Workflow Logging](../03-转换插件/其他转换/workflow-logging.md) transform 开始。除此之外，日志 Pipeline 就是"另一个普通 Pipeline"。
 在此日志 Pipeline 中，你可以处理日志信息，例如写入关系型或 NoSQL 数据库、Kafka topic 等。
 
 ## 示例
@@ -21,7 +21,7 @@ Workflow 日志将正在运行的 Workflow 的日志信息流式传输到一个 
 
 ## 相关 plugin
 
-- [Workflow Logging](pipeline/transforms/workflow-logging.md)
+- [Workflow Logging](../03-转换插件/其他转换/workflow-logging.md)
 
 ## 选项
 

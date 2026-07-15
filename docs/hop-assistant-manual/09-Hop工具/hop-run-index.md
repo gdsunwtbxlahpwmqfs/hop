@@ -85,7 +85,7 @@ Usage: <main class> [-ho] [-e=<environmentOption>] [-f=<filename>]
 | hop-run 将写入 Hop 控制台日志的完整文件名 |  |  |
 | ```-m``` |  |  |
 | ```--metadata-export``` |  |  |
-| 包含 JSON 格式导出 metadata 的文件。另请参见 [Hop Conf](hop-tools/hop-conf/hop-conf.md) 中的 metadata 导出选项 |  |  |
+| 包含 JSON 格式导出 metadata 的文件。另请参见 [Hop Conf](hop-conf.md) 中的 metadata 导出选项 |  |  |
 | ```-o``` |  |  |
 | ```--printoptions``` |  |  |
 | 打印使用的选项 |  |  |

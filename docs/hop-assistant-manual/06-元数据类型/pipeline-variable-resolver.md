@@ -4,7 +4,7 @@
 使用的选项非常简单：
 
 - 要使用的 Pipeline 文件名：用于解析变量表达式而运行的 Pipeline 文件名。
-- Pipeline 运行配置名称：必须引用类型为 [Native Local](pipeline/pipeline-run-configurations/native-local-pipeline-engine.md) 的运行配置。
+- Pipeline 运行配置名称：必须引用类型为 [Native Local](../07-管道/native-local-pipeline-engine.md) 的运行配置。
 - Pipeline 中包含要解析表达式的变量名称
 - 用于获取字段值的输出字段名称
 

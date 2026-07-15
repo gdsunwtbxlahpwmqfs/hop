@@ -155,6 +155,17 @@
                     <include>**/*.md</include>
                 </includes>
             </resource>
+            <!-- Package docs assets (images) into the JAR classpath for serving via REST -->
+            <resource>
+                <targetPath>org/apache/hop/rest/docs/manual/assets</targetPath>
+                <directory>${project.basedir}/../docs/hop-assistant-manual/assets</directory>
+                <includes>
+                    <include>**/*.svg</include>
+                    <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.gif</include>
+                </includes>
+            </resource>
         </resources>
     </build>
 </project>

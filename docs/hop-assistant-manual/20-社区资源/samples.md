@@ -3,7 +3,7 @@
 Hop 附带了一组 workflow、pipeline、Action、Transform 和其他 metadata 对象的示例。
 
 此 `samples` 项目包含在你的 Hop 安装的 `config/projects/samples` 文件夹中。
-你可以打开单个示例 workflow 或 pipeline，或添加一个 [Hop 项目](projects/index.md)，将项目主目录指向 `samples` 文件夹。
+你可以打开单个示例 workflow 或 pipeline，或添加一个 [Hop 项目](../index.md)，将项目主目录指向 `samples` 文件夹。
 
 示例项目正在不断完善中。
 更多的示例将逐步添加，直到功能覆盖完整。

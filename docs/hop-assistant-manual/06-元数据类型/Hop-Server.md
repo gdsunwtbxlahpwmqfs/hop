@@ -6,7 +6,7 @@
 
 Hop Server 是一个轻量级 Web 服务器，为远程执行托管 Hop 运行时，提供 Web 界面和一组用于检查执行状态等的 servlet。
 
-查看 [Hop Server 文档](hop-server/index.md) 了解更多详情。
+查看 [Hop Server 文档](../index.md) 了解更多详情。
 
 ## 相关 plugin
 

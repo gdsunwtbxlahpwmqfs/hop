@@ -17,7 +17,7 @@ transform 属性对话框中的数据网格。
 问号将按数据网格中定义的顺序被替换。
 例如，Database Join 允许您运行查询来查找购买特定产品的最年长客户，如下所示：
 
-> **💡 提示:** Database Join transform 比标准的 [Database Lookup](pipeline/transforms/databaselookup.md) transform 提供更大的灵活性。请注意，您的查询决定了此 transform 的性能。
+> **💡 提示:** Database Join transform 比标准的 [Database Lookup](databaselookup.md) transform 提供更大的灵活性。请注意，您的查询决定了此 transform 的性能。
 
 ```sql
 SELECT      customernr

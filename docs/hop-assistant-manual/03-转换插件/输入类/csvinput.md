@@ -21,7 +21,7 @@
 | The row number field name (optional) | Integer 类型字段的名称，该字段将包含此 transform 输出中的行号。 |
 | Running in parallel? | 如果将有多个此 transform 的实例（transform 副本）并行运行，并且希望每个实例读取 CSV 文件的独立部分，请勾选此项。 |
 | File Encoding | 指定所读取文件的编码方式。 |
-| Schema Definition | 要引用的 [Schema Definition](metadata-types/static-schema-definition.md) 名称。 |
+| Schema Definition | 要引用的 [Schema Definition](../../06-元数据类型/static-schema-definition.md) 名称。 |
 | Fields Table | 此表包含要从目标文件中读取的字段的有序列表。 |
 | Preview button | 点击可预览来自目标文件的数据。 |
 | Get Fields button | 点击可基于当前设置（如分隔符、文本限定符等）从目标文件返回字段列表。 |

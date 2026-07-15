@@ -2,7 +2,7 @@
 
 ![](../assets/images/icons/dataset.svg)
 
-Data Set 是一个静态预定义的行集合，用于[单元测试](metadata-types/pipeline-unit-test.md)，其中 data set 用作替代输入数据集。
+Data Set 是一个静态预定义的行集合，用于[单元测试](pipeline-unit-test.md)，其中 data set 用作替代输入数据集。
 此输入集用于在单元测试 Pipeline 中进行处理。
 处理完成后，将 Pipeline 的结果与指定为测试"黄金数据集"的 data set 进行比较。
 

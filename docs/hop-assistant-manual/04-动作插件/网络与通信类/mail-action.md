@@ -18,7 +18,7 @@ Mail action 需要 SMTP 服务器。
 
 此外，为方便起见，日志可以压缩为单个归档文件。
 
-Mail action 可以使用 action 本身定义的邮件服务器配置，也可以从 [Mail Server Connection](metadata-types/mail-server-connection.md) metadata 类型获取服务器连接。在后一种情况下，action 本身的服务器配置将被忽略。
+Mail action 可以使用 action 本身定义的邮件服务器配置，也可以从 [Mail Server Connection](../../06-元数据类型/mail-server-connection.md) metadata 类型获取服务器连接。在后一种情况下，action 本身的服务器配置将被忽略。
 
 ## 选项
 
@@ -40,7 +40,7 @@ Mail action 可以使用 action 本身定义的邮件服务器配置，也可以
 
 | 选项 | 描述 |
 |---|---|
-| Mail Connection | 如果在此处选择了邮件服务器连接，则忽略此选项卡的其余部分。服务器配置将从 [Mail Server Connection](metadata-types/mail-server-connection.md) metadata 项中获取。 |
+| Mail Connection | 如果在此处选择了邮件服务器连接，则忽略此选项卡的其余部分。服务器配置将从 [Mail Server Connection](../../06-元数据类型/mail-server-connection.md) metadata 项中获取。 |
 | SMTP 服务器 | SMTP 服务器地址 |
 | 端口 | SMTP 服务器运行的端口 |
 | 使用身份验证 | 启用以对 SMTP 服务器使用身份验证 |
