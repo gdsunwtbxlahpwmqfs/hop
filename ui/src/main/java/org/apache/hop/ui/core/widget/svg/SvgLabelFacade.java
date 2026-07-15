@@ -37,7 +37,17 @@ public abstract class SvgLabelFacade {
     }
   }
 
+  public static synchronized void setData(
+      String id, Label label, String imageFile, int width, int height) {
+    synchronized (object) {
+      IMPL.setDataInternal(id, label, imageFile, width, height);
+    }
+  }
+
   public abstract void setDataInternal(String id, Label label, String imageFile, int size);
+
+  public abstract void setDataInternal(
+      String id, Label label, String imageFile, int width, int height);
 
   public static synchronized void enable(
       ToolItem toolItem, String id, Label label, boolean enable) {

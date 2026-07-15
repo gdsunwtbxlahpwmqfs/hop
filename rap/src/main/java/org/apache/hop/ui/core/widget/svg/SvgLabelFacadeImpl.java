@@ -58,6 +58,11 @@ public class SvgLabelFacadeImpl extends SvgLabelFacade {
 
   @Override
   public void setDataInternal(String id, Label label, String imageFile, int size) {
+    setDataInternal(id, label, imageFile, size, size);
+  }
+
+  @Override
+  public void setDataInternal(String id, Label label, String imageFile, int width, int height) {
     try {
       boolean darkMode = PropsUi.getInstance().isDarkMode();
       String src = darkMode ? buildDarkModeSrc(imageFile) : null;
@@ -69,9 +74,9 @@ public class SvgLabelFacadeImpl extends SvgLabelFacade {
           "<img id='"
               + id
               + "' width='"
-              + size
+              + width
               + "' height='"
-              + size
+              + height
               + "' style='background-color: transparent' src='"
               + src
               + "'/>");

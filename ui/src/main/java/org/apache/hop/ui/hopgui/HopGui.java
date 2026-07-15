@@ -1060,7 +1060,9 @@ public class HopGui
       root = ID_MAIN_TOOLBAR,
       id = ID_MAIN_TOOLBAR_MENU,
       image = "ui/images/logo_bw.svg",
-      toolTip = "i18n::HopGui.Menu")
+      toolTip = "i18n::HopGui.Menu",
+      iconWidth = 36,
+      iconHeight = 24)
   public void menu() {
     GuiContextUtil.getInstance()
         .handleActionSelection(
@@ -1762,7 +1764,7 @@ public class HopGui
     mainToolbarWidgets.registerGuiPluginObject(this);
     mainToolbarWidgets.createToolbarWidgets(mainToolbarContainer, ID_MAIN_TOOLBAR);
 
-    // Set logo width to match sidebar width for visual alignment with search box
+    // Set logo width to match sidebar width for visual alignment
     int sidebarWidth = (int) (40 * PropsUi.getNativeZoomFactor());
     mainToolbarWidgets.setToolbarItemWidth(ID_MAIN_TOOLBAR_MENU, sidebarWidth);
 

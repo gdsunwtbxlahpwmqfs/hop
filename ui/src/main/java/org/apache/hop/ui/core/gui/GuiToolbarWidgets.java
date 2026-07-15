@@ -395,23 +395,24 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
     // The imageLabel and textLabel already handle clicks, and event propagation in RAP
     // would cause the composite listener to fire as well, resulting in duplicate menu popups
 
-    int size =
-        (int)
-            (ConstUi.SMALL_ICON_SIZE * PropsUi.getNativeZoomFactor() + toolbarItem.getExtraWidth());
+    int baseIconSize =
+        toolbarItem.getIconSize() > 0 ? toolbarItem.getIconSize() : ConstUi.SMALL_ICON_SIZE;
+    int iconWidth = toolbarItem.getIconWidth() > 0 ? toolbarItem.getIconWidth() : baseIconSize;
+    int iconHeight = toolbarItem.getIconHeight() > 0 ? toolbarItem.getIconHeight() : baseIconSize;
+    int width = (int) (iconWidth * PropsUi.getNativeZoomFactor());
+    int height = (int) (iconHeight * PropsUi.getNativeZoomFactor());
 
     String imageFilename = findImageFilename(toolbarItem);
     String uniqueId = instanceId + "-" + toolbarItem.getId();
     imageLabel.setData("org.eclipse.rap.rwt.customVariant", "toolbarIcon");
-    SvgLabelFacade.setData(uniqueId, imageLabel, imageFilename, size);
-    composite.setData("iconSize", size);
+    SvgLabelFacade.setData(uniqueId, imageLabel, imageFilename, width, height);
+    composite.setData("iconSize", width);
     composite.setData("uniqueId", uniqueId);
-    // Copy props to composite so client script (svg-label.js) has props.id when event.widget is the
-    // composite
     composite.setData("props", imageLabel.getData("props"));
 
     GridData imageData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
-    imageData.widthHint = size;
-    imageData.heightHint = size;
+    imageData.widthHint = width;
+    imageData.heightHint = height;
     imageLabel.setLayoutData(imageData);
 
     Label textLabel = new Label(composite, SWT.NONE);
@@ -627,9 +628,9 @@ public class GuiToolbarWidgets extends BaseGuiWidgets implements IToolbarWidgetR
 
     // Take into account zooming and the extra room for widget decorations
     //
-    int size =
-        (int)
-            (ConstUi.SMALL_ICON_SIZE * PropsUi.getNativeZoomFactor() + toolbarItem.getExtraWidth());
+    int baseIconSize =
+        toolbarItem.getIconSize() > 0 ? toolbarItem.getIconSize() : ConstUi.SMALL_ICON_SIZE;
+    int size = (int) (baseIconSize * PropsUi.getNativeZoomFactor() + toolbarItem.getExtraWidth());
 
     String imageFilename = findImageFilename(toolbarItem);
     // Create a unique DOM element ID by combining instance ID with toolbar item ID

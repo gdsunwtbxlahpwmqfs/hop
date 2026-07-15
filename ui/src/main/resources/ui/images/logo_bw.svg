@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
-  <!-- White rounded rectangle background -->
-  <rect x="0" y="0" width="768" height="512" rx="100" ry="100" fill="#FFFFFF"/>
   <!-- Magnifying glass - wide rounded rectangle lens -->
   <rect x="60" y="60" width="648" height="300" rx="70" ry="70"
         fill="none" stroke="#000000" stroke-width="28"/>

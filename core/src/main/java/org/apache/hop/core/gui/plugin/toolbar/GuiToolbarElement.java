@@ -155,4 +155,28 @@ public @interface GuiToolbarElement {
    * @return The custom width in pixels, or 0 for default icon size
    */
   int width() default 0;
+
+  /**
+   * Custom icon size for this toolbar element in pixels. When greater than 0, overrides the default
+   * SMALL_ICON_SIZE (16). Useful for making specific icons larger (e.g. logo icon).
+   *
+   * @return The custom icon size in pixels, or 0 for default size
+   */
+  int iconSize() default 0;
+
+  /**
+   * Custom icon width for this toolbar element in pixels. When greater than 0, overrides the
+   * default icon size for width only. Useful for wide icons like logos.
+   *
+   * @return The custom icon width in pixels, or 0 for default size
+   */
+  int iconWidth() default 0;
+
+  /**
+   * Custom icon height for this toolbar element in pixels. When greater than 0, overrides the
+   * default icon size for height only. Useful for tall icons.
+   *
+   * @return The custom icon height in pixels, or 0 for default size
+   */
+  int iconHeight() default 0;
 }
