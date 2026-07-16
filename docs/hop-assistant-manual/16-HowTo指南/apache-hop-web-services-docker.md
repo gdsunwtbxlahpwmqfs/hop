@@ -4,9 +4,9 @@
 
 Qi Hop 是一个非常灵活的工具，用于通过易于使用的 UI 开发数据流（所谓的 pipeline），可以从不同来源提取数据、整合数据并加载到新系统中（ETL）。
 
-该工具不仅非常适合这些经典的数据仓库任务或数据库迁移。在低代码软件开发的背景下，Qi Hop 也可以用于提供快速计算和数据查询作为 Web 服务，而无需大量的编程工作，并将这些计算与您自己的 Web 服务进行链接。数百行源代码被消除了，因为该功能可以在 Apache HOP UI 中通过 pipeline 及其数十个 transform（处理步骤）方便地实现，并集成为 Web 服务。
+该工具不仅非常适合这些经典的数据仓库任务或数据库迁移。在低代码软件开发的背景下，Qi Hop 也可以用于提供快速计算和数据查询作为 Web 服务，而无需大量的编程工作，并将这些计算与您自己的 Web 服务进行链接。数百行源代码被消除了，因为该功能可以在 Qi Hop UI 中通过 pipeline 及其数十个 transform（处理步骤）方便地实现，并集成为 Web 服务。
 
-下图展示了在全栈架构（多容器应用）中 Apache HOP 与 Web 服务集成的示例。
+下图展示了在全栈架构（多容器应用）中 Qi Hop 与 Web 服务集成的示例。
 
 ![Docker 中的 Hop Web 服务 - 简化架构, width="45%"](../assets/images/how-to-guides/web-services-in-docker/simplified-architecture.png)
 
@@ -98,7 +98,7 @@ Example: docker pull apache/hop:1.1.0-SNAPSHOT
 | V | /my/path/to/location:/files | 挂载路径和到 Docker 内部路径的映射 |
 | Name |  | Docker 容器的名称 |
 
-在 Apache HOP 作为 Docker 容器运行的技术文档中（请参阅[文档](https://hop.apache.org/tech-manual/latest/docker-container)），列出了更多参数（例如使用 SSL 时），此处为简化起见已省略。
+在 Qi Hop 作为 Docker 容器运行的技术文档中（请参阅[文档](https://hop.apache.org/tech-manual/latest/docker-container)），列出了更多参数（例如使用 SSL 时），此处为简化起见已省略。
 
 示例调用：
 
