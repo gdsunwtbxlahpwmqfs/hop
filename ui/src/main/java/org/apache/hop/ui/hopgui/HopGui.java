@@ -1069,8 +1069,9 @@ public class HopGui
       id = ID_MAIN_TOOLBAR_MENU,
       image = "ui/images/logo_bw.svg",
       toolTip = "i18n::HopGui.Menu",
-      iconWidth = 36,
-      iconHeight = 24)
+      iconWidth = 32,
+      iconHeight = 24,
+      extraWidth = 20)
   public void menu() {
     GuiContextUtil.getInstance()
         .handleActionSelection(

@@ -71,7 +71,7 @@ public final class KnowledgeBaseConfig {
   private KnowledgeBaseConfig() {
     this.enabled = Boolean.parseBoolean(resolve(ENV_ENABLED, "false"));
     this.qdrantUrl = resolve(ENV_QDRANT_URL, "http://localhost:6333");
-    this.qdrantCollection = resolve(ENV_QDRANT_COLLECTION, "hop_kb");
+    this.qdrantCollection = resolve(ENV_QDRANT_COLLECTION, "qi_hop_kb");
     this.embeddingModel = resolve(ENV_EMBEDDING_MODEL, "text-embedding-3-small");
     this.docsPath = resolve(ENV_DOCS_PATH, "docs/hop-assistant-manual");
     this.chunkSize = parseInt(resolve(ENV_CHUNK_SIZE, "800"), 800);

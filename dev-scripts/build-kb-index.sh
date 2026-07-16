@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-HOP_REST_URL="${HOP_REST_URL:-http://localhost:8080/hop/api/v1}"
+HOP_REST_URL="${HOP_REST_URL:-http://localhost:8080/api/v1}"
 
 echo "==> Hop Knowledge Base Index Builder"
 echo "    REST API: $HOP_REST_URL"
