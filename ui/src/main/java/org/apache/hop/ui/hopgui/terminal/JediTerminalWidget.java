@@ -390,32 +390,55 @@ public class JediTerminalWidget implements ITerminalWidget {
   @SuppressWarnings("deprecation")
   public void dispose() {
     try {
+      // Stop terminal widget first
+      if (jediTermWidget != null) {
+        try {
+          jediTermWidget.stop();
+        } catch (Exception e) {
+          log.logDebug("Error stopping JediTerm widget: " + e.getMessage());
+        }
+      }
+
+      // Close TTY connector (this also destroys the PTY process)
+      if (ttyConnector != null) {
+        try {
+          ttyConnector.close();
+        } catch (Exception e) {
+          log.logDebug("Error closing TTY connector: " + e.getMessage());
+        }
+      }
+
+      // Ensure PTY process is terminated
+      if (ptyProcess != null) {
+        try {
+          if (ptyProcess.isAlive()) {
+            ptyProcess.destroy();
+          }
+        } catch (Exception e) {
+          log.logDebug("Error destroying PTY process: " + e.getMessage());
+        }
+      }
+
+      // Dispose AWT frame
+      if (awtFrame != null) {
+        try {
+          awtFrame.dispose();
+        } catch (Exception e) {
+          log.logDebug("Error disposing AWT frame: " + e.getMessage());
+        }
+      }
+
+      // Dispose SWT bridge composite
       if (bridgeComposite != null && !bridgeComposite.isDisposed()) {
         bridgeComposite.dispose();
       }
 
-      // Clean up PTY in background thread
-      final JediTermWidget termWidget = jediTermWidget;
-      final Pty4JTtyConnector connector = ttyConnector;
-      final PtyProcess process = ptyProcess;
-
-      new Thread(
-              () -> {
-                try {
-                  if (termWidget != null) {
-                    termWidget.stop();
-                  }
-                  if (connector != null) {
-                    connector.close();
-                  }
-                  if (process != null && process.isAlive()) {
-                    process.destroy();
-                  }
-                } catch (Exception e) {
-                  log.logError("Error cleaning up JediTerm PTY", e);
-                }
-              })
-          .start();
+      // Clear references to avoid reuse
+      jediTermWidget = null;
+      ttyConnector = null;
+      ptyProcess = null;
+      awtFrame = null;
+      bridgeComposite = null;
 
     } catch (Exception e) {
       log.logError("Error disposing JediTerm", e);
