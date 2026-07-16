@@ -2278,6 +2278,9 @@ public class HopGui
 
         Runnable updateVisual =
             () -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               boolean sel = d.getSelectedSupplier().getAsBoolean();
               boolean hov = Boolean.TRUE.equals(comp.getData("hovered"));
               Color bg = sel ? selectionBg : hov ? hoverBg : normalBg;
@@ -2295,36 +2298,54 @@ public class HopGui
         comp.addListener(
             SWT.MouseEnter,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               comp.setData("hovered", true);
               updateVisual.run();
             });
         comp.addListener(
             SWT.MouseExit,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               comp.setData("hovered", false);
               updateVisual.run();
             });
         comp.addListener(
             SWT.MouseDown,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               if (d.getOnSelect() != null) d.getOnSelect().run();
               updateVisual.run();
             });
         imgLabel.addListener(
             SWT.MouseEnter,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               comp.setData("hovered", true);
               updateVisual.run();
             });
         imgLabel.addListener(
             SWT.MouseExit,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               comp.setData("hovered", false);
               updateVisual.run();
             });
         imgLabel.addListener(
             SWT.MouseDown,
             e -> {
+              if (comp.isDisposed() || imgLabel.isDisposed()) {
+                return;
+              }
               if (d.getOnSelect() != null) d.getOnSelect().run();
               updateVisual.run();
             });
@@ -2400,6 +2421,9 @@ public class HopGui
       return;
     }
     for (Control child : bottomToolbar.getChildren()) {
+      if (child.isDisposed()) {
+        continue;
+      }
       SidebarToolbarItemDescriptor desc =
           (SidebarToolbarItemDescriptor) child.getData("descriptor");
       if (desc != null) {
