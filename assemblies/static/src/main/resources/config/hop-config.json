@@ -152,7 +152,7 @@
     },
     {
       "name" : "HOP_DISABLE_CONSOLE_LOGGING",
-      "value" : "Y",
+      "value" : "N",
       "description" : "设为 Y 可禁用标准 Hop 控制台日志输出（stdout）。"
     },
     {

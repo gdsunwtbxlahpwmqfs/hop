@@ -74,6 +74,11 @@
         </dependency>
         <dependency>
             <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>
             <artifactId>commonmark-ext-gfm-strikethrough</artifactId>
             <version>${commonmark.version}</version>
         </dependency>
@@ -187,6 +192,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/tus.min.js</exclude>
+                        <exclude>**/assistant/skills/builtin/**/SKILL.md</exclude>
                     </excludes>
                 </configuration>
             </plugin>

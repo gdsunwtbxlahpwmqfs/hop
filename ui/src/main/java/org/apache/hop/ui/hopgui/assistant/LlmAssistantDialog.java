@@ -21,14 +21,20 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 import org.apache.hop.core.logging.LogChannel;
 import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.PropsUi;
 import org.apache.hop.ui.core.dialog.MessageBox;
 import org.apache.hop.ui.core.gui.GuiResource;
 import org.apache.hop.ui.hopgui.assistant.knowledgebase.KnowledgeBaseService;
+import org.apache.hop.ui.hopgui.assistant.skills.Skill;
+import org.apache.hop.ui.hopgui.assistant.skills.SkillManager;
 import org.apache.hop.ui.util.EnvironmentUtils;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -38,6 +44,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -76,11 +84,15 @@ public class LlmAssistantDialog extends Dialog {
   private final LlmClient client;
 
   private Shell shell;
-  private Text chatArea;
+  private Browser chatArea;
   private Text inputArea;
   private Button sendButton;
+  private Label activeSkillsLabel;
   private boolean busy;
   private Object pushSession;
+
+  // Throttle: avoid full HTML re-render on every streaming chunk
+  private volatile boolean refreshScheduled = false;
 
   private Runnable onClose;
 
@@ -97,7 +109,7 @@ public class LlmAssistantDialog extends Dialog {
     Shell parent = getParent();
     Display display = parent.getDisplay();
 
-    shell = new Shell(parent, SWT.NO_TRIM | SWT.MODELESS);
+    shell = new Shell(parent, SWT.NO_TRIM | SWT.MODELESS | SWT.RESIZE | SWT.MAX);
     shell.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
     FormLayout formLayout = new FormLayout();
     formLayout.marginWidth = 0;
@@ -110,9 +122,7 @@ public class LlmAssistantDialog extends Dialog {
 
     if (isSending.get()) {
       busy = true;
-      if (inputArea != null && !inputArea.isDisposed()) {
-        inputArea.setEnabled(false);
-      }
+      setInputAreaEnabled(false);
     }
 
     shell.setSize(PANEL_WIDTH, PANEL_HEIGHT);
@@ -129,7 +139,7 @@ public class LlmAssistantDialog extends Dialog {
     }
   }
 
-  private void positionBottomRight(Shell parent) {
+  private void positionBottomRight(Composite parent) {
     Rectangle clientArea;
     Monitor monitor = parent.getMonitor();
     if (monitor != null) {
@@ -157,17 +167,6 @@ public class LlmAssistantDialog extends Dialog {
     header.setLayout(headerLayout);
     header.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
-    Label titleLabel = new Label(header, SWT.NONE);
-    titleLabel.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
-    titleLabel.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-    titleLabel.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
-    titleLabel.setFont(GuiResource.getInstance().getFontDefault());
-    FormData fdTitle = new FormData();
-    fdTitle.left = new FormAttachment(0, 0);
-    fdTitle.top = new FormAttachment(0, 0);
-    fdTitle.bottom = new FormAttachment(100, 0);
-    titleLabel.setLayoutData(fdTitle);
-
     Button closeButton = new Button(header, SWT.PUSH);
     closeButton.setText("\u00D7");
     closeButton.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Close"));
@@ -190,35 +189,117 @@ public class LlmAssistantDialog extends Dialog {
     minimizeButton.setLayoutData(fdMin);
     minimizeButton.addListener(SWT.Selection, e -> closePanel());
 
+    Button maximizeButton = new Button(header, SWT.PUSH);
+    maximizeButton.setText("\u25a1");
+    maximizeButton.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Maximize"));
+    FormData fdMax = new FormData();
+    fdMax.right = new FormAttachment(minimizeButton, -PropsUi.getMargin());
+    fdMax.top = new FormAttachment(0, 0);
+    fdMax.width = 30;
+    fdMax.height = 24;
+    maximizeButton.setLayoutData(fdMax);
+    maximizeButton.addListener(SWT.Selection, e -> toggleMaximize());
+
     Button clearHistoryButton = new Button(header, SWT.PUSH);
     clearHistoryButton.setText("\uD83D\uDDD1");
     clearHistoryButton.setToolTipText(
         BaseMessages.getString(PKG, "LlmAssistant.Button.ClearHistory"));
     FormData fdClear = new FormData();
-    fdClear.right = new FormAttachment(minimizeButton, -PropsUi.getMargin());
+    fdClear.right = new FormAttachment(maximizeButton, -PropsUi.getMargin());
     fdClear.top = new FormAttachment(0, 0);
     fdClear.width = 30;
     fdClear.height = 24;
     clearHistoryButton.setLayoutData(fdClear);
     clearHistoryButton.addListener(SWT.Selection, e -> clearHistory());
 
+    Label titleLabel = new Label(header, SWT.NONE);
+    titleLabel.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
+    titleLabel.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+    titleLabel.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+    titleLabel.setFont(GuiResource.getInstance().getFontDefault());
+    FormData fdTitle = new FormData();
+    fdTitle.left = new FormAttachment(0, 0);
+    fdTitle.right = new FormAttachment(clearHistoryButton, -PropsUi.getMargin());
+    fdTitle.top = new FormAttachment(0, 0);
+    fdTitle.bottom = new FormAttachment(100, 0);
+    titleLabel.setLayoutData(fdTitle);
+
     // ---- Chat history ----
-    chatArea = new Text(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP | SWT.READ_ONLY);
-    FormData fdChat = new FormData();
-    fdChat.left = new FormAttachment(0, PropsUi.getMargin());
-    fdChat.right = new FormAttachment(100, -PropsUi.getMargin());
-    fdChat.top = new FormAttachment(header, PropsUi.getMargin());
-    fdChat.bottom = new FormAttachment(62, 0);
-    chatArea.setLayoutData(fdChat);
-    PropsUi.setLook(chatArea);
-    chatArea.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
+    Composite chatContainer = new Composite(shell, SWT.NONE);
+    FormData fdChatContainer = new FormData();
+    fdChatContainer.left = new FormAttachment(0, PropsUi.getMargin());
+    fdChatContainer.right = new FormAttachment(100, -PropsUi.getMargin());
+    fdChatContainer.top = new FormAttachment(header, PropsUi.getMargin());
+    fdChatContainer.bottom = new FormAttachment(62, 0);
+    chatContainer.setLayoutData(fdChatContainer);
+    chatContainer.setLayout(new FormLayout());
+
+    chatArea = new Browser(chatContainer, SWT.BORDER);
+    FormData fdChatArea = new FormData();
+    fdChatArea.left = new FormAttachment(0, 0);
+    fdChatArea.right = new FormAttachment(100, 0);
+    fdChatArea.top = new FormAttachment(0, 0);
+    fdChatArea.bottom = new FormAttachment(100, 0);
+    chatArea.setLayoutData(fdChatArea);
+
+    // ---- Skill selector bar ----
+    Composite skillBar = new Composite(shell, SWT.NONE);
+    FormData fdSkillBar = new FormData();
+    fdSkillBar.left = new FormAttachment(0, PropsUi.getMargin());
+    fdSkillBar.right = new FormAttachment(100, -PropsUi.getMargin());
+    fdSkillBar.top = new FormAttachment(chatContainer, PropsUi.getMargin());
+    fdSkillBar.height = 36;
+    skillBar.setLayoutData(fdSkillBar);
+    FormLayout skillBarLayout = new FormLayout();
+    skillBarLayout.marginWidth = 0;
+    skillBarLayout.marginHeight = 4;
+    skillBar.setLayout(skillBarLayout);
+    PropsUi.setLook(skillBar);
+
+    Label skillLabel = new Label(skillBar, SWT.NONE);
+    skillLabel.setText("\ud83e\udde9");
+    FormData fdSkillLabel = new FormData();
+    fdSkillLabel.left = new FormAttachment(0, 0);
+    fdSkillLabel.top = new FormAttachment(0, 0);
+    fdSkillLabel.bottom = new FormAttachment(100, 0);
+    skillLabel.setLayoutData(fdSkillLabel);
+    PropsUi.setLook(skillLabel);
+
+    Button addSkillButton = new Button(skillBar, SWT.PUSH);
+    addSkillButton.setText(BaseMessages.getString(PKG, "LlmAssistant.Button.AddSkill"));
+    addSkillButton.setToolTipText(
+        BaseMessages.getString(PKG, "LlmAssistant.SkillBar.SelectManual"));
+    FormData fdAddSkill = new FormData();
+    fdAddSkill.right = new FormAttachment(100, 0);
+    fdAddSkill.top = new FormAttachment(0, 0);
+    fdAddSkill.bottom = new FormAttachment(100, 0);
+    fdAddSkill.width = 80;
+    addSkillButton.setLayoutData(fdAddSkill);
+    PropsUi.setLook(addSkillButton);
+    addSkillButton.addListener(
+        SWT.Selection,
+        e -> {
+          showSkillPicker(activeSkillsLabel);
+        });
+
+    activeSkillsLabel = new Label(skillBar, SWT.NONE);
+    FormData fdActiveLabel = new FormData();
+    fdActiveLabel.left = new FormAttachment(skillLabel, 4);
+    fdActiveLabel.right = new FormAttachment(addSkillButton, -PropsUi.getMargin());
+    fdActiveLabel.top = new FormAttachment(0, 0);
+    fdActiveLabel.bottom = new FormAttachment(100, 0);
+    activeSkillsLabel.setLayoutData(fdActiveLabel);
+    activeSkillsLabel.setText(buildActiveSkillsText());
+    activeSkillsLabel.setToolTipText(
+        BaseMessages.getString(PKG, "LlmAssistant.SkillBar.ActiveSkills"));
+    PropsUi.setLook(activeSkillsLabel);
 
     // ---- Input area ----
     inputArea = new Text(shell, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
     FormData fdInput = new FormData();
     fdInput.left = new FormAttachment(0, PropsUi.getMargin());
     fdInput.right = new FormAttachment(100, -PropsUi.getMargin());
-    fdInput.top = new FormAttachment(chatArea, PropsUi.getMargin());
+    fdInput.top = new FormAttachment(skillBar, PropsUi.getMargin());
     fdInput.bottom = new FormAttachment(88, 0);
     inputArea.setLayoutData(fdInput);
     inputArea.setMessage(BaseMessages.getString(PKG, "LlmAssistant.Input.Placeholder"));
@@ -241,7 +322,7 @@ public class LlmAssistantDialog extends Dialog {
     FormData fdSend = new FormData();
     fdSend.right = new FormAttachment(100, -PropsUi.getMargin());
     fdSend.top = new FormAttachment(inputArea, PropsUi.getMargin());
-    fdSend.bottom = new FormAttachment(100, -PropsUi.getMargin());
+    fdSend.height = 28;
     fdSend.width = 100;
     sendButton.setLayoutData(fdSend);
     PropsUi.setLook(sendButton);
@@ -262,50 +343,87 @@ public class LlmAssistantDialog extends Dialog {
   // ──────────────────────────────────────────────────────────────────────────────
 
   private void refreshChatDisplay() {
-    if (chatArea == null || chatArea.isDisposed()) return;
+    doRefreshChatDisplay();
+  }
+
+  /**
+   * Throttled refresh: schedules a single refresh after a short delay. Multiple calls during
+   * streaming are coalesced into one render, eliminating flicker.
+   */
+  private void scheduleRefresh() {
+    if (chatArea == null || isChatAreaDisposed()) return;
+    if (refreshScheduled) return; // a refresh is already pending
+    refreshScheduled = true;
+    Display display = chatArea.getDisplay();
+    display.timerExec(
+        400,
+        () -> {
+          refreshScheduled = false;
+          if (chatArea != null && !isChatAreaDisposed()) {
+            doRefreshChatDisplay();
+          }
+        });
+  }
+
+  private void doRefreshChatDisplay() {
+    if (chatArea == null || isChatAreaDisposed()) return;
 
     String youLabel = BaseMessages.getString(PKG, "LlmAssistant.Message.You");
     String assistantLabel = BaseMessages.getString(PKG, "LlmAssistant.Message.Assistant");
 
-    StringBuilder sb = new StringBuilder();
+    StringBuilder mdBuilder = new StringBuilder();
 
-    // Welcome 始终固定在聊天区顶部
-    sb.append(assistantLabel)
+    mdBuilder
+        .append(assistantLabel)
         .append(":\n")
         .append(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Welcome"))
-        .append("\n");
+        .append("\n\n");
 
     for (LlmClient.ChatMessage msg : sharedHistory) {
-      sb.append("\n");
       String speaker = "user".equals(msg.role()) ? youLabel : assistantLabel;
-      sb.append(speaker).append(":\n").append(msg.content()).append("\n");
+      mdBuilder.append(speaker).append(":\n").append(msg.content()).append("\n\n");
     }
 
-    // Show in-progress response
     if (isSending.get()) {
-      sb.append("\n");
-      sb.append(assistantLabel).append(":\n");
+      mdBuilder.append(assistantLabel).append(":\n");
 
       String reasoning = currentReasoning.toString();
       String partial = currentResponse.toString();
 
       if (!partial.isEmpty()) {
-        // Has actual content
         if (!reasoning.isEmpty()) {
-          sb.append("💭 思考:\n").append(reasoning).append("\n\n");
+          mdBuilder.append("💭 思考:\n").append(reasoning).append("\n\n");
         }
-        sb.append(partial);
+        mdBuilder.append(partial);
       } else if (!reasoning.isEmpty()) {
-        // Only reasoning so far
-        sb.append("💭 思考:\n").append(reasoning).append("\n");
+        mdBuilder.append("💭 思考:\n").append(reasoning).append("\n");
       } else {
-        sb.append(BaseMessages.getString(PKG, "LlmAssistant.Message.Thinking"));
+        mdBuilder.append(BaseMessages.getString(PKG, "LlmAssistant.Message.Thinking"));
       }
-      sb.append("\n");
     }
 
-    chatArea.setText(sb.toString());
-    scrollToBottom();
+    Parser parser = Parser.builder().build();
+    HtmlRenderer renderer = HtmlRenderer.builder().build();
+    String htmlContent = renderer.render(parser.parse(mdBuilder.toString()));
+
+    String html =
+        "<!DOCTYPE html><html><head><style>"
+            + "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; margin: 8px; color: #333; }"
+            + "p { margin: 4px 0; }"
+            + "strong { font-weight: 600; color: #1a1a1a; }"
+            + "em { font-style: italic; }"
+            + "code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 3px; font-family: 'Monaco', 'Menlo', monospace; font-size: 12px; }"
+            + "pre { background-color: #f4f4f4; padding: 8px; border-radius: 4px; overflow-x: auto; }"
+            + "pre code { background: none; padding: 0; }"
+            + "ul, ol { margin: 4px 0; padding-left: 20px; }"
+            + "li { margin: 2px 0; }"
+            + "blockquote { border-left: 3px solid #ddd; margin: 4px 0; padding-left: 8px; color: #666; }"
+            + "</style></head><body>"
+            + htmlContent
+            + "<script>window.scrollTo(0, document.body.scrollHeight);</script>"
+            + "</body></html>";
+
+    chatArea.setText(html);
   }
 
   // ──────────────────────────────────────────────────────────────────────────────
@@ -319,14 +437,14 @@ public class LlmAssistantDialog extends Dialog {
     if (question.isEmpty()) {
       // 空输入：在发送按钮上方冒泡提示，不触碰 sharedHistory，welcome 保留
       showBubbleTip(BaseMessages.getString(PKG, "LlmAssistant.Message.EmptyQuestion"));
-      inputArea.setFocus();
+      setInputAreaFocus();
       return;
     }
     if (!LlmAssistantConfig.getInstance().isAvailable()) {
       // Show hint as a bubble above the send button — do NOT pollute sharedHistory so the
       // welcome message is preserved.
       showBubbleTip(BaseMessages.getString(PKG, "LlmAssistant.Message.NotConfigured"));
-      inputArea.setFocus();
+      setInputAreaFocus();
       return;
     }
 
@@ -364,9 +482,20 @@ public class LlmAssistantDialog extends Dialog {
                       "RAG context retrieval failed, continuing without: " + ragEx.getMessage());
                 }
 
+                // Build combined extra context: active skills + RAG context
+                String skillContext = SkillManager.getInstance().buildSkillContext();
+                StringBuilder extraContext = new StringBuilder();
+                if (!skillContext.isEmpty()) {
+                  extraContext.append(skillContext);
+                  log.logDetailed("Skill context injected: " + skillContext.length() + " chars");
+                }
+                if (!ragContext.isEmpty()) {
+                  extraContext.append(ragContext);
+                }
+
                 client.streamChat(
                     snapshot,
-                    ragContext.isEmpty() ? null : ragContext,
+                    extraContext.length() > 0 ? extraContext.toString() : null,
                     cancelled,
                     new LlmClient.StreamCallback() {
                       @Override
@@ -374,11 +503,8 @@ public class LlmAssistantDialog extends Dialog {
                         currentReasoning.append(chunk);
                         display.asyncExec(
                             () -> {
-                              log.logBasic(
-                                  "asyncExec onReasoning, disposed="
-                                      + (chatArea == null || chatArea.isDisposed()));
-                              if (chatArea != null && !chatArea.isDisposed()) {
-                                refreshChatDisplay();
+                              if (chatArea != null && !isChatAreaDisposed()) {
+                                scheduleRefresh();
                               }
                             });
                       }
@@ -388,11 +514,8 @@ public class LlmAssistantDialog extends Dialog {
                         currentResponse.append(chunk);
                         display.asyncExec(
                             () -> {
-                              log.logBasic(
-                                  "asyncExec onChunk, disposed="
-                                      + (chatArea == null || chatArea.isDisposed()));
-                              if (chatArea != null && !chatArea.isDisposed()) {
-                                refreshChatDisplay();
+                              if (chatArea != null && !isChatAreaDisposed()) {
+                                scheduleRefresh();
                               }
                             });
                       }
@@ -407,19 +530,16 @@ public class LlmAssistantDialog extends Dialog {
                         isSending.set(false);
                         display.asyncExec(
                             () -> {
-                              log.logBasic(
-                                  "asyncExec onComplete, disposed="
-                                      + (chatArea == null || chatArea.isDisposed()));
-                              if (chatArea == null || chatArea.isDisposed()) {
+                              if (chatArea == null || isChatAreaDisposed()) {
                                 stopPushSession();
                                 return;
                               }
                               refreshChatDisplay();
                               setBusy(false);
                               stopPushSession();
-                              if (inputArea != null && !inputArea.isDisposed()) {
+                              if (inputArea != null && !isInputAreaDisposed()) {
                                 inputArea.setText("");
-                                inputArea.setFocus();
+                                setInputAreaFocus();
                               }
                             });
                       }
@@ -432,7 +552,7 @@ public class LlmAssistantDialog extends Dialog {
                         isSending.set(false);
                         display.asyncExec(
                             () -> {
-                              if (chatArea == null || chatArea.isDisposed()) {
+                              if (chatArea == null || isChatAreaDisposed()) {
                                 stopPushSession();
                                 return;
                               }
@@ -457,9 +577,9 @@ public class LlmAssistantDialog extends Dialog {
                               refreshChatDisplay();
                               setBusy(false);
                               stopPushSession();
-                              if (inputArea != null && !inputArea.isDisposed()) {
+                              if (inputArea != null && !isInputAreaDisposed()) {
                                 inputArea.setText("");
-                                inputArea.setFocus();
+                                setInputAreaFocus();
                               }
                             });
                       }
@@ -470,7 +590,7 @@ public class LlmAssistantDialog extends Dialog {
                 isSending.set(false);
                 display.asyncExec(
                     () -> {
-                      if (chatArea == null || chatArea.isDisposed()) {
+                      if (chatArea == null || isChatAreaDisposed()) {
                         stopPushSession();
                         return;
                       }
@@ -493,9 +613,9 @@ public class LlmAssistantDialog extends Dialog {
                       refreshChatDisplay();
                       setBusy(false);
                       stopPushSession();
-                      if (inputArea != null && !inputArea.isDisposed()) {
+                      if (inputArea != null && !isInputAreaDisposed()) {
                         inputArea.setText("");
-                        inputArea.setFocus();
+                        setInputAreaFocus();
                       }
                     });
               }
@@ -521,14 +641,14 @@ public class LlmAssistantDialog extends Dialog {
     currentReasoning.setLength(0);
 
     // Clear input to prevent stale text from being re-sent
-    if (inputArea != null && !inputArea.isDisposed()) {
+    if (inputArea != null && !isInputAreaDisposed()) {
       inputArea.setText("");
     }
     setBusy(false);
     stopPushSession();
     refreshChatDisplay();
-    if (inputArea != null && !inputArea.isDisposed()) {
-      inputArea.setFocus();
+    if (inputArea != null && !isInputAreaDisposed()) {
+      setInputAreaFocus();
     }
   }
 
@@ -539,6 +659,19 @@ public class LlmAssistantDialog extends Dialog {
   private void closePanel() {
     if (shell != null && !shell.isDisposed()) {
       shell.dispose();
+    }
+  }
+
+  private void toggleMaximize() {
+    if (shell == null || shell.isDisposed()) return;
+    Rectangle clientArea = shell.getParent().getClientArea();
+    if (shell.getBounds().width == clientArea.width
+        && shell.getBounds().height == clientArea.height) {
+      shell.setSize(PANEL_WIDTH, PANEL_HEIGHT);
+      positionBottomRight(shell.getParent());
+    } else {
+      shell.setSize(clientArea.width, clientArea.height);
+      shell.setLocation(clientArea.x, clientArea.y);
     }
   }
 
@@ -593,11 +726,24 @@ public class LlmAssistantDialog extends Dialog {
   // Utilities
   // ──────────────────────────────────────────────────────────────────────────────
 
-  private void scrollToBottom() {
-    chatArea.setSelection(chatArea.getCharCount());
-    if (!EnvironmentUtils.getInstance().isWeb()) {
-      chatArea.showSelection();
+  private void setInputAreaEnabled(boolean enabled) {
+    if (inputArea != null && !inputArea.isDisposed()) {
+      inputArea.setEnabled(enabled);
     }
+  }
+
+  private void setInputAreaFocus() {
+    if (inputArea != null && !inputArea.isDisposed()) {
+      inputArea.setFocus();
+    }
+  }
+
+  private boolean isInputAreaDisposed() {
+    return inputArea == null || inputArea.isDisposed();
+  }
+
+  private boolean isChatAreaDisposed() {
+    return chatArea == null || chatArea.isDisposed();
   }
 
   private void trimHistory() {
@@ -615,8 +761,8 @@ public class LlmAssistantDialog extends Dialog {
           BaseMessages.getString(
               PKG, value ? "LlmAssistant.Button.Stop" : "LlmAssistant.Button.Send"));
     }
-    if (inputArea != null && !inputArea.isDisposed()) {
-      inputArea.setEnabled(!value);
+    if (inputArea != null && !isInputAreaDisposed()) {
+      setInputAreaEnabled(!value);
     }
   }
 
@@ -654,5 +800,90 @@ public class LlmAssistantDialog extends Dialog {
             tipShell.dispose();
           }
         });
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────────
+  // Skill selector helpers
+  // ──────────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Builds a summary text of currently active skills for the skill bar.
+   *
+   * @return comma-separated skill names with (Global) tag for global skills
+   */
+  private String buildActiveSkillsText() {
+    List<Skill> active = SkillManager.getInstance().getActiveSkills();
+    if (active.isEmpty()) {
+      return "";
+    }
+    int maxDisplay = 3;
+    String joined =
+        active.stream()
+            .limit(maxDisplay)
+            .map(
+                s ->
+                    s.getName()
+                        + (s.getTrigger() == Skill.TriggerType.GLOBAL
+                            ? BaseMessages.getString(
+                                org.apache.hop.ui.hopgui.assistant.skills.SkillManager.class,
+                                "SkillsAssistant.GlobalTag")
+                            : ""))
+            .collect(Collectors.joining(", "));
+    if (active.size() > maxDisplay) {
+      joined += ", ...";
+    }
+    return joined;
+  }
+
+  /**
+   * Shows a popup menu for selecting/deselecting manual skills.
+   *
+   * @param activeSkillsLabel the label to update after selection changes
+   */
+  private void showSkillPicker(Label activeSkillsLabel) {
+    if (activeSkillsLabel == null || activeSkillsLabel.isDisposed()) return;
+
+    // Dispose previous menu if any
+    Menu oldMenu = activeSkillsLabel.getMenu();
+    if (oldMenu != null && !oldMenu.isDisposed()) {
+      oldMenu.dispose();
+    }
+
+    Menu menu = new Menu(activeSkillsLabel);
+    // Only show enabled manual skills — disabled skills cannot be used in LLM Chat
+    List<Skill> manualSkills =
+        SkillManager.getInstance().getManualSkills().stream().filter(Skill::isEnabled).toList();
+    if (manualSkills.isEmpty()) {
+      MenuItem item = new MenuItem(menu, SWT.NONE);
+      item.setText(BaseMessages.getString(PKG, "LlmAssistant.SkillBar.NoManualSkills"));
+      item.setEnabled(false);
+    } else {
+      for (Skill skill : manualSkills) {
+        MenuItem item = new MenuItem(menu, SWT.CHECK);
+        String label = skill.getName();
+        if (skill.getDescription() != null && !skill.getDescription().isBlank()) {
+          String desc = skill.getDescription();
+          if (desc.length() > 60) desc = desc.substring(0, 57) + "...";
+          label += " — " + desc;
+        }
+        item.setText(label);
+        item.setSelection(SkillManager.getInstance().isManualActive(skill.getName()));
+        item.addListener(
+            SWT.Selection,
+            e -> {
+              if (item.getSelection()) {
+                SkillManager.getInstance().activateManual(skill.getName());
+              } else {
+                SkillManager.getInstance().deactivateManual(skill.getName());
+              }
+              if (!activeSkillsLabel.isDisposed()) {
+                activeSkillsLabel.setText(buildActiveSkillsText());
+              }
+            });
+      }
+    }
+
+    activeSkillsLabel.setMenu(menu);
+    menu.setVisible(true);
   }
 }

@@ -233,6 +233,9 @@ public class HopGui
   /** Id for the terminal toggle button in the sidebar bottom toolbar. */
   public static final String SIDEBAR_TOOLBAR_ITEM_TERMINAL = "HopGui-SidebarToolbar-Terminal";
 
+  /** Id for the Skills management button in the sidebar bottom toolbar. */
+  public static final String SIDEBAR_TOOLBAR_ITEM_SKILLS = "HopGui-SidebarToolbar-Skills";
+
   /** Id for the logout button in the sidebar bottom toolbar (Hop Web only). */
   public static final String SIDEBAR_TOOLBAR_ITEM_LOGOUT = "HopGui-SidebarToolbar-Logout";
 
@@ -540,6 +543,11 @@ public class HopGui
     // Personal assistant floating button (only when enabled via environment variables).
     llmAssistantButton = new org.apache.hop.ui.hopgui.assistant.LlmAssistantFloatingButton(shell);
     llmAssistantButton.create(mainHopGuiComposite);
+
+    // Load AI assistant skills (built-in + project + global).
+    if (org.apache.hop.ui.hopgui.assistant.LlmAssistantConfig.getInstance().isEnabled()) {
+      org.apache.hop.ui.hopgui.assistant.skills.SkillManager.getInstance().loadAll();
+    }
 
     loadPerspectives();
 
@@ -1869,6 +1877,28 @@ public class HopGui
                 })
             .selectedSupplier(() -> terminalPanel != null && terminalPanel.isTerminalVisible())
             .available(true)
+            .build());
+    // Skills management button — visible whenever the LLM assistant is enabled. Placed after
+    // terminal in the list so it renders above terminal in the sidebar.
+    sidebarToolbarDescriptors.add(
+        SidebarToolbarItemDescriptor.builder()
+            .id(SIDEBAR_TOOLBAR_ITEM_SKILLS)
+            .imagePath("ui/images/skills.svg")
+            .imageSize(sidebarIconSize)
+            .tooltip(
+                BaseMessages.getString(
+                    org.apache.hop.ui.hopgui.assistant.skills.SkillManager.class,
+                    "SkillsManager.Sidebar.Tooltip"))
+            .onSelect(
+                () -> {
+                  org.apache.hop.ui.hopgui.assistant.skills.ui.SkillManagerDialog dialog =
+                      new org.apache.hop.ui.hopgui.assistant.skills.ui.SkillManagerDialog(shell);
+                  dialog.open();
+                })
+            .selectedSupplier(
+                () -> org.apache.hop.ui.hopgui.assistant.skills.ui.SkillManagerDialog.isOpen())
+            .available(
+                org.apache.hop.ui.hopgui.assistant.LlmAssistantConfig.getInstance().isEnabled())
             .build());
     sidebarToolbarDescriptors.add(
         SidebarToolbarItemDescriptor.builder()
