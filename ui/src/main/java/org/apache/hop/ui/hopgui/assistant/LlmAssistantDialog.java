@@ -109,7 +109,7 @@ public class LlmAssistantDialog extends Dialog {
     Shell parent = getParent();
     Display display = parent.getDisplay();
 
-    shell = new Shell(parent, SWT.NO_TRIM | SWT.MODELESS | SWT.RESIZE | SWT.MAX);
+    shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.MODELESS | SWT.RESIZE | SWT.MIN | SWT.MAX);
     shell.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
     FormLayout formLayout = new FormLayout();
     formLayout.marginWidth = 0;
@@ -153,84 +153,13 @@ public class LlmAssistantDialog extends Dialog {
   }
 
   private void createContent() {
-    // ---- Custom title bar ----
-    Composite header = new Composite(shell, SWT.NONE);
-    FormData fdHeader = new FormData();
-    fdHeader.left = new FormAttachment(0, 0);
-    fdHeader.right = new FormAttachment(100, 0);
-    fdHeader.top = new FormAttachment(0, 0);
-    fdHeader.height = HEADER_HEIGHT;
-    header.setLayoutData(fdHeader);
-    FormLayout headerLayout = new FormLayout();
-    headerLayout.marginWidth = PropsUi.getMargin();
-    headerLayout.marginHeight = PropsUi.getMargin() / 2;
-    header.setLayout(headerLayout);
-    header.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
-
-    Button closeButton = new Button(header, SWT.PUSH);
-    closeButton.setText("\u00D7");
-    closeButton.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Close"));
-    FormData fdClose = new FormData();
-    fdClose.right = new FormAttachment(100, 0);
-    fdClose.top = new FormAttachment(0, 0);
-    fdClose.width = 30;
-    fdClose.height = 24;
-    closeButton.setLayoutData(fdClose);
-    closeButton.addListener(SWT.Selection, e -> closePanel());
-
-    Button minimizeButton = new Button(header, SWT.PUSH);
-    minimizeButton.setText("\u2013");
-    minimizeButton.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Minimize"));
-    FormData fdMin = new FormData();
-    fdMin.right = new FormAttachment(closeButton, -PropsUi.getMargin());
-    fdMin.top = new FormAttachment(0, 0);
-    fdMin.width = 30;
-    fdMin.height = 24;
-    minimizeButton.setLayoutData(fdMin);
-    minimizeButton.addListener(SWT.Selection, e -> closePanel());
-
-    Button maximizeButton = new Button(header, SWT.PUSH);
-    maximizeButton.setText("\u25a1");
-    maximizeButton.setToolTipText(BaseMessages.getString(PKG, "LlmAssistant.Button.Maximize"));
-    FormData fdMax = new FormData();
-    fdMax.right = new FormAttachment(minimizeButton, -PropsUi.getMargin());
-    fdMax.top = new FormAttachment(0, 0);
-    fdMax.width = 30;
-    fdMax.height = 24;
-    maximizeButton.setLayoutData(fdMax);
-    maximizeButton.addListener(SWT.Selection, e -> toggleMaximize());
-
-    Button clearHistoryButton = new Button(header, SWT.PUSH);
-    clearHistoryButton.setText("\uD83D\uDDD1");
-    clearHistoryButton.setToolTipText(
-        BaseMessages.getString(PKG, "LlmAssistant.Button.ClearHistory"));
-    FormData fdClear = new FormData();
-    fdClear.right = new FormAttachment(maximizeButton, -PropsUi.getMargin());
-    fdClear.top = new FormAttachment(0, 0);
-    fdClear.width = 30;
-    fdClear.height = 24;
-    clearHistoryButton.setLayoutData(fdClear);
-    clearHistoryButton.addListener(SWT.Selection, e -> clearHistory());
-
-    Label titleLabel = new Label(header, SWT.NONE);
-    titleLabel.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
-    titleLabel.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-    titleLabel.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
-    titleLabel.setFont(GuiResource.getInstance().getFontDefault());
-    FormData fdTitle = new FormData();
-    fdTitle.left = new FormAttachment(0, 0);
-    fdTitle.right = new FormAttachment(clearHistoryButton, -PropsUi.getMargin());
-    fdTitle.top = new FormAttachment(0, 0);
-    fdTitle.bottom = new FormAttachment(100, 0);
-    titleLabel.setLayoutData(fdTitle);
-
     // ---- Chat history ----
     Composite chatContainer = new Composite(shell, SWT.NONE);
     FormData fdChatContainer = new FormData();
     fdChatContainer.left = new FormAttachment(0, PropsUi.getMargin());
     fdChatContainer.right = new FormAttachment(100, -PropsUi.getMargin());
-    fdChatContainer.top = new FormAttachment(header, PropsUi.getMargin());
-    fdChatContainer.bottom = new FormAttachment(62, 0);
+    fdChatContainer.top = new FormAttachment(0, PropsUi.getMargin());
+    fdChatContainer.bottom = new FormAttachment(65, 0);
     chatContainer.setLayoutData(fdChatContainer);
     chatContainer.setLayout(new FormLayout());
 
@@ -406,18 +335,40 @@ public class LlmAssistantDialog extends Dialog {
     HtmlRenderer renderer = HtmlRenderer.builder().build();
     String htmlContent = renderer.render(parser.parse(mdBuilder.toString()));
 
+    boolean darkMode = PropsUi.getInstance().isDarkMode();
+    String bodyColor = darkMode ? "#ffffff" : "#333";
+    String backgroundColor = darkMode ? "#1a1a1a" : "#ffffff";
+    String strongColor = darkMode ? "#ffffff" : "#1a1a1a";
+    String codeBgColor = darkMode ? "#2d2d2d" : "#f4f4f4";
+    String blockquoteColor = darkMode ? "#ccc" : "#666";
+    String blockquoteBorderColor = darkMode ? "#555" : "#ddd";
+
     String html =
         "<!DOCTYPE html><html><head><style>"
-            + "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; margin: 8px; color: #333; }"
+            + "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; margin: 8px; color: "
+            + bodyColor
+            + "; background-color: "
+            + backgroundColor
+            + "; }"
             + "p { margin: 4px 0; }"
-            + "strong { font-weight: 600; color: #1a1a1a; }"
+            + "strong { font-weight: 600; color: "
+            + strongColor
+            + "; }"
             + "em { font-style: italic; }"
-            + "code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 3px; font-family: 'Monaco', 'Menlo', monospace; font-size: 12px; }"
-            + "pre { background-color: #f4f4f4; padding: 8px; border-radius: 4px; overflow-x: auto; }"
+            + "code { background-color: "
+            + codeBgColor
+            + "; padding: 2px 4px; border-radius: 3px; font-family: 'Monaco', 'Menlo', monospace; font-size: 12px; }"
+            + "pre { background-color: "
+            + codeBgColor
+            + "; padding: 8px; border-radius: 4px; overflow-x: auto; }"
             + "pre code { background: none; padding: 0; }"
             + "ul, ol { margin: 4px 0; padding-left: 20px; }"
             + "li { margin: 2px 0; }"
-            + "blockquote { border-left: 3px solid #ddd; margin: 4px 0; padding-left: 8px; color: #666; }"
+            + "blockquote { border-left: 3px solid "
+            + blockquoteBorderColor
+            + "; margin: 4px 0; padding-left: 8px; color: "
+            + blockquoteColor
+            + "; }"
             + "</style></head><body>"
             + htmlContent
             + "<script>window.scrollTo(0, document.body.scrollHeight);</script>"

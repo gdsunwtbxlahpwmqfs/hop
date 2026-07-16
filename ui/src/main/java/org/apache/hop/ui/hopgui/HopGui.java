@@ -1885,7 +1885,7 @@ public class HopGui
         SidebarToolbarItemDescriptor.builder()
             .id(SIDEBAR_TOOLBAR_ITEM_SKILLS)
             .imagePath("ui/images/skills.svg")
-            .imageSize(sidebarIconSize)
+            .imageSize(sidebarIconSize + 8)
             .tooltip(
                 BaseMessages.getString(
                     org.apache.hop.ui.hopgui.assistant.skills.SkillManager.class,

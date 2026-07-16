@@ -66,6 +66,7 @@ public class SkillManagerDialog extends Dialog {
   private static final Class<?> PKG = SkillManager.class;
 
   private static final AtomicBoolean openFlag = new AtomicBoolean(false);
+  private static Shell openShell = null;
 
   private static final int MIN_WIDTH = 700;
   private static final int MIN_HEIGHT = 550;
@@ -107,6 +108,11 @@ public class SkillManagerDialog extends Dialog {
 
   /** Opens the dialog and runs the SWT event loop until the shell is disposed. */
   public void open() {
+    if (openFlag.get() && openShell != null && !openShell.isDisposed()) {
+      openShell.dispose();
+      return;
+    }
+
     Shell parent = getParent();
     Display display = parent.getDisplay();
 
@@ -127,6 +133,7 @@ public class SkillManagerDialog extends Dialog {
     shell.setSize(MIN_WIDTH + 100, MIN_HEIGHT + 100);
     positionCentered(parent);
     openFlag.set(true);
+    openShell = shell;
 
     shell.open();
     while (!shell.isDisposed()) {
@@ -135,6 +142,7 @@ public class SkillManagerDialog extends Dialog {
       }
     }
     openFlag.set(false);
+    openShell = null;
   }
 
   private void positionCentered(Shell parent) {

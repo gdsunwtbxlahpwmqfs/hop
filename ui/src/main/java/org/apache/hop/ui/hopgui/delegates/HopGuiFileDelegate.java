@@ -358,16 +358,19 @@ public class HopGuiFileDelegate {
     //
     IHopPerspective perspective = hopGui.getActivePerspective();
     try {
-      // Let's limit ourselves to 100 operations...
+      // Query all file events (open + save) since new files only have "save" events
       //
       List<AuditEvent> events =
-          AuditManager.findEvents(HopNamespace.getNamespace(), "file", "open", 100, true);
+          AuditManager.findEvents(HopNamespace.getNamespace(), "file", null, 100, true);
       Set<String> filenames = new HashSet<>();
       List<RowMetaAndData> rows = new ArrayList<>();
       IRowMeta rowMeta = new RowMeta();
-      rowMeta.addValueMeta(new ValueMetaString("filename"));
-      rowMeta.addValueMeta(new ValueMetaString("operation"));
-      rowMeta.addValueMeta(new ValueMetaString("date"));
+      rowMeta.addValueMeta(
+          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Filename")));
+      rowMeta.addValueMeta(
+          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Operation")));
+      rowMeta.addValueMeta(
+          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Date")));
 
       for (AuditEvent event : events) {
         String filename = event.getName();
@@ -379,12 +382,26 @@ public class HopGuiFileDelegate {
         }
       }
 
+      if (rows.isEmpty()) {
+        // No recent files: show an info message instead of a flash-and-gone empty dialog
+        //
+        MessageBox messageBox =
+            new MessageBox(hopGui.getActiveShell(), SWT.ICON_INFORMATION | SWT.OK);
+        messageBox.setText(
+            BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Title"));
+        messageBox.setMessage(
+            BaseMessages.getString(PKG, "HopGuiFileDelegate.NoRecentFiles.Message"));
+        messageBox.open();
+        return;
+      }
+
       SelectRowDialog rowDialog =
           new SelectRowDialog(hopGui.getShell(), hopGui.getVariables(), SWT.NONE, rows);
-      rowDialog.setTitle("Select the file to open");
+      rowDialog.setTitle(
+          BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.SelectFile"));
       RowMetaAndData row = rowDialog.open();
       if (row != null) {
-        String filename = row.getString("filename", null);
+        String filename = row.getString(0, null);
         fileOpen(filename);
       }
     } catch (Exception e) {

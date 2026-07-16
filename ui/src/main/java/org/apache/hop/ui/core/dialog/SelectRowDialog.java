@@ -37,14 +37,12 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Dialog;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 /** Displays an ArrayList of rows in a TableView and allows you to select one. */
 public class SelectRowDialog extends Dialog {
   private static final Class<?> PKG = SelectRowDialog.class;
 
-  private Label wlFields;
   private TableView wFields;
 
   private Shell shell;
@@ -76,9 +74,16 @@ public class SelectRowDialog extends Dialog {
   }
 
   public RowMetaAndData open() {
+    // Simply exit in case we don't have anything to edit or show.
+    // Check before creating the shell to avoid leaking an undisposed shell in RAP.
+    //
+    if (Utils.isEmpty(buffer)) {
+      return null;
+    }
+
     Shell parent = getParent();
 
-    shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
+    shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
     PropsUi.setLook(shell);
 
     FormLayout formLayout = new FormLayout();
@@ -90,16 +95,10 @@ public class SelectRowDialog extends Dialog {
     }
 
     shell.setLayout(formLayout);
-    shell.setImage(GuiResource.getInstance().getImagePipeline());
+    shell.setImage(GuiResource.getInstance().getImageHop());
     shell.setText(title);
 
     int margin = PropsUi.getMargin();
-
-    // Simply exit and close in case we don't have anything to edit or show
-    //
-    if (Utils.isEmpty(buffer)) {
-      return null;
-    }
 
     IRowMeta rowMeta = buffer.get(0).getRowMeta();
 
@@ -132,7 +131,7 @@ public class SelectRowDialog extends Dialog {
 
     FormData fdFields = new FormData();
     fdFields.left = new FormAttachment(0, 0);
-    fdFields.top = new FormAttachment(wlFields, margin);
+    fdFields.top = new FormAttachment(0, margin);
     fdFields.right = new FormAttachment(100, 0);
     fdFields.bottom = new FormAttachment(wOk, -margin);
     wFields.setLayoutData(fdFields);
