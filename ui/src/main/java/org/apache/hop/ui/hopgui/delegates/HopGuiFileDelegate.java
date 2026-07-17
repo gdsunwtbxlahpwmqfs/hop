@@ -366,11 +366,14 @@ public class HopGuiFileDelegate {
       List<RowMetaAndData> rows = new ArrayList<>();
       IRowMeta rowMeta = new RowMeta();
       rowMeta.addValueMeta(
-          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Filename")));
+          new ValueMetaString(
+              BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Filename")));
       rowMeta.addValueMeta(
-          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Operation")));
+          new ValueMetaString(
+              BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Operation")));
       rowMeta.addValueMeta(
-          new ValueMetaString(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Date")));
+          new ValueMetaString(
+              BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Column.Date")));
 
       for (AuditEvent event : events) {
         String filename = event.getName();
@@ -387,8 +390,7 @@ public class HopGuiFileDelegate {
         //
         MessageBox messageBox =
             new MessageBox(hopGui.getActiveShell(), SWT.ICON_INFORMATION | SWT.OK);
-        messageBox.setText(
-            BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Title"));
+        messageBox.setText(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.Title"));
         messageBox.setMessage(
             BaseMessages.getString(PKG, "HopGuiFileDelegate.NoRecentFiles.Message"));
         messageBox.open();
@@ -397,8 +399,7 @@ public class HopGuiFileDelegate {
 
       SelectRowDialog rowDialog =
           new SelectRowDialog(hopGui.getShell(), hopGui.getVariables(), SWT.NONE, rows);
-      rowDialog.setTitle(
-          BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.SelectFile"));
+      rowDialog.setTitle(BaseMessages.getString(PKG, "HopGuiFileDelegate.OpenRecent.SelectFile"));
       RowMetaAndData row = rowDialog.open();
       if (row != null) {
         String filename = row.getString(0, null);

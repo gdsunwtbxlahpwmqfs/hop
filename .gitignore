@@ -75,3 +75,6 @@ screenshots/
 hop-client-run/
 tomcat-*/
 raw_data/
+
+# JVM heap snapshots (profiling artifacts)
+*.heapsnapshot

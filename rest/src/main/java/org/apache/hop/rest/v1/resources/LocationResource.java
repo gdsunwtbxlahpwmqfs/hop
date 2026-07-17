@@ -19,11 +19,13 @@
 package org.apache.hop.rest.v1.resources;
 
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -38,7 +40,6 @@ import org.apache.hop.execution.IExecutionInfoLocation;
 import org.apache.hop.metadata.api.IHopMetadataSerializer;
 import org.apache.hop.metadata.serializer.multi.MultiMetadataProvider;
 import org.apache.hop.rest.Hop;
-import org.apache.hop.rest.v1.resources.location.ListExecutionsRequest;
 
 /** This resource has services exposing {@link org.apache.hop.execution.IExecutionInfoLocation} */
 @Path("/location")
@@ -76,21 +77,24 @@ public class LocationResource extends BaseResource {
    * List the execution IDs in an execution information location.
    *
    * @param locationName The execution information location to query
-   * @param request The request containing the query parameters
+   * @param includeChildren Set to {@code true} to include child executions of workflows and
+   *     pipelines
+   * @param limit The maximum number of IDs to retrieve or a value {@code <=0} to get all IDs
    */
   @GET
   @Path("/executions/{locationName}/")
-  @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response getExecutionIds(
-      @PathParam("locationName") String locationName, ListExecutionsRequest request) {
+      @PathParam("locationName") String locationName,
+      @QueryParam("includeChildren") @DefaultValue("false") boolean includeChildren,
+      @QueryParam("limit") @DefaultValue("100") int limit) {
     try {
       IExecutionInfoLocation location = getInitLocation(locationName);
       List<String> ids = new ArrayList<>();
       try {
         // Query the location for the execution IDs.
         //
-        ids.addAll(location.getExecutionIds(request.isIncludeChildren(), request.getLimit()));
+        ids.addAll(location.getExecutionIds(includeChildren, limit));
       } finally {
         location.close();
       }
