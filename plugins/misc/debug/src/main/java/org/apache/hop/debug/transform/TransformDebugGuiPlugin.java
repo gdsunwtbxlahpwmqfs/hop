@@ -51,8 +51,10 @@ public class TransformDebugGuiPlugin {
     Map<String, Map<String, String>> attributesMap = pipelineMeta.getAttributesMap();
     Map<String, String> debugGroupAttributesMap = attributesMap.get(Defaults.DEBUG_GROUP);
 
-    DebugLevelUtil.clearDebugLevel(debugGroupAttributesMap, transformMeta.getName());
-    pipelineMeta.setChanged();
+    if (debugGroupAttributesMap != null) {
+      DebugLevelUtil.clearDebugLevel(debugGroupAttributesMap, transformMeta.getName());
+      pipelineMeta.setChanged();
+    }
   }
 
   @GuiContextAction(

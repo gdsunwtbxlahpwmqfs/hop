@@ -1,0 +1,65 @@
+# Qi Hop LLM Assistant stack (LiteLLM proxy + Qdrant vector DB)
+#
+# 这是 docker-compose.dev.yml 中 LLM 部分的"生产裁剪版"：
+#   - 只保留 litellm + qdrant 两个服务（不含 hop-web，hop-web 已主机部署）
+#   - hop-web 通过 HOP_LLM_API_URL / HOP_KB_QDRANT_URL 访问这两个服务
+#   - 镜像版本固定，避免在线 latest 漂移
+#   - 数据持久化到命名卷
+#
+# 与 hop-deploy-llm.sh 配合使用；该脚本会：
+#   1. 拉取镜像（临时联网）
+#   2. 生成 .env（包含 DASHSCOPE_API_KEY 等）
+#   3. 启动本 compose 文件
+#
+# 网络拓扑：
+#   hop-web (主机, 8080) ──HTTP──> litellm (4000) ──> DashScope (公网)
+#                            └──HTTP──> qdrant (6333)
+
+services:
+  # LiteLLM proxy: OpenAI-compatible gateway in front of DashScope (阿里云通义千问).
+  # Hop's assistant always calls this proxy; the proxy translates to DashScope's
+  # native format. Provider API keys are injected from .env.
+  litellm:
+    image: ghcr.io/berriai/litellm:main-stable
+    container_name: hop-litellm
+    restart: unless-stopped
+    ports:
+      - "${LITELLM_PORT:-4000}:4000"
+    environment:
+      # DashScope API key (阿里云通义千问). Read by litellm-config.yaml via os.environ/.
+      DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:?DASHSCOPE_API_KEY is required, edit .env}"
+      # DashScope API base URL for MaaS instance. Read by litellm-config.yaml via os.environ/.
+      DASHSCOPE_API_BASE: "${DASHSCOPE_API_BASE:?DASHSCOPE_API_BASE is required, edit .env}"
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml:ro
+    command: --config /app/config.yaml --port 4000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health/liveliness"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Qdrant vector database for the knowledge base / RAG subsystem.
+  # Stores document embeddings indexed from docs/hop-assistant-manual.
+  # The hop-web service connects to it via HOP_KB_QDRANT_URL.
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    container_name: hop-qdrant
+    restart: unless-stopped
+    ports:
+      - "${QDRANT_HTTP_PORT:-6333}:6333"
+      - "${QDRANT_GRPC_PORT:-6334}:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    environment:
+      - QDRANT__LOG_LEVEL=${QDRANT_LOG_LEVEL:-INFO}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  qdrant-data:

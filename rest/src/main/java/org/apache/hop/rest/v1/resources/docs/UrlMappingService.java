@@ -209,7 +209,75 @@ public class UrlMappingService {
         LOG.info("Scanned {} MD files from filesystem", mdPathIndex.size());
       }
     } catch (Exception e) {
-      LOG.warn("Failed to scan MD files", e);
+      LOG.warn("Failed to scan MD files from filesystem", e);
+    }
+
+    try {
+      scanMdFilesFromClasspath();
+    } catch (Exception e) {
+      LOG.warn("Failed to scan MD files from classpath", e);
+    }
+  }
+
+  private void scanMdFilesFromClasspath() {
+    try {
+      java.util.Enumeration<java.net.URL> resources =
+          getClass().getClassLoader().getResources("org/apache/hop/rest/docs/manual");
+      while (resources.hasMoreElements()) {
+        java.net.URL url = resources.nextElement();
+        if ("jar".equals(url.getProtocol())) {
+          scanMdFilesFromJar(url);
+        } else if ("file".equals(url.getProtocol())) {
+          java.nio.file.Path classpathPath = java.nio.file.Path.of(url.toURI());
+          if (java.nio.file.Files.exists(classpathPath)) {
+            java.nio.file.Files.walk(classpathPath)
+                .filter(java.nio.file.Files::isRegularFile)
+                .filter(p -> p.toString().endsWith(".md"))
+                .filter(p -> !p.toString().endsWith("README.md"))
+                .forEach(
+                    p -> {
+                      String relativePath = classpathPath.relativize(p).toString();
+                      addMdFileToIndex(relativePath);
+                    });
+          }
+        }
+      }
+      LOG.info("Scanned {} MD files from classpath", mdPathIndex.size());
+    } catch (Exception e) {
+      LOG.debug("Failed to scan MD files from classpath: {}", e.getMessage());
+    }
+  }
+
+  private void scanMdFilesFromJar(java.net.URL jarUrl) {
+    try {
+      String jarPath = jarUrl.getPath();
+      if (jarPath.startsWith("file:")) {
+        jarPath = jarPath.substring(5);
+      }
+      int bangIndex = jarPath.indexOf("!");
+      if (bangIndex > 0) {
+        jarPath = jarPath.substring(0, bangIndex);
+      }
+      java.nio.file.Path jarFilePath = java.nio.file.Path.of(new java.net.URI("file:" + jarPath));
+      if (!java.nio.file.Files.exists(jarFilePath)) {
+        return;
+      }
+      try (java.util.jar.JarFile jarFile = new java.util.jar.JarFile(jarFilePath.toFile())) {
+        java.util.Enumeration<java.util.jar.JarEntry> entries = jarFile.entries();
+        while (entries.hasMoreElements()) {
+          java.util.jar.JarEntry entry = entries.nextElement();
+          String entryName = entry.getName();
+          if (entryName.startsWith("org/apache/hop/rest/docs/manual/")
+              && !entry.isDirectory()
+              && entryName.endsWith(".md")
+              && !entryName.endsWith("README.md")) {
+            String relativePath = entryName.substring("org/apache/hop/rest/docs/manual/".length());
+            addMdFileToIndex(relativePath);
+          }
+        }
+      }
+    } catch (Exception e) {
+      LOG.debug("Failed to scan MD files from JAR: {}", e.getMessage());
     }
   }
 

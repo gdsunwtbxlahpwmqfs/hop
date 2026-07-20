@@ -1,0 +1,56 @@
+# LiteLLM Proxy configuration (for hop-deploy-llm.sh offline/online LLM stack)
+#
+# 这是 docker/resources/litellm-config.yaml 的同步副本，供 hop-deploy-llm.sh
+# 拷贝到安装目录使用。两份文件应保持一致；如修改了路由规则，请同时更新。
+#
+# Routes OpenAI-compatible chat-completion requests from Hop's LLM personal
+# assistant to one or more upstream LLM providers. Hop always talks to this
+# proxy using the OpenAI format (POST /v1/chat/completions, Bearer auth); the
+# proxy translates to each provider's native format.
+#
+# Secrets are read from environment variables (os.environ/<NAME>) so they are
+# never committed. See docker-compose.llm.yml for the variables to provide.
+#
+# Docs: https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  # DashScope (阿里云通义千问) - unified provider for chat and embedding.
+  # model_name is what Hop requests (matches HOP_LLM_MODEL / HOP_KB_EMBEDDING_MODEL);
+  # litellm_params.model is the upstream DashScope id.
+  #
+  # Available DashScope chat models:
+  # - qwen-turbo: 极速版，适合高频对话
+  # - qwen-plus: 进阶版，平衡性能与能力
+  # - qwen-max: 旗舰版，最强推理能力
+  - model_name: qwen-turbo
+    litellm_params:
+      model: dashscope/qwen3.7-turbo
+      api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
+  - model_name: qwen-plus
+    litellm_params:
+      model: dashscope/qwen3.7-plus
+      api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
+  - model_name: qwen-max
+    litellm_params:
+      model: dashscope/qwen3.7-max
+      api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
+
+  # DashScope embedding model for the knowledge base / RAG subsystem.
+  # Used by EmbeddingClient to vectorize documents and queries.
+  - model_name: text-embedding-v1
+    litellm_params:
+      model: dashscope/text-embedding-v1
+      api_key: os.environ/DASHSCOPE_API_KEY
+      api_base: os.environ/DASHSCOPE_API_BASE
+
+litellm_settings:
+  # Drop unsupported params instead of erroring when a provider rejects them.
+  drop_params: true
+
+general_settings:
+  # Master key clients must present to access the proxy. Change this in
+  # production and pass it to Hop via HOP_LLM_API_KEY.
+  master_key: sk-hop-litellm-dev

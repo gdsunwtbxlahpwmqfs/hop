@@ -540,9 +540,10 @@ public class HopVfsFileDialog implements IFileDialog, IDirectoryDialog {
 
           @Override
           public void dragSetData(DragSourceEvent event) {
-            // Set the data to be the first selected item's text
             TreeItem[] selection = wBrowser.getSelection();
-            event.data = getTreeItemPath(selection[0]);
+            if (selection.length > 0) {
+              event.data = getTreeItemPath(selection[0]);
+            }
           }
         });
 

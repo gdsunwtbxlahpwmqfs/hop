@@ -475,8 +475,10 @@ public class ScriptDialog extends BaseTransformDialog {
 
           @Override
           public void dragSetData(DragSourceEvent event) {
-            // Set the data to be the first selected item's text
-            event.data = wTree.getSelection()[0].getText();
+            TreeItem[] selection = wTree.getSelection();
+            if (selection.length > 0) {
+              event.data = selection[0].getText();
+            }
           }
         });
 

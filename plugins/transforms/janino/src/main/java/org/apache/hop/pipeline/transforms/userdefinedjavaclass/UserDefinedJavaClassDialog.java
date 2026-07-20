@@ -520,8 +520,10 @@ public class UserDefinedJavaClassDialog extends BaseTransformDialog {
 
           @Override
           public void dragSetData(DragSourceEvent event) {
-            // Set the data to be the first selected item's data
-            event.data = wTree.getSelection()[0].getData();
+            TreeItem[] selection = wTree.getSelection();
+            if (selection.length > 0) {
+              event.data = selection[0].getData();
+            }
           }
         });
     focusTransformName();

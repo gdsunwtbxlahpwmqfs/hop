@@ -1155,16 +1155,25 @@ public class GuiResource {
       return;
     }
 
-    getNewClipboard();
-    TextTransfer tran = TextTransfer.getInstance();
-    clipboard.setContents(new String[] {cliptext}, new Transfer[] {tran});
+    try {
+      getNewClipboard();
+      TextTransfer tran = TextTransfer.getInstance();
+      clipboard.setContents(new String[] {cliptext}, new Transfer[] {tran});
+    } catch (Throwable e) {
+      LogChannel.GENERAL.logDebug("Could not set data in clipboard", e);
+    }
   }
 
   public String fromClipboard() {
-    getNewClipboard();
-    TextTransfer tran = TextTransfer.getInstance();
+    try {
+      getNewClipboard();
+      TextTransfer tran = TextTransfer.getInstance();
 
-    return (String) clipboard.getContents(tran);
+      return (String) clipboard.getContents(tran);
+    } catch (Throwable e) {
+      LogChannel.GENERAL.logDebug("Could not get data from clipboard", e);
+      return null;
+    }
   }
 
   public Font getFontBold() {

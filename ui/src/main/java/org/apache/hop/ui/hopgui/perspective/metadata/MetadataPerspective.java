@@ -449,10 +449,13 @@ public class MetadataPerspective implements IHopPerspective, TabClosable, IMetad
           @Override
           public void dragSetData(DragSourceEvent event) {
             if (MetadataTransfer.INSTANCE.isSupportedType(event.dataType)) {
-              TreeItem item = tree.getSelection()[0];
-              String objectKey = getObjectKey(item);
-              String name = item.getText(0);
-              event.data = new String[] {objectKey, name};
+              TreeItem[] selection = tree.getSelection();
+              if (selection.length > 0) {
+                TreeItem item = selection[0];
+                String objectKey = getObjectKey(item);
+                String name = item.getText(0);
+                event.data = new String[] {objectKey, name};
+              }
             }
           }
 
