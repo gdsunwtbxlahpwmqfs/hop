@@ -29,8 +29,8 @@ fail() { echo -e "  ${RED}✗ FAIL${NC}  $1"; FAIL=$((FAIL+1)); }
 warn_() { echo -e "  ${YELLOW}! WARN${NC}  $1"; WARN=$((WARN+1)); }
 
 # --------------------- 默认配置 ---------------------
-INSTALL_BASE="${INSTALL_BASE:-/opt/hop}"
-INSTANCE_NAME="${INSTANCE_NAME:-}"
+INSTALL_BASE="${INSTALL_BASE:-/opt/qi}"
+INSTANCE_NAME="${INSTANCE_NAME:-qi-hop-001}"
 TOMCAT_PORT="${TOMCAT_PORT:-8080}"
 HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/hop/status/}"
 SECTION="all"

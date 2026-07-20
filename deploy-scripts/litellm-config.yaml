@@ -4,9 +4,12 @@
 # 拷贝到安装目录使用。两份文件应保持一致；如修改了路由规则，请同时更新。
 #
 # Routes OpenAI-compatible chat-completion requests from Hop's LLM personal
-# assistant to one or more upstream LLM providers. Hop always talks to this
-# proxy using the OpenAI format (POST /v1/chat/completions, Bearer auth); the
-# proxy translates to each provider's native format.
+# assistant to one or more upstream OpenAI-compatible endpoints. Hop always
+# talks to this proxy using the OpenAI format (POST /v1/chat/completions,
+# Bearer auth); the proxy forwards in OpenAI format to the configured api_base.
+#
+# Supports: vLLM, DashScope OpenAI-compatible endpoint, OpenAI API, and any
+# other provider that exposes an OpenAI-compatible /v1/chat/completions API.
 #
 # Secrets are read from environment variables (os.environ/<NAME>) so they are
 # never committed. See docker-compose.llm.yml for the variables to provide.
@@ -14,43 +17,53 @@
 # Docs: https://docs.litellm.ai/docs/proxy/configs
 
 model_list:
-  # DashScope (阿里云通义千问) - unified provider for chat and embedding.
-  # model_name is what Hop requests (matches HOP_LLM_MODEL / HOP_KB_EMBEDDING_MODEL);
-  # litellm_params.model is the upstream DashScope id.
+  # OpenAI-compatible model routing - supports vLLM, DashScope, OpenAI, etc.
   #
-  # Available DashScope chat models:
-  # - qwen-turbo: 极速版，适合高频对话
-  # - qwen-plus: 进阶版，平衡性能与能力
-  # - qwen-max: 旗舰版，最强推理能力
+  # model_name is what Hop requests (matches HOP_LLM_MODEL / HOP_KB_EMBEDDING_MODEL);
+  # litellm_params.model uses "openai/" prefix to enable OpenAI-compatible request format;
+  # api_base specifies the upstream endpoint (e.g., vLLM server, DashScope OpenAI endpoint).
+  #
+  # Example api_base values:
+  # - vLLM: http://vllm:8000/v1
+  # - DashScope OpenAI: https://dashscope.aliyuncs.com/compatible-mode/v1
+  # - OpenAI: https://api.openai.com/v1
+  # - Local LLM: http://localhost:8080/v1
+  #
+  # Available model names (customize based on your upstream provider):
   - model_name: qwen-turbo
     litellm_params:
-      model: dashscope/qwen3.7-turbo
-      api_key: os.environ/DASHSCOPE_API_KEY
-      api_base: os.environ/DASHSCOPE_API_BASE
+      model: openai/qwen-turbo
+      api_key: os.environ/LLM_API_KEY
+      api_base: os.environ/LLM_API_BASE
   - model_name: qwen-plus
     litellm_params:
-      model: dashscope/qwen3.7-plus
-      api_key: os.environ/DASHSCOPE_API_KEY
-      api_base: os.environ/DASHSCOPE_API_BASE
+      model: openai/qwen-plus
+      api_key: os.environ/LLM_API_KEY
+      api_base: os.environ/LLM_API_BASE
   - model_name: qwen-max
     litellm_params:
-      model: dashscope/qwen3.7-max
-      api_key: os.environ/DASHSCOPE_API_KEY
-      api_base: os.environ/DASHSCOPE_API_BASE
+      model: openai/qwen-max
+      api_key: os.environ/LLM_API_KEY
+      api_base: os.environ/LLM_API_BASE
 
-  # DashScope embedding model for the knowledge base / RAG subsystem.
+  # Embedding model for the knowledge base / RAG subsystem.
   # Used by EmbeddingClient to vectorize documents and queries.
+  # Note: your upstream provider must support /v1/embeddings endpoint.
   - model_name: text-embedding-v1
     litellm_params:
-      model: dashscope/text-embedding-v1
-      api_key: os.environ/DASHSCOPE_API_KEY
-      api_base: os.environ/DASHSCOPE_API_BASE
+      model: openai/text-embedding-v1
+      api_key: os.environ/LLM_API_KEY
+      api_base: os.environ/LLM_API_BASE
+
+  # vLLM example - uncomment and configure for local vLLM deployment
+  # - model_name: vllm-model
+  #   litellm_params:
+  #     model: openai/vllm-model
+  #     api_key: os.environ/VLLM_API_KEY
+  #     api_base: http://vllm:8000/v1
 
 litellm_settings:
-  # Drop unsupported params instead of erroring when a provider rejects them.
   drop_params: true
 
 general_settings:
-  # Master key clients must present to access the proxy. Change this in
-  # production and pass it to Hop via HOP_LLM_API_KEY.
   master_key: sk-hop-litellm-dev

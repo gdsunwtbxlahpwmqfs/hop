@@ -25,10 +25,12 @@ err()  { echo -e "${RED}[$(date '+%H:%M:%S')] ERROR:${NC} $*" >&2; }
 info() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
 
 # --------------------- 默认配置（先设默认值，再被参数覆盖）---------------------
-INSTALL_BASE="${INSTALL_BASE:-/opt/hop}"
-HOP_USER="${HOP_USER:-hop}"
+# 共享变量一律 ${VAR:-default}，允许 hop-deploy.sh 写入的环境变量透传覆盖
+INSTALL_BASE="${INSTALL_BASE:-/opt/qi}"
+HOP_USER="${HOP_USER:-qi}"
 TOMCAT_PORT="${TOMCAT_PORT:-8080}"
-INSTANCE_NAME="${INSTANCE_NAME:-}"
+INSTANCE_NAME="${INSTANCE_NAME:-qi-hop-001}"
+# SERVICE_NAME 默认留空，由下方派生为 qi-hop-${INSTANCE_NAME}（对齐 hop-deploy.sh 注册的服务名）
 SERVICE_NAME="${SERVICE_NAME:-}"
 HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/hop/status/}"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-120}"   # 启动健康检查超时（秒）
@@ -55,9 +57,9 @@ done
 # 多实例时 service 名带后缀（对齐 hop-deploy.sh 逻辑）
 if [ -z "$SERVICE_NAME" ]; then
     if [ -n "$INSTANCE_NAME" ]; then
-        SERVICE_NAME="qi-hop-web-${INSTANCE_NAME}"
+        SERVICE_NAME="qi-hop-${INSTANCE_NAME}"
     else
-        SERVICE_NAME="qi-hop-web"
+        SERVICE_NAME="qi-hop"
     fi
 fi
 
@@ -73,16 +75,18 @@ JAVA_HOME="${INSTALL_BASE}/jdk21"
 LOG_FILE="${CATALINA_BASE}/logs/catalina.out"
 PID_FILE="${CATALINA_BASE}/temp/tomcat.pid"
 
-WEBAPP_DIR="${CATALINA_BASE}/webapps"
+# WEBAPP_DIR 统一指向 webapps/ROOT（对齐 hop-deploy.sh / hop-verify.sh）
+WEBAPP_DIR="${CATALINA_BASE}/webapps/ROOT"
 
-# --------------------- Hop 环境变量（对齐 start-hop-web.sh）---------------------
+# --------------------- Hop 环境变量（对齐 hop-deploy.sh：数据目录全部位于 CATALINA_BASE 下）---------------------
+# 注意：插件/JDBC 目录必须用 CATALINA_BASE 下的真实部署路径，而非 WEB-INF 内部路径
 export HOP_AUDIT_FOLDER="${HOP_AUDIT_FOLDER:-${CATALINA_BASE}/audit}"
 export HOP_CONFIG_FOLDER="${HOP_CONFIG_FOLDER:-${CATALINA_BASE}/config}"
 export HOP_TEMP_FOLDER="${HOP_TEMP_FOLDER:-${CATALINA_BASE}/temp}"
 export HOP_LOG_LEVEL="${HOP_LOG_LEVEL:-Basic}"
 export HOP_PASSWORD_ENCODER_PLUGIN="${HOP_PASSWORD_ENCODER_PLUGIN:-Hop}"
-export HOP_PLUGIN_BASE_FOLDERS="${HOP_PLUGIN_BASE_FOLDERS:-${WEBAPP_DIR}/ROOT/WEB-INF/plugins}"
-export HOP_SHARED_JDBC_FOLDERS="${HOP_SHARED_JDBC_FOLDERS:-${WEBAPP_DIR}/ROOT/WEB-INF/jdbc-drivers}"
+export HOP_PLUGIN_BASE_FOLDERS="${HOP_PLUGIN_BASE_FOLDERS:-${CATALINA_BASE}/plugins}"
+export HOP_SHARED_JDBC_FOLDERS="${HOP_SHARED_JDBC_FOLDERS:-${CATALINA_BASE}/jdbc-drivers}"
 export HOP_AES_ENCODER_KEY="${HOP_AES_ENCODER_KEY:-}"
 export HOP_GUI_ZOOM_FACTOR="${HOP_GUI_ZOOM_FACTOR:-1.0}"
 export HOP_REST_CONFIG_FOLDER="${HOP_REST_CONFIG_FOLDER:-${CATALINA_BASE}/config}"
@@ -457,7 +461,7 @@ case "${CMD:-}" in
     logs)       do_log ;;
     health)     do_health ;;
     "")
-        sed -n '2,15p' "$0"
+        sed -n '2,16p' "$0"
         echo
         echo "命令列表: start | stop | restart | status | foreground | log | health"
         echo "示例: $0 start | $0 --instance bi status"

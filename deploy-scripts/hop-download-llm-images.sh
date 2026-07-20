@@ -15,12 +15,14 @@
 
 set -Eeuo pipefail
 
+# --------------------- 颜色与日志 ---------------------
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; NC='\033[0m'
 log()  { echo -e "${GREEN}[$(date '+%H:%M:%S')]${NC} $*"; }
 warn() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] WARN:${NC} $*"; }
 err()  { echo -e "${RED}[$(date '+%H:%M:%S')] ERROR:${NC} $*" >&2; }
 info() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
 
+# --------------------- 默认配置 ---------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT_DIR="${SCRIPT_DIR}/llm-images"
 PLATFORM="linux"
@@ -30,6 +32,7 @@ LIST_ONLY=false
 IMPORT_FILE=""
 IMPORT_DIR=""
 
+# --------------------- 参数解析 ---------------------
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --platform)     PLATFORM="$2"; shift 2 ;;
@@ -40,7 +43,7 @@ while [[ $# -gt 0 ]]; do
         --import)       IMPORT_FILE="$2"; shift 2 ;;
         --import-all)   IMPORT_DIR="$2"; shift 2 ;;
         -h|--help)
-            sed -n '2,17p' "$0"
+            sed -n '2,14p' "$0"
             exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
@@ -62,15 +65,20 @@ check_cmd() {
     command -v "$1" >/dev/null 2>&1 || { err "缺少必要命令: $1"; return 1; }
 }
 
+# sha256 兼容层：Linux 用 sha256sum，macOS 用 shasum -a 256（对齐 hop-package.sh / hop-download-deps.sh）
+SHA256_CMD=""
+if command -v sha256sum >/dev/null 2>&1; then
+    SHA256_CMD="sha256sum"
+elif command -v shasum >/dev/null 2>&1; then
+    SHA256_CMD="shasum -a 256"
+else
+    err "未找到 sha256sum 或 shasum，无法校验"
+    exit 1
+fi
+
+# 计算单个文件的 sha256（只输出哈希值）
 sha256_hash() {
-    if command -v sha256sum >/dev/null 2>&1; then
-        sha256sum "$1" 2>/dev/null | awk '{print $1}'
-    elif command -v shasum >/dev/null 2>&1; then
-        shasum -a 256 "$1" 2>/dev/null | awk '{print $1}'
-    else
-        err "未找到 sha256sum 或 shasum"
-        return 1
-    fi
+    $SHA256_CMD "$1" 2>/dev/null | awk '{print $1}'
 }
 
 list_images() {

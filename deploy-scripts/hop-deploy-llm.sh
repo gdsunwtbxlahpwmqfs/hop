@@ -5,27 +5,34 @@
 # 设计定位：
 #   - 不在主离线包（hop-package.sh）内，单独执行
 #   - 目标机器需要临时联网（用于 docker pull）
-#   - 部署完成后可断网运行（除非 DashScope API 本身需要公网）
+#   - 部署完成后可断网运行（除非上游 LLM API 需要公网）
 #
 # 与主部署的关系：
 #   hop-deploy.sh    → 部署 Hop Web（主机原生，无网络）
 #   hop-deploy-llm.sh → 部署 LLM 助手栈（Docker，需临时联网）  ← 本脚本
 #
 # 架构：
-#   hop-web (主机, 8080) ──HTTP──> litellm (容器, 4000) ──> DashScope (阿里云)
+#   hop-web (主机, 8080) ──HTTP──> litellm (容器, 4000) ──> OpenAI-compatible endpoint
 #                            └──HTTP──> qdrant (容器, 6333)
+#
+# 支持的上游提供商：
+#   - vLLM (本地部署)
+#   - DashScope OpenAI 兼容模式（阿里云通义千问）
+#   - OpenAI API
+#   - 任何符合 OpenAI /v1/chat/completions 规范的 LLM 服务
 #
 # 前置条件：
 #   1. 已安装 Docker 24+ 与 docker compose v2（或 docker-compose v1）
 #   2. 服务器可临时访问公网（ghcr.io、docker.io）
-#   3. 已申请阿里云 DashScope API Key（通义千问）
+#   3. 已申请上游 LLM API Key（DashScope、OpenAI 等）或部署好 vLLM
 #   4. Hop Web 已通过 hop-deploy.sh 部署完毕（可选，顺序无强约束）
 #
 # 用法：
 #   ./hop-deploy-llm.sh                              # 交互式（引导填写 API Key）
 #   ./hop-deploy-llm.sh --api-key sk-xxx             # 直接传入 API Key
 #   ./hop-deploy-llm.sh --api-key sk-xxx \
-#       --api-base https://...maas.aliyuncs.com/...  # 同时指定 MaaS endpoint
+#       --api-base http://vllm:8000/v1               # 指定上游端点（如 vLLM）
+#   ./hop-deploy-llm.sh --api-base https://api.openai.com/v1  # 使用 OpenAI
 #   ./hop-deploy-llm.sh --model qwen-plus            # 指定默认模型
 #   ./hop-deploy-llm.sh --port 4001                  # litellm 端口
 #   ./hop-deploy-llm.sh --base /opt/hop-llm          # 安装目录
@@ -45,8 +52,8 @@ info() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
 
 # --------------------- 默认配置 ---------------------
 INSTALL_BASE="/opt/hop-llm"
-DASHSCOPE_API_KEY=""
-DASHSCOPE_API_BASE="https://dashscope.aliyuncs.com/compatible-mode/v1"
+LLM_API_KEY=""
+LLM_API_BASE="https://dashscope.aliyuncs.com/compatible-mode/v1"
 DEFAULT_MODEL="qwen-plus"
 LITELLM_PORT="4000"
 QDRANT_HTTP_PORT="6333"
@@ -61,8 +68,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # --------------------- 参数解析 ---------------------
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --api-key)    DASHSCOPE_API_KEY="$2"; shift 2 ;;
-        --api-base)   DASHSCOPE_API_BASE="$2"; shift 2 ;;
+        --api-key)    LLM_API_KEY="$2"; shift 2 ;;
+        --api-base)   LLM_API_BASE="$2"; shift 2 ;;
         --model)      DEFAULT_MODEL="$2"; shift 2 ;;
         --port)       LITELLM_PORT="$2"; shift 2 ;;
         --qdrant-port) QDRANT_HTTP_PORT="$2"; shift 2 ;;
@@ -71,7 +78,7 @@ while [[ $# -gt 0 ]]; do
         --import-images) IMPORT_IMAGES_DIR="$2"; shift 2 ;;
         --uninstall)  ACTION="uninstall"; shift;;
         --status)     ACTION="status"; shift ;;
-        -h|--help)    sed -n '2,35p' "$0"; exit 0 ;;
+        -h|--help)    sed -n '2,45p' "$0"; exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
 done
@@ -93,12 +100,10 @@ detect_compose_cmd() {
 preflight() {
     log "前置检查..."
 
-    # root 权限（操作 /opt 需要root；docker 命令假设当前用户已在 docker 组）
     if [ "$EUID" -ne 0 ]; then
         warn "建议使用 root 或 sudo 执行（安装目录: ${INSTALL_BASE}）"
     fi
 
-    # docker 命令
     if ! command -v docker >/dev/null 2>&1; then
         err "未检测到 docker 命令，请先安装 Docker Engine 24+"
         exit 1
@@ -106,7 +111,6 @@ preflight() {
 
     detect_compose_cmd
 
-    # docker daemon 运行中
     if ! docker info >/dev/null 2>&1; then
         err "docker daemon 未运行，或当前用户无 docker 权限"
         err "  检查: sudo systemctl status docker"
@@ -114,7 +118,6 @@ preflight() {
         exit 1
     fi
 
-    # 模板文件存在
     local compose_tpl="${SCRIPT_DIR}/docker-compose.llm.yml"
     local litellm_cfg="${SCRIPT_DIR}/litellm-config.yaml"
     [ -f "$compose_tpl" ] || { err "未找到 compose 模板: $compose_tpl"; exit 1; }
@@ -125,48 +128,46 @@ preflight() {
 
 # --------------------- 交互式收集 API Key ---------------------
 collect_credentials() {
-    # 已通过 --api-key 传入则跳过
-    if [ -n "$DASHSCOPE_API_KEY" ]; then
-        # 已传入 API Key 时，从现有 .env 读取 base（若有）
-        if [ -z "$DASHSCOPE_API_BASE" ] || [ "$DASHSCOPE_API_BASE" = "https://dashscope.aliyuncs.com/compatible-mode/v1" ]; then
+    if [ -n "$LLM_API_KEY" ]; then
+        if [ -z "$LLM_API_BASE" ] || [ "$LLM_API_BASE" = "https://dashscope.aliyuncs.com/compatible-mode/v1" ]; then
             if [ -f "${INSTALL_BASE}/.env" ]; then
                 local prev_base
-                prev_base=$(grep -E '^DASHSCOPE_API_BASE=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
-                [ -n "$prev_base" ] && DASHSCOPE_API_BASE="$prev_base"
+                prev_base=$(grep -E '^LLM_API_BASE=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
+                [ -n "$prev_base" ] && LLM_API_BASE="$prev_base"
             fi
         fi
         return 0
     fi
 
-    # 已存在 .env 且包含 key，复用
     if [ -f "${INSTALL_BASE}/.env" ]; then
         local prev_key
-        prev_key=$(grep -E '^DASHSCOPE_API_KEY=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
+        prev_key=$(grep -E '^LLM_API_KEY=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
         if [ -n "$prev_key" ]; then
             warn "检测到已存在的 .env，复用既有 API Key"
-            DASHSCOPE_API_KEY="$prev_key"
+            LLM_API_KEY="$prev_key"
             local prev_base
-            prev_base=$(grep -E '^DASHSCOPE_API_BASE=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
-            [ -n "$prev_base" ] && DASHSCOPE_API_BASE="$prev_base"
+            prev_base=$(grep -E '^LLM_API_BASE=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
+            [ -n "$prev_base" ] && LLM_API_BASE="$prev_base"
             return 0
         fi
     fi
 
-    # 交互式引导
     echo
-    info "=========== 阿里云 DashScope（通义千问）配置 ==========="
+    info "=========== LLM 上游服务配置 ==========="
     echo
-    echo "  请准备以下信息（从阿里云控制台 → 模型服务灵积 → API Key 获取）："
-    echo "    1. API Key（形如 sk-xxx）"
-    echo "    2. API Base URL（MaaS 实例的 OpenAI 兼容端点）"
-    echo "       默认 DashScope 公共端点可直接回车使用"
+    echo "  请准备以下信息（根据您的上游提供商）："
+    echo "    1. API Key（形如 sk-xxx，vLLM 可留空）"
+    echo "    2. API Base URL（OpenAI 兼容端点）"
+    echo "       - vLLM: http://vllm:8000/v1"
+    echo "       - DashScope: https://dashscope.aliyuncs.com/compatible-mode/v1"
+    echo "       - OpenAI: https://api.openai.com/v1"
+    echo "       默认值可直接回车使用"
     echo
 
-    read -r -p "  API Key (sk-xxx): " DASHSCOPE_API_KEY
-    [ -n "$DASHSCOPE_API_KEY" ] || { err "API Key 不能为空"; exit 1; }
+    read -r -p "  API Key (sk-xxx): " LLM_API_KEY
 
-    read -r -p "  API Base URL [${DASHSCOPE_API_BASE}]: " input_base
-    [ -n "$input_base" ] && DASHSCOPE_API_BASE="$input_base"
+    read -r -p "  API Base URL [${LLM_API_BASE}]: " input_base
+    [ -n "$input_base" ] && LLM_API_BASE="$input_base"
 
     echo
 }
@@ -176,42 +177,37 @@ setup_install_dir() {
     log "准备安装目录: ${INSTALL_BASE}"
     mkdir -p "$INSTALL_BASE"
 
-    # 拷贝 compose 模板与 litellm 配置（每次覆盖以应用脚本更新）
     cp "${SCRIPT_DIR}/docker-compose.llm.yml" "${INSTALL_BASE}/docker-compose.yml"
     cp "${SCRIPT_DIR}/litellm-config.yaml"    "${INSTALL_BASE}/litellm-config.yaml"
 
-    # 生成 .env（含 API Key 与端口覆盖）
-    # 注意：.env 包含敏感信息，权限设为 600
     cat > "${INSTALL_BASE}/.env" <<EOF
 # Qi Hop LLM 助手环境变量（由 hop-deploy-llm.sh 生成）
 # 警告：本文件包含 API Key，权限应为 600，禁止提交到 git
 
-# DashScope (阿里云通义千问) API Key
-DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+# LLM API Key (vLLM, DashScope, OpenAI, etc.)
+LLM_API_KEY=${LLM_API_KEY}
 
-# DashScope API Base URL
-# - 公共端点: https://dashscope.aliyuncs.com/compatible-mode/v1
-# - MaaS 实例: https://<instance>.maas.aliyuncs.com/compatible-mode/v1
-DASHSCOPE_API_BASE=${DASHSCOPE_API_BASE}
+# LLM API Base URL (OpenAI compatible endpoint)
+# - vLLM: http://vllm:8000/v1
+# - DashScope: https://dashscope.aliyuncs.com/compatible-mode/v1
+# - OpenAI: https://api.openai.com/v1
+LLM_API_BASE=${LLM_API_BASE}
 
-# 端口覆盖（与主机 Hop Web 不冲突即可）
 LITELLM_PORT=${LITELLM_PORT}
 QDRANT_HTTP_PORT=${QDRANT_HTTP_PORT}
 QDRANT_GRPC_PORT=${QDRANT_GRPC_PORT}
 
-# 默认模型（hop-web 侧 HOP_LLM_MODEL 应与此一致）
 DEFAULT_MODEL=${DEFAULT_MODEL}
 EOF
     chmod 600 "${INSTALL_BASE}/.env"
 
-    # 生成 hop-web 侧需要的环境变量片段（提示用户追加到 setenv.sh）
-    local hop_base="/opt/hop"
-    local hop_setenv="${hop_base}/tomcat-run/bin/setenv.sh"
+    local hop_base="/opt/qi"
+    local hop_setenv="${hop_base}/tomcat-run-qi-hop-001/bin/setenv.sh"
     cat > "${INSTALL_BASE}/hop-web-env.sh" <<EOF
 # ===== 追加到 Hop Web 的 setenv.sh（${hop_setenv}）以启用 LLM 助手 =====
 # 由 hop-deploy-llm.sh 生成，请手动追加（避免覆盖既有 setenv.sh）
 
-# LLM 助手（通过 litellm 代理访问 DashScope）
+# LLM 助手（通过 litellm 代理访问上游 LLM）
 export HOP_LLM_ENABLED="true"
 export HOP_LLM_API_URL="http://$(hostname -I 2>/dev/null | awk '{print $1}' || echo localhost):${LITELLM_PORT}/v1"
 export HOP_LLM_API_KEY="sk-hop-litellm-dev"
@@ -267,7 +263,6 @@ start_stack() {
     cd "$INSTALL_BASE"
     "${COMPOSE_CMD[@]}" up -d
 
-    # 等待健康检查
     log "等待服务就绪（最长 60s）..."
     local elapsed=0
     while [ "$elapsed" -lt 60 ]; do
@@ -341,17 +336,18 @@ print_summary() {
     info " 安装目录       : ${INSTALL_BASE}"
     info " LiteLLM 端口   : ${LITELLM_PORT}"
     info " Qdrant 端口    : ${QDRANT_HTTP_PORT} (HTTP) / ${QDRANT_GRPC_PORT} (gRPC)"
-    info " DashScope 模型 : ${DEFAULT_MODEL}"
+    info " 上游模型       : ${DEFAULT_MODEL}"
+    info " API Base       : ${LLM_API_BASE}"
     info " 配置文件       : ${INSTALL_BASE}/.env (600)"
     info "========================================================="
     echo
     info "下一步：将以下环境变量追加到 Hop Web 的 setenv.sh 并重启："
-    info "  setenv.sh 路径: /opt/hop/tomcat-run/bin/setenv.sh"
+    info "  setenv.sh 路径: /opt/qi/tomcat-run-qi-hop-001/bin/setenv.sh"
     info "  参考文件      : ${INSTALL_BASE}/hop-web-env.sh"
     info ""
     info "  追加命令示例："
-    info "    sudo bash -c 'cat ${INSTALL_BASE}/hop-web-env.sh >> /opt/hop/tomcat-run/bin/setenv.sh'"
-    info "    sudo systemctl restart qi-hop-web"
+    info "    sudo bash -c 'cat ${INSTALL_BASE}/hop-web-env.sh >> /opt/qi/tomcat-run-qi-hop-001/bin/setenv.sh'"
+    info "    sudo systemctl restart qi-hop-web-qi-hop-001"
     echo
     info "验证 LLM 助手："
     info "  curl http://${host_ip}:${LITELLM_PORT}/health/liveliness"

@@ -13,14 +13,10 @@ services:
       HOP_PASSWORD_ENCODER_PLUGIN: Hop
       HOP_SHARED_JDBC_FOLDERS: /opt/hop/jdbc
       HOP_REST_CONFIG_FOLDER: /opt/hop/rest-config
-      # LLM personal assistant.
-      # Requests go through the litellm proxy (service below) which speaks the
-      # OpenAI format and routes to DashScope (阿里云通义千问).
       HOP_LLM_ENABLED: "true"
       HOP_LLM_API_URL: "http://litellm:4000/v1"
       HOP_LLM_API_KEY: "sk-hop-litellm-dev"
       HOP_LLM_MODEL: "qwen-plus"
-      # Knowledge base / RAG settings (requires Qdrant service below).
       HOP_KB_ENABLED: "true"
       HOP_KB_QDRANT_URL: "http://qdrant:6333"
       HOP_KB_DOCS_PATH: "/opt/hop/docs/hop-assistant-manual"
@@ -31,8 +27,6 @@ services:
       - ./assemblies/web/target/webapp:/usr/local/tomcat/webapps/ROOT
       - ./rest/target/hop-rest-2.19.0-SNAPSHOT.war:/usr/local/tomcat/webapps/hop.war
       - ./assemblies/web/target/webapp/config:/opt/hop/config
-      # disabledGuiElements.xml is copied into webapp/config/ by start-web-dev.sh
-      # to avoid macOS VirtioFS nested-mount failure.
       - ./docker/resources:/opt/hop/rest-config
       - ./assemblies/client/target/hop/plugins:/opt/hop/plugins
       - ./resources/jdbc-drivers:/opt/hop/jdbc
@@ -47,9 +41,10 @@ services:
         catalina.sh run
       "
 
-  # LiteLLM proxy: unified OpenAI-compatible gateway in front of DashScope.
-  # Hop's assistant always calls this proxy; the proxy translates to DashScope's
-  # native format. Provider API keys are injected here and referenced by name in
+  # LiteLLM proxy: unified OpenAI-compatible gateway.
+  # Hop's assistant always calls this proxy; the proxy forwards requests in OpenAI
+  # format to the configured api_base. Supports vLLM, DashScope OpenAI, OpenAI API, etc.
+  # Provider API keys are injected here and referenced by name in
   # docker/resources/litellm-config.yaml.
   litellm:
     image: ghcr.io/berriai/litellm:main-stable
@@ -57,12 +52,8 @@ services:
     ports:
       - "4000:4000"
     environment:
-      # DashScope API key (阿里云通义千问). Read by litellm-config.yaml via os.environ/.
-      # Override via .env file or shell: export DASHSCOPE_API_KEY=sk-xxx
-      DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:-}"
-      # DashScope API base URL for MaaS instance. Read by litellm-config.yaml via os.environ/.
-      # Override via .env file or shell: export DASHSCOPE_API_BASE=https://...
-      DASHSCOPE_API_BASE: "${DASHSCOPE_API_BASE:-}"
+      LLM_API_KEY: "${LLM_API_KEY:-}"
+      LLM_API_BASE: "${LLM_API_BASE:-}"
     volumes:
       - ./docker/resources/litellm-config.yaml:/app/config.yaml:ro
     command: --config /app/config.yaml --port 4000

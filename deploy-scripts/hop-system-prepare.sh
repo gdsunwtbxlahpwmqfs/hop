@@ -10,17 +10,18 @@
 
 set -Eeuo pipefail
 
+# --------------------- 颜色与日志 ---------------------
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; NC='\033[0m'
 log()  { echo -e "${GREEN}[$(date '+%H:%M:%S')]${NC} $*"; }
 warn() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] WARN:${NC} $*"; }
 err()  { echo -e "${RED}[$(date '+%H:%M:%S')] ERROR:${NC} $*" >&2; }
 info() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
+# --------------------- 默认配置 ---------------------
 SKIP_DOCKER=false
 SKIP_FIREWALL=false
 
+# --------------------- 参数解析 ---------------------
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --skip-docker)    SKIP_DOCKER=true; shift ;;
@@ -126,19 +127,19 @@ EOF
 
 configure_java_env() {
     log "8. 配置 Java 环境变量..."
-    echo 'export JAVA_HOME=/opt/hop/jdk21' >> /etc/profile
+    echo 'export JAVA_HOME=/opt/qi/jdk21' >> /etc/profile
     echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
     log "Java 环境变量已配置到 /etc/profile"
 
     log "9. 配置当前会话 Java 环境..."
-    export JAVA_HOME=/opt/hop/jdk21
+    export JAVA_HOME=/opt/qi/jdk21
     export PATH=$JAVA_HOME/bin:$PATH
     log "当前会话 Java 环境已生效"
 }
 
 configure_user() {
     log "10. 配置用户权限..."
-    local hop_user="hop"
+    local hop_user="qi"
     if id "$hop_user" &>/dev/null; then
         usermod -aG root "$hop_user"
         log "用户 $hop_user 已添加到 root 组"

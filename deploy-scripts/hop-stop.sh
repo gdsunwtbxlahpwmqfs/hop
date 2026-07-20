@@ -10,7 +10,7 @@
 # 用法：
 #   ./hop-stop.sh                    # 停止默认实例
 #   ./hop-stop.sh --instance bi      # 停止 bi 实例
-#   ./hop-stop.sh --base /opt/hop    # 指定 INSTALL_BASE
+#   ./hop-stop.sh --base /opt/qi    # 指定 INSTALL_BASE
 #
 # 等价命令：
 #   ./hop-start.sh stop

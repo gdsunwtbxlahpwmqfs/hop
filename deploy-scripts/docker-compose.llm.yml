@@ -8,17 +8,18 @@
 #
 # 与 hop-deploy-llm.sh 配合使用；该脚本会：
 #   1. 拉取镜像（临时联网）
-#   2. 生成 .env（包含 DASHSCOPE_API_KEY 等）
+#   2. 生成 .env（包含 LLM_API_KEY 等）
 #   3. 启动本 compose 文件
 #
 # 网络拓扑：
-#   hop-web (主机, 8080) ──HTTP──> litellm (4000) ──> DashScope (公网)
+#   hop-web (主机, 8080) ──HTTP──> litellm (4000) ──> OpenAI-compatible endpoint
 #                            └──HTTP──> qdrant (6333)
 
 services:
-  # LiteLLM proxy: OpenAI-compatible gateway in front of DashScope (阿里云通义千问).
-  # Hop's assistant always calls this proxy; the proxy translates to DashScope's
-  # native format. Provider API keys are injected from .env.
+  # LiteLLM proxy: OpenAI-compatible gateway in front of any OpenAI-compatible LLM endpoint.
+  # Hop's assistant always calls this proxy; the proxy forwards requests in OpenAI format
+  # to the configured api_base. Supports vLLM, DashScope OpenAI, OpenAI API, etc.
+  # Provider API keys are injected from .env.
   litellm:
     image: ghcr.io/berriai/litellm:main-stable
     container_name: hop-litellm
@@ -26,10 +27,8 @@ services:
     ports:
       - "${LITELLM_PORT:-4000}:4000"
     environment:
-      # DashScope API key (阿里云通义千问). Read by litellm-config.yaml via os.environ/.
-      DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:?DASHSCOPE_API_KEY is required, edit .env}"
-      # DashScope API base URL for MaaS instance. Read by litellm-config.yaml via os.environ/.
-      DASHSCOPE_API_BASE: "${DASHSCOPE_API_BASE:?DASHSCOPE_API_BASE is required, edit .env}"
+      LLM_API_KEY: "${LLM_API_KEY:?LLM_API_KEY is required, edit .env}"
+      LLM_API_BASE: "${LLM_API_BASE:?LLM_API_BASE is required, edit .env}"
     volumes:
       - ./litellm-config.yaml:/app/config.yaml:ro
     command: --config /app/config.yaml --port 4000

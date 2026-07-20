@@ -14,7 +14,7 @@
 #   ./hop-uninstall.sh --yes                    # 跳过确认
 #   ./hop-uninstall.sh --purge                  # 彻底清理（含用户/INSTALL_BASE）
 #   ./hop-uninstall.sh --dry-run                # 仅预览，不实际执行
-#   ./hop-uninstall.sh --base /opt/hop          # 指定 INSTALL_BASE
+#   ./hop-uninstall.sh --base /opt/qi           # 指定 INSTALL_BASE
 #
 # 退出码：
 #   0  成功
@@ -32,10 +32,10 @@ err()  { echo -e "${RED}[$(date '+%H:%M:%S')] ERROR:${NC} $*" >&2; }
 info() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
 
 # --------------------- 默认配置（对齐 hop-deploy.sh）---------------------
-INSTALL_BASE="${INSTALL_BASE:-/opt/hop}"
-HOP_USER="${HOP_USER:-hop}"
-HOP_GROUP="${HOP_GROUP:-hop}"
-INSTANCE_NAME="${INSTANCE_NAME:-}"
+INSTALL_BASE="${INSTALL_BASE:-/opt/qi}"
+HOP_USER="${HOP_USER:-qi}"
+HOP_GROUP="${HOP_GROUP:-qi}"
+INSTANCE_NAME="${INSTANCE_NAME:-qi-hop-001}"
 SERVICE_NAME="${SERVICE_NAME:-}"
 PURGE=false
 YES=false
@@ -60,9 +60,9 @@ done
 # 多实例时 service 名带后缀（对齐 hop-deploy.sh）
 if [ -z "$SERVICE_NAME" ]; then
     if [ -n "$INSTANCE_NAME" ]; then
-        SERVICE_NAME="qi-hop-web-${INSTANCE_NAME}"
+        SERVICE_NAME="qi-hop-${INSTANCE_NAME}"
     else
-        SERVICE_NAME="qi-hop-web"
+        SERVICE_NAME="qi-hop"
     fi
 fi
 
