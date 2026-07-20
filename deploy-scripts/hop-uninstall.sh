@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 卸载脚本
+# 总结：卸载 Hop 实例（systemd 服务+进程+实例目录），--purge 彻底清理共享资源/用户
 # 反向清理 hop-deploy.sh 部署的所有资源：
 #   1. systemd 服务（stop + disable + 删除 unit 文件）
 #   2. Tomcat 进程（catalina.base 精确匹配兜底 kill）
@@ -52,7 +53,7 @@ while [[ $# -gt 0 ]]; do
         --purge)    PURGE=true; shift ;;
         --yes|-y)   YES=true; shift ;;
         --dry-run)  DRY_RUN=true; shift ;;
-        -h|--help)  sed -n '2,23p' "$0"; exit 0 ;;
+        -h|--help)  sed -n '2,24p' "$0"; exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
 done

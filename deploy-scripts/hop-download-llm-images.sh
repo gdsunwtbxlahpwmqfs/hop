@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop LLM 镜像离线下载脚本
+# 总结：下载 LLM Docker 镜像（LiteLLM + Qdrant）并保存为 tar.gz，支持离线导入到目标机器
 # 功能：下载 LiteLLM 和 Qdrant Docker 镜像并保存为 tar 文件，支持离线导入
 # 用法：
 #   ./hop-download-llm-images.sh                          # 默认下载 linux/amd64 镜像
@@ -43,7 +44,7 @@ while [[ $# -gt 0 ]]; do
         --import)       IMPORT_FILE="$2"; shift 2 ;;
         --import-all)   IMPORT_DIR="$2"; shift 2 ;;
         -h|--help)
-            sed -n '2,14p' "$0"
+            sed -n '2,15p' "$0"
             exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac

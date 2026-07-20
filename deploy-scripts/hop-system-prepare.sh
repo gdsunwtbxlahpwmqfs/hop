@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 系统环境优化脚本（适用于 OpenEuler 22.03 LTS）
+# 总结：部署前系统环境优化（关防火墙/SELinux/swap，配 Docker 内核参数与 Java 环境）
 # 功能：优化系统环境，为 Hop Web 和 LLM 助手部署做准备
 # 用法：
 #   sudo ./hop-system-prepare.sh
@@ -27,7 +28,7 @@ while [[ $# -gt 0 ]]; do
         --skip-docker)    SKIP_DOCKER=true; shift ;;
         --skip-firewall)  SKIP_FIREWALL=true; shift ;;
         -h|--help)
-            sed -n '2,13p' "$0"
+            sed -n '2,10p' "$0"
             exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac

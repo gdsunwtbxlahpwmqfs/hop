@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 部署验证脚本
+# 总结：部署后多维度验证（环境/功能/性能/日志/插件/安全），exit 0=通过 1=有失败
 # 功能：环境/功能/性能/日志/插件/安全 多维度验证
 # 用法：
 #   ./hop-verify.sh                    # 全量验证
@@ -41,7 +42,7 @@ while [[ $# -gt 0 ]]; do
         --base) INSTALL_BASE="$2"; shift 2 ;;
         --port) TOMCAT_PORT="$2"; shift 2 ;;
         --instance) INSTANCE_NAME="$2"; shift 2 ;;
-        -h|--help) sed -n '2,13p' "$0"; exit 0 ;;
+        -h|--help) sed -n '2,14p' "$0"; exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
 done

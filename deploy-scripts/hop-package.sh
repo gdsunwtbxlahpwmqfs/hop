@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 离线部署包打包脚本
+# 总结：构建 Hop 并打包成离线部署包（hop-offline-<版本>.tar.gz），含 JDK/Tomcat/脚本/LLM 助手
 # 功能：构建 Hop 产物 -> 组织离线包目录 -> 生成 SHA256 校验 -> 打包 tar.gz
 # 用法：
 #   ./hop-package.sh                          # 使用默认配置打包
@@ -65,7 +66,7 @@ while [[ $# -gt 0 ]]; do
         --output) OUTPUT_DIR="$2"; shift 2 ;;
         --version) HOP_VERSION="$2"; shift 2 ;;
         -h|--help)
-            sed -n '2,24p' "$0"
+            sed -n '2,28p' "$0"
             exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac

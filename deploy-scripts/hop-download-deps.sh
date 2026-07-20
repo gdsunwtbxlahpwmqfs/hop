@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 离线依赖包下载脚本
+# 总结：下载离线依赖（JDK 21 + Tomcat 10）到 downloads/，供 hop-package.sh 打包
 # 功能：下载 JDK、Tomcat 等离线部署所需的依赖包
 # 用法：
 #   ./hop-download-deps.sh                          # 默认下载 Linux 平台依赖

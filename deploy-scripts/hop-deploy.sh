@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 离线部署脚本(环境依赖对齐 docker/web.Dockerfile + dev-scripts/start-web-dev.sh)
+# 总结：主部署入口，一键安装 Hop Web 到 /opt/qi（JDK 21 + Tomcat 10 + WAR + systemd 服务，默认端口 8080）
 # 功能：前置检查 -> 创建用户/目录 -> 安装 JDK/Tomcat -> 部署 Hop Web -> 生成配置
 #
 # 目录布局(CATALINA_HOME / CATALINA_BASE 分离，对齐开发模式 tomcat/ + tomcat-run/)：
@@ -87,7 +88,7 @@ while [[ $# -gt 0 ]]; do
         --uid)   HOP_UID="$2"; shift 2 ;;
         --gid)   HOP_GID="$2"; shift 2 ;;
         --instance) INSTANCE_NAME="$2"; shift 2 ;;
-        -h|--help) sed -n '2,34p' "$0"; exit 0 ;;
+        -h|--help) sed -n '2,35p' "$0"; exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
 done

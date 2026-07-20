@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop 服务启动/停止/状态管理脚本
+# 总结：Hop 服务生命周期管理（start/stop/restart/status/foreground/log/health），默认实例 qi-hop-001
 # 用法：
 #   ./hop-start.sh start       # 启动
 #   ./hop-start.sh stop        # 停止
@@ -46,7 +47,7 @@ while [[ $# -gt 0 ]]; do
         start|stop|restart|status|foreground|fg|log|logs|health)
             CMD="$1"; shift ;;
         -h|--help)
-            sed -n '2,15p' "$0"
+            sed -n '2,17p' "$0"
             echo
             echo "命令列表: start | stop | restart | status | foreground | log | health"
             exit 0 ;;
@@ -461,7 +462,7 @@ case "${CMD:-}" in
     logs)       do_log ;;
     health)     do_health ;;
     "")
-        sed -n '2,16p' "$0"
+        sed -n '2,17p' "$0"
         echo
         echo "命令列表: start | stop | restart | status | foreground | log | health"
         echo "示例: $0 start | $0 --instance bi status"

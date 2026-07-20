@@ -1,6 +1,7 @@
 #!/bin/bash
 # =============================================================
 # Qi Hop LLM 助手独立部署脚本（LiteLLM proxy + Qdrant 向量库）
+# 总结：独立部署 LLM 助手栈（LiteLLM 代理 + Qdrant 向量库，需 Docker + 临时联网）
 #
 # 设计定位：
 #   - 不在主离线包（hop-package.sh）内，单独执行
@@ -78,7 +79,7 @@ while [[ $# -gt 0 ]]; do
         --import-images) IMPORT_IMAGES_DIR="$2"; shift 2 ;;
         --uninstall)  ACTION="uninstall"; shift;;
         --status)     ACTION="status"; shift ;;
-        -h|--help)    sed -n '2,45p' "$0"; exit 0 ;;
+        -h|--help)    sed -n '2,43p' "$0"; exit 0 ;;
         *) err "未知参数: $1"; exit 1 ;;
     esac
 done
