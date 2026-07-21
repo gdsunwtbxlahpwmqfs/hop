@@ -13,7 +13,10 @@
 #
 # 多实例支持：
 #   INSTANCE_NAME=bi ./hop-start.sh status
-#   或通过 --instance bi 指定（对齐 hop-deploy.sh --instance）
+#   ./hop-start.sh --instance bi start
+#   ./hop-start.sh --service qi-hop-bi start
+#   ./hop-start.sh start qi-hop-bi    # 命令后直接指定服务名
+#   ./hop-start.sh --heap 4g start    # 指定 JVM 堆内存大小
 # =============================================================
 
 set -Euo pipefail
@@ -33,34 +36,52 @@ TOMCAT_PORT="${TOMCAT_PORT:-8080}"
 INSTANCE_NAME="${INSTANCE_NAME:-qi-hop-001}"
 # SERVICE_NAME 默认留空，由下方派生为 qi-hop-${INSTANCE_NAME}（对齐 hop-deploy.sh 注册的服务名）
 SERVICE_NAME="${SERVICE_NAME:-}"
-HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/hop/status/}"
+HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/api/v1/}"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-120}"   # 启动健康检查超时（秒）
 HEALTH_INTERVAL="${HEALTH_INTERVAL:-3}"   # 轮询间隔
+HEAP_SIZE="${HEAP_SIZE:-8g}"              # JVM 堆内存大小（对齐 hop-deploy.sh）
 
-# --------------------- 参数解析（提取 --instance/--base/--port，剩余留给子命令）---------------------
+# --------------------- 参数解析（提取 --instance/--base/--port/--service/--heap，剩余留给子命令）---------------------
 CMD=""
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --instance) INSTANCE_NAME="$2"; shift 2 ;;
         --base)     INSTALL_BASE="$2"; shift 2 ;;
         --port)     TOMCAT_PORT="$2"; shift 2 ;;
+        --service)  SERVICE_NAME="$2"; shift 2 ;;
+        --heap)     HEAP_SIZE="$2"; shift 2 ;;
         start|stop|restart|status|foreground|fg|log|logs|health)
             CMD="$1"; shift ;;
         -h|--help)
-            sed -n '2,17p' "$0"
+            sed -n '2,20p' "$0"
             echo
             echo "命令列表: start | stop | restart | status | foreground | log | health"
             exit 0 ;;
-        *) err "未知参数: $1"; exit 1 ;;
+        *)
+            if [ -n "$CMD" ]; then
+                if [[ "$1" == --* ]]; then
+                    err "未知参数: $1"; exit 1
+                fi
+                SERVICE_NAME="$1"; shift
+            else
+                err "未知参数: $1"; exit 1
+            fi
+            ;;
     esac
 done
 
 # 多实例时 service 名带后缀（对齐 hop-deploy.sh 逻辑）
+# 仅在 SERVICE_NAME 未显式设置时才派生
 if [ -z "$SERVICE_NAME" ]; then
     if [ -n "$INSTANCE_NAME" ]; then
         SERVICE_NAME="qi-hop-${INSTANCE_NAME}"
     else
         SERVICE_NAME="qi-hop"
+    fi
+else
+    # SERVICE_NAME 已显式设置，从服务名提取实例名（去掉 qi-hop- 前缀）
+    if [[ "$SERVICE_NAME" == qi-hop-* ]]; then
+        INSTANCE_NAME="${SERVICE_NAME#qi-hop-}"
     fi
 fi
 
@@ -109,8 +130,7 @@ fi
 build_catalina_opts() {
     local opts=""
 
-    opts="${opts} -Xmx8192m"
-    opts="${opts} -Xms2048m"
+    opts="${opts} -Xms2g -Xmx${HEAP_SIZE}"
     opts="${opts} -XX:+UseZGC -XX:+ZGenerational"
     opts="${opts} -XX:MaxGCPauseMillis=100"
     opts="${opts} -XX:+AlwaysPreTouch"
@@ -471,10 +491,10 @@ case "${CMD:-}" in
     logs)       do_log ;;
     health)     do_health ;;
     "")
-        sed -n '2,17p' "$0"
+        sed -n '2,20p' "$0"
         echo
         echo "命令列表: start | stop | restart | status | foreground | log | health"
-        echo "示例: $0 start | $0 --instance bi status"
+        echo "示例: $0 start | $0 --instance bi status | $0 start qi-hop-bi"
         ;;
     *) err "未知命令: ${CMD}"; exit 1 ;;
 esac

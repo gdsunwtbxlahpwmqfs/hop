@@ -33,7 +33,7 @@ warn_() { echo -e "  ${YELLOW}! WARN${NC}  $1"; WARN=$((WARN+1)); }
 INSTALL_BASE="${INSTALL_BASE:-/opt/qi}"
 INSTANCE_NAME="${INSTANCE_NAME:-qi-hop-001}"
 TOMCAT_PORT="${TOMCAT_PORT:-8080}"
-HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/hop/status/}"
+HEALTH_CHECK_PATH="${HEALTH_CHECK_PATH:-/api/v1/}"
 SECTION="all"
 
 while [[ $# -gt 0 ]]; do
@@ -167,10 +167,10 @@ verify_func() {
     esac
 
     # REST API 根路径
-    code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/hop/" 2>/dev/null || echo "000")
+    code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/api/v1/" 2>/dev/null || echo "000")
     case "$code" in
-        200|301|302|405) pass "REST API /hop/ 可访问 (HTTP ${code})" ;;
-        *)               warn_ "REST API /hop/ 返回 ${code}" ;;
+        200|301|302|405) pass "REST API /api/v1/ 可访问 (HTTP ${code})" ;;
+        *)               warn_ "REST API /api/v1/ 返回 ${code}" ;;
     esac
 
     # Docs 接口（如果部署）
@@ -281,8 +281,8 @@ verify_log() {
         fail "错误日志过多 (${err_count})"
     fi
 
-    # 关键异常模式
-    if grep -q "OutOfMemoryError" "$LOG_FILE" 2>/dev/null; then
+    # 关键异常模式（排除 JVM 参数行，避免误报）
+    if grep -qE "java\.lang\.OutOfMemoryError|OutOfMemoryError:" "$LOG_FILE" 2>/dev/null; then
         fail "检测到 OutOfMemoryError（请增大 -Xmx）"
     else
         pass "无 OutOfMemoryError"

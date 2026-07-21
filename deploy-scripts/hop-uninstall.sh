@@ -283,6 +283,11 @@ remove_user_and_base() {
     fi
 
     # 删除用户与组
+    local group_existed=false
+    if getent group "$HOP_GROUP" >/dev/null 2>&1; then
+        group_existed=true
+    fi
+
     if id "$HOP_USER" >/dev/null 2>&1; then
         # userdel 不带 -r 避免误删 home 下的用户数据，仅删用户
         # 如需删除 home，提示用户手动清理
@@ -294,9 +299,14 @@ remove_user_and_base() {
     else
         log "  用户不存在: ${HOP_USER}"
     fi
-    if getent group "$HOP_GROUP" >/dev/null 2>&1; then
-        run "groupdel '${HOP_GROUP}' 2>/dev/null || true"
-        log "  已删除用户组: ${HOP_GROUP}"
+
+    if [ "$group_existed" = true ]; then
+        if getent group "$HOP_GROUP" >/dev/null 2>&1; then
+            run "groupdel '${HOP_GROUP}' 2>/dev/null || true"
+            log "  已删除用户组: ${HOP_GROUP}"
+        else
+            log "  用户组已随用户删除自动移除: ${HOP_GROUP}"
+        fi
     else
         log "  用户组不存在: ${HOP_GROUP}"
     fi

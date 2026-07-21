@@ -467,7 +467,7 @@ CATALINA_OPTS="\${CATALINA_OPTS} -DHOP_REST_CONFIG_FOLDER=\\"\${HOP_REST_CONFIG_
 CATALINA_OPTS="\${CATALINA_OPTS} -Dorg.eclipse.rap.rwt.resourceLocation=${RWT_RESOURCE_LOCATION}"
 
 # 时区与编码(中国时区 CST)
-CATALINA_OPTS="${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN"
+CATALINA_OPTS="\${CATALINA_OPTS} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN"
 # 解决 Tomcat 启动慢(/dev/random 熵不足)
 CATALINA_OPTS="\${CATALINA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 

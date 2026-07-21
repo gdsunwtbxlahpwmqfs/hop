@@ -106,7 +106,7 @@
 | 变量 | 语义 | 默认值 |
 |------|------|--------|
 | `TOMCAT_PORT` | Hop Web HTTP 端口 | `8080` |
-| `HEALTH_CHECK_PATH` | 健康检查路径 | `/hop/status/` |
+| `HEALTH_CHECK_PATH` | 健康检查路径 | `/api/v1/` |
 | `HEALTH_TIMEOUT` | 启动健康检查超时（秒） | `120` |
 | `HEALTH_INTERVAL` | 轮询间隔（秒） | `3` |
 
