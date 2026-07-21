@@ -454,18 +454,26 @@
   },
   "googleDrive" : { },
   "projectsConfig" : {
-    "enabled" : false,
-    "projectMandatory" : false,
+    "enabled" : true,
+    "projectMandatory" : true,
     "environmentMandatory" : false,
     "environmentsForActiveProject" : false,
     "sortByNameLastUsedProjects" : false,
     "clearingDbCacheWhenSwitching" : true,
-    "defaultProject" : null,
+    "defaultProject" : "default",
     "defaultEnvironment" : null,
-    "standardParentProject" : null,
+    "standardParentProject" : "default",
     "standardProjectsFolder" : null,
     "defaultProjectConfigFile" : "project-config.json",
-    "projectConfigurations" : [ ],
+    "projectConfigurations" : [ {
+      "projectName" : "default",
+      "projectHome" : "${HOP_CONFIG_FOLDER}/projects/default",
+      "configFilename" : "project-config.json"
+    }, {
+      "projectName" : "samples",
+      "projectHome" : "${HOP_CONFIG_FOLDER}/projects/samples",
+      "configFilename" : "project-config.json"
+    } ],
     "lifecycleEnvironments" : [ ],
     "projectLifecycles" : [ ]
   },
