@@ -135,6 +135,10 @@ collect_credentials() {
                 local prev_base
                 prev_base=$(grep -E '^LLM_API_BASE=' "${INSTALL_BASE}/.env" 2>/dev/null | cut -d= -f2- || true)
                 [ -n "$prev_base" ] && LLM_API_BASE="$prev_base"
+            elif [ -f "${SCRIPT_DIR}/.env" ]; then
+                local prev_base
+                prev_base=$(grep -E '^LLM_API_BASE=' "${SCRIPT_DIR}/.env" 2>/dev/null | cut -d= -f2- || true)
+                [ -n "$prev_base" ] && LLM_API_BASE="$prev_base"
             fi
         fi
         return 0
@@ -153,6 +157,19 @@ collect_credentials() {
         fi
     fi
 
+    if [ -f "${SCRIPT_DIR}/.env" ]; then
+        local prev_key
+        prev_key=$(grep -E '^LLM_API_KEY=' "${SCRIPT_DIR}/.env" 2>/dev/null | cut -d= -f2- || true)
+        if [ -n "$prev_key" ]; then
+            warn "检测到脚本目录的 .env，复用既有 API Key"
+            LLM_API_KEY="$prev_key"
+            local prev_base
+            prev_base=$(grep -E '^LLM_API_BASE=' "${SCRIPT_DIR}/.env" 2>/dev/null | cut -d= -f2- || true)
+            [ -n "$prev_base" ] && LLM_API_BASE="$prev_base"
+            return 0
+        fi
+    fi
+
     echo
     info "=========== LLM 上游服务配置 ==========="
     echo
@@ -164,6 +181,7 @@ collect_credentials() {
     echo "       - OpenAI: https://api.openai.com/v1"
     echo "       默认值可直接回车使用"
     echo
+
 
     read -r -p "  API Key (sk-xxx): " LLM_API_KEY
 
@@ -348,7 +366,7 @@ print_summary() {
     info ""
     info "  追加命令示例："
     info "    sudo bash -c 'cat ${INSTALL_BASE}/hop-web-env.sh >> /opt/qi/tomcat-run-qi-hop-001/bin/setenv.sh'"
-    info "    sudo systemctl restart qi-hop-web-qi-hop-001"
+    info "    sudo systemctl restart qi-hop-qi-hop-001"
     echo
     info "验证 LLM 助手："
     info "  curl http://${host_ip}:${LITELLM_PORT}/health/liveliness"

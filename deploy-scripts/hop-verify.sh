@@ -311,7 +311,7 @@ verify_plugin() {
     fi
 
     local plugin_count
-    plugin_count=$(find "$plugins_dir" -maxdepth 2 -name "*.zip" 2>/dev/null | wc -l | tr -d ' ')
+    plugin_count=$(find "$plugins_dir" -mindepth 2 -maxdepth 2 -type d 2>/dev/null | wc -l | tr -d ' ')
     info "插件包数量: ${plugin_count}"
     if [ "$plugin_count" -ge 100 ]; then
         pass "插件数量充足 (≥ 100)"

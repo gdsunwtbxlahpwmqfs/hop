@@ -109,8 +109,8 @@ fi
 build_catalina_opts() {
     local opts=""
 
-    opts="${opts} -Xmx4096m"
-    opts="${opts} -Xms1024m"
+    opts="${opts} -Xmx8192m"
+    opts="${opts} -Xms2048m"
     opts="${opts} -XX:+UseZGC -XX:+ZGenerational"
     opts="${opts} -XX:MaxGCPauseMillis=100"
     opts="${opts} -XX:+AlwaysPreTouch"
@@ -118,7 +118,7 @@ build_catalina_opts() {
     opts="${opts} -XX:+HeapDumpOnOutOfMemoryError"
     opts="${opts} -XX:HeapDumpPath=${CATALINA_BASE}/logs/"
 
-    opts="${opts} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8"
+    opts="${opts} -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN"
     opts="${opts} -DHOP_AUDIT_FOLDER=${HOP_AUDIT_FOLDER}"
     opts="${opts} -DHOP_CONFIG_FOLDER=${HOP_CONFIG_FOLDER}"
     opts="${opts} -DHOP_TEMP_FOLDER=${HOP_TEMP_FOLDER}"
@@ -189,25 +189,34 @@ start_litellm() {
         return
     fi
 
-    if docker ps | grep -q "hop-litellm-dev"; then
+    if docker ps | grep -q "hop-litellm"; then
         log "LiteLLM 代理已在运行"
         return
     fi
 
     log "启动 LiteLLM 代理..."
-    local compose_file="${INSTALL_BASE}/docker-compose.dev.yml"
+    local llm_base="${HOP_LLM_BASE:-/opt/hop-llm}"
+    local compose_file="${llm_base}/docker-compose.llm.yml"
     if [ -f "$compose_file" ]; then
-        docker compose -f "$compose_file" up -d litellm
+        docker compose -f "$compose_file" up -d
         sleep 3
         log "LiteLLM 代理已启动"
 
+        local llm_port="4000"
+        local llm_model="qwen-plus"
+        if [ -f "${llm_base}/.env" ]; then
+            llm_port=$(grep -E '^LITELLM_PORT=' "${llm_base}/.env" 2>/dev/null | cut -d= -f2- || echo "4000")
+            llm_model=$(grep -E '^DEFAULT_MODEL=' "${llm_base}/.env" 2>/dev/null | cut -d= -f2- || echo "qwen-plus")
+        fi
+
         export HOP_LLM_ENABLED=true
-        export HOP_LLM_API_URL=http://localhost:4000/v1
+        export HOP_LLM_API_URL="http://localhost:${llm_port}/v1"
         export HOP_LLM_API_KEY=sk-hop-litellm-dev
-        export HOP_LLM_MODEL=qwen-plus
+        export HOP_LLM_MODEL="${llm_model}"
         log "LLM 环境变量已设置: HOP_LLM_ENABLED=${HOP_LLM_ENABLED}, HOP_LLM_API_URL=${HOP_LLM_API_URL}, HOP_LLM_MODEL=${HOP_LLM_MODEL}"
     else
-        warn "未找到 docker-compose.dev.yml，跳过 LiteLLM 启动"
+        warn "未找到 ${compose_file}，跳过 LiteLLM 启动"
+        warn "  请先运行: bash hop-deploy-llm.sh"
     fi
 }
 
