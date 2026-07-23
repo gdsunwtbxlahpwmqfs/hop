@@ -109,7 +109,13 @@ public class LlmAssistantDialog extends Dialog {
     Shell parent = getParent();
     Display display = parent.getDisplay();
 
-    shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.MODELESS | SWT.RESIZE | SWT.MIN | SWT.MAX);
+    // In RAP (web) environment, minimize button doesn't trigger SWT.Iconify event reliably.
+    // Remove SWT.MIN flag in web mode so users use close button (which works correctly).
+    int shellStyle = SWT.DIALOG_TRIM | SWT.MODELESS | SWT.RESIZE | SWT.MAX;
+    if (!EnvironmentUtils.getInstance().isWeb()) {
+      shellStyle |= SWT.MIN;
+    }
+    shell = new Shell(parent, shellStyle);
     shell.setText(BaseMessages.getString(PKG, "LlmAssistant.Dialog.Title"));
     FormLayout formLayout = new FormLayout();
     formLayout.marginWidth = 0;
@@ -127,6 +133,16 @@ public class LlmAssistantDialog extends Dialog {
 
     shell.setSize(PANEL_WIDTH, PANEL_HEIGHT);
     positionBottomRight(parent);
+
+    // Handle minimize (desktop only): when minimized, trigger onClose callback to show floating
+    // button
+    shell.addListener(
+        SWT.Iconify,
+        e -> {
+          if (onClose != null) {
+            onClose.run();
+          }
+        });
 
     shell.open();
     while (!shell.isDisposed()) {
