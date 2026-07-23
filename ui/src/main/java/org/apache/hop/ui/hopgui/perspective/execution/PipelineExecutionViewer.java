@@ -475,8 +475,18 @@ public class PipelineExecutionViewer extends BaseExecutionViewer
       // buffer out, data volume, data volume in, data volume out
       //
       List<ColumnInfo> columns = new ArrayList<>();
-      columns.add(new ColumnInfo("Name", ColumnInfo.COLUMN_TYPE_TEXT, false, true));
-      columns.add(new ColumnInfo("Copy", ColumnInfo.COLUMN_TYPE_TEXT, false, true));
+      columns.add(
+          new ColumnInfo(
+              BaseMessages.getString(PKG, "PipelineExecutionViewer.MetricsTab.Column.Name"),
+              ColumnInfo.COLUMN_TYPE_TEXT,
+              false,
+              true));
+      columns.add(
+          new ColumnInfo(
+              BaseMessages.getString(PKG, "PipelineExecutionViewer.MetricsTab.Column.Copy"),
+              ColumnInfo.COLUMN_TYPE_TEXT,
+              false,
+              true));
 
       addColumn(columns, indexMap, metricNames, Pipeline.METRIC_INIT);
       addColumn(columns, indexMap, metricNames, Pipeline.METRIC_INPUT);

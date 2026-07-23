@@ -152,8 +152,6 @@ public class HopGuiWorkflowCheckDelegate {
     wTree.addListener(SWT.DefaultSelection, this::edit);
 
     workflowCheckTab.setControl(checkComposite);
-
-    checkWorkflow();
   }
 
   @GuiToolbarElement(

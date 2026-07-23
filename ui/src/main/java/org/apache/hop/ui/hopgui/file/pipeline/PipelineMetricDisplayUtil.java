@@ -17,6 +17,7 @@
 
 package org.apache.hop.ui.hopgui.file.pipeline;
 
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.engine.IEngineMetric;
 
@@ -25,6 +26,8 @@ import org.apache.hop.pipeline.engine.IEngineMetric;
  * storage or keys; only used for column headers and labels.
  */
 public final class PipelineMetricDisplayUtil {
+
+  private static final Class<?> PKG = PipelineMetricDisplayUtil.class;
 
   private PipelineMetricDisplayUtil() {}
 
@@ -41,14 +44,15 @@ public final class PipelineMetricDisplayUtil {
     if (metric == null) {
       return "";
     }
+    String header = getI18nHeader(metric);
     if (!withUnit) {
-      return metric.getHeader();
+      return header;
     }
-    String unit = getUnitForMetric(metric);
+    String unit = getI18nUnitForMetric(metric);
     if (unit == null || unit.isEmpty()) {
-      return metric.getHeader();
+      return header;
     }
-    return metric.getHeader() + " (" + unit + ")";
+    return header + " (" + unit + ")";
   }
 
   /**
@@ -57,6 +61,51 @@ public final class PipelineMetricDisplayUtil {
    */
   public static String getDisplayHeaderWithUnit(IEngineMetric metric) {
     return getDisplayHeader(metric, true);
+  }
+
+  /**
+   * Returns the internationalized header for a metric.
+   *
+   * @param metric the engine metric
+   * @return internationalized header, or raw header if not found
+   */
+  private static String getI18nHeader(IEngineMetric metric) {
+    String code = metric.getCode();
+    if (code == null) {
+      return metric.getHeader();
+    }
+    String key =
+        switch (code) {
+          case Pipeline.METRIC_NAME_INPUT -> "PipelineExecutionViewer.MetricsTab.Column.Input";
+          case Pipeline.METRIC_NAME_READ -> "PipelineExecutionViewer.MetricsTab.Column.Read";
+          case Pipeline.METRIC_NAME_WRITTEN -> "PipelineExecutionViewer.MetricsTab.Column.Written";
+          case Pipeline.METRIC_NAME_OUTPUT -> "PipelineExecutionViewer.MetricsTab.Column.Output";
+          case Pipeline.METRIC_NAME_UPDATED -> "PipelineExecutionViewer.MetricsTab.Column.Updated";
+          case Pipeline.METRIC_NAME_REJECTED ->
+              "PipelineExecutionViewer.MetricsTab.Column.Rejected";
+          case Pipeline.METRIC_NAME_ERROR -> "PipelineExecutionViewer.MetricsTab.Column.Errors";
+          case Pipeline.METRIC_NAME_BUFFER_IN ->
+              "PipelineExecutionViewer.MetricsTab.Column.BuffersInput";
+          case Pipeline.METRIC_NAME_BUFFER_OUT ->
+              "PipelineExecutionViewer.MetricsTab.Column.BuffersOutput";
+          case Pipeline.METRIC_NAME_INIT -> "PipelineExecutionViewer.MetricsTab.Column.Inits";
+          case Pipeline.METRIC_NAME_FLUSH_BUFFER ->
+              "PipelineExecutionViewer.MetricsTab.Column.Flushes";
+          case Pipeline.METRIC_NAME_DATA_VOLUME ->
+              "PipelineExecutionViewer.MetricsTab.Column.DataVolume";
+          case Pipeline.METRIC_NAME_DATA_VOLUME_IN ->
+              "PipelineExecutionViewer.MetricsTab.Column.DataVolumeIn";
+          case Pipeline.METRIC_NAME_DATA_VOLUME_OUT ->
+              "PipelineExecutionViewer.MetricsTab.Column.DataVolumeOut";
+          default -> null;
+        };
+    if (key != null) {
+      String i18nValue = BaseMessages.getString(PKG, key);
+      if (i18nValue != null && !i18nValue.isEmpty()) {
+        return i18nValue;
+      }
+    }
+    return metric.getHeader();
   }
 
   /**
@@ -90,6 +139,31 @@ public final class PipelineMetricDisplayUtil {
           null;
       default -> null;
     };
+  }
+
+  /**
+   * Returns the internationalized unit label for a metric for use in column headers. Returns null
+   * if the metric has no unit.
+   */
+  private static String getI18nUnitForMetric(IEngineMetric metric) {
+    String unit = getUnitForMetric(metric);
+    if (unit == null) {
+      return null;
+    }
+    String key =
+        switch (unit) {
+          case "rows" -> "PipelineExecutionViewer.MetricsTab.Unit.Rows";
+          case "runs" -> "PipelineExecutionViewer.MetricsTab.Unit.Runs";
+          case "flushes" -> "PipelineExecutionViewer.MetricsTab.Unit.Flushes";
+          default -> null;
+        };
+    if (key != null) {
+      String i18nValue = BaseMessages.getString(PKG, key);
+      if (i18nValue != null && !i18nValue.isEmpty()) {
+        return i18nValue;
+      }
+    }
+    return unit;
   }
 
   /**

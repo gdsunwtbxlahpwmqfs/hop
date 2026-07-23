@@ -46,6 +46,7 @@ import org.apache.hop.ui.core.gui.GuiResource;
 import org.apache.hop.ui.core.widget.StyledTextVar;
 import org.apache.hop.ui.core.widget.TextComposite;
 import org.apache.hop.ui.hopgui.HopGui;
+import org.apache.hop.ui.util.EnvironmentUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -65,6 +66,9 @@ public class HopGuiLogBrowser {
   private Date lastLogRegistryChange;
   private AtomicBoolean paused;
 
+  // RAP ServerPushSession for real-time log streaming in web mode
+  private Object pushSession;
+
   public HopGuiLogBrowser(final TextComposite text, final ILogParentProvided logProvider) {
     this.text = text;
     this.logProvider = logProvider;
@@ -82,6 +86,18 @@ public class HopGuiLogBrowser {
     // Refresh the log every second or so
     //
     final Timer logRefreshTimer = new Timer("log sniffer Timer");
+
+    // Start push session immediately in asyncExec to ensure it's active before the first log
+    // refresh
+    // This fixes the issue where the first run requires tab switching to see logs
+    text.getDisplay()
+        .asyncExec(
+            () -> {
+              if (!text.isDisposed()) {
+                startPushSession();
+              }
+            });
+
     TimerTask timerTask =
         new TimerTask() {
           @Override
@@ -93,6 +109,9 @@ public class HopGuiLogBrowser {
             text.getDisplay()
                 .asyncExec(
                     () -> {
+                      // Start push session for RAP web mode to enable real-time log streaming
+                      startPushSession();
+
                       IHasLogChannel provider = logProvider.getLogChannelProvider();
 
                       if (provider != null && !text.isDisposed() && !busy.get() && !paused.get()) {
@@ -235,11 +254,20 @@ public class HopGuiLogBrowser {
 
     // Make sure the timer goes down when the widget is disposed
     //
-    text.addDisposeListener(event -> ExecutorUtil.cleanup(logRefreshTimer));
+    text.addDisposeListener(
+        event -> {
+          ExecutorUtil.cleanup(logRefreshTimer);
+          stopPushSession();
+        });
 
     // Make sure the timer goes down when the Display is disposed
     // Lambda expression cannot be used here as it causes SecurityException in RAP.
-    text.getDisplay().disposeExec(logRefreshTimer::cancel);
+    text.getDisplay()
+        .disposeExec(
+            () -> {
+              logRefreshTimer.cancel();
+              stopPushSession();
+            });
 
     final Menu menu = new Menu(text);
     MenuItem item = new MenuItem(menu, SWT.NONE);
@@ -282,5 +310,41 @@ public class HopGuiLogBrowser {
   public void resetLogChannels() {
     childIds = new ArrayList<>();
     lastLogRegistryChange = null;
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────────
+  // RAP ServerPushSession for real-time log streaming in web mode
+  // ──────────────────────────────────────────────────────────────────────────────
+
+  private void startPushSession() {
+    if (!EnvironmentUtils.getInstance().isWeb()) {
+      return;
+    }
+    if (pushSession != null) {
+      return;
+    }
+    try {
+      Class<?> pushSessionClass = Class.forName("org.eclipse.rap.rwt.service.ServerPushSession");
+      pushSession = pushSessionClass.getDeclaredConstructor().newInstance();
+      java.lang.reflect.Method startMethod = pushSessionClass.getMethod("start");
+      startMethod.invoke(pushSession);
+    } catch (Exception e) {
+      // Push session not available, log updates will be delayed until next browser sync
+      pushSession = null;
+    }
+  }
+
+  private void stopPushSession() {
+    if (pushSession == null) {
+      return;
+    }
+    try {
+      Class<?> pushSessionClass = Class.forName("org.eclipse.rap.rwt.service.ServerPushSession");
+      java.lang.reflect.Method stopMethod = pushSessionClass.getMethod("stop");
+      stopMethod.invoke(pushSession);
+    } catch (Exception e) {
+      // Ignore stop errors
+    }
+    pushSession = null;
   }
 }

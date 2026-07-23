@@ -61,7 +61,18 @@ public class HelpUtils {
         SWT.Selection,
         e -> {
           try {
-            EnvironmentUtils.getInstance().openUrl(url);
+            String originalUrl = getDocUrl(url);
+            String helpUrl = resolveHelpUrl(originalUrl, url);
+            String trackedUrl = appendUtmParameters(helpUrl);
+            try {
+              if (ExplorerPerspectiveConfigSingleton.getConfig().isOpeningHelpFiles()) {
+                openHelpInTab(trackedUrl);
+                return;
+              }
+            } catch (Exception configEx) {
+              // Config not available yet (e.g., during login), fall through
+            }
+            EnvironmentUtils.getInstance().openUrl(trackedUrl);
           } catch (Exception ex) {
             new ErrorDialog(parent.getShell(), "Error", "Error opening URL", ex);
           }

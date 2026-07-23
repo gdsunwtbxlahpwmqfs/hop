@@ -481,7 +481,10 @@ public class DocsResource extends BaseResource {
     for (String line : markdownContent.split("\n")) {
       String trimmed = line.trim();
       if (trimmed.startsWith("# ")) {
-        return trimmed.substring(2).trim();
+        String title = trimmed.substring(2).trim();
+        // Remove Markdown image syntax from title: ![alt](url)
+        title = title.replaceAll("!\\[[^\\]]*\\]\\([^)]*\\)", "").trim();
+        return title;
       }
     }
     return null;
