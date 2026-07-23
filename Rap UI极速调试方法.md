@@ -47,14 +47,14 @@ jar -tf ${MODULE}/target/${JAR_NAME} | grep jandex
 cp ${MODULE}/target/${JAR_NAME} tomcat-run/webapps/ROOT/WEB-INF/lib/
 
 # 3. 清理缓存并重启
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 示例（修改 `ui` 模块）：
 ```bash
 ./mvnw package -pl ui -am -DskipTests -q && \
 cp ui/target/hop-ui-2.19.0-SNAPSHOT.jar tomcat-run/webapps/ROOT/WEB-INF/lib/ && \
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 #### A.2 插件模块（plugins/*）— 关键差异
@@ -67,7 +67,7 @@ rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
 cp ${MODULE}/target/${JAR_NAME} tomcat-run/webapps/ROOT/WEB-INF/plugins/${CATEGORY}/${NAME}/
 
 # 3. 清理缓存并重启
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 示例（修改 `plugins/transforms/languagemodelchat` 插件）：
@@ -75,7 +75,7 @@ rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
 ./mvnw package -pl plugins/transforms/languagemodelchat -am -DskipTests -q && \
 cp plugins/transforms/languagemodelchat/target/hop-transform-languagemodelchat-2.19.0-SNAPSHOT.jar \
    tomcat-run/webapps/ROOT/WEB-INF/plugins/transforms/languagemodelchat/ && \
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 示例（修改 `plugins/misc/projects` 插件）：
@@ -83,7 +83,7 @@ rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
 ./mvnw package -pl plugins/misc/projects -am -DskipTests -q && \
 cp plugins/misc/projects/target/hop-misc-projects-2.19.0-SNAPSHOT.jar \
    tomcat-run/webapps/ROOT/WEB-INF/plugins/misc/projects/ && \
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 > **注意**：插件目录中除了 JAR，还有 `lib/` 子目录（存放依赖）和 `version.xml`，这些不需要手动管理，只需替换主 JAR。
@@ -100,7 +100,7 @@ rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
 ./mvnw package -pl assemblies/web -am -DskipTests -Dfast-build -q
 
 # 3. 重启开发服务器（自动检测 war 更新并提取）
-./start-hop-web.sh --force-build
+./start-hop-web-dev.sh --force-build
 ```
 
 ---
@@ -114,7 +114,7 @@ export MODULE=ui && \
 JAR=$(basename $(ls $MODULE/target/hop-*.jar 2>/dev/null | grep -v tests | head -1)) && \
 ./mvnw package -pl $MODULE -am -DskipTests -q && \
 cp $MODULE/target/$JAR tomcat-run/webapps/ROOT/WEB-INF/lib/ && \
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 ### 插件模块
@@ -125,7 +125,7 @@ export PLUGIN_DIR=tomcat-run/webapps/ROOT/WEB-INF/plugins/transforms/languagemod
 JAR=$(basename $(ls $MODULE/target/hop-*.jar 2>/dev/null | grep -v tests | head -1)) && \
 ./mvnw package -pl $MODULE -am -DskipTests -q && \
 cp $MODULE/target/$JAR "$PLUGIN_DIR/" && \
-rm -rf tomcat-run/work/Catalina && bash start-hop-web.sh --restart
+rm -rf tomcat-run/work/Catalina && bash start-hop-web-dev.sh --restart
 ```
 
 ---
@@ -183,7 +183,7 @@ HOP_PLUGIN_BASE_FOLDERS = tomcat-run/webapps/ROOT/WEB-INF/plugins
 
 ### 5.3 时间戳增量检测（路径 B）
 
-`start-hop-web.sh` 对比 `hop.war` 与 `webapp` 目录的修改时间：
+`start-hop-web-dev.sh` 对比 `hop.war` 与 `webapp` 目录的修改时间：
 
 - `webapp` 不存在或为空 → 提取
 - `hop.war` 比 `webapp` 更新 → 重新提取
