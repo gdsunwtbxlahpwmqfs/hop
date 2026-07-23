@@ -251,12 +251,13 @@ organize_package() {
         warn "未指定 Tomcat 离线包目录（--tomcat），需在目标环境自备 Tomcat 10"
     fi
 
-    # 7. 部署脚本（完整生命周期：deploy → start/stop → verify → uninstall）
-    cp "$SCRIPT_DIR"/hop-deploy.sh    "$STAGING_DIR/scripts/"
-    cp "$SCRIPT_DIR"/hop-start.sh     "$STAGING_DIR/scripts/"
-    cp "$SCRIPT_DIR"/hop-stop.sh      "$STAGING_DIR/scripts/"
-    cp "$SCRIPT_DIR"/hop-verify.sh    "$STAGING_DIR/scripts/"
-    cp "$SCRIPT_DIR"/hop-uninstall.sh "$STAGING_DIR/scripts/"
+    # 7. 部署脚本（完整生命周期：deploy → start/stop → verify → uninstall → kb-index）
+    cp "$SCRIPT_DIR"/hop-deploy.sh         "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-start.sh          "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-stop.sh           "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-verify.sh         "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-uninstall.sh      "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-build-kb-index.sh "$STAGING_DIR/scripts/"
     chmod +x "$STAGING_DIR/scripts/"*.sh
 
     # 8. LLM 助手（可选扩展，独立部署，需临时联网拉取 Docker 镜像）
@@ -329,6 +330,8 @@ config_files=$(ls "$STAGING_DIR/config/" 2>/dev/null | paste -sd, - || echo "N/A
 
 # 主部署脚本清单（scripts/）
 deploy_scripts=$(ls "$STAGING_DIR/scripts/"*.sh 2>/dev/null | xargs -n1 basename 2>/dev/null | paste -sd, - || echo "N/A")
+# 知识库索引构建脚本（需先部署 LLM 助手后使用）
+kb_index_script=scripts/hop-build-kb-index.sh
 
 # LLM 助手（llm/，可选扩展，独立部署）
 # 详见《离线部署说明书.md》第 10 节
@@ -368,7 +371,7 @@ finalize_package() {
     info " 清单    : ${STAGING_DIR}/MANIFEST.txt"
     echo
     info " 包内目录："
-    info "   scripts/  → 主部署脚本（hop-deploy/start/stop/verify/uninstall.sh）"
+    info "   scripts/  → 主部署脚本（hop-deploy/start/stop/verify/uninstall/kb-index.sh）"
     info "   llm/      → LLM 助手（可选，独立部署，详见说明书第 10 节）"
     info "   hop/      → Hop 产物（WAR / Client / Plugins）"
     info "   jdk/      → JDK 21 离线包（若 --jdk 指定）"

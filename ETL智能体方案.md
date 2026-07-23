@@ -290,7 +290,7 @@ public abstract class AIPipelineGeneratorFacade {
 #### System Prompt 模板
 
 ```
-你是一个 Apache Hop ETL Pipeline 生成助手。
+你是一个 Qi Hop ETL Pipeline 生成助手。
 你的任务是根据用户的需求，生成一个包含多个 Transform 组件的 Pipeline。
 
 可选组件目录：

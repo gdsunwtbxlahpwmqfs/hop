@@ -20,6 +20,7 @@ package org.apache.hop.ui.hopgui.file.pipeline;
 import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.engine.IEngineMetric;
+import org.apache.hop.ui.hopgui.perspective.execution.PipelineExecutionViewer;
 
 /**
  * Utility for displaying pipeline metrics in the UI with appropriate units. Does not change metric
@@ -27,7 +28,7 @@ import org.apache.hop.pipeline.engine.IEngineMetric;
  */
 public final class PipelineMetricDisplayUtil {
 
-  private static final Class<?> PKG = PipelineMetricDisplayUtil.class;
+  private static final Class<?> PKG = PipelineExecutionViewer.class;
 
   private PipelineMetricDisplayUtil() {}
 

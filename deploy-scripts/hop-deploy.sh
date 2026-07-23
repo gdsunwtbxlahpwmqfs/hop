@@ -383,10 +383,11 @@ deploy_hop() {
     done
 
     # 8. 修正 hop-config.json 路径(对齐 Dockerfile 第 80 行)
-    # Dockerfile: sed -i 's/config\/projects/${HOP_CONFIG_FOLDER}\/projects/g'
-    # 主机部署模式：直接替换为绝对路径(更直观)
+    # 将 projectHome 的相对路径替换为绝对路径，如 /opt/qi/tomcat-run-qi-hop-001/config/projects/default
     if [ -f "${HOP_CONFIG_FOLDER}/hop-config.json" ]; then
-        sed -i "s|config/projects|${HOP_CONFIG_FOLDER}/projects|g" "${HOP_CONFIG_FOLDER}/hop-config.json"
+        # 替换 projectHome 字段中的相对路径为绝对路径
+        sed -i "s|\"projectHome\" : \"config/projects|\"projectHome\" : \"${HOP_CONFIG_FOLDER}/projects|g" "${HOP_CONFIG_FOLDER}/hop-config.json"
+        log "已修正 hop-config.json 项目路径: ${HOP_CONFIG_FOLDER}/projects/default, ${HOP_CONFIG_FOLDER}/projects/samples"
     fi
 
     # 9. SWT native 库目录(对齐 Dockerfile 第 82 行，CATALINA_HOME/lib/swt/linux/x86_64)

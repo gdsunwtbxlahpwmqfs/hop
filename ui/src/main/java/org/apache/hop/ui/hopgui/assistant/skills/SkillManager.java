@@ -311,6 +311,31 @@ public class SkillManager {
     }
   }
 
+  /**
+   * Increments the usage count for a batch of skills and persists all changes. This is more
+   * efficient than calling incrementUsage() individually when multiple skills need to be updated
+   * (e.g., when all active skills are used in a conversation).
+   *
+   * @param skills the skills to increment
+   */
+  public void incrementUsageBatch(List<Skill> skills) {
+    if (skills == null || skills.isEmpty()) {
+      return;
+    }
+    for (Skill skill : skills) {
+      skill.setUsageCount(skill.getUsageCount() + 1);
+      log.logDebug("Incremented usage count for skill: " + skill.getName());
+    }
+    // Persist all updated skills
+    for (Skill skill : skills) {
+      try {
+        storage.save(skill, PROJECT_SKILLS_DIR);
+      } catch (IOException e) {
+        log.logError("Failed to persist usage count for skill: " + skill.getName(), e);
+      }
+    }
+  }
+
   // ──────────────────────────────────────────────────────────────────────────────
   // Prompt building
   // ──────────────────────────────────────────────────────────────────────────────
@@ -344,12 +369,22 @@ public class SkillManager {
    * @return skill content string, or empty string if no skills are active
    */
   public String buildSkillContext() {
-    List<Skill> active = getActiveSkills();
-    if (active.isEmpty()) {
+    return buildSkillContext(getActiveSkills());
+  }
+
+  /**
+   * Builds the skill context from a pre-fetched list of skills. Useful when the active skills list
+   * is already cached to avoid redundant computation.
+   *
+   * @param activeSkills the list of active skills to build context from
+   * @return skill content string, or empty string if the list is empty
+   */
+  public String buildSkillContext(List<Skill> activeSkills) {
+    if (activeSkills == null || activeSkills.isEmpty()) {
       return "";
     }
     StringBuilder sb = new StringBuilder();
-    for (Skill skill : active) {
+    for (Skill skill : activeSkills) {
       sb.append("\n\n--- Skill: ")
           .append(skill.getName())
           .append(" ---\n")

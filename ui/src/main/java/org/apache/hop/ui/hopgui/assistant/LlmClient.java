@@ -191,9 +191,9 @@ public class LlmClient {
       AtomicBoolean cancelled,
       StreamCallback callback)
       throws Exception {
-    log.logBasic("=== LLM streamChat START ===");
+    log.logDebug("=== LLM streamChat START ===");
     if (cancelled != null && cancelled.get()) {
-      log.logBasic("Stream chat cancelled before start");
+      log.logDebug("Stream chat cancelled before start");
       return;
     }
 
@@ -219,10 +219,10 @@ public class LlmClient {
     byte[] payload = mapper.writeValueAsBytes(body);
     String requestBody = new String(payload, StandardCharsets.UTF_8);
 
-    log.logBasic("LLM stream request - URL: " + config.getChatCompletionsUrl());
-    log.logBasic("LLM stream request - Model: " + config.getModel());
-    log.logBasic("LLM stream request - Messages count: " + messages.size());
-    log.logBasic(
+    log.logDetailed("LLM stream request - URL: " + config.getChatCompletionsUrl());
+    log.logDetailed("LLM stream request - Model: " + config.getModel());
+    log.logDetailed("LLM stream request - Messages count: " + messages.size());
+    log.logDetailed(
         "LLM stream request - API Key present: " + StringUtils.isNotBlank(config.getApiKey()));
     log.logDebug("LLM stream request - Body: " + truncate(requestBody, 2000));
 
@@ -264,11 +264,11 @@ public class LlmClient {
     int reasoningChunkCount = 0;
     Instant firstChunkTime = null;
 
-    log.logBasic("Starting to process stream chunks...");
+    log.logDebug("Starting to process stream chunks...");
 
     while (lines.hasNext()) {
       if (cancelled != null && cancelled.get()) {
-        log.logBasic("Stream chat cancelled during processing");
+        log.logDebug("Stream chat cancelled during processing");
         break;
       }
 
@@ -277,7 +277,7 @@ public class LlmClient {
         continue;
       }
       if (line.equals("data: [DONE]")) {
-        log.logBasic("Stream done marker received");
+        log.logDebug("Stream done marker received");
         break;
       }
       if (!line.startsWith("data: ")) {
@@ -303,7 +303,7 @@ public class LlmClient {
         String reasoning = delta.path("reasoning_content").asText("");
         if (StringUtils.isNotBlank(reasoning)) {
           reasoningChunkCount++;
-          log.logBasic(
+          log.logDebug(
               "LLM reasoning chunk #" + reasoningChunkCount + ", length: " + reasoning.length());
           callback.onReasoning(reasoning);
         }
@@ -314,11 +314,11 @@ public class LlmClient {
           if (firstChunkTime == null) {
             firstChunkTime = Instant.now();
             long timeToFirstChunk = Duration.between(startTime, firstChunkTime).toMillis();
-            log.logBasic("LLM first content chunk received in " + timeToFirstChunk + "ms");
+            log.logDetailed("LLM first content chunk received in " + timeToFirstChunk + "ms");
           }
           chunkCount++;
           fullResponse.append(content);
-          log.logBasic(
+          log.logDebug(
               "LLM chunk #"
                   + chunkCount
                   + ", length: "
@@ -330,11 +330,11 @@ public class LlmClient {
 
         String finishReason = choices.get(0).path("finish_reason").asText("");
         if (StringUtils.isNotBlank(finishReason)) {
-          log.logBasic("Stream finish reason: " + finishReason);
+          log.logDebug("Stream finish reason: " + finishReason);
           break;
         }
       } catch (Exception e) {
-        log.logBasic(
+        log.logDebug(
             "Failed to parse stream line: " + truncate(data, 200) + ", error: " + e.getMessage());
       }
     }
@@ -342,8 +342,8 @@ public class LlmClient {
     long totalDurationMs = Duration.between(startTime, Instant.now()).toMillis();
     String finalReply = fullResponse.toString().trim();
     boolean isCancelled = cancelled != null && cancelled.get();
-    log.logBasic("=== LLM streamChat END ===");
-    log.logBasic(
+    log.logDebug("=== LLM streamChat END ===");
+    log.logDetailed(
         "LLM stream complete - Content chunks: "
             + chunkCount
             + ", Reasoning chunks: "
@@ -357,15 +357,15 @@ public class LlmClient {
             + isCancelled);
 
     if (isCancelled) {
-      log.logBasic("LLM stream cancelled");
+      log.logDebug("LLM stream cancelled");
       callback.onError(new IllegalStateException("Cancelled"));
     } else if (StringUtils.isBlank(finalReply)) {
-      log.logBasic("LLM stream returned empty reply");
+      log.logDetailed("LLM stream returned empty reply");
       callback.onError(
           new IllegalStateException(
               BaseMessages.getString(PKG, "LlmAssistant.Error.EmptyReply", "")));
     } else {
-      log.logBasic("Calling onComplete with reply length: " + finalReply.length());
+      log.logDebug("Calling onComplete with reply length: " + finalReply.length());
       callback.onComplete(finalReply);
     }
   }

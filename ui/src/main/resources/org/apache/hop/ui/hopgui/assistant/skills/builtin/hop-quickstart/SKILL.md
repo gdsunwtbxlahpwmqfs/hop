@@ -1,7 +1,7 @@
 ---
-name: hop-quickstart
+name: qi-hop-quickstart
 description: >-
-  Use for users new to Hop. Simplifies explanations, avoids jargon,
+  Use for users new to Qi Hop. Simplifies explanations, avoids jargon,
   and provides guided learning paths for common tasks.
 hop_category: general
 hop_enabled: true
@@ -14,7 +14,7 @@ hop_usage_count: 0
 
 # Hop 新手引导
 
-你正在帮助一位 Hop 新手用户。请遵循以下原则：
+你正在帮助一位 Qi Hop 新手用户。请遵循以下原则：
 
 ## 回答风格
 - 使用简明易懂的语言，避免过多技术术语

@@ -434,7 +434,8 @@ public class LlmAssistantDialog extends Dialog {
                 }
 
                 // Build combined extra context: active skills + RAG context
-                String skillContext = SkillManager.getInstance().buildSkillContext();
+                List<Skill> activeSkills = SkillManager.getInstance().getActiveSkills();
+                String skillContext = SkillManager.getInstance().buildSkillContext(activeSkills);
                 StringBuilder extraContext = new StringBuilder();
                 if (!skillContext.isEmpty()) {
                   extraContext.append(skillContext);
@@ -479,6 +480,8 @@ public class LlmAssistantDialog extends Dialog {
                         currentResponse.setLength(0);
                         currentReasoning.setLength(0);
                         isSending.set(false);
+                        // Increment usage count for all active skills on successful completion
+                        SkillManager.getInstance().incrementUsageBatch(activeSkills);
                         display.asyncExec(
                             () -> {
                               if (chatArea == null || isChatAreaDisposed()) {
@@ -518,11 +521,16 @@ public class LlmAssistantDialog extends Dialog {
                                 sharedHistory.add(new LlmClient.ChatMessage("assistant", partial));
                                 trimHistory();
                               }
+                              String errorMsg =
+                                  e.getMessage() != null
+                                      ? e.getMessage()
+                                      : BaseMessages.getString(
+                                          PKG, "LlmAssistant.Message.Error.Unknown");
                               sharedHistory.add(
                                   new LlmClient.ChatMessage(
                                       "assistant",
                                       BaseMessages.getString(
-                                          PKG, "LlmAssistant.Message.Error", e.getMessage())));
+                                          PKG, "LlmAssistant.Message.Error", errorMsg)));
                               currentResponse.setLength(0);
                               currentReasoning.setLength(0);
                               refreshChatDisplay();
@@ -556,11 +564,14 @@ public class LlmAssistantDialog extends Dialog {
                       }
                       currentResponse.setLength(0);
                       currentReasoning.setLength(0);
+                      String errorMsg =
+                          e.getMessage() != null
+                              ? e.getMessage()
+                              : BaseMessages.getString(PKG, "LlmAssistant.Message.Error.Unknown");
                       sharedHistory.add(
                           new LlmClient.ChatMessage(
                               "assistant",
-                              BaseMessages.getString(
-                                  PKG, "LlmAssistant.Message.Error", e.getMessage())));
+                              BaseMessages.getString(PKG, "LlmAssistant.Message.Error", errorMsg)));
                       refreshChatDisplay();
                       setBusy(false);
                       stopPushSession();
