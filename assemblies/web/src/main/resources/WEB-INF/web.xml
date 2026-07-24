@@ -17,10 +17,11 @@
   ~
   -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"
+         metadata-complete="false">
 
     <context-param>
         <param-name>org.eclipse.rap.applicationConfiguration</param-name>
@@ -61,6 +62,21 @@
     <servlet-mapping>
         <servlet-name>Server</servlet-name>
         <url-pattern>/hop/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Jersey REST API Servlet -->
+    <servlet>
+        <servlet-name>HopApplication</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jakarta.ws.rs.Application</param-name>
+            <param-value>org.apache.hop.rest.v1.HopApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HopApplication</servlet-name>
+        <url-pattern>/api/v1/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -1,0 +1,24 @@
+{
+  "variables": [
+    {
+      "name": "HOP_ENVIRONMENT",
+      "value": "prod",
+      "description": "当前生命周期环境：生产"
+    },
+    {
+      "name": "DATA_DB_HOST",
+      "value": "prod-db.internal",
+      "description": "数据源数据库主机"
+    },
+    {
+      "name": "DATA_DB_PORT",
+      "value": "5432",
+      "description": "数据源数据库端口"
+    },
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "description": "日志级别"
+    }
+  ]
+}

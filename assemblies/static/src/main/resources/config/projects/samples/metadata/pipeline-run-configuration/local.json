@@ -14,5 +14,7 @@
   "name": "local",
   "configurationVariables": [],
   "description": "本地管道运行配置",
+  "executionInfoLocationName": "local-audit",
+  "dataProfile": "first-last",
   "defaultSelection": true
 }

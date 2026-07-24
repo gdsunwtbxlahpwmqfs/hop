@@ -461,9 +461,9 @@
     "sortByNameLastUsedProjects" : false,
     "clearingDbCacheWhenSwitching" : true,
     "defaultProject" : "default",
-    "defaultEnvironment" : null,
+    "defaultEnvironment" : "dev",
     "standardParentProject" : "default",
-    "standardProjectsFolder" : null,
+    "standardProjectsFolder" : "${HOP_CONFIG_FOLDER}/projects",
     "defaultProjectConfigFile" : "project-config.json",
     "projectConfigurations" : [ {
       "projectName" : "default",
@@ -474,8 +474,31 @@
       "projectHome" : "${HOP_CONFIG_FOLDER}/projects/samples",
       "configFilename" : "project-config.json"
     } ],
-    "lifecycleEnvironments" : [ ],
-    "projectLifecycles" : [ ]
+    "lifecycleEnvironments" : [ {
+      "name" : "dev",
+      "purpose" : "Development",
+      "projectName" : "default",
+      "configurationFiles" : [ "${PROJECT_HOME}/dev-env-config.json" ]
+    }, {
+      "name" : "test",
+      "purpose" : "Testing",
+      "projectName" : "default",
+      "configurationFiles" : [ "${PROJECT_HOME}/test-env-config.json" ]
+    }, {
+      "name" : "prod",
+      "purpose" : "Production",
+      "projectName" : "default",
+      "configurationFiles" : [ "${PROJECT_HOME}/prod-env-config.json" ]
+    } ],
+    "projectLifecycles" : [ {
+      "name" : "data_pipeline",
+      "lifecycleEnvironments" : [ "dev", "test", "prod" ],
+      "configurationFiles" : [ ]
+    }, {
+      "name" : "report_task",
+      "lifecycleEnvironments" : [ "dev", "prod" ],
+      "configurationFiles" : [ ]
+    } ]
   },
   "explorer-perspective" : {
     "lazyLoadingDepth" : "0",

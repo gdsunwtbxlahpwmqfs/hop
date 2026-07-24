@@ -77,7 +77,6 @@ public class Hop implements IHasHopMetadataProvider, IRestServicesProvider {
     try {
       // Initialize Hop
       //
-      System.err.println("=====> STARTING <======");
       HopEnvironment.init();
 
       loggingObject = new LoggingObject("Hop REST API v1");
@@ -116,7 +115,8 @@ public class Hop implements IHasHopMetadataProvider, IRestServicesProvider {
           LogLevel.lookupCode(Const.NVL(properties.getProperty(OPTION_LOG_LEVEL), "BASIC")));
       log.logBasic("Starting the Qi Hop REST services application.");
 
-      variables = new Variables();
+      // Initialize variables from System properties (HOP_CONFIG_FOLDER, etc.) and HopConfig
+      variables = Variables.getADefaultVariableSpace();
 
       // Initialize the logging backend
       //

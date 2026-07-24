@@ -6,5 +6,6 @@
   },
   "name": "local",
   "description": "本地工作流运行配置",
+  "executionInfoLocationName": "local-audit",
   "defaultSelection": true
 }
