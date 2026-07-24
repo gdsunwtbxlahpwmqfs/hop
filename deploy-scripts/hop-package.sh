@@ -251,13 +251,14 @@ organize_package() {
         warn "未指定 Tomcat 离线包目录（--tomcat），需在目标环境自备 Tomcat 10"
     fi
 
-    # 7. 部署脚本（完整生命周期：deploy → start/stop → verify → uninstall → kb-index）
+    # 7. 部署脚本（完整生命周期：deploy → start/stop → verify → uninstall → kb-index → migrate-data）
     cp "$SCRIPT_DIR"/hop-deploy.sh         "$STAGING_DIR/scripts/"
     cp "$SCRIPT_DIR"/hop-start.sh          "$STAGING_DIR/scripts/"
     cp "$SCRIPT_DIR"/hop-stop.sh           "$STAGING_DIR/scripts/"
     cp "$SCRIPT_DIR"/hop-verify.sh         "$STAGING_DIR/scripts/"
     cp "$SCRIPT_DIR"/hop-uninstall.sh      "$STAGING_DIR/scripts/"
     cp "$SCRIPT_DIR"/hop-build-kb-index.sh "$STAGING_DIR/scripts/"
+    cp "$SCRIPT_DIR"/hop-migrate-data.sh   "$STAGING_DIR/scripts/"
     chmod +x "$STAGING_DIR/scripts/"*.sh
 
     # 8. LLM 助手（可选扩展，独立部署，需临时联网拉取 Docker 镜像）
